@@ -1,0 +1,10 @@
+export const LANGUAGES: string = "LANGUAGES";
+export const ITEMS: string = "Items";
+export const LOGIN: string = "Login";
+export const REGISTER_USER: string = "RegisterUser";
+export const DASH_VIEW_META: string = "DashboardViewMetadata";
+export const REPORT: string = "Report";
+export const STYLE: string = "Stylesheet";
+export const CHART: string = "ContourChart";
+export const VIEW_META: string = "ViewMetadata";
+export const GET_DIM_FILTER: string = "GetDimFilter";
