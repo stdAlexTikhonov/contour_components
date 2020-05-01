@@ -4,8 +4,8 @@ interface IProps {
   name: string;
 }
 
-function App(props: IProps) {
+export const App: React.FC<IProps> = (props) => {
   return <div> {props.name + " " + process.env.REACT_APP_BI_URL} </div>;
-}
+};
 
 export default App;
