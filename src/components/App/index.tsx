@@ -1,7 +1,11 @@
 import React from "react";
 
-function App() {
-  return <div>Test</div>;
+interface IProps {
+  name: string;
+}
+
+function App(props: IProps) {
+  return <div> {props.name + " " + process.env.REACT_APP_BI_URL} </div>;
 }
 
 export default App;
