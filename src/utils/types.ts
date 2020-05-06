@@ -1,12 +1,10 @@
 export interface Common {
-  session: string;
   method: string;
+  session: string;
 }
 
-//Use Common to get Languages
-
 //Working with user
-export interface Login extends Common {
+export interface Login {
   user: string;
   password: string;
 }
@@ -18,7 +16,7 @@ export interface Register extends Login {
 }
 
 //Working with data
-export interface Data_for_query extends Common {
+export interface DataForQuery extends Common {
   language?: string;
   solution?: string;
   project?: string;
@@ -28,3 +26,5 @@ export interface Data_for_query extends Common {
   view?: string;
   code?: string; //filter code
 }
+
+export type ApiTypes = DataForQuery | Login | Register | Common;

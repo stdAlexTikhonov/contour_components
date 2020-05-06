@@ -129,3 +129,25 @@ export interface setActiveTab {
   id: string;
   index: number;
 }
+
+export type AppActions =
+  | setAuthedUser
+  | setLoggedIn
+  | setLoggedOut
+  | addBreadcrumb
+  | sliceBreadcrumbs
+  | setChartsData
+  | resetChartsData
+  | setLanguage
+  | setLanguages
+  | setLoading
+  | resetLoading
+  | setProject
+  | setReportCode
+  | setSolutionFolder
+  | setSolution
+  | setUniqueID
+  | setUniqueTreeID
+  | saveScreen
+  | toggleFolder
+  | setActiveTab;
