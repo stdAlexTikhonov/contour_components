@@ -28,8 +28,3 @@ export interface Data_for_query extends Common {
   view?: string;
   code?: string; //filter code
 }
-
-//Working with session
-export interface SaveSession {
-  session: string;
-}

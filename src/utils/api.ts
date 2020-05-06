@@ -14,3 +14,12 @@ export const post = async (
 
 export const getData = async (data: Data_for_query) =>
   await post(process.env.REACT_APP_BI_URL, data);
+
+//Working with session
+export const saveSession = (session: string) =>
+  localStorage.setItem("session", session);
+
+export const removeSession = () => localStorage.removeItem("session");
+
+export const getSession = () =>
+  Promise.resolve(localStorage.getItem("session"));
