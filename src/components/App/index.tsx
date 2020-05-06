@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ButtonAppBar } from "../Navabar";
+import { connect } from "react-redux";
+import { handleInitialData } from "../../actions/shared";
 
 interface IProps {
   name: string;
+  dispatch: any;
 }
 
 export const App: React.FC<IProps> = (props) => {
+  useEffect(() => {
+    props.dispatch(handleInitialData());
+  }, [props]);
   return (
     <div>
       <ButtonAppBar />
@@ -14,4 +20,4 @@ export const App: React.FC<IProps> = (props) => {
   );
 };
 
-export default App;
+export default connect()(App);
