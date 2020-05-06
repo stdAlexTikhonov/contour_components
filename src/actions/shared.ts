@@ -1,4 +1,4 @@
-import { getData, getSession, getLanguages, userLogin } from "../utils/api";
+import { getSession, userLogin } from "../utils/api";
 import { Dispatch } from "redux";
 import { AppActions } from "../types/actions";
 import { AppState } from "../store/config_store";
@@ -8,16 +8,20 @@ export const handleInitialData = () => async (
   dispatch: (action: AppActions) => Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  const session = await getSession();
+  let _session = await getSession();
 
-  if (session === null) {
-    const { session: new_session } = await userLogin({
+  if (_session === null) {
+    const { session } = await userLogin({
       user: "guest",
       password: "guest",
     });
-
-    dispatch(setAuthedUser(new_session));
+    _session = session;
+    dispatch(setAuthedUser(session));
+  } else {
+    dispatch(setAuthedUser(_session));
+    dispatch(setLoggedIn());
   }
+
   // const uniqueID = generateUID();
   // dispatch(setUniqueID(uniqueID));
   // dispatch(setLoading());
