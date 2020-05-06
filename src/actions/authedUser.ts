@@ -1,20 +1,9 @@
 import {
-  saveSession,
-  userLogin,
-  getData,
-  removeSession,
-  userRegister,
-} from "../utils/api";
-import {
   AppActions,
   SET_AUTHED_USER,
   SET_LOGGED_IN,
   SET_LOGGED_OUT,
 } from "../types/actions";
-// import { generateUID } from "../utils/helpers";
-// import { saveScreen } from "../actions/screens";
-// import { handleInitialData } from "./shared";
-// import { setLoading, resetLoading } from "./loading";
 
 export const setAuthedUser = (id: string): AppActions => ({
   type: SET_AUTHED_USER,

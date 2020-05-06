@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-
 import { authedUser } from "../reducers/authedUser";
+import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
 
 export const rootReducer = combineReducers({
   auth: authedUser,
@@ -9,4 +9,9 @@ export const rootReducer = combineReducers({
 
 export type AppState = ReturnType<typeof rootReducer>;
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+const composeEnhancers = composeWithDevTools({});
+
+export const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
