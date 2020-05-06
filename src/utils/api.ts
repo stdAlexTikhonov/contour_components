@@ -1,8 +1,9 @@
-import { Data_for_query } from "./types";
+import { DataForQuery, Login, Register, ApiTypes } from "./types";
+import { LOGIN, REGISTER_USER, LANGUAGES } from "./constants";
 
 export const post = async (
   url: string = "https://stat.world/biportal/api.jsp",
-  data: Data_for_query
+  data: ApiTypes
 ) => {
   const response = await fetch(url, {
     credentials: "same-origin", // параметр определяющий передвать ли разные сессионные данные вместе с запросом
@@ -12,7 +13,7 @@ export const post = async (
   return response.json();
 };
 
-export const getData = async (data: Data_for_query) =>
+export const getData = async (data: DataForQuery) =>
   await post(process.env.REACT_APP_BI_URL, data);
 
 //Working with session
@@ -23,3 +24,23 @@ export const removeSession = () => localStorage.removeItem("session");
 
 export const getSession = () =>
   Promise.resolve(localStorage.getItem("session"));
+
+//Working with user
+export const userRegister = (data: Register) =>
+  post(process.env.REACT_APP_BI_URL, {
+    method: REGISTER_USER,
+    ...data,
+  });
+
+export const userLogin = (data: Login) =>
+  post(process.env.REACT_APP_BI_URL, {
+    method: LOGIN,
+    ...data,
+  });
+
+//Working with languages
+export const getLanguages = (session: string) =>
+  post(process.env.REACT_APP_BI_URL, {
+    method: LANGUAGES,
+    session,
+  });

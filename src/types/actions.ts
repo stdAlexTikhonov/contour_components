@@ -16,6 +16,8 @@ export interface setLoggedOut {
   type: typeof SET_LOGGED_OUT;
 }
 
+export type authedUserActionTypes = setAuthedUser | setLoggedIn | setLoggedOut;
+
 //Breadcrumbs actions
 export const ADD_BREADCRUMB = "ADD_BREADCRUMB";
 export const SLICE_BREADCRUMBS = "SLICE_BREADCRUMBS";
@@ -129,3 +131,25 @@ export interface setActiveTab {
   id: string;
   index: number;
 }
+
+export type AppActions =
+  | setAuthedUser
+  | setLoggedIn
+  | setLoggedOut
+  | addBreadcrumb
+  | sliceBreadcrumbs
+  | setChartsData
+  | resetChartsData
+  | setLanguage
+  | setLanguages
+  | setLoading
+  | resetLoading
+  | setProject
+  | setReportCode
+  | setSolutionFolder
+  | setSolution
+  | setUniqueID
+  | setUniqueTreeID
+  | saveScreen
+  | toggleFolder
+  | setActiveTab;

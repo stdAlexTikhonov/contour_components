@@ -17,6 +17,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "tslint": "^6.1.1",
     "tslint-react": "^5.0.0",
     "typescript": "^3.8.3"
