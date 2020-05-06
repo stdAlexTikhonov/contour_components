@@ -1,4 +1,20 @@
-export default function authedUser(state = { logged_in: false }, action) {
+import { authedUserType } from "../types/reducers";
+import {
+  authedUserActionTypes,
+  SET_AUTHED_USER,
+  SET_LOGGED_OUT,
+  SET_LOGGED_IN,
+} from "../types/actions";
+
+const authedUserDefaultState: authedUserType = {
+  logged_in: false,
+  session: null,
+};
+
+export const authedUser = (
+  state = authedUserDefaultState,
+  action: authedUserActionTypes
+): authedUserType => {
   switch (action.type) {
     case SET_AUTHED_USER:
       return {
@@ -18,4 +34,4 @@ export default function authedUser(state = { logged_in: false }, action) {
     default:
       return state;
   }
-}
+};
