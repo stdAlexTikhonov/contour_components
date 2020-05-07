@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import { AppActions } from "../types/actions";
 import { AppState } from "../store/config_store";
 import { setAuthedUser, setLoggedIn } from "./authedUser";
+import { setLoading, resetLoading } from "./loading";
 import { ITEMS } from "../utils/constants";
 import { transform_languages_data } from "../utils/helpers";
 
@@ -10,6 +11,7 @@ export const handleInitialData = () => async (
   dispatch: (action: AppActions) => Dispatch<AppActions>,
   getState: () => AppState
 ) => {
+  dispatch(setLoading());
   const { session, logged_in } = await getSession();
 
   logged_in && dispatch(setLoggedIn());
@@ -26,6 +28,7 @@ export const handleInitialData = () => async (
   });
 
   console.log(langs_transformed);
+  dispatch(resetLoading());
   // const uniqueID = generateUID();
   // dispatch(setUniqueID(uniqueID));
   // dispatch(setLoading());

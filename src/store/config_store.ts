@@ -1,10 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { authedUser } from "../reducers/authedUser";
+import { authedUser, loading } from "../reducers";
+
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
 
 export const rootReducer = combineReducers({
   auth: authedUser,
+  loading,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
