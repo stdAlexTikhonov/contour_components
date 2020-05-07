@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ButtonAppBar } from "../Navabar";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
+import { LoaderComponent } from "../Loader/index";
 
 interface IProps {
   name: string;
@@ -14,6 +15,7 @@ export const App: React.FC<IProps> = (props) => {
   }, [props]);
   return (
     <div>
+      <LoaderComponent />
       <ButtonAppBar />
       {props.name + " " + process.env.REACT_APP_BI_URL}
     </div>
