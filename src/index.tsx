@@ -7,11 +7,9 @@ import * as serviceWorker from "./serviceWorker";
 import { store } from "./store/config_store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App name={"Alex"} />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App name={"Alex"} />
+  </Provider>,
   document.getElementById("root")
 );
 

@@ -35,14 +35,14 @@ interface LinkDispatchProps {
   getInitialData: () => void;
 }
 
-const mapStateToProps = (state: AppState, props: IProps) => ({
+const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
   loading: state.loading,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   props: IProps
-) => ({
+): LinkDispatchProps => ({
   getInitialData: bindActionCreators(handleInitialData, dispatch),
 });
 
