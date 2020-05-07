@@ -1,27 +1,31 @@
-import { getSession, userLogin } from "../utils/api";
+import { getSession, getData, getLanguages } from "../utils/api";
 import { Dispatch } from "redux";
 import { AppActions } from "../types/actions";
 import { AppState } from "../store/config_store";
 import { setAuthedUser, setLoggedIn } from "./authedUser";
+import { ITEMS } from "../utils/constants";
+import { transform_languages_data } from "../utils/helpers";
 
 export const handleInitialData = () => async (
   dispatch: (action: AppActions) => Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  let _session = await getSession();
+  const { session, logged_in } = await getSession();
 
-  if (_session === null) {
-    const { session } = await userLogin({
-      user: "guest",
-      password: "guest",
-    });
-    _session = session;
-    dispatch(setAuthedUser(session));
-  } else {
-    dispatch(setAuthedUser(_session));
-    dispatch(setLoggedIn());
-  }
+  logged_in && dispatch(setLoggedIn());
+  dispatch(setAuthedUser(session));
 
+  //Languages
+  const langs = await getLanguages(session);
+  const langs_transformed = transform_languages_data(langs.languages);
+
+  //Data
+  const data = await getData({
+    method: ITEMS,
+    session,
+  });
+
+  console.log(langs_transformed);
   // const uniqueID = generateUID();
   // dispatch(setUniqueID(uniqueID));
   // dispatch(setLoading());
