@@ -73,6 +73,8 @@ export interface resetLoading {
   type: typeof RESET_LOADING;
 }
 
+export type loadingActionTypes = setLoading | resetLoading;
+
 //Navigation actions
 export const SET_SOLUTION = "SET_SOLUTION";
 export const SET_SOLUTION_FOLDER = "SET_SOLUTION_FOLDER";
