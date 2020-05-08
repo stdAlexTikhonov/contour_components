@@ -5,9 +5,11 @@ import Menu, { MenuProps } from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { AppActions } from "../../types/actions";
 
 interface Props {
   items: string[];
+  changeLanguage: (lang: string) => AppActions;
 }
 
 const StyledMenu = withStyles({
@@ -41,7 +43,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export const CustomizedMenus: React.FC<Props> = ({ items }) => {
+export const CustomizedMenus: React.FC<Props> = ({ items, changeLanguage }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -72,7 +74,13 @@ export const CustomizedMenus: React.FC<Props> = ({ items }) => {
         onClose={handleClose}
       >
         {items.map((item, i) => (
-          <StyledMenuItem key={i}>
+          <StyledMenuItem
+            key={i}
+            onClick={() => {
+              changeLanguage("ru");
+              setAnchorEl(null);
+            }}
+          >
             <ListItemText primary={item} />
           </StyledMenuItem>
         ))}

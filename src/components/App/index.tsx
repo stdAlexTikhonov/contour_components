@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ButtonAppBar } from "../Navabar";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
+import { setLanguage } from "../../actions/languages";
 import { LoaderComponent } from "../Loader/index";
 import { AppState } from "../../store/config_store";
 import { ThunkDispatch } from "redux-thunk";
@@ -20,6 +21,7 @@ export const App: React.FC<Props> = ({
   name,
   languages,
   logged_in,
+  changeLanguage,
 }) => {
   useEffect(() => {
     getInitialData();
@@ -27,7 +29,11 @@ export const App: React.FC<Props> = ({
   return (
     <div>
       {loading && <LoaderComponent />}
-      <ButtonAppBar languages={languages} logged_in={logged_in} />
+      <ButtonAppBar
+        languages={languages}
+        logged_in={logged_in}
+        changeLanguage={changeLanguage}
+      />
       {name + " " + process.env.REACT_APP_BI_URL}
     </div>
   );
@@ -41,6 +47,7 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   getInitialData: () => void;
+  changeLanguage: (lang: string) => AppActions;
 }
 
 const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
@@ -54,6 +61,7 @@ const mapDispatchToProps = (
   props: IProps
 ): LinkDispatchProps => ({
   getInitialData: bindActionCreators(handleInitialData, dispatch),
+  changeLanguage: (lang: string) => dispatch(setLanguage(lang)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
