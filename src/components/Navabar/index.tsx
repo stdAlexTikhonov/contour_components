@@ -3,8 +3,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useStyles } from "./styles";
+import { CustomizedMenus } from "../CustomizedMenus";
 
 export const ButtonAppBar: React.FC = () => {
   const classes = useStyles();
@@ -17,9 +17,7 @@ export const ButtonAppBar: React.FC = () => {
             :)
           </Typography>
 
-          <Button color="inherit">
-            English <ExpandMoreIcon color="inherit" />
-          </Button>
+          <CustomizedMenus />
           <Button color="inherit">Login</Button>
           <Button color="inherit">Logout</Button>
           <Button color="inherit">Register</Button>
