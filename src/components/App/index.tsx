@@ -14,14 +14,19 @@ interface IProps {
 
 export type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-export const App: React.FC<Props> = ({ loading, getInitialData, name }) => {
+export const App: React.FC<Props> = ({
+  loading,
+  getInitialData,
+  name,
+  languages,
+}) => {
   useEffect(() => {
     getInitialData();
   }, [getInitialData]);
   return (
     <div>
       {loading && <LoaderComponent />}
-      <ButtonAppBar />
+      <ButtonAppBar languages={languages} />
       {name + " " + process.env.REACT_APP_BI_URL}
     </div>
   );
@@ -29,6 +34,7 @@ export const App: React.FC<Props> = ({ loading, getInitialData, name }) => {
 
 interface LinkStateProps {
   loading: boolean;
+  languages: { [index: string]: string };
 }
 
 interface LinkDispatchProps {
@@ -37,6 +43,7 @@ interface LinkDispatchProps {
 
 const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
   loading: state.loading,
+  languages: state.languages,
 });
 
 const mapDispatchToProps = (

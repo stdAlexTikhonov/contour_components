@@ -6,9 +6,13 @@ import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { CustomizedMenus } from "../CustomizedMenus";
 
-export const ButtonAppBar: React.FC = () => {
-  const classes = useStyles();
+interface IProps {
+  languages: { [index: string]: string };
+}
 
+export const ButtonAppBar: React.FC<IProps> = ({ languages }) => {
+  const classes = useStyles();
+  const items = Object.values(languages);
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -17,7 +21,7 @@ export const ButtonAppBar: React.FC = () => {
             :)
           </Typography>
 
-          <CustomizedMenus />
+          <CustomizedMenus items={items.slice(1, items.length)} />
           <Button color="inherit">Login</Button>
           <Button color="inherit">Logout</Button>
           <Button color="inherit">Register</Button>

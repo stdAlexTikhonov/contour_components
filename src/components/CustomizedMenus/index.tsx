@@ -6,6 +6,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+interface Props {
+  items: string[];
+}
+
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
@@ -37,7 +41,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export const CustomizedMenus = () => {
+export const CustomizedMenus: React.FC<Props> = ({ items }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -67,15 +71,11 @@ export const CustomizedMenus = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <ListItemText primary="Sent mail nail cam " />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemText primary="Drafts" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemText primary="Inbox" />
-        </StyledMenuItem>
+        {items.map((item, i) => (
+          <StyledMenuItem key={i}>
+            <ListItemText primary={item} />
+          </StyledMenuItem>
+        ))}
       </StyledMenu>
     </div>
   );
