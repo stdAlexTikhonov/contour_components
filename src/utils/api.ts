@@ -22,8 +22,21 @@ export const saveSession = (session: string) =>
 
 export const removeSession = () => localStorage.removeItem("session");
 
-export const getSession = () =>
-  Promise.resolve(localStorage.getItem("session"));
+export const getSession = async () => {
+  const session = localStorage.getItem("session");
+
+  const guest = {
+    user: "guest",
+    password: "guest",
+  };
+
+  const data = await userLogin(guest);
+
+  return {
+    session: session ? session : data.session,
+    logged_in: session ? true : false,
+  };
+};
 
 //Working with user
 export const userRegister = (data: Register) =>
