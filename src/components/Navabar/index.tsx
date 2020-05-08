@@ -8,9 +8,10 @@ import { CustomizedMenus } from "../CustomizedMenus";
 
 interface IProps {
   languages: { [index: string]: string };
+  logged_in: boolean;
 }
 
-export const ButtonAppBar: React.FC<IProps> = ({ languages }) => {
+export const ButtonAppBar: React.FC<IProps> = ({ languages, logged_in }) => {
   const classes = useStyles();
   const items = Object.values(languages);
   return (
@@ -22,8 +23,7 @@ export const ButtonAppBar: React.FC<IProps> = ({ languages }) => {
           </Typography>
 
           <CustomizedMenus items={items.slice(1, items.length)} />
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit">{logged_in ? "Logout" : "Login"}</Button>
           <Button color="inherit">Register</Button>
         </Toolbar>
       </AppBar>

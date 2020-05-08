@@ -19,6 +19,7 @@ export const App: React.FC<Props> = ({
   getInitialData,
   name,
   languages,
+  logged_in,
 }) => {
   useEffect(() => {
     getInitialData();
@@ -26,7 +27,7 @@ export const App: React.FC<Props> = ({
   return (
     <div>
       {loading && <LoaderComponent />}
-      <ButtonAppBar languages={languages} />
+      <ButtonAppBar languages={languages} logged_in={logged_in} />
       {name + " " + process.env.REACT_APP_BI_URL}
     </div>
   );
@@ -35,6 +36,7 @@ export const App: React.FC<Props> = ({
 interface LinkStateProps {
   loading: boolean;
   languages: { [index: string]: string };
+  logged_in: boolean;
 }
 
 interface LinkDispatchProps {
@@ -44,6 +46,7 @@ interface LinkDispatchProps {
 const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
   loading: state.loading,
   languages: state.languages,
+  logged_in: state.auth.logged_in,
 });
 
 const mapDispatchToProps = (
