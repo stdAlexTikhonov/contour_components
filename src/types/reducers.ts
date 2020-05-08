@@ -3,4 +3,9 @@ export interface authedUserType {
   session: string | null;
 }
 
+export interface languageType {
+  current: string;
+  [index: string]: string;
+}
+
 export type AppReducers = authedUserType;
