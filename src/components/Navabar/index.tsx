@@ -11,15 +11,17 @@ interface IProps {
   languages: { [index: string]: string };
   logged_in: boolean;
   changeLanguage: (lang: string) => AppActions;
+  currentLanguage: string;
 }
 
 export const ButtonAppBar: React.FC<IProps> = ({
   languages,
   logged_in,
   changeLanguage,
+  currentLanguage,
 }) => {
   const classes = useStyles();
-  const items = Object.values(languages);
+  const items = Object.keys(languages);
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -30,7 +32,9 @@ export const ButtonAppBar: React.FC<IProps> = ({
 
           <CustomizedMenus
             items={items.slice(1, items.length)}
+            languages={languages}
             changeLanguage={changeLanguage}
+            language={currentLanguage}
           />
           <Button color="inherit">{logged_in ? "Logout" : "Login"}</Button>
           <Button color="inherit">Register</Button>

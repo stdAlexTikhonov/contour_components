@@ -22,6 +22,7 @@ export const App: React.FC<Props> = ({
   languages,
   logged_in,
   changeLanguage,
+  current,
 }) => {
   useEffect(() => {
     getInitialData();
@@ -33,6 +34,7 @@ export const App: React.FC<Props> = ({
         languages={languages}
         logged_in={logged_in}
         changeLanguage={changeLanguage}
+        currentLanguage={current}
       />
       {name + " " + process.env.REACT_APP_BI_URL}
     </div>
@@ -43,6 +45,7 @@ interface LinkStateProps {
   loading: boolean;
   languages: { [index: string]: string };
   logged_in: boolean;
+  current: string;
 }
 
 interface LinkDispatchProps {
@@ -54,6 +57,7 @@ const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
   loading: state.loading,
   languages: state.languages,
   logged_in: state.auth.logged_in,
+  current: state.languages[state.languages.current],
 });
 
 const mapDispatchToProps = (

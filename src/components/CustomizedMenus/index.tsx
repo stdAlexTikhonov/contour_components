@@ -10,6 +10,8 @@ import { AppActions } from "../../types/actions";
 interface Props {
   items: string[];
   changeLanguage: (lang: string) => AppActions;
+  language: string;
+  languages: { [index: string]: string };
 }
 
 const StyledMenu = withStyles({
@@ -43,7 +45,12 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export const CustomizedMenus: React.FC<Props> = ({ items, changeLanguage }) => {
+export const CustomizedMenus: React.FC<Props> = ({
+  items,
+  changeLanguage,
+  language,
+  languages,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -63,7 +70,7 @@ export const CustomizedMenus: React.FC<Props> = ({ items, changeLanguage }) => {
         color="primary"
         onClick={handleClick}
       >
-        English
+        {language}
         <ExpandMoreIcon />
       </Button>
       <StyledMenu
@@ -77,11 +84,11 @@ export const CustomizedMenus: React.FC<Props> = ({ items, changeLanguage }) => {
           <StyledMenuItem
             key={i}
             onClick={() => {
-              changeLanguage("ru");
+              changeLanguage(item);
               setAnchorEl(null);
             }}
           >
-            <ListItemText primary={item} />
+            <ListItemText primary={languages[item]} />
           </StyledMenuItem>
         ))}
       </StyledMenu>
