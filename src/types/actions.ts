@@ -58,8 +58,10 @@ export interface setLanguage {
 
 export interface setLanguages {
   type: typeof SET_LANGUAGES;
-  languages: any[];
+  languages: { [index: string]: string };
 }
+
+export type languageActionTypes = setLanguages | setLanguage;
 
 //Loading actions
 export const SET_LOADING = "SET_LOADING";

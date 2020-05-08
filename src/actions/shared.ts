@@ -4,6 +4,7 @@ import { AppActions } from "../types/actions";
 import { AppState } from "../store/config_store";
 import { setAuthedUser, setLoggedIn } from "./authedUser";
 import { setLoading, resetLoading } from "./loading";
+import { setLanguages } from "./languages";
 import { ITEMS } from "../utils/constants";
 import { transform_languages_data } from "../utils/helpers";
 
@@ -20,6 +21,7 @@ export const handleInitialData = () => async (
   //Languages
   const langs = await getLanguages(session);
   const langs_transformed = transform_languages_data(langs.languages);
+  dispatch(setLanguages(langs_transformed));
 
   //Data
   const data = await getData({
@@ -27,7 +29,6 @@ export const handleInitialData = () => async (
     session,
   });
 
-  console.log(langs_transformed);
   dispatch(resetLoading());
   // const uniqueID = generateUID();
   // dispatch(setUniqueID(uniqueID));

@@ -3,12 +3,25 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useStyles } from "./styles";
+import { CustomizedMenus } from "../CustomizedMenus";
+import { AppActions } from "../../types/actions";
 
-export const ButtonAppBar: React.FC = () => {
+interface IProps {
+  languages: { [index: string]: string };
+  logged_in: boolean;
+  changeLanguage: (lang: string) => AppActions;
+  currentLanguage: string;
+}
+
+export const ButtonAppBar: React.FC<IProps> = ({
+  languages,
+  logged_in,
+  changeLanguage,
+  currentLanguage,
+}) => {
   const classes = useStyles();
-
+  const items = Object.keys(languages);
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -17,11 +30,13 @@ export const ButtonAppBar: React.FC = () => {
             :)
           </Typography>
 
-          <Button color="inherit">
-            English <ExpandMoreIcon color="inherit" />
-          </Button>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Logout</Button>
+          <CustomizedMenus
+            items={items.slice(1, items.length)}
+            languages={languages}
+            changeLanguage={changeLanguage}
+            language={currentLanguage}
+          />
+          <Button color="inherit">{logged_in ? "Logout" : "Login"}</Button>
           <Button color="inherit">Register</Button>
         </Toolbar>
       </AppBar>
