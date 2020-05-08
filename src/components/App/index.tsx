@@ -12,7 +12,7 @@ interface IProps {
   name: string;
 }
 
-type Props = IProps & LinkStateProps & LinkDispatchProps;
+export type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 export const App: React.FC<Props> = ({ loading, getInitialData, name }) => {
   useEffect(() => {
