@@ -14,5 +14,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     formControl: {
       minWidth: 120,
     },
+    linkStyle: {
+      color: "white",
+      textDecoration: "none",
+    },
   })
 );

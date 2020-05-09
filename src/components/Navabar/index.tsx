@@ -1,5 +1,6 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
+import { Link } from "react-router-dom";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -36,7 +37,11 @@ export const ButtonAppBar: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             language={currentLanguage}
           />
-          <Button color="inherit">{logged_in ? "Logout" : "Login"}</Button>
+          <Button color="inherit">
+            <Link to="/login" className={classes.linkStyle}>
+              {logged_in ? "Logout" : "Login"}
+            </Link>
+          </Button>
           <Button color="inherit">Register</Button>
         </Toolbar>
       </AppBar>
