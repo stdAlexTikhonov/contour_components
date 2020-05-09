@@ -42,7 +42,11 @@ export const ButtonAppBar: React.FC<IProps> = ({
               {logged_in ? "Logout" : "Login"}
             </Link>
           </Button>
-          <Button color="inherit">Register</Button>
+          <Button color="inherit">
+            <Link to="/register" className={classes.linkStyle}>
+              Register
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
