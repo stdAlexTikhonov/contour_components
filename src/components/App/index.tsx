@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ButtonAppBar } from "../Navabar";
+import { Login } from "../Login";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
 import { setLanguage } from "../../actions/languages";
@@ -9,16 +11,13 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { bindActionCreators } from "redux";
 
-interface IProps {
-  name: string;
-}
+interface IProps {}
 
 export type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 export const App: React.FC<Props> = ({
   loading,
   getInitialData,
-  name,
   languages,
   logged_in,
   changeLanguage,
@@ -28,7 +27,7 @@ export const App: React.FC<Props> = ({
     getInitialData();
   }, [getInitialData]);
   return (
-    <div>
+    <BrowserRouter>
       {loading && <LoaderComponent />}
       <ButtonAppBar
         languages={languages}
@@ -36,8 +35,10 @@ export const App: React.FC<Props> = ({
         changeLanguage={changeLanguage}
         currentLanguage={current}
       />
-      {name + " " + process.env.REACT_APP_BI_URL}
-    </div>
+      <Switch>
+        <Route path={"/login"} component={Login} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
