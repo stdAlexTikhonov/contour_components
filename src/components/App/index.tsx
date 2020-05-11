@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ButtonAppBar } from "../Navabar";
 import { Login } from "../Login";
+import { RegistrationForm } from "../Registration";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
+import { setLoggedOut } from "../../actions/authedUser";
 import { setLanguage } from "../../actions/languages";
 import { LoaderComponent } from "../Loader/index";
 import { AppState } from "../../store/config_store";
@@ -22,6 +24,7 @@ export const App: React.FC<Props> = ({
   logged_in,
   changeLanguage,
   current,
+  handleLogout,
 }) => {
   useEffect(() => {
     getInitialData();
@@ -34,9 +37,11 @@ export const App: React.FC<Props> = ({
         logged_in={logged_in}
         changeLanguage={changeLanguage}
         currentLanguage={current}
+        handleLogout={handleLogout}
       />
       <Switch>
         <Route path={"/login"} component={Login} />
+        <Route path={"/register"} component={RegistrationForm} />
       </Switch>
     </BrowserRouter>
   );
@@ -52,6 +57,7 @@ interface LinkStateProps {
 interface LinkDispatchProps {
   getInitialData: () => void;
   changeLanguage: (lang: string) => AppActions;
+  handleLogout: () => AppActions;
 }
 
 const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
@@ -67,6 +73,7 @@ const mapDispatchToProps = (
 ): LinkDispatchProps => ({
   getInitialData: bindActionCreators(handleInitialData, dispatch),
   changeLanguage: (lang: string) => dispatch(setLanguage(lang)),
+  handleLogout: () => dispatch(setLoggedOut()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

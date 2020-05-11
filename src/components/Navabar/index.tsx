@@ -13,6 +13,7 @@ interface IProps {
   logged_in: boolean;
   changeLanguage: (lang: string) => AppActions;
   currentLanguage: string;
+  handleLogout: () => AppActions;
 }
 
 export const ButtonAppBar: React.FC<IProps> = ({
@@ -20,6 +21,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
   logged_in,
   changeLanguage,
   currentLanguage,
+  handleLogout,
 }) => {
   const classes = useStyles();
   const items = Object.keys(languages);
@@ -37,12 +39,18 @@ export const ButtonAppBar: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             language={currentLanguage}
           />
-          <Button color="inherit">
+          <Button color="inherit" onClick={() => logged_in && handleLogout()}>
             <Link to="/login" className={classes.linkStyle}>
               {logged_in ? "Logout" : "Login"}
             </Link>
           </Button>
-          <Button color="inherit">Register</Button>
+          {!logged_in && (
+            <Button color="inherit">
+              <Link to="/register" className={classes.linkStyle}>
+                Register
+              </Link>
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>
