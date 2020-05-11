@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
-import { userLogin } from "../../utils/api";
+import { userLogin, saveSession } from "../../utils/api";
 import { setLoggedIn, setAuthedUser } from "../../actions/authedUser";
 import { AppState } from "../../store/config_store";
 
@@ -101,6 +101,7 @@ const mapDispatchToProps = (
     if (data.success) {
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
+      saveSession(data.session);
     }
   },
 });
