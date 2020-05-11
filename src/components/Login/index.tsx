@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
+import { userLogin } from "../../utils/api";
+import { setLoggedIn, setAuthedUser } from "../../actions/authedUser";
+import { AppState } from "../../store/config_store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {}
 
-export type Props = IProps & LinkDispatchProps;
+export type Props = IProps & LinkDispatchProps & LinkStateToProps;
 
 export const LoginComponent: React.FC<Props> = (props) => {
   const classes = useStyles();
@@ -55,6 +58,7 @@ export const LoginComponent: React.FC<Props> = (props) => {
         <Button
           variant="contained"
           color="primary"
+          disabled={props.logged_in}
           onClick={() =>
             props.handleLogin(refLogin.current, refPassword.current)
           }
@@ -66,6 +70,10 @@ export const LoginComponent: React.FC<Props> = (props) => {
   );
 };
 
+interface LinkStateToProps {
+  logged_in: boolean;
+}
+
 interface LinkDispatchProps {
   handleLogin: (
     login: HTMLInputElement | undefined,
@@ -73,17 +81,31 @@ interface LinkDispatchProps {
   ) => void;
 }
 
+const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  logged_in: state.auth.logged_in,
+});
+
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   props: IProps
 ): LinkDispatchProps => ({
-  handleLogin: (
+  handleLogin: async (
     login: HTMLInputElement | undefined,
     password: HTMLInputElement | undefined
   ) => {
-    console.log(login?.value);
-    console.log(password?.value);
+    const data = await userLogin({
+      user: login?.value || "guest",
+      password: password?.value || "guest",
+    });
+
+    if (data.success) {
+      dispatch(setLoggedIn());
+      dispatch(setAuthedUser(data.session));
+    }
   },
 });
 
-export const Login = connect(null, mapDispatchToProps)(LoginComponent);
+export const Login = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginComponent);
