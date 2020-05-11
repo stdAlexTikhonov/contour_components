@@ -66,8 +66,8 @@ export const CustomizedMenus: React.FC<Props> = ({
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
-        variant="contained"
         color="primary"
+        style={{ color: "white" }}
         onClick={handleClick}
       >
         {language}
