@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       display: "flex",
-      height: "300px",
+      height: "500px",
     },
   })
 );
@@ -29,7 +29,13 @@ export const RegistrationForm = () => {
     <div className={classes.container}>
       <form className={classes.root} noValidate autoComplete="off">
         <TextField id="filled-basic" label="Login" variant="outlined" />
-        <TextField id="outlined-basic" label="Password" variant="outlined" />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          variant="outlined"
+        />
         <TextField id="outlined-basic" label="Firstname" variant="outlined" />
         <TextField id="outlined-basic" label="Surname" variant="outlined" />
         <TextField id="outlined-basic" label="Email" variant="outlined" />
