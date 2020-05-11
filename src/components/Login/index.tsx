@@ -28,7 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {}
+interface IProps {
+  history: any;
+}
 
 export type Props = IProps & LinkDispatchProps & LinkStateToProps;
 
@@ -102,6 +104,7 @@ const mapDispatchToProps = (
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
       saveSession(data.session);
+      props.history.push("/");
     }
   },
 });
