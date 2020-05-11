@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { connect } from "react-redux";
+import { userRegister } from "../../utils/api";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -25,7 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {}
+interface IProps {
+  history: any;
+}
 
 export type Props = IProps & LinkDispatchProps;
 
@@ -105,18 +108,22 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>,
   props: IProps
 ): LinkDispatchProps => ({
-  handleRegister: (
+  handleRegister: async (
     login: HTMLInputElement | undefined,
     password: HTMLInputElement | undefined,
     firstname: HTMLInputElement | undefined,
     surname: HTMLInputElement | undefined,
     email: HTMLInputElement | undefined
   ) => {
-    console.log(login?.value);
-    console.log(password?.value);
-    console.log(firstname?.value);
-    console.log(surname?.value);
-    console.log(email?.value);
+    const data = await userRegister({
+      user: login?.value || "test",
+      password: password?.value || "test",
+      firstName: firstname?.value || "firstName",
+      surName: surname?.value || "surName",
+      email: surname?.value || "test@test.ru",
+    });
+
+    if (data.success) props.history.push("/login");
   },
 });
 
