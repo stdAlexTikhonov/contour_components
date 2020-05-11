@@ -4,7 +4,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { ThunkDispatch } from "redux-thunk";
-import RootRef from "@material-ui/core/RootRef";
 import { AppActions } from "../../types/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,7 +30,6 @@ interface IProps {}
 export type Props = IProps & LinkDispatchProps;
 
 export const LoginComponent: React.FC<Props> = (props) => {
-  console.log(props);
   const classes = useStyles();
   const refLogin = useRef<HTMLInputElement | undefined>();
   const refPassword = useRef<HTMLInputElement | undefined>();
