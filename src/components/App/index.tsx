@@ -45,6 +45,8 @@ export const App: React.FC<Props> = ({
         <Route path="/" exact component={Cards} />
         <Route path={"/login"} component={Login} />
         <Route path={"/register"} component={RegistrationForm} />
+        <Route path={"/:solution/"} exact component={Cards} />
+        <Route path={"/:solution/:folder"} exact component={Cards} />
       </Switch>
     </BrowserRouter>
   );

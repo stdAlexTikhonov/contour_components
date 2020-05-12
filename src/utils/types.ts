@@ -1,6 +1,6 @@
 export interface Common {
   method: string;
-  session: string;
+  session: string | undefined;
 }
 
 //Working with user
@@ -20,6 +20,7 @@ export interface DataForQuery extends Common {
   language?: string;
   solution?: string;
   project?: string;
+  folder?: string;
   report?: string;
   type?: string;
   slice?: string;
