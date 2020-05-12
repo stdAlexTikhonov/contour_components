@@ -42,7 +42,7 @@ export const LoginComponent: React.FC<Props> = (props) => {
 
   return (
     <div className={classes.container}>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form className={classes.root} noValidate={true} autoComplete="off">
         <TextField
           id="filled-basic"
           label="Login"
