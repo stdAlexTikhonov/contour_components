@@ -11,7 +11,6 @@ export const handleInitialData = () => async (
   dispatch: (action: AppActions) => Dispatch<AppActions>,
   getState: () => AppState
 ) => {
-  const state = getState();
   dispatch(setLoading());
   const { session, logged_in } = await getSession();
 
@@ -22,16 +21,6 @@ export const handleInitialData = () => async (
   const langs = await getLanguages(session);
   const langs_transformed = transform_languages_data(langs.languages);
   dispatch(setLanguages(langs_transformed));
-
-  // //Data
-  // const data = await getData({
-  //   method: ITEMS,
-  //   session,
-  // });
-
-  // if (data.success) {
-  //   dispatch(setItems(data.items));
-  // }
 
   dispatch(resetLoading());
 };

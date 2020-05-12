@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { AppActions } from "../../types/actions";
+import LanguageIcon from "@material-ui/icons/Language";
 
 interface Props {
   items: string[];
@@ -70,6 +71,7 @@ export const CustomizedMenus: React.FC<Props> = ({
         style={{ color: "white" }}
         onClick={handleClick}
       >
+        <LanguageIcon style={{ paddingRight: 5 }} />
         {language}
         <ExpandMoreIcon />
       </Button>

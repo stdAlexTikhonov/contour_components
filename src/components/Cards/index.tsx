@@ -14,6 +14,10 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setItems } from "../../actions/items";
+import BarChartIcon from "@material-ui/icons/BarChart";
+import FolderIcon from "@material-ui/icons/Folder";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import ClassIcon from "@material-ui/icons/Class";
 
 interface Props {}
 
@@ -22,7 +26,9 @@ type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    margin: "5px",
+    margin: 5,
+    position: "relative",
+    paddingRight: 15,
   },
   container: {
     display: "flex",
@@ -34,6 +40,15 @@ const useStyles = makeStyles({
     overflow: "scroll",
     justifyContent: "space-around",
     cursor: "pointer",
+  },
+  icon: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+  },
+  link: {
+    color: "inherit",
+    textDecoration: "none",
   },
 });
 
@@ -87,11 +102,26 @@ const CardsComponent: React.FC<IProps> = ({
         }
         return (
           <Card key={item.code} className={classes.root}>
-            <Link to={link}>
+            <Link to={link} className={classes.link}>
               <CardContent>
                 <Typography variant="h5" component="h2">
                   {item.caption}
                 </Typography>
+                {item.type === "project" && (
+                  <LibraryBooksIcon color="primary" className={classes.icon} />
+                )}
+
+                {item.type === "folder" && (
+                  <FolderIcon color="primary" className={classes.icon} />
+                )}
+
+                {item.type === "report" && (
+                  <BarChartIcon color="primary" className={classes.icon} />
+                )}
+
+                {item.type === "solution" && (
+                  <ClassIcon color="primary" className={classes.icon} />
+                )}
               </CardContent>
             </Link>
           </Card>
