@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { AppState } from "../../store/config_store";
+import { DataForQuery, Common } from "../../utils/types";
+import { ITEMS } from "../../utils/constants";
+import { getData } from "../../utils/api";
+import { ThunkDispatch } from "redux-thunk";
+import { AppActions } from "../../types/actions";
+import { setLoading, resetLoading } from "../../actions/loading";
+import { setItems } from "../../actions/items";
 
 interface Props {}
 
-type IProps = Props & LinkStateToProps;
+type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 const useStyles = makeStyles({
   root: {
@@ -29,29 +37,118 @@ const useStyles = makeStyles({
   },
 });
 
-const CardsComponent: React.FC<IProps> = ({ items }) => {
+const CardsComponent: React.FC<IProps> = ({
+  items,
+  session,
+  getSolutionData,
+  getFolderData,
+  getGlobalData,
+}) => {
   const classes = useStyles();
+  const { solution, folder } = useParams();
+
+  useEffect(() => {
+    if (folder && solution) {
+      getFolderData({
+        method: ITEMS,
+        session,
+        solution,
+        folder,
+      });
+    } else if (solution) {
+      getSolutionData({
+        method: ITEMS,
+        session,
+        solution,
+      });
+    } else {
+      getGlobalData({
+        method: ITEMS,
+        session,
+      });
+    }
+  }, [
+    solution,
+    folder,
+    session,
+    getFolderData,
+    getSolutionData,
+    getGlobalData,
+  ]);
+
   return (
     <Container maxWidth="lg" className={classes.container}>
-      {items.map((item: any) => (
-        <Card key={item.code} className={classes.root}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {item.caption}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
+      {items.map((item: any) => {
+        let link = "";
+        if (item.type === "solution") {
+          link = "/" + item.code;
+        } else if (item.type === "folder") {
+          link = "/" + solution + "/" + item.code;
+        }
+        return (
+          <Card key={item.code} className={classes.root}>
+            <Link to={link}>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {item.caption}
+                </Typography>
+              </CardContent>
+            </Link>
+          </Card>
+        );
+      })}
     </Container>
   );
 };
 
 interface LinkStateToProps {
   items: any;
+  session: string | undefined;
+}
+
+interface LinkDispatchToProps {
+  getSolutionData: (data_for_query: DataForQuery) => void;
+  getFolderData: (data_for_query: DataForQuery) => void;
+  getGlobalData: (data_for_query: Common) => void;
 }
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
+  session: state.auth.session || undefined,
 });
 
-export const Cards = connect(mapStateToProps)(CardsComponent);
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>
+): LinkDispatchToProps => ({
+  getSolutionData: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
+    const data = await getData(data_for_query);
+    if (data.success) {
+      console.log("solutions");
+      dispatch(setItems(data.items));
+    }
+    dispatch(resetLoading());
+  },
+  getFolderData: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
+    const data = await getData(data_for_query);
+    if (data.success) {
+      console.log("folder");
+      dispatch(setItems(data.items));
+    }
+    dispatch(resetLoading());
+  },
+  getGlobalData: async (data_for_query: Common) => {
+    dispatch(setLoading());
+    const data = await getData(data_for_query);
+    if (data.success) {
+      dispatch(setItems(data.items));
+    }
+    dispatch(resetLoading());
+  },
+});
+
+export const Cards = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardsComponent);
