@@ -14,31 +14,25 @@ type IProps = Props & LinkStateToProps;
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    margin: "5px",
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+  container: {
+    display: "flex",
+    backgroundColor: "#cfe8fc",
+    height: "100vh",
+    paddingTop: "100px",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    overflow: "scroll",
+    justifyContent: "space-around",
+    cursor: "pointer",
   },
 });
 
 const CardsComponent: React.FC<IProps> = ({ items }) => {
   const classes = useStyles();
   return (
-    <Container
-      maxWidth="lg"
-      style={{
-        backgroundColor: "#cfe8fc",
-        height: "100vh",
-        paddingTop: "100px",
-      }}
-    >
+    <Container maxWidth="lg" className={classes.container}>
       {items.map((item: any) => (
         <Card key={item.code} className={classes.root}>
           <CardContent>
