@@ -30,7 +30,9 @@ export const ButtonAppBar: React.FC<IProps> = ({
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            :)
+            <a href="/" className={classes.linkStyle}>
+              :)
+            </a>
           </Typography>
 
           <CustomizedMenus
