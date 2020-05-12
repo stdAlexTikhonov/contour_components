@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { authedUser, loading, languages } from "../reducers";
+import { authedUser, loading, languages, items } from "../reducers";
 
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
 
@@ -8,6 +8,7 @@ export const rootReducer = combineReducers({
   auth: authedUser,
   loading,
   languages,
+  items,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

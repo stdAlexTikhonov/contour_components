@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ButtonAppBar } from "../Navabar";
 import { Login } from "../Login";
+import { Cards } from "../Cards";
 import { RegistrationForm } from "../Registration";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
@@ -12,6 +13,7 @@ import { AppState } from "../../store/config_store";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { bindActionCreators } from "redux";
+import { removeSession } from "../../utils/api";
 
 interface IProps {}
 
@@ -40,6 +42,7 @@ export const App: React.FC<Props> = ({
         handleLogout={handleLogout}
       />
       <Switch>
+        <Route path="/" exact component={Cards} />
         <Route path={"/login"} component={Login} />
         <Route path={"/register"} component={RegistrationForm} />
       </Switch>
@@ -57,7 +60,7 @@ interface LinkStateProps {
 interface LinkDispatchProps {
   getInitialData: () => void;
   changeLanguage: (lang: string) => AppActions;
-  handleLogout: () => AppActions;
+  handleLogout: () => void;
 }
 
 const mapStateToProps = (state: AppState, props: IProps): LinkStateProps => ({
@@ -73,7 +76,10 @@ const mapDispatchToProps = (
 ): LinkDispatchProps => ({
   getInitialData: bindActionCreators(handleInitialData, dispatch),
   changeLanguage: (lang: string) => dispatch(setLanguage(lang)),
-  handleLogout: () => dispatch(setLoggedOut()),
+  handleLogout: () => {
+    removeSession();
+    dispatch(setLoggedOut());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

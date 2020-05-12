@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       display: "flex",
-      height: "300px",
+      paddingTop: "100px",
     },
   })
 );
