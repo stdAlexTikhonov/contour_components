@@ -136,6 +136,14 @@ export interface setActiveTab {
   index: number;
 }
 
+//Items
+export const SET_ITEMS = "SET_ITEMS";
+
+export interface setItems {
+  type: typeof SET_ITEMS;
+  items: any;
+}
+
 export type AppActions =
   | setAuthedUser
   | setLoggedIn
@@ -156,4 +164,5 @@ export type AppActions =
   | setUniqueTreeID
   | saveScreen
   | toggleFolder
-  | setActiveTab;
+  | setActiveTab
+  | setItems;
