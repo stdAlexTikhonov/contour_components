@@ -8,6 +8,7 @@ import { AppActions } from "../../types/actions";
 import { userLogin, saveSession } from "../../utils/api";
 import { setLoggedIn, setAuthedUser } from "../../actions/authedUser";
 import { AppState } from "../../store/config_store";
+import { handleInitialData } from "../../actions/shared";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,6 +105,7 @@ const mapDispatchToProps = (
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
       saveSession(data.session);
+      dispatch(handleInitialData());
       props.history.push("/");
     }
   },
