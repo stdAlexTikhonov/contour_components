@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ButtonAppBar } from "../Navabar";
 import { Login } from "../Login";
+import { Cards } from "../Cards";
 import { RegistrationForm } from "../Registration";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
@@ -40,6 +41,7 @@ export const App: React.FC<Props> = ({
         handleLogout={handleLogout}
       />
       <Switch>
+        <Route path="/" exact component={Cards} />
         <Route path={"/login"} component={Login} />
         <Route path={"/register"} component={RegistrationForm} />
       </Switch>
