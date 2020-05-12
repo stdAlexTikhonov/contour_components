@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       display: "flex",
-      height: "500px",
+      paddingTop: "100px",
     },
   })
 );

@@ -8,10 +8,8 @@ import Typography from "@material-ui/core/Typography";
 interface Props {}
 
 export const Cards: React.FC<Props> = () => (
-  <Container maxWidth="sm">
-    <Typography
-      component="div"
-      style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
-    />
-  </Container>
+  <Container
+    maxWidth="lg"
+    style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+  ></Container>
 );
