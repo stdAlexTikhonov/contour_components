@@ -13,7 +13,7 @@ interface IProps {
   logged_in: boolean;
   changeLanguage: (lang: string) => AppActions;
   currentLanguage: string;
-  handleLogout: () => AppActions;
+  handleLogout: () => void;
 }
 
 export const ButtonAppBar: React.FC<IProps> = ({
