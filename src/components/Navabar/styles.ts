@@ -12,7 +12,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
-      cursor: "pointer",
     },
     formControl: {
       minWidth: 120,
@@ -20,6 +19,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     linkStyle: {
       color: "white",
       textDecoration: "none",
+      cursor: "pointer",
     },
   })
 );

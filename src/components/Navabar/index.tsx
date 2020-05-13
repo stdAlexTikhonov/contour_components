@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { CustomizedMenus } from "../CustomizedMenus";
 import { AppActions } from "../../types/actions";
+import HomeIcon from "@material-ui/icons/Home";
 
 interface IProps {
   languages: { [index: string]: string };
@@ -31,7 +32,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <a href="/" className={classes.linkStyle}>
-              :)
+              <HomeIcon />
             </a>
           </Typography>
 
