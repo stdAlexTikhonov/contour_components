@@ -13,8 +13,10 @@ export const post = async (
   return response.json();
 };
 
-export const getData = async (data: DataForQuery) =>
-  await post(process.env.REACT_APP_BI_URL, data);
+export const getData = async (data: DataForQuery) => {
+  if (data.p_folder) data.folder = data.p_folder;
+  return await post(process.env.REACT_APP_BI_URL, data);
+};
 
 //Working with session
 export const saveSession = (session: string) =>

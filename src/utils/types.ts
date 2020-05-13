@@ -21,6 +21,7 @@ export interface DataForQuery extends Common {
   solution?: string;
   project?: string;
   folder?: string;
+  p_folder?: string; //project folder
   report?: string;
   type?: string;
   slice?: string;
