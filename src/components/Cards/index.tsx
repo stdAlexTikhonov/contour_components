@@ -59,12 +59,21 @@ const CardsComponent: React.FC<IProps> = ({
   getFolderData,
   getGlobalData,
   language,
+  getProjectData,
 }) => {
   const classes = useStyles();
-  const { solution, folder } = useParams();
+  const { solution, folder, project } = useParams();
 
   useEffect(() => {
-    if (folder && solution) {
+    if (project) {
+      getProjectData({
+        method: ITEMS,
+        session,
+        solution,
+        project,
+        language,
+      });
+    } else if (folder && solution) {
       getFolderData({
         method: ITEMS,
         session,
@@ -94,6 +103,8 @@ const CardsComponent: React.FC<IProps> = ({
     getSolutionData,
     getGlobalData,
     language,
+    project,
+    getProjectData,
   ]);
 
   return (
@@ -104,6 +115,8 @@ const CardsComponent: React.FC<IProps> = ({
           link = "/" + item.code;
         } else if (item.type === "folder") {
           link = "/" + solution + "/" + item.code;
+        } else if (item.type === "project") {
+          link = "/" + solution + "/project/" + item.code;
         }
         return (
           <Card key={item.code} className={classes.root}>
@@ -146,6 +159,7 @@ interface LinkDispatchToProps {
   getSolutionData: (data_for_query: DataForQuery) => void;
   getFolderData: (data_for_query: DataForQuery) => void;
   getGlobalData: (data_for_query: Common) => void;
+  getProjectData: (data_for_query: DataForQuery) => void;
 }
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
@@ -179,6 +193,15 @@ const mapDispatchToProps = (
     dispatch(setLoading());
     const data = await getData(data_for_query);
     if (data.success) {
+      dispatch(setItems(data.items));
+    }
+    dispatch(resetLoading());
+  },
+  getProjectData: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
+    const data = await getData(data_for_query);
+    if (data.success) {
+      console.log(data);
       dispatch(setItems(data.items));
     }
     dispatch(resetLoading());
