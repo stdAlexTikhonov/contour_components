@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Card from "@material-ui/core/Card";
@@ -18,39 +17,11 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import FolderIcon from "@material-ui/icons/Folder";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import ClassIcon from "@material-ui/icons/Class";
+import { useStyles } from "./styles";
 
 interface Props {}
 
 type IProps = Props & LinkStateToProps & LinkDispatchToProps;
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-    margin: 5,
-    position: "relative",
-    paddingRight: 15,
-  },
-  container: {
-    display: "flex",
-    backgroundColor: "#cfe8fc",
-    height: "100vh",
-    paddingTop: "100px",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    overflow: "scroll",
-    justifyContent: "space-around",
-    cursor: "pointer",
-  },
-  icon: {
-    position: "absolute",
-    top: 5,
-    right: 5,
-  },
-  link: {
-    color: "inherit",
-    textDecoration: "none",
-  },
-});
 
 const CardsComponent: React.FC<IProps> = ({
   items,
