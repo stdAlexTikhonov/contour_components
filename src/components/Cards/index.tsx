@@ -60,12 +60,22 @@ const CardsComponent: React.FC<IProps> = ({
   getGlobalData,
   language,
   getProjectData,
+  getProjectFolderData,
 }) => {
   const classes = useStyles();
-  const { solution, folder, project } = useParams();
+  const { solution, folder, project, p_folder } = useParams();
 
   useEffect(() => {
-    if (project) {
+    if (p_folder) {
+      getProjectFolderData({
+        method: ITEMS,
+        session,
+        solution,
+        project,
+        folder: p_folder,
+        language,
+      });
+    } else if (project) {
       getProjectData({
         method: ITEMS,
         session,
@@ -105,13 +115,17 @@ const CardsComponent: React.FC<IProps> = ({
     language,
     project,
     getProjectData,
+    p_folder,
+    getProjectFolderData,
   ]);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       {items.map((item: any) => {
         let link = "";
-        if (item.type === "solution") {
+        if (item.type === "folder" && project) {
+          link = "/" + solution + "/project/" + project + "/" + item.code;
+        } else if (item.type === "solution") {
           link = "/" + item.code;
         } else if (item.type === "folder") {
           link = "/" + solution + "/" + item.code;
@@ -160,6 +174,7 @@ interface LinkDispatchToProps {
   getFolderData: (data_for_query: DataForQuery) => void;
   getGlobalData: (data_for_query: Common) => void;
   getProjectData: (data_for_query: DataForQuery) => void;
+  getProjectFolderData: (data_for_query: DataForQuery) => void;
 }
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
@@ -175,7 +190,6 @@ const mapDispatchToProps = (
     dispatch(setLoading());
     const data = await getData(data_for_query);
     if (data.success) {
-      console.log("solutions");
       dispatch(setItems(data.items));
     }
     dispatch(resetLoading());
@@ -184,7 +198,6 @@ const mapDispatchToProps = (
     dispatch(setLoading());
     const data = await getData(data_for_query);
     if (data.success) {
-      console.log("folder");
       dispatch(setItems(data.items));
     }
     dispatch(resetLoading());
@@ -201,7 +214,14 @@ const mapDispatchToProps = (
     dispatch(setLoading());
     const data = await getData(data_for_query);
     if (data.success) {
-      console.log(data);
+      dispatch(setItems(data.items));
+    }
+    dispatch(resetLoading());
+  },
+  getProjectFolderData: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
+    const data = await getData(data_for_query);
+    if (data.success) {
       dispatch(setItems(data.items));
     }
     dispatch(resetLoading());
