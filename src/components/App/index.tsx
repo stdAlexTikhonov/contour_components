@@ -13,7 +13,7 @@ import { AppState } from "../../store/config_store";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { bindActionCreators } from "redux";
-import { removeSession } from "../../utils/api";
+import { removeSession, saveLanguage } from "../../utils/api";
 
 interface IProps {}
 
@@ -77,7 +77,10 @@ const mapDispatchToProps = (
   props: IProps
 ): LinkDispatchProps => ({
   getInitialData: bindActionCreators(handleInitialData, dispatch),
-  changeLanguage: (lang: string) => dispatch(setLanguage(lang)),
+  changeLanguage: (lang: string) => {
+    saveLanguage(lang);
+    return dispatch(setLanguage(lang));
+  },
   handleLogout: () => {
     removeSession();
     dispatch(setLoggedOut());

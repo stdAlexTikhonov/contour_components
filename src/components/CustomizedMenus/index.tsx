@@ -78,7 +78,7 @@ export const CustomizedMenus: React.FC<Props> = ({
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
-        keepMounted
+        keepMounted={true}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
