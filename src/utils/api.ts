@@ -38,6 +38,12 @@ export const getSession = async () => {
   };
 };
 
+//Working with language
+export const saveLanguage = (language: string) =>
+  localStorage.setItem("language", language);
+
+export const getLanguage = () => localStorage.getItem("language");
+
 //Working with user
 export const userRegister = (data: Register) =>
   post(process.env.REACT_APP_BI_URL, {
