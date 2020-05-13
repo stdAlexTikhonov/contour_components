@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ButtonAppBar } from "../Navabar";
 import { Login } from "../Login";
 import { Cards } from "../Cards";
+import { Report } from "../Report";
 import { RegistrationForm } from "../Registration";
 import { connect } from "react-redux";
 import { handleInitialData } from "../../actions/shared";
@@ -52,6 +53,11 @@ export const App: React.FC<Props> = ({
           path={"/:solution/project/:project/:p_folder"}
           exact
           component={Cards}
+        />
+        <Route
+          path={"/:solution/project/:project/report/:report"}
+          exact
+          component={Report}
         />
       </Switch>
     </BrowserRouter>

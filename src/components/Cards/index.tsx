@@ -123,7 +123,10 @@ const CardsComponent: React.FC<IProps> = ({
     <Container maxWidth="lg" className={classes.container}>
       {items.map((item: any) => {
         let link = "";
-        if (item.type === "folder" && project) {
+        if (item.type === "report") {
+          link =
+            "/" + solution + "/project/" + project + "/report/" + item.code;
+        } else if (item.type === "folder" && project) {
           link = "/" + solution + "/project/" + project + "/" + item.code;
         } else if (item.type === "solution") {
           link = "/" + item.code;
