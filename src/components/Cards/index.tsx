@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { AppState } from "../../store/config_store";
-import { DataForQuery, Common } from "../../utils/types";
+import { DataForQuery } from "../../utils/types";
 import { ITEMS } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
@@ -18,27 +18,20 @@ import FolderIcon from "@material-ui/icons/Folder";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import ClassIcon from "@material-ui/icons/Class";
 import { useStyles } from "./styles";
-
-interface Props {}
-
-type IProps = Props & LinkStateToProps & LinkDispatchToProps;
+import { IProps, LinkDispatchToProps, LinkStateToProps } from "./types";
 
 const CardsComponent: React.FC<IProps> = ({
   items,
   session,
-  getSolutionData,
-  getFolderData,
-  getGlobalData,
+  handleDataQuery,
   language,
-  getProjectData,
-  getProjectFolderData,
 }) => {
   const classes = useStyles();
   const { solution, folder, project, p_folder } = useParams();
 
   useEffect(() => {
     if (p_folder) {
-      getProjectFolderData({
+      handleDataQuery({
         method: ITEMS,
         session,
         solution,
@@ -47,7 +40,7 @@ const CardsComponent: React.FC<IProps> = ({
         language,
       });
     } else if (project) {
-      getProjectData({
+      handleDataQuery({
         method: ITEMS,
         session,
         solution,
@@ -55,7 +48,7 @@ const CardsComponent: React.FC<IProps> = ({
         language,
       });
     } else if (folder && solution) {
-      getFolderData({
+      handleDataQuery({
         method: ITEMS,
         session,
         solution,
@@ -63,32 +56,20 @@ const CardsComponent: React.FC<IProps> = ({
         language,
       });
     } else if (solution) {
-      getSolutionData({
+      handleDataQuery({
         method: ITEMS,
         session,
         solution,
         language,
       });
     } else {
-      getGlobalData({
+      handleDataQuery({
         method: ITEMS,
         session,
         language,
       });
     }
-  }, [
-    solution,
-    folder,
-    session,
-    getFolderData,
-    getSolutionData,
-    getGlobalData,
-    language,
-    project,
-    getProjectData,
-    p_folder,
-    getProjectFolderData,
-  ]);
+  }, [solution, folder, session, handleDataQuery, language, project, p_folder]);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -137,20 +118,6 @@ const CardsComponent: React.FC<IProps> = ({
   );
 };
 
-interface LinkStateToProps {
-  items: any;
-  session: string | undefined;
-  language: string;
-}
-
-interface LinkDispatchToProps {
-  getSolutionData: (data_for_query: DataForQuery) => void;
-  getFolderData: (data_for_query: DataForQuery) => void;
-  getGlobalData: (data_for_query: Common) => void;
-  getProjectData: (data_for_query: DataForQuery) => void;
-  getProjectFolderData: (data_for_query: DataForQuery) => void;
-}
-
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
   session: state.auth.session || undefined,
@@ -160,39 +127,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
-  getSolutionData: async (data_for_query: DataForQuery) => {
-    dispatch(setLoading());
-    const data = await getData(data_for_query);
-    if (data.success) {
-      dispatch(setItems(data.items));
-    }
-    dispatch(resetLoading());
-  },
-  getFolderData: async (data_for_query: DataForQuery) => {
-    dispatch(setLoading());
-    const data = await getData(data_for_query);
-    if (data.success) {
-      dispatch(setItems(data.items));
-    }
-    dispatch(resetLoading());
-  },
-  getGlobalData: async (data_for_query: Common) => {
-    dispatch(setLoading());
-    const data = await getData(data_for_query);
-    if (data.success) {
-      dispatch(setItems(data.items));
-    }
-    dispatch(resetLoading());
-  },
-  getProjectData: async (data_for_query: DataForQuery) => {
-    dispatch(setLoading());
-    const data = await getData(data_for_query);
-    if (data.success) {
-      dispatch(setItems(data.items));
-    }
-    dispatch(resetLoading());
-  },
-  getProjectFolderData: async (data_for_query: DataForQuery) => {
+  handleDataQuery: async (data_for_query: DataForQuery) => {
     dispatch(setLoading());
     const data = await getData(data_for_query);
     if (data.success) {
