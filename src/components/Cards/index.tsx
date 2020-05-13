@@ -58,6 +58,7 @@ const CardsComponent: React.FC<IProps> = ({
   getSolutionData,
   getFolderData,
   getGlobalData,
+  language,
 }) => {
   const classes = useStyles();
   const { solution, folder } = useParams();
@@ -69,17 +70,20 @@ const CardsComponent: React.FC<IProps> = ({
         session,
         solution,
         folder,
+        language,
       });
     } else if (solution) {
       getSolutionData({
         method: ITEMS,
         session,
         solution,
+        language,
       });
     } else {
       getGlobalData({
         method: ITEMS,
         session,
+        language,
       });
     }
   }, [
@@ -89,6 +93,7 @@ const CardsComponent: React.FC<IProps> = ({
     getFolderData,
     getSolutionData,
     getGlobalData,
+    language,
   ]);
 
   return (
@@ -134,6 +139,7 @@ const CardsComponent: React.FC<IProps> = ({
 interface LinkStateToProps {
   items: any;
   session: string | undefined;
+  language: string;
 }
 
 interface LinkDispatchToProps {
@@ -145,6 +151,7 @@ interface LinkDispatchToProps {
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
   session: state.auth.session || undefined,
+  language: state.languages.current,
 });
 
 const mapDispatchToProps = (

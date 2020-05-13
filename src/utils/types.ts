@@ -1,6 +1,7 @@
 export interface Common {
   method: string;
-  session: string | undefined;
+  session?: string;
+  language?: string;
 }
 
 //Working with user
@@ -17,7 +18,6 @@ export interface Register extends Login {
 
 //Working with data
 export interface DataForQuery extends Common {
-  language?: string;
   solution?: string;
   project?: string;
   folder?: string;
