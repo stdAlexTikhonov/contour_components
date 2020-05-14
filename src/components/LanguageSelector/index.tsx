@@ -1,52 +1,13 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Menu, { MenuProps } from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { AppActions } from "../../types/actions";
+import { IProps } from "./types";
+import { StyledMenu, StyledMenuItem } from "./StyledComponents";
+
 import LanguageIcon from "@material-ui/icons/Language";
 
-interface Props {
-  items: string[];
-  changeLanguage: (lang: string) => AppActions;
-  language: string;
-  languages: { [index: string]: string };
-}
-
-const StyledMenu = withStyles({
-  paper: {
-    border: "1px solid #d3d4d5",
-  },
-})((props: MenuProps) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))(MenuItem);
-
-export const CustomizedMenus: React.FC<Props> = ({
+export const LanguageSelector: React.FC<IProps> = ({
   items,
   changeLanguage,
   language,

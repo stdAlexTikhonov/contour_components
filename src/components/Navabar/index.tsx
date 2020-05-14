@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
-import { CustomizedMenus } from "../CustomizedMenus";
+import { LanguageSelector } from "../LanguageSelector";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 
@@ -28,7 +28,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             </a>
           </Typography>
 
-          <CustomizedMenus
+          <LanguageSelector
             items={items.slice(1, items.length)}
             languages={languages}
             changeLanguage={changeLanguage}
