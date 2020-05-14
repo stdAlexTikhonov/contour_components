@@ -6,16 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { CustomizedMenus } from "../CustomizedMenus";
-import { AppActions } from "../../types/actions";
 import HomeIcon from "@material-ui/icons/Home";
-
-interface IProps {
-  languages: { [index: string]: string };
-  logged_in: boolean;
-  changeLanguage: (lang: string) => AppActions;
-  currentLanguage: string;
-  handleLogout: () => void;
-}
+import { IProps } from "./types";
 
 export const ButtonAppBar: React.FC<IProps> = ({
   languages,
