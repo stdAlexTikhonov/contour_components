@@ -12,4 +12,5 @@ export interface LinkStateToProps {
 
 export interface LinkDispatchToProps {
   handleDataQuery: (data_for_query: DataForQuery) => void;
+  handleClick: (caption: string, link: string) => void;
 }

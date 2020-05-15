@@ -17,6 +17,7 @@ export const CardsComponent: React.FC<IProps> = ({
   session,
   handleDataQuery,
   language,
+  handleClick,
 }) => {
   const classes = useStyles();
   const { solution, folder, project, p_folder } = useParams();
@@ -51,7 +52,11 @@ export const CardsComponent: React.FC<IProps> = ({
         }
         return (
           <Card key={item.code} className={classes.root}>
-            <Link to={link} className={classes.link}>
+            <Link
+              to={link}
+              className={classes.link}
+              onClick={() => handleClick(item.caption, link)}
+            >
               <CardContent>
                 <Typography variant="h5" component="h2">
                   {item.caption}

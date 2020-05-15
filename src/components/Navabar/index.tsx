@@ -8,6 +8,7 @@ import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
+import { SimpleBreadcrumbs } from "../Breadcrumbs";
 
 export const ButtonAppBar: React.FC<IProps> = ({
   languages,
@@ -48,6 +49,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
           )}
         </Toolbar>
       </AppBar>
+      <SimpleBreadcrumbs />
     </div>
   );
 };
