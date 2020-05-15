@@ -8,6 +8,7 @@ import { setLoading, resetLoading } from "../../actions/loading";
 import { setItems } from "../../actions/items";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 import { CardsComponent } from "./Cards";
+import { addBreadcrumb } from "../../actions/breadcrumbs";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
@@ -25,6 +26,9 @@ const mapDispatchToProps = (
       dispatch(setItems(data.items));
     }
     dispatch(resetLoading());
+  },
+  handleClick: (caption, link) => {
+    dispatch(addBreadcrumb(caption, link));
   },
 });
 
