@@ -1,58 +1,39 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import { AppState } from "../../store/config_store";
-import { LinkStateToProps, IProps, LinkDispatchToProps } from "./types";
-import { AppActions } from "../../types/actions";
-import { ThunkDispatch } from "redux-thunk";
-import { sliceBreadcrumbs } from "../../actions/breadcrumbs";
+import { IProps } from "./types";
 
-export const BreadcrumbsComponent: React.FC<IProps> = ({
-  breadcrumbs,
-  handleClick,
-}) => {
+export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
+  const breadcrumbs = history.location.pathname
+    .split("/")
+    .filter((item: string) => !["project", "report"].includes(item));
+
   const len = breadcrumbs.length - 1;
-  return (
+
+  return history.location.pathname !== "/" ? (
     <Breadcrumbs aria-label="breadcrumb">
-      {breadcrumbs.map((breadcrumb, i) => {
+      {breadcrumbs.map((breadcrumb: string, i: number) => {
         if (i < len)
           return (
             <Link
               color="inherit"
-              to={breadcrumb.link}
+              href={history.location.pathname.split(breadcrumb)[0] + breadcrumb}
               key={i}
-              onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
-                handleClick(e, i - 1)
-              }
             >
-              {breadcrumb.caption}
+              {breadcrumb}
             </Link>
           );
         else
           return (
-            <Typography color="textPrimary">{breadcrumb.caption}</Typography>
+            <Typography key={i} color="textPrimary">
+              {breadcrumb}
+            </Typography>
           );
       })}
     </Breadcrumbs>
-  );
+  ) : null;
 };
 
-const mapStateToProps = (state: AppState): LinkStateToProps => ({
-  breadcrumbs: state.breadcrumbs,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>
-): LinkDispatchToProps => ({
-  handleClick: (event, index) => {
-    event.preventDefault();
-    dispatch(sliceBreadcrumbs(index));
-  },
-});
-
-export const SimpleBreadcrumbs = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BreadcrumbsComponent);
+export const SimpleBreadcrumbs = withRouter(MyBreadcrumbs);
