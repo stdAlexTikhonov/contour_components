@@ -8,4 +8,9 @@ export interface languageType {
   [index: string]: string;
 }
 
-export type AppReducers = authedUserType;
+export type breadcrumb = {
+  caption: string;
+  link: string;
+};
+
+export type AppReducers = authedUserType | languageType;
