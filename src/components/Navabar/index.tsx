@@ -27,6 +27,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             <a href="/" className={classes.linkStyle}>
               <HomeIcon />
             </a>
+            <SimpleBreadcrumbs />
           </Typography>
 
           <LanguageSelector
@@ -49,7 +50,6 @@ export const ButtonAppBar: React.FC<IProps> = ({
           )}
         </Toolbar>
       </AppBar>
-      <SimpleBreadcrumbs />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { IProps } from "./types";
 
-export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
+const BreadcrumbsComponent: React.FC<IProps> = ({ history }) => {
   const breadcrumbs = history.location.pathname
     .split("/")
     .filter((item: string) => !["project", "report"].includes(item));
@@ -13,7 +13,7 @@ export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
   const len = breadcrumbs.length - 1;
 
   return history.location.pathname !== "/" ? (
-    <Breadcrumbs aria-label="breadcrumb">
+    <Breadcrumbs aria-label="breadcrumb" style={{ color: "white" }}>
       {breadcrumbs.map((breadcrumb: string, i: number) => {
         if (i < len)
           return (
@@ -27,7 +27,7 @@ export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
           );
         else
           return (
-            <Typography key={i} color="textPrimary">
+            <Typography key={i} color="inherit">
               {breadcrumb}
             </Typography>
           );
@@ -36,4 +36,4 @@ export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
   ) : null;
 };
 
-export const SimpleBreadcrumbs = withRouter(MyBreadcrumbs);
+export const SimpleBreadcrumbs = withRouter(BreadcrumbsComponent);

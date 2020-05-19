@@ -12,6 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
+      display: "flex",
     },
     formControl: {
       minWidth: 120,
