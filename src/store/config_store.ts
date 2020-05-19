@@ -6,6 +6,7 @@ import {
   languages,
   items,
   breadcrumbs,
+  view,
 } from "../reducers";
 
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   languages,
   items,
   breadcrumbs,
+  view,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

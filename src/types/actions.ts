@@ -137,6 +137,14 @@ export interface setActiveTab {
   index: number;
 }
 
+//View
+export const SET_VIEW = "SET_VIEW";
+
+export interface setView {
+  type: typeof SET_VIEW;
+  view: string;
+}
+
 //Items
 export const SET_ITEMS = "SET_ITEMS";
 
@@ -166,4 +174,5 @@ export type AppActions =
   | saveScreen
   | toggleFolder
   | setActiveTab
-  | setItems;
+  | setItems
+  | setView;
