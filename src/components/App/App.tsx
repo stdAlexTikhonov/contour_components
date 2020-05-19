@@ -7,6 +7,7 @@ import { Report } from "../Report";
 import { RegistrationForm } from "../Registration";
 import { LoaderComponent } from "../Loader/index";
 import { IProps } from "./types";
+import { Project } from "../Project";
 
 export const AppComponent: React.FC<IProps> = ({
   loading,
@@ -36,11 +37,11 @@ export const AppComponent: React.FC<IProps> = ({
         <Route path={"/register"} component={RegistrationForm} />
         <Route path={"/:solution/"} exact component={Cards} />
         <Route path={"/:solution/:folder"} exact component={Cards} />
-        <Route path={"/:solution/project/:project"} exact component={Cards} />
+        <Route path={"/:solution/project/:project"} exact component={Project} />
         <Route
           path={"/:solution/project/:project/:p_folder"}
           exact
-          component={Cards}
+          component={Project}
         />
         <Route
           path={"/:solution/project/:project/report/:report"}
