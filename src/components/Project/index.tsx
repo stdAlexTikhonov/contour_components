@@ -4,6 +4,7 @@ import { AppState } from "../../store/config_store";
 import { LinkStateToProps, IProps } from "./types";
 import { Cards } from "../Cards";
 import { Tree } from "../Tree";
+import { SplitPanel } from "../SplitPanel";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   view: state.view,
@@ -12,7 +13,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 export const ProjectComponent: React.FC<IProps> = ({ view }) => {
   switch (view) {
     case "tree":
-      return <Tree />;
+      return <SplitPanel />;
     case "tree_only":
       return <Tree />;
     default:

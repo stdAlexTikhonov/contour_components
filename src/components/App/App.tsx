@@ -8,6 +8,7 @@ import { RegistrationForm } from "../Registration";
 import { LoaderComponent } from "../Loader/index";
 import { IProps } from "./types";
 import { Project } from "../Project";
+import Box from "@material-ui/core/Box";
 
 export const AppComponent: React.FC<IProps> = ({
   loading,
@@ -24,31 +25,39 @@ export const AppComponent: React.FC<IProps> = ({
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}
-      <ButtonAppBar
-        languages={languages}
-        logged_in={logged_in}
-        changeLanguage={changeLanguage}
-        currentLanguage={current}
-        handleLogout={handleLogout}
-      />
-      <Switch>
-        <Route path="/" exact component={Cards} />
-        <Route path={"/login"} component={Login} />
-        <Route path={"/register"} component={RegistrationForm} />
-        <Route path={"/:solution/"} exact component={Cards} />
-        <Route path={"/:solution/:folder"} exact component={Cards} />
-        <Route path={"/:solution/project/:project"} exact component={Project} />
-        <Route
-          path={"/:solution/project/:project/:p_folder"}
-          exact
-          component={Project}
+      <Box display="flex" flexDirection="column" height="100vh">
+        <ButtonAppBar
+          languages={languages}
+          logged_in={logged_in}
+          changeLanguage={changeLanguage}
+          currentLanguage={current}
+          handleLogout={handleLogout}
         />
-        <Route
-          path={"/:solution/project/:project/report/:report"}
-          exact
-          component={Report}
-        />
-      </Switch>
+        <Box flexGrow={1}>
+          <Switch>
+            <Route path="/" exact component={Cards} />
+            <Route path={"/login"} component={Login} />
+            <Route path={"/register"} component={RegistrationForm} />
+            <Route path={"/:solution/"} exact component={Cards} />
+            <Route path={"/:solution/:folder"} exact component={Cards} />
+            <Route
+              path={"/:solution/project/:project"}
+              exact
+              component={Project}
+            />
+            <Route
+              path={"/:solution/project/:project/:p_folder"}
+              exact
+              component={Project}
+            />
+            <Route
+              path={"/:solution/project/:project/report/:report"}
+              exact
+              component={Report}
+            />
+          </Switch>
+        </Box>
+      </Box>
     </BrowserRouter>
   );
 };

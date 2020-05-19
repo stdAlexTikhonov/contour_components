@@ -3,8 +3,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
-      position: "absolute",
       width: "100%",
     },
     menuButton: {

@@ -10,8 +10,7 @@ export const useStyles = makeStyles({
   container: {
     display: "flex",
     backgroundColor: "#cfe8fc",
-    height: "100vh",
-    paddingTop: "100px",
+    height: "100%",
     flexWrap: "wrap",
     alignItems: "flex-start",
     overflow: "scroll",
