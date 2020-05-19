@@ -4,6 +4,7 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { IProps } from "./types";
+import { useStyles } from "./styles";
 
 const BreadcrumbsComponent: React.FC<IProps> = ({ history }) => {
   const breadcrumbs = history.location.pathname
@@ -11,9 +12,9 @@ const BreadcrumbsComponent: React.FC<IProps> = ({ history }) => {
     .filter((item: string) => !["project", "report"].includes(item));
 
   const len = breadcrumbs.length - 1;
-
+  const classes = useStyles();
   return history.location.pathname !== "/" ? (
-    <Breadcrumbs aria-label="breadcrumb" style={{ color: "white" }}>
+    <Breadcrumbs aria-label="breadcrumb" className={classes.root}>
       {breadcrumbs.map((breadcrumb: string, i: number) => {
         if (i < len)
           return (

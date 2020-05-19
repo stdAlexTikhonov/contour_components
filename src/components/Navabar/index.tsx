@@ -23,12 +23,12 @@ export const ButtonAppBar: React.FC<IProps> = ({
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <div className={classes.title}>
             <a href="/" className={classes.linkStyle}>
               <HomeIcon />
             </a>
             <SimpleBreadcrumbs />
-          </Typography>
+          </div>
 
           <LanguageSelector
             items={items.slice(1, items.length)}
