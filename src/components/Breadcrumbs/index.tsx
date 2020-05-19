@@ -4,16 +4,17 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { IProps } from "./types";
+import { useStyles } from "./styles";
 
-export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
+const BreadcrumbsComponent: React.FC<IProps> = ({ history }) => {
   const breadcrumbs = history.location.pathname
     .split("/")
     .filter((item: string) => !["project", "report"].includes(item));
 
   const len = breadcrumbs.length - 1;
-
+  const classes = useStyles();
   return history.location.pathname !== "/" ? (
-    <Breadcrumbs aria-label="breadcrumb">
+    <Breadcrumbs aria-label="breadcrumb" className={classes.root}>
       {breadcrumbs.map((breadcrumb: string, i: number) => {
         if (i < len)
           return (
@@ -27,7 +28,7 @@ export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
           );
         else
           return (
-            <Typography key={i} color="textPrimary">
+            <Typography key={i} color="inherit">
               {breadcrumb}
             </Typography>
           );
@@ -36,4 +37,4 @@ export const MyBreadcrumbs: React.FC<IProps> = ({ history }) => {
   ) : null;
 };
 
-export const SimpleBreadcrumbs = withRouter(MyBreadcrumbs);
+export const SimpleBreadcrumbs = withRouter(BreadcrumbsComponent);
