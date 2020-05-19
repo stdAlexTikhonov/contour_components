@@ -7,19 +7,7 @@ import TreeItem from "@material-ui/lab/TreeItem";
 import { getData } from "../../utils/api";
 import { ITEMS } from "../../utils/constants";
 import { IProps } from "./types";
-import { makeStyles } from "@material-ui/core/styles";
-
-//something wrong with styles
-export const useStyles = makeStyles({
-  root: {
-    height: 240,
-    flexGrow: 1,
-    maxWidth: 400,
-    paddingTop: 65,
-  },
-});
-
-//
+import { useStyles } from "./styles";
 
 export const TreeComponent: React.FC<IProps> = ({
   items,
