@@ -7,6 +7,7 @@ import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setItems } from "../../actions/items";
 import { setView } from "../../actions/view";
+import { setReportType, setTabItem } from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 import { CardsComponent } from "./Cards";
 import { addBreadcrumb } from "../../actions/breadcrumbs";
@@ -31,6 +32,8 @@ const mapDispatchToProps = (
   },
   handleClick: (caption, link) => {
     dispatch(addBreadcrumb(caption, link));
+    dispatch(setReportType(null));
+    dispatch(setTabItem(null));
   },
 });
 
