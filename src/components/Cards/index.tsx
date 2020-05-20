@@ -6,6 +6,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setItems } from "../../actions/items";
+import { setView } from "../../actions/view";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 import { CardsComponent } from "./Cards";
 import { addBreadcrumb } from "../../actions/breadcrumbs";
@@ -24,6 +25,7 @@ const mapDispatchToProps = (
     const data = await getData(data_for_query);
     if (data.success) {
       dispatch(setItems(data.items));
+      dispatch(setView(data.appearance.view));
     }
     dispatch(resetLoading());
   },
