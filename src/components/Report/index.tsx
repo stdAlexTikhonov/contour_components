@@ -18,12 +18,13 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
     const reportData = await getData(data_for_query);
+
     if (reportData.success && reportData.type) {
       dispatch(setReportType(reportData.type));
       reportData.tab_item && dispatch(setTabItem(reportData.tab_item));
     }
-
-    console.log(reportData);
+    reportData.type && console.log(reportData);
+    data_for_query.type && console.log(reportData);
   },
 });
 

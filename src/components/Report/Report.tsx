@@ -30,7 +30,7 @@ export const ReportComponent: React.FC<IProps> = ({
 
   useEffect(() => {
     handleDataQuery(data_for_query);
-  }, [data_for_query, handleDataQuery, report_type, report]);
+  });
 
   return (
     <div className={classes.root}>
