@@ -8,7 +8,7 @@ export const SplitPanel = () => (
     <Box width={400} overflow="hidden">
       <Tree />
     </Box>
-    <Box flexGrow={1} height="100%">
+    <Box flexGrow={1} height="100%" width={100}>
       <Report />
     </Box>
   </Box>

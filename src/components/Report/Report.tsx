@@ -3,6 +3,7 @@ import { IProps } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
 import { REPORT, ITEMS } from "../../utils/constants";
+import { Tabs } from "../Tabs";
 
 export const ReportComponent: React.FC<IProps> = ({
   items,
@@ -34,7 +35,7 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return (
     <div className={classes.root}>
-      This is report {report ? report : report_from_params}
+      <Tabs />
     </div>
   );
 };
