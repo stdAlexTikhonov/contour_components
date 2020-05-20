@@ -22,7 +22,6 @@ export const setTabItem = (tab_item: string | null): AppActions => ({
 });
 
 export const setTabs = (tabs: [] | null): AppActions => {
-  console.log(tabs);
   return {
     type: SET_TABS,
     tabs,

@@ -5,6 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { IProps } from "./types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,14 +48,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const TabsComponent: React.FC = () => {
+export const TabsComponent: React.FC<IProps> = ({ tabs }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
-
+  console.log(tabs);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -67,16 +68,12 @@ export const TabsComponent: React.FC = () => {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-          <Tab label="Item Four" {...a11yProps(3)} />
-          <Tab label="Item Five" {...a11yProps(4)} />
-          <Tab label="Item Six" {...a11yProps(5)} />
-          <Tab label="Item Seven" {...a11yProps(6)} />
+          {tabs?.map((item: any, i) => (
+            <Tab key={i} label={item.caption} {...a11yProps(i)} />
+          ))}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
         Item One
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -96,7 +93,7 @@ export const TabsComponent: React.FC = () => {
       </TabPanel>
       <TabPanel value={value} index={6}>
         Item Seven
-      </TabPanel>
+      </TabPanel> */}
     </div>
   );
 };
