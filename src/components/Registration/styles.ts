@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       display: "flex",
-      paddingTop: "100px",
+      paddingTop: 30,
     },
   })
 );
