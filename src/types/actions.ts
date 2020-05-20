@@ -151,7 +151,7 @@ export const SET_REPORT_TYPE = "SET_REPORT_TYPE";
 
 export interface setReportType {
   type: typeof SET_REPORT_TYPE;
-  report_type: string;
+  report_type: string | null;
 }
 
 export type reportActions = setReport | setReportType;

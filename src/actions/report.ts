@@ -5,7 +5,7 @@ export const setReport = (report: string): AppActions => ({
   report,
 });
 
-export const setReportType = (type: string): AppActions => ({
+export const setReportType = (type: string | null): AppActions => ({
   type: SET_REPORT_TYPE,
   report_type: type,
 });
