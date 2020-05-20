@@ -83,16 +83,10 @@ export const SET_SOLUTION = "SET_SOLUTION";
 export const SET_SOLUTION_FOLDER = "SET_SOLUTION_FOLDER";
 export const SET_PROJECT = "SET_PROJECT";
 export const SET_UID = "SET_UID";
-export const SET_REPORT_CODE = "SET_REPORT_CODE";
 export const SET_UTID = "SET_UTID";
 
 export interface setProject {
   type: typeof SET_PROJECT;
-  code: string;
-}
-
-export interface setReportCode {
-  type: typeof SET_REPORT_CODE;
   code: string;
 }
 
@@ -153,6 +147,15 @@ export interface setReport {
   report: string;
 }
 
+export const SET_REPORT_TYPE = "SET_REPORT_TYPE";
+
+export interface setReportType {
+  type: typeof SET_REPORT_TYPE;
+  report_type: string;
+}
+
+export type reportActions = setReport | setReportType;
+
 //Items
 export const SET_ITEMS = "SET_ITEMS";
 
@@ -174,7 +177,6 @@ export type AppActions =
   | setLoading
   | resetLoading
   | setProject
-  | setReportCode
   | setSolutionFolder
   | setSolution
   | setUniqueID
@@ -184,4 +186,5 @@ export type AppActions =
   | setActiveTab
   | setItems
   | setReport
+  | setReportType
   | setView;

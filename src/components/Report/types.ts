@@ -8,6 +8,7 @@ export interface LinkStateToProps {
   session: string | undefined;
   language: string;
   report: string | null;
+  report_type: string | null;
 }
 
 export interface LinkDispatchToProps {

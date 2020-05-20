@@ -2,30 +2,33 @@ import React, { useEffect } from "react";
 import { IProps } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
-import { REPORT } from "../../utils/constants";
+import { REPORT, ITEMS } from "../../utils/constants";
 
 export const ReportComponent: React.FC<IProps> = ({
   items,
   session,
   language,
   report: report_from_state,
+  report_type,
   handleDataQuery,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const report = report_from_state || report_from_params;
+
   const classes = useStyles();
+
   const data_for_query = {
     solution,
     session,
     language,
     project,
     report,
-    method: REPORT,
+    method: report_type === null ? REPORT : ITEMS,
   };
 
   useEffect(() => {
     handleDataQuery(data_for_query);
-  });
+  }, [data_for_query, handleDataQuery, report_type, report]);
 
   return (
     <div className={classes.root}>
