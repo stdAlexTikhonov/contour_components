@@ -10,6 +10,7 @@ export const ReportComponent: React.FC<IProps> = ({
   language,
   report: report_from_state,
   report_type,
+  tab_item,
   handleDataQuery,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
@@ -24,6 +25,7 @@ export const ReportComponent: React.FC<IProps> = ({
     project,
     report,
     method: report_type === null ? REPORT : ITEMS,
+    type: tab_item || null,
   };
 
   useEffect(() => {

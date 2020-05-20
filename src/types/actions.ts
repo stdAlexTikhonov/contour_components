@@ -154,7 +154,14 @@ export interface setReportType {
   report_type: string | null;
 }
 
-export type reportActions = setReport | setReportType;
+export const SET_TAB_ITEM = "SET_TAB_ITEM";
+
+export interface setTabItem {
+  type: typeof SET_TAB_ITEM;
+  tab_item: string | null;
+}
+
+export type reportActions = setReport | setReportType | setTabItem;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -187,4 +194,5 @@ export type AppActions =
   | setItems
   | setReport
   | setReportType
+  | setTabItem
   | setView;

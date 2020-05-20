@@ -9,6 +9,7 @@ export interface LinkStateToProps {
   language: string;
   report: string | null;
   report_type: string | null;
+  tab_item: string | null;
 }
 
 export interface LinkDispatchToProps {

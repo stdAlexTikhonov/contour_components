@@ -1,9 +1,15 @@
-import { SET_REPORT, SET_REPORT_TYPE, reportActions } from "../types/actions";
+import {
+  SET_REPORT,
+  SET_REPORT_TYPE,
+  SET_TAB_ITEM,
+  reportActions,
+} from "../types/actions";
 import { reportType } from "../types/reducers";
 
 const reportDefaultState: reportType = {
   code: null,
   report_type: null,
+  tab_item: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -17,6 +23,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         report_type: action.report_type,
+      };
+    case SET_TAB_ITEM:
+      return {
+        ...state,
+        tab_item: action.tab_item,
       };
     default:
       return state;
