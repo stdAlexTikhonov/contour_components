@@ -2,7 +2,12 @@ import { connect } from "react-redux";
 import { AppState } from "../../store/config_store";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { TreeComponent } from "./TreeComponent";
-import { setReport, setReportType, setTabItem } from "../../actions/report";
+import {
+  setReport,
+  setReportType,
+  setTabItem,
+  setTabs,
+} from "../../actions/report";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 
@@ -19,6 +24,7 @@ const mapDispatchToProps = (
     dispatch(setReport(code));
     dispatch(setReportType(null));
     dispatch(setTabItem(null));
+    dispatch(setTabs(null));
   },
 });
 

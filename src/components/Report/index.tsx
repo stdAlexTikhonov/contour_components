@@ -4,7 +4,7 @@ import { ReportComponent } from "./Report";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
-import { setReportType, setTabItem } from "../../actions/report";
+import { setReportType, setTabItem, setTabs } from "../../actions/report";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
@@ -23,8 +23,9 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       dispatch(setReportType(reportData.type));
       reportData.tab_item && dispatch(setTabItem(reportData.tab_item));
     }
+
     reportData.type && console.log(reportData);
-    data_for_query.type && console.log(reportData);
+    data_for_query.type && dispatch(setTabs(reportData.items));
   },
 });
 
