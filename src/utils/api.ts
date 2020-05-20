@@ -2,7 +2,7 @@ import { DataForQuery, Login, Register, ApiTypes } from "./types";
 import { LOGIN, REGISTER_USER, LANGUAGES } from "./constants";
 
 export const post = async (
-  url: string = "https://stat.world/biportal/api.jsp",
+  url: string = "http://204.145.90.67:8082/biportal/api.jsp",
   data: ApiTypes
 ) => {
   const response = await fetch(url, {

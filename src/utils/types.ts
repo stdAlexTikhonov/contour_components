@@ -23,7 +23,7 @@ export interface DataForQuery extends Common {
   folder?: string;
   p_folder?: string; //project folder
   report?: string;
-  type?: string;
+  type?: string | null;
   slice?: string;
   view?: string;
   code?: string; //filter code
