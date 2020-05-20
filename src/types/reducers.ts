@@ -17,6 +17,7 @@ export type reportType = {
   code: string | null;
   report_type: string | null;
   tab_item: string | null;
+  tabs: [] | null;
 };
 
 export type AppReducers = authedUserType | languageType;

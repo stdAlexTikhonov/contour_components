@@ -3,6 +3,7 @@ import {
   SET_REPORT,
   SET_REPORT_TYPE,
   SET_TAB_ITEM,
+  SET_TABS,
 } from "../types/actions";
 
 export const setReport = (report: string): AppActions => ({
@@ -19,3 +20,10 @@ export const setTabItem = (tab_item: string | null): AppActions => ({
   type: SET_TAB_ITEM,
   tab_item,
 });
+
+export const setTabs = (tabs: [] | null): AppActions => {
+  return {
+    type: SET_TABS,
+    tabs,
+  };
+};
