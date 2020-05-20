@@ -1,5 +1,6 @@
 import React from "react";
 import { Tree } from "../Tree";
+import { Report } from "../Report";
 import Box from "@material-ui/core/Box";
 
 export const SplitPanel = () => (
@@ -8,7 +9,7 @@ export const SplitPanel = () => (
       <Tree />
     </Box>
     <Box flexGrow={1} height="100%">
-      1
+      <Report />
     </Box>
   </Box>
 );

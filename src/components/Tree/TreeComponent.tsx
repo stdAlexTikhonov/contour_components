@@ -13,6 +13,7 @@ export const TreeComponent: React.FC<IProps> = ({
   items,
   session,
   language,
+  handleReportClick,
 }) => {
   const classes = useStyles();
   const [tree, setTree] = useState(items);
@@ -39,7 +40,11 @@ export const TreeComponent: React.FC<IProps> = ({
         nodeId={item.code}
         label={item.caption}
         key={item.code}
-        onClick={() => item.type === "folder" && addToTree(item)}
+        onClick={() =>
+          item.type === "folder"
+            ? addToTree(item)
+            : handleReportClick(item.code)
+        }
       >
         {item.items && renderTree(item.items)}
       </TreeItem>

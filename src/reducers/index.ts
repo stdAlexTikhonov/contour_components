@@ -4,3 +4,4 @@ export * from "./languages";
 export * from "./items";
 export * from "./breadcrumbs";
 export * from "./view";
+export * from "./report";

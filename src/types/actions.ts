@@ -145,6 +145,14 @@ export interface setView {
   view: string;
 }
 
+//report
+export const SET_REPORT = "SET_REPORT";
+
+export interface setReport {
+  type: typeof SET_REPORT;
+  report: string;
+}
+
 //Items
 export const SET_ITEMS = "SET_ITEMS";
 
@@ -175,4 +183,5 @@ export type AppActions =
   | toggleFolder
   | setActiveTab
   | setItems
+  | setReport
   | setView;

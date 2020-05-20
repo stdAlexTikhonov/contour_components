@@ -7,6 +7,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
   session: state.auth.session || undefined,
   language: state.languages.current,
+  report: state.report,
 });
 
 export const Report = connect(mapStateToProps)(ReportComponent);
