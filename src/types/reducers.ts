@@ -10,6 +10,11 @@ export interface languageType {
   [index: string]: string;
 }
 
+export type breadcrumb = {
+  caption: string;
+  link: string;
+};
+
 export type reportType = {
   code: string | null;
   report_type: string | null;

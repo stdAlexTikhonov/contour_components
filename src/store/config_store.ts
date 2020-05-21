@@ -5,6 +5,7 @@ import {
   loading,
   languages,
   items,
+  breadcrumbs,
   view,
   report,
 } from "../reducers";
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   loading,
   languages,
   items,
+  breadcrumbs,
   view,
   report,
 });

@@ -15,6 +15,7 @@ import {
 } from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 import { CardsComponent } from "./Cards";
+import { addBreadcrumb } from "../../actions/breadcrumbs";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
@@ -34,7 +35,8 @@ const mapDispatchToProps = (
     }
     dispatch(resetLoading());
   },
-  handleClick: () => {
+  handleClick: (caption, link) => {
+    dispatch(addBreadcrumb(caption, link));
     dispatch(setReportType(null));
     dispatch(setTabItem(null));
     dispatch(setTabs(null));
