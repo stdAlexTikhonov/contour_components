@@ -1,3 +1,5 @@
+import { Dashboard } from "../types/actions";
+
 export interface authedUserType {
   logged_in: boolean;
   session: string | null;
@@ -18,7 +20,7 @@ export type reportType = {
   report_type: string | null;
   tab_item: string | null;
   tabs: [] | null;
-  dashboard: object | null;
+  dashboard: Dashboard | null;
 };
 
 export type AppReducers = authedUserType | languageType;

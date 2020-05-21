@@ -82,13 +82,13 @@ export const formatGeometry = (dashboard: any) => {
       const val = (w / 100) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;
       elem.col_w = parseInt(val.toString()) + frac;
-      elem.float = elem.col > mid ? "float-right" : "float-left";
+      elem.float = elem.col > mid ? "right" : "left";
     } else {
       elem.w = w + "px";
       const val = (w / window.innerWidth) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;
       elem.col_w = parseInt(val.toString()) + frac;
-      elem.float = elem.col > mid ? "float-right" : "float-left";
+      elem.float = elem.col > mid ? "right" : "left";
     }
 
     const h_ = rows.items.slice(elem.row, elem.row + elem.rowspan);

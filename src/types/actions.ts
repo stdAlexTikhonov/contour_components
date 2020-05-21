@@ -170,9 +170,14 @@ export interface setTabs {
 
 export const SET_DASHBOARD = "SET_DASHBOARD";
 
+export type Dashboard = {
+  cells: any;
+  grid: any;
+};
+
 export interface setDashboard {
   type: typeof SET_DASHBOARD;
-  dashboard: object | null;
+  dashboard: Dashboard | null;
 }
 
 export type reportActions =

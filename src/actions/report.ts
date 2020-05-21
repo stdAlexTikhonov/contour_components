@@ -5,6 +5,7 @@ import {
   SET_TAB_ITEM,
   SET_TABS,
   SET_DASHBOARD,
+  Dashboard,
 } from "../types/actions";
 
 export const setReport = (report: string): AppActions => ({
@@ -27,7 +28,7 @@ export const setTabs = (tabs: [] | null): AppActions => ({
   tabs,
 });
 
-export const setDashboard = (dashboard: object | null): AppActions => ({
+export const setDashboard = (dashboard: Dashboard | null): AppActions => ({
   type: SET_DASHBOARD,
   dashboard,
 });
