@@ -19,7 +19,7 @@ export const TreeComponent: React.FC<IProps> = ({
   const [tree, setTree] = useState(items);
   const { solution, project } = useParams();
 
-  const addToTree = async (item: any) => {
+  const addToTree = async (item: any, elem: any) => {
     const data = await getData({
       method: ITEMS,
       p_folder: item.code,
@@ -32,6 +32,7 @@ export const TreeComponent: React.FC<IProps> = ({
     item.items = data.items;
     const new_tree = tree.slice();
     setTree(new_tree);
+    elem.click();
   };
 
   const renderTree = (items: any) => {
@@ -40,9 +41,9 @@ export const TreeComponent: React.FC<IProps> = ({
         nodeId={item.code}
         label={item.caption}
         key={item.code}
-        onClick={() =>
+        onClick={(e) =>
           item.type === "folder"
-            ? addToTree(item)
+            ? !item.items && addToTree(item, e.target)
             : handleReportClick(item.code)
         }
       >
