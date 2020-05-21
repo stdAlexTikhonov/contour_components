@@ -1,40 +1,10 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import { IProps } from "./types";
-import { useStyles } from "./styles";
+import { connect } from "react-redux";
+import { BreadcrumbsComponent } from "./BreadcrumbsComponent";
+import { AppState } from "../../store/config_store";
+import { LinkStateToProps } from "./types";
 
-const BreadcrumbsComponent: React.FC<IProps> = ({ history }) => {
-  const breadcrumbs = history.location.pathname
-    .split("/")
-    .filter((item: string) => !["project", "report"].includes(item));
+const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  breadcrumbs: state.breadcrumbs,
+});
 
-  const len = breadcrumbs.length - 1;
-  const classes = useStyles();
-  return history.location.pathname !== "/" ? (
-    <Breadcrumbs aria-label="breadcrumb" className={classes.root}>
-      {breadcrumbs.map((breadcrumb: string, i: number) => {
-        if (i < len)
-          return (
-            <Link
-              color="inherit"
-              href={history.location.pathname.split(breadcrumb)[0] + breadcrumb}
-              key={i}
-            >
-              {breadcrumb}
-            </Link>
-          );
-        else
-          return (
-            <Typography key={i} color="inherit">
-              {breadcrumb}
-            </Typography>
-          );
-      })}
-    </Breadcrumbs>
-  ) : null;
-};
-
-export const SimpleBreadcrumbs = withRouter(BreadcrumbsComponent);
+export const SimpleBreadcrumbs = connect(mapStateToProps)(BreadcrumbsComponent);

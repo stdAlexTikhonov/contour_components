@@ -10,6 +10,7 @@ import {
   setTabs,
   setDashboard,
 } from "../../actions/report";
+import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
@@ -32,7 +33,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       reportData.tab_item && dispatch(setTabItem(reportData.tab_item));
     }
 
-    reportData.type && console.log(reportData);
+    reportData.path && dispatch(setBreadcrumbs(reportData.path));
     data_for_query.type && dispatch(setTabs(reportData.items));
   },
 });

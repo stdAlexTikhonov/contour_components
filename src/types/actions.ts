@@ -19,21 +19,19 @@ export interface setLoggedOut {
 export type authedUserActionTypes = setAuthedUser | setLoggedIn | setLoggedOut;
 
 //Breadcrumbs actions
-export const ADD_BREADCRUMB = "ADD_BREADCRUMB";
-export const SLICE_BREADCRUMBS = "SLICE_BREADCRUMBS";
+export const SET_BREADCRUMBS = "SET_BREADCRUMBS";
 
-export interface addBreadcrumb {
-  type: typeof ADD_BREADCRUMB;
+export interface setBreadcrumbs {
+  type: typeof SET_BREADCRUMBS;
+  breadcrumbs: Array<Breadcrumb>;
+}
+
+export type Breadcrumb = {
   caption: string;
-  link: string;
-}
-
-export interface sliceBreadcrumbs {
-  type: typeof SLICE_BREADCRUMBS;
-  ind: number;
-}
-
-export type breadcrumbsActionTypes = addBreadcrumb | sliceBreadcrumbs;
+  code: string;
+  type: string;
+  url_code: string;
+};
 
 //Charts actions
 export const SET_CHARTS_DATA = "SET_CHARTS_DATA";
@@ -199,8 +197,7 @@ export type AppActions =
   | setAuthedUser
   | setLoggedIn
   | setLoggedOut
-  | addBreadcrumb
-  | sliceBreadcrumbs
+  | setBreadcrumbs
   | setChartsData
   | resetChartsData
   | setLanguage
