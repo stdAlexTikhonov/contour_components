@@ -168,7 +168,24 @@ export interface setTabs {
   tabs: [] | null;
 }
 
-export type reportActions = setReport | setReportType | setTabItem | setTabs;
+export const SET_DASHBOARD = "SET_DASHBOARD";
+
+export type Dashboard = {
+  cells: any;
+  grid: any;
+};
+
+export interface setDashboard {
+  type: typeof SET_DASHBOARD;
+  dashboard: Dashboard | null;
+}
+
+export type reportActions =
+  | setReport
+  | setReportType
+  | setTabItem
+  | setTabs
+  | setDashboard;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -203,4 +220,5 @@ export type AppActions =
   | setReportType
   | setTabItem
   | setTabs
+  | setDashboard
   | setView;

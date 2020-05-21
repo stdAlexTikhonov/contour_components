@@ -7,7 +7,12 @@ import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setItems } from "../../actions/items";
 import { setView } from "../../actions/view";
-import { setReportType, setTabItem, setTabs } from "../../actions/report";
+import {
+  setReportType,
+  setTabItem,
+  setTabs,
+  setDashboard,
+} from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 import { CardsComponent } from "./Cards";
 import { addBreadcrumb } from "../../actions/breadcrumbs";
@@ -35,6 +40,7 @@ const mapDispatchToProps = (
     dispatch(setReportType(null));
     dispatch(setTabItem(null));
     dispatch(setTabs(null));
+    dispatch(setDashboard(null));
   },
 });
 

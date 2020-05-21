@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
 import { REPORT, ITEMS } from "../../utils/constants";
 import { Tabs } from "../Tabs";
+import { Dashboard } from "../Dashboard";
 
 export const ReportComponent: React.FC<IProps> = ({
   items,
@@ -35,7 +36,7 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return (
     <div className={classes.root}>
-      <Tabs />
+      {tab_item && <Tabs />} {report_type === "dashboard" && <Dashboard />}
     </div>
   );
 };
