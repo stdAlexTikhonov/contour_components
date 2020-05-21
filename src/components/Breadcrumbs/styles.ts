@@ -5,5 +5,7 @@ export const useStyles = makeStyles({
     color: "white",
     display: "flex",
     alignItems: "center",
+    lineHeight: 2,
+    paddingLeft: 5,
   },
 });
