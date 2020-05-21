@@ -55,7 +55,7 @@ export const CardsComponent: React.FC<IProps> = ({
             <Link
               to={link}
               className={classes.link}
-              onClick={() => handleClick(item.caption, link)}
+              onClick={() => handleClick()}
             >
               <CardContent>
                 <Typography variant="h5" component="h2">

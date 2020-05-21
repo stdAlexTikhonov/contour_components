@@ -15,7 +15,7 @@ import {
 } from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 import { CardsComponent } from "./Cards";
-import { addBreadcrumb } from "../../actions/breadcrumbs";
+import { setBreadcrumbs } from "../../actions/breadcrumbs";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
@@ -30,13 +30,13 @@ const mapDispatchToProps = (
     dispatch(setLoading());
     const data = await getData(data_for_query);
     if (data.success) {
+      data.path && dispatch(setBreadcrumbs(data.path));
       dispatch(setItems(data.items));
       dispatch(setView(data.appearance.view));
     }
     dispatch(resetLoading());
   },
-  handleClick: (caption, link) => {
-    dispatch(addBreadcrumb(caption, link));
+  handleClick: () => {
     dispatch(setReportType(null));
     dispatch(setTabItem(null));
     dispatch(setTabs(null));
