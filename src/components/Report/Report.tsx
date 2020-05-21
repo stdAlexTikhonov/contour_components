@@ -33,9 +33,5 @@ export const ReportComponent: React.FC<IProps> = ({
     handleDataQuery(data_for_query);
   });
 
-  return (
-    <div className={classes.root}>
-      <Tabs />
-    </div>
-  );
+  return <div className={classes.root}>{tab_item && <Tabs />}</div>;
 };

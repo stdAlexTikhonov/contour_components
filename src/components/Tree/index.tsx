@@ -7,6 +7,7 @@ import {
   setReportType,
   setTabItem,
   setTabs,
+  setDashboard,
 } from "../../actions/report";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
@@ -25,6 +26,7 @@ const mapDispatchToProps = (
     dispatch(setReportType(null));
     dispatch(setTabItem(null));
     dispatch(setTabs(null));
+    dispatch(setDashboard(null));
   },
 });
 

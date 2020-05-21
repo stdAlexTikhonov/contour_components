@@ -4,6 +4,7 @@ import {
   SET_REPORT_TYPE,
   SET_TAB_ITEM,
   SET_TABS,
+  SET_DASHBOARD,
 } from "../types/actions";
 
 export const setReport = (report: string): AppActions => ({
@@ -21,9 +22,12 @@ export const setTabItem = (tab_item: string | null): AppActions => ({
   tab_item,
 });
 
-export const setTabs = (tabs: [] | null): AppActions => {
-  return {
-    type: SET_TABS,
-    tabs,
-  };
-};
+export const setTabs = (tabs: [] | null): AppActions => ({
+  type: SET_TABS,
+  tabs,
+});
+
+export const setDashboard = (dashboard: object | null): AppActions => ({
+  type: SET_DASHBOARD,
+  dashboard,
+});

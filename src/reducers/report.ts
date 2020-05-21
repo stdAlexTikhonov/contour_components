@@ -3,6 +3,7 @@ import {
   SET_REPORT_TYPE,
   SET_TAB_ITEM,
   SET_TABS,
+  SET_DASHBOARD,
   reportActions,
 } from "../types/actions";
 import { reportType } from "../types/reducers";
@@ -12,6 +13,7 @@ const reportDefaultState: reportType = {
   report_type: null,
   tab_item: null,
   tabs: null,
+  dashboard: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -35,6 +37,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         tabs: action.tabs,
+      };
+    case SET_DASHBOARD:
+      return {
+        ...state,
+        dashboard: action.dashboard,
       };
     default:
       return state;
