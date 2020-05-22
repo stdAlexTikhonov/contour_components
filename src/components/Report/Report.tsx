@@ -7,7 +7,7 @@ import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
 
 export const ReportComponent: React.FC<IProps> = ({
-  items,
+  tabs,
   session,
   language,
   report: report_from_state,
@@ -17,26 +17,29 @@ export const ReportComponent: React.FC<IProps> = ({
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const report = report_from_state || report_from_params;
+  const method = [null, "dashboard"].includes(report_type) ? REPORT : ITEMS; //не меняем метод если тип отчёта дашборд
+  const type = tab_item;
 
   const classes = useStyles();
 
-  const data_for_query = {
-    solution,
-    session,
-    language,
-    project,
-    report,
-    method: report_type === null ? REPORT : ITEMS,
-    type: tab_item || null,
-  };
-
   useEffect(() => {
-    handleDataQuery(data_for_query);
-  });
+    const data_for_query = {
+      solution,
+      session,
+      language,
+      project,
+      report,
+      method,
+      type,
+    };
 
-  return (
+    report && handleDataQuery(data_for_query); //получаем данные только если установлен репорт код
+  }, [report, method]);
+
+  console.log(tabs);
+  return report ? (
     <div className={classes.root}>
-      {tab_item && <Tabs />} {report_type === "dashboard" && <Dashboard />}
+      {tabs && <Tabs />} {report_type === "dashboard" && <Dashboard />}
     </div>
-  );
+  ) : null;
 };

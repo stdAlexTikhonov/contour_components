@@ -12,6 +12,7 @@ import {
 } from "../../actions/report";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
+import { report } from "../../reducers";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
@@ -20,6 +21,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report: state.report.code,
   report_type: state.report.report_type,
   tab_item: state.report.tab_item,
+  tabs: state.report.tabs,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
@@ -41,7 +43,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       reportData.path && dispatch(setBreadcrumbs(reportData.path));
 
       //if we got type in query then setTabs
-      data_for_query.type && dispatch(setTabs(reportData.items));
+      reportData.items && dispatch(setTabs(reportData.items));
     }
   },
 });
