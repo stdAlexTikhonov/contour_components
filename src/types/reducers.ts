@@ -1,4 +1,4 @@
-import { Dashboard } from "../types/actions";
+import { Dashboard, Metadata } from "../types/actions";
 
 export interface authedUserType {
   logged_in: boolean;
@@ -16,6 +16,7 @@ export type reportType = {
   tab_item: string | null;
   tabs: [] | null;
   dashboard: Dashboard | null;
+  metadata: Array<Metadata> | null;
 };
 
 export type AppReducers = authedUserType | languageType;

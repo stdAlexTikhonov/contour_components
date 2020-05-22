@@ -178,12 +178,24 @@ export interface setDashboard {
   dashboard: Dashboard | null;
 }
 
+export const SET_DASHBOARD_METADATA = "SET_DASHBOARD_METADATA";
+
+export type Metadata = {
+  caption: string;
+};
+
+export interface setDashboardMetadata {
+  type: typeof SET_DASHBOARD_METADATA;
+  metadata: Array<Metadata> | null;
+}
+
 export type reportActions =
   | setReport
   | setReportType
   | setTabItem
   | setTabs
-  | setDashboard;
+  | setDashboard
+  | setDashboardMetadata;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -218,4 +230,5 @@ export type AppActions =
   | setTabItem
   | setTabs
   | setDashboard
+  | setDashboardMetadata
   | setView;

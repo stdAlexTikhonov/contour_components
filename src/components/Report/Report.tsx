@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { IProps } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
-import { REPORT, ITEMS } from "../../utils/constants";
+import { REPORT, ITEMS, DASH_VIEW_META } from "../../utils/constants";
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
 
@@ -13,11 +13,17 @@ export const ReportComponent: React.FC<IProps> = ({
   report: report_from_state,
   report_type,
   tab_item,
+  metadata,
   handleDataQuery,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const report = report_from_state || report_from_params;
-  const method = report_type === null ? REPORT : ITEMS;
+  const method =
+    report_type === null
+      ? REPORT
+      : report_type === "dashboard" && metadata === null
+      ? DASH_VIEW_META
+      : ITEMS;
   const type = tab_item;
 
   const classes = useStyles();

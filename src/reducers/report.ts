@@ -4,6 +4,7 @@ import {
   SET_TAB_ITEM,
   SET_TABS,
   SET_DASHBOARD,
+  SET_DASHBOARD_METADATA,
   reportActions,
 } from "../types/actions";
 import { reportType } from "../types/reducers";
@@ -14,6 +15,7 @@ const reportDefaultState: reportType = {
   tab_item: null,
   tabs: null,
   dashboard: null,
+  metadata: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -42,6 +44,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         dashboard: action.dashboard,
+      };
+    case SET_DASHBOARD_METADATA:
+      return {
+        ...state,
+        metadata: action.metadata,
       };
     default:
       return state;
