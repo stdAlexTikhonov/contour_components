@@ -10,8 +10,10 @@ import {
   setTabs,
   setDashboard,
 } from "../../actions/report";
+import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
+import { report } from "../../reducers";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
@@ -20,21 +22,32 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report: state.report.code,
   report_type: state.report.report_type,
   tab_item: state.report.tab_item,
+  tabs: state.report.tabs,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
     const reportData = await getData(data_for_query);
 
-    if (reportData.success && reportData.type) {
-      dispatch(setReportType(reportData.type));
+    //if success and response have type property then we can save type
+    if (reportData.success) {
+      reportData.type && dispatch(setReportType(reportData.type));
+
+      //if we got dashboard prop then we can save data for dashboard
       reportData.dashboard &&
         dispatch(setDashboard(formatGeometry(reportData.dashboard)));
-      reportData.tab_item && dispatch(setTabItem(reportData.tab_item));
-    }
 
-    reportData.path && dispatch(setBreadcrumbs(reportData.path));
-    data_for_query.type && dispatch(setTabs(reportData.items));
+      //...
+      reportData.tab_item && dispatch(setTabItem(reportData.tab_item));
+
+      //set breadcrumbs
+      reportData.path && dispatch(setBreadcrumbs(reportData.path));
+
+      //if we got type in query then setTabs
+      reportData.items && dispatch(setTabs(reportData.items));
+    }
+    dispatch(resetLoading());
   },
 });
 

@@ -21,7 +21,7 @@ export const AppComponent: React.FC<IProps> = ({
 }) => {
   useEffect(() => {
     getInitialData();
-  }, [getInitialData]);
+  }, []);
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}

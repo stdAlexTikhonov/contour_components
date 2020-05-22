@@ -32,7 +32,7 @@ export const CardsComponent: React.FC<IProps> = ({
       p_folder,
       language,
     });
-  }, [solution, folder, session, handleDataQuery, language, project, p_folder]);
+  }, [session, solution, folder, project, p_folder]);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
