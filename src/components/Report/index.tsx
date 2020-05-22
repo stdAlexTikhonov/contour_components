@@ -10,6 +10,7 @@ import {
   setTabs,
   setDashboard,
 } from "../../actions/report";
+import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
 import { report } from "../../reducers";
@@ -26,6 +27,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
     const reportData = await getData(data_for_query);
 
     //if success and response have type property then we can save type
@@ -45,6 +47,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       //if we got type in query then setTabs
       reportData.items && dispatch(setTabs(reportData.items));
     }
+    dispatch(resetLoading());
   },
 });
 

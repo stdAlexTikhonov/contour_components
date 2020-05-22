@@ -22,6 +22,7 @@ export const ReportComponent: React.FC<IProps> = ({
 
   const classes = useStyles();
 
+  //session необходима при перезагруке страницы
   useEffect(() => {
     const data_for_query = {
       solution,
@@ -34,9 +35,8 @@ export const ReportComponent: React.FC<IProps> = ({
     };
 
     report && handleDataQuery(data_for_query); //получаем данные только если установлен репорт код
-  }, [report, method]);
+  }, [report, method, session]);
 
-  console.log(tabs);
   return report ? (
     <div className={classes.root}>
       {tabs && <Tabs />} {report_type === "dashboard" && <Dashboard />}
