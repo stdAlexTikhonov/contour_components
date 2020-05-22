@@ -2,8 +2,12 @@ import React from "react";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { useStyles } from "./styles";
+import { Loader } from "../Loader/Loader";
 
-export const DashboardComponent: React.FC<IProps> = ({ dashboard }) => {
+export const DashboardComponent: React.FC<IProps> = ({
+  dashboard,
+  metadata,
+}) => {
   const classes = useStyles();
 
   return (
@@ -16,7 +20,15 @@ export const DashboardComponent: React.FC<IProps> = ({ dashboard }) => {
         height={item.h + item.hcu}
         style={{ float: item.float }}
       >
-        1
+        {metadata ? (
+          metadata[i].caption
+        ) : (
+          <Box display="flex" height="100%">
+            <Box margin="auto">
+              <Loader />
+            </Box>
+          </Box>
+        )}
       </Box>
     ))
   );
