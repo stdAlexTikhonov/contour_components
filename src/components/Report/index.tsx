@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       //set breadcrumbs
       reportData.path && dispatch(setBreadcrumbs(reportData.path));
 
-      //if we got type in query then setTabs
+      //if report_type !== dashboard in query then setTab
       reportData.items && dispatch(setTabs(reportData.items));
     }
     dispatch(resetLoading());
