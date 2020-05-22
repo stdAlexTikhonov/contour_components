@@ -1,5 +1,4 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { items } from "../../reducers";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
