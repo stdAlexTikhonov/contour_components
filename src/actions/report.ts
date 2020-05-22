@@ -5,7 +5,9 @@ import {
   SET_TAB_ITEM,
   SET_TABS,
   SET_DASHBOARD,
+  SET_DASHBOARD_METADATA,
   Dashboard,
+  Metadata,
 } from "../types/actions";
 
 export const setReport = (report: string): AppActions => ({
@@ -31,4 +33,11 @@ export const setTabs = (tabs: [] | null): AppActions => ({
 export const setDashboard = (dashboard: Dashboard | null): AppActions => ({
   type: SET_DASHBOARD,
   dashboard,
+});
+
+export const setDashboardMetadata = (
+  metadata: Array<Metadata> | null
+): AppActions => ({
+  type: SET_DASHBOARD_METADATA,
+  metadata,
 });
