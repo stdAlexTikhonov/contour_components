@@ -18,11 +18,8 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
           bredcrumbs_transformed[i] =
             breadcrumb.type + "/" + bredcrumbs_transformed[i];
 
-        const filtered = bredcrumbs_transformed.slice(0, i + 1);
+        const link = bredcrumbs_transformed.slice(0, i + 1).join("/");
 
-        const link = filtered.join("/");
-
-        console.log(link);
         if (i < len)
           return (
             <Link
