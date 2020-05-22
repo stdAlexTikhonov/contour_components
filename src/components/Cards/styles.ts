@@ -6,6 +6,7 @@ export const useStyles = makeStyles({
     margin: 5,
     position: "relative",
     paddingRight: 15,
+    height: "100%",
   },
   container: {
     display: "flex",
@@ -15,7 +16,6 @@ export const useStyles = makeStyles({
     alignItems: "flex-start",
     overflow: "scroll",
     justifyContent: "space-around",
-    cursor: "pointer",
   },
   icon: {
     position: "absolute",
