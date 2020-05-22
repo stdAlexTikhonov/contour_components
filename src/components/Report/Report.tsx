@@ -17,7 +17,7 @@ export const ReportComponent: React.FC<IProps> = ({
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const report = report_from_state || report_from_params;
-  const method = [null, "dashboard"].includes(report_type) ? REPORT : ITEMS; //не меняем метод если тип отчёта дашборд
+  const method = report_type === null ? REPORT : ITEMS;
   const type = tab_item;
 
   const classes = useStyles();
@@ -39,7 +39,8 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return report ? (
     <div className={classes.root}>
-      {tabs && <Tabs />} {report_type === "dashboard" && <Dashboard />}
+      {tabs && report_type !== "dashboard" && <Tabs />}
+      {report_type === "dashboard" && <Dashboard />}
     </div>
   ) : null;
 };
