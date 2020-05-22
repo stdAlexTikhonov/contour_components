@@ -1,4 +1,5 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { items } from "../../reducers";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,6 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
       display: "flex",
+      alignItems: "center",
     },
     formControl: {
       minWidth: 120,
