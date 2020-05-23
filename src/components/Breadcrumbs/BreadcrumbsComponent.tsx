@@ -8,17 +8,38 @@ import { Breadcrumb } from "../../types/actions";
 
 export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
   const len = breadcrumbs.length - 1;
+
+  //***** Refactor this *****
+  const bt = breadcrumbs.map((item) => item.type);
+  const pi = bt.indexOf("project");
+  //**** Refactor this  ******
+
   const bredcrumbs_transformed = breadcrumbs.map((item) => item.code);
   const classes = useStyles();
 
   return (
     <Breadcrumbs aria-label="breadcrumb" maxItems={3} className={classes.root}>
       {breadcrumbs.map((breadcrumb: Breadcrumb, i: number) => {
-        if (["project", "report"].includes(breadcrumb.type))
-          bredcrumbs_transformed[i] =
-            breadcrumb.type + "/" + bredcrumbs_transformed[i];
-
-        const link = bredcrumbs_transformed.slice(0, i + 1).join("/");
+        //******** Refactor this **********/
+        let link = "";
+        if (i > pi)
+          link =
+            bredcrumbs_transformed[0] +
+            "/" +
+            (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
+            "project/" +
+            bredcrumbs_transformed[pi] +
+            "/" +
+            breadcrumb.code;
+        else if (pi === i)
+          link =
+            bredcrumbs_transformed[0] +
+            "/" +
+            (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
+            "project/" +
+            bredcrumbs_transformed[pi];
+        else link = bredcrumbs_transformed[0] + "/" + breadcrumb.code;
+        //******** Refactor this ********
 
         if (i < len)
           return (
