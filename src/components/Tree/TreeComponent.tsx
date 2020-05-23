@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -14,6 +14,8 @@ export const TreeComponent: React.FC<IProps> = ({
   session,
   language,
   handleReportClick,
+  view,
+  history,
 }) => {
   const classes = useStyles();
   const [tree, setTree] = useState(items);
@@ -36,20 +38,31 @@ export const TreeComponent: React.FC<IProps> = ({
   };
 
   const renderTree = (items: any) => {
-    return items.map((item: any) => (
-      <TreeItem
-        nodeId={item.code}
-        label={item.caption}
-        key={item.code}
-        onClick={(e) =>
-          item.type === "folder"
-            ? !item.items && addToTree(item, e.target)
-            : handleReportClick(item.code)
-        }
-      >
-        {item.items && renderTree(item.items)}
-      </TreeItem>
-    ));
+    return items.map((item: any) =>
+      view === "tree_only" && item.type === "report" ? (
+        <div>
+          <Link
+            className={classes.link}
+            to={history.location.pathname + "/report/" + item.code}
+          >
+            {item.caption}
+          </Link>
+        </div>
+      ) : (
+        <TreeItem
+          key={item.code}
+          nodeId={item.code}
+          label={item.caption}
+          onClick={(e) =>
+            item.type === "folder"
+              ? !item.items && addToTree(item, e.target)
+              : handleReportClick(item.code)
+          }
+        >
+          {item.items && item.type === "folder" && renderTree(item.items)}
+        </TreeItem>
+      )
+    );
   };
 
   return (

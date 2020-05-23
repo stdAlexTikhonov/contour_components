@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { AppState } from "../../store/config_store";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { TreeComponent } from "./TreeComponent";
@@ -16,6 +17,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
   session: state.auth.session || undefined,
   language: state.languages.current,
+  view: state.view,
 });
 
 const mapDispatchToProps = (
@@ -30,4 +32,6 @@ const mapDispatchToProps = (
   },
 });
 
-export const Tree = connect(mapStateToProps, mapDispatchToProps)(TreeComponent);
+export const Tree = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(TreeComponent)
+);

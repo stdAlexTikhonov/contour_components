@@ -55,7 +55,6 @@ export const TabsComponent: React.FC<IProps> = ({ tabs }) => {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
-  console.log(tabs);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
