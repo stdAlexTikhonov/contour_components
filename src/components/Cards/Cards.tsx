@@ -33,7 +33,7 @@ export const CardsComponent: React.FC<IProps> = ({
       p_folder,
       language,
     });
-  }, [session, solution, folder, project, p_folder]);
+  }, [session, solution, folder, project, p_folder, language]);
 
   return (
     <div className={classes.container}>
