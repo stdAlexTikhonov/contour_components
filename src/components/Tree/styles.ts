@@ -5,4 +5,13 @@ export const useStyles = makeStyles({
     height: 500, //??
     overflow: "scroll",
   },
+  link: {
+    fontSize: "1rem",
+    fontFamily: "Roboto",
+    fontWeight: 400,
+    lineHeight: 1.5,
+    letterSpacing: "0.00938em",
+    color: "black",
+    textDecoration: "none",
+  },
 });
