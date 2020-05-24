@@ -3,6 +3,7 @@ import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { useStyles } from "./styles";
 import { Loader } from "../Loader/Loader";
+import { View } from "../View";
 
 export const DashboardComponent: React.FC<IProps> = ({
   dashboard,
@@ -21,7 +22,7 @@ export const DashboardComponent: React.FC<IProps> = ({
         style={{ float: item.float }}
       >
         {metadata ? (
-          metadata[i].caption
+          <View title={metadata[i].caption} />
         ) : (
           <Box display="flex" height="100%">
             <Box margin="auto">
