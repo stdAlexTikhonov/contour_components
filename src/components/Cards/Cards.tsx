@@ -57,7 +57,7 @@ export const CardsComponent: React.FC<IProps> = ({
             link = "/" + solution + "/project/" + item.code;
           }
           return (
-            <Grid item key={item.code} xs={8} md={4} lg={3}>
+            <Grid item key={item.code} xs={8} md={6} lg={4}>
               <Card className={classes.root}>
                 <Link
                   to={link}
