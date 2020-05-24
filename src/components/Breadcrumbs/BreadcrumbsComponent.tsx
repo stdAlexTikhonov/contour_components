@@ -38,7 +38,9 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
             (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
             "project/" +
             bredcrumbs_transformed[pi];
-        else link = bredcrumbs_transformed[0] + "/" + breadcrumb.code;
+        else
+          link =
+            bredcrumbs_transformed[0] + "/" + (i > 0 ? breadcrumb.code : "");
         //******** Refactor this ********
 
         if (i < len)
