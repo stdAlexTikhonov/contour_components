@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -16,11 +16,14 @@ export const FiltersComponent: React.FC<IProps> = ({
   selected_filter,
 }) => {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
+  const [fact, setFact] = useState("");
+  const [filter, setFilter] = useState("");
   const { solution, project, report } = useParams();
   const val = "";
 
-  const handleClick = async (code: string) => {
+  const handleClick = async (id: string, code: string) => {
+    setFilter(id + code);
+
     await handleDataQuery({
       method: GET_DIM_FILTER,
       language,
@@ -33,27 +36,19 @@ export const FiltersComponent: React.FC<IProps> = ({
       code,
     });
   };
-  const handleChange = (
-    code: string | null,
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    setAge(event.target.value as string);
+  const handleFact = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setFact(event.target.value as string);
   };
 
   return (
     <div className={classes.selectEmpty}>
       <FormControl className={classes.formControl}>
-        <InputLabel
-          id="demo-simple-select-label"
-          className={age === "" ? classes.test1 : classes.test}
-        >
-          Facts
-        </InputLabel>
+        <InputLabel id="demo-simple-select-label">Facts</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          onChange={(value) => handleChange(null, value)}
+          value={fact}
+          onChange={handleFact}
         >
           {metadata.facts &&
             metadata.facts.items.map((item: any) => (
@@ -71,14 +66,21 @@ export const FiltersComponent: React.FC<IProps> = ({
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              id={metadata.id + item.code}
               value={val}
-              onChange={(value) => handleChange(item.code, value)}
-              onOpen={() => handleClick(item.code)}
+              onChange={(value) => console.log(value)}
+              onOpen={() => handleClick(metadata.id, item.code)}
+              onClose={() => setFilter("")}
             >
-              <MenuItem key={item} value={"None"}>
-                {"Loading..."}
-              </MenuItem>
+              {filter === metadata.id + item.code &&
+                selected_filter?.captions.map((val) => {
+                  const replaced = val.replace(/&nbsp;/g, " ");
+                  return (
+                    <MenuItem key={replaced} value={replaced}>
+                      {replaced}
+                    </MenuItem>
+                  );
+                })}
             </Select>
           </FormControl>
         ))}

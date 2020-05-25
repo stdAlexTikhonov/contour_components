@@ -186,6 +186,7 @@ export type Metadata = {
   filter_dim: any;
   slice: string;
   view: string;
+  id: string;
 };
 
 export interface setDashboardMetadata {
