@@ -14,6 +14,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   session,
   handleDataQuery,
   selected_filter,
+  handleClose,
 }) => {
   const classes = useStyles();
   const [fact, setFact] = useState("");
@@ -51,7 +52,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           onChange={handleFact}
         >
           {metadata.facts &&
-            metadata.facts.items.map((item: any) => (
+            metadata.facts.items?.map((item: any) => (
               <MenuItem key={item.code} value={item.code}>
                 {item.Caption}
               </MenuItem>
@@ -70,7 +71,10 @@ export const FiltersComponent: React.FC<IProps> = ({
               value={val}
               onChange={(value) => console.log(value)}
               onOpen={() => handleClick(metadata.id, item.code)}
-              onClose={() => setFilter("")}
+              onClose={() => {
+                handleClose();
+                setFilter("");
+              }}
             >
               {filter === metadata.id + item.code &&
                 selected_filter?.captions.map((val) => {

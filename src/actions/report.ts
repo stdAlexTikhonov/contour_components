@@ -44,7 +44,9 @@ export const setDashboardMetadata = (
   metadata,
 });
 
-export const getDimFilter = (selected_filter: DimFilter): AppActions => ({
+export const getDimFilter = (
+  selected_filter: DimFilter | null
+): AppActions => ({
   type: GET_DIMENSION_FILTER,
   selected_filter,
 });

@@ -27,6 +27,9 @@ const mapDispatchToProps = (
 
     dispatch(getDimFilter(data_transformed));
   },
+  handleClose: () => {
+    dispatch(getDimFilter(null));
+  },
 });
 
 export const Filters = connect(

@@ -203,7 +203,7 @@ export type DimFilter = {
 
 export interface getDimFilter {
   type: typeof GET_DIMENSION_FILTER;
-  selected_filter: DimFilter;
+  selected_filter: DimFilter | null;
 }
 
 export type reportActions =
