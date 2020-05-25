@@ -25,6 +25,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   const classes = useStyles();
   const [age, setAge] = React.useState("");
   const { solution, project, report } = useParams();
+  const val = "";
 
   const handleClick = async (code: string) => {
     await handleDataQuery({
@@ -72,30 +73,19 @@ export const FiltersComponent: React.FC<IProps> = ({
       {metadata.filter_dim &&
         metadata.filter_dim.items.map((item: any) => (
           <FormControl key={item.code} className={classes.formControl}>
-            <InputLabel
-              id="demo-simple-select-label"
-              className={age === "" ? classes.test1 : classes.test}
-            >
+            <InputLabel id="demo-simple-select-label">
               {item.Caption}
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age}
+              value={val}
               onChange={(value) => handleChange(item.code, value)}
               onOpen={() => handleClick(item.code)}
             >
-              {selected_filter ? (
-                selected_filter.captions.map((item) => (
-                  <MenuItem key={item} value={item}>
-                    {item.replace(/&nbsp;/g, " ")}
-                  </MenuItem>
-                ))
-              ) : (
-                <MenuItem key={item} value={"None"}>
-                  {"Loading..."}
-                </MenuItem>
-              )}
+              <MenuItem key={item} value={"None"}>
+                {"Loading..."}
+              </MenuItem>
             </Select>
           </FormControl>
         ))}

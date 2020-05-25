@@ -9,7 +9,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
   return (
     <Grid container className={classes.container}>
       <Grid item className={classes.item}>
-        <b>{metadata.caption}</b>
+        <b className={classes.title}>{metadata.caption}</b>
         <Filters metadata={metadata} />
       </Grid>
     </Grid>
