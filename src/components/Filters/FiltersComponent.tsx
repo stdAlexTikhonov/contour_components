@@ -76,7 +76,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                 setFilter("");
               }}
             >
-              {filter === metadata.id + item.code &&
+              {filter === metadata.id + item.code && selected_filter ? (
                 selected_filter?.captions.map((val) => {
                   const replaced = val.replace(/&nbsp;/g, " ");
                   return (
@@ -84,7 +84,10 @@ export const FiltersComponent: React.FC<IProps> = ({
                       {replaced}
                     </MenuItem>
                   );
-                })}
+                })
+              ) : (
+                <MenuItem value={"loading"}>{"Loading..."}</MenuItem>
+              )}
             </Select>
           </FormControl>
         ))}
