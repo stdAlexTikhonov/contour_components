@@ -184,11 +184,25 @@ export type Metadata = {
   caption: string;
   facts: any;
   filter_dim: any;
+  slice: string;
+  view: string;
 };
 
 export interface setDashboardMetadata {
   type: typeof SET_DASHBOARD_METADATA;
   metadata: Array<Metadata> | null;
+}
+
+export const GET_DIMENSION_FILTER = "GET_DIMETION_FILTER";
+
+export type DimFilter = {
+  captions: Array<string>;
+  filters: string;
+};
+
+export interface getDimFilter {
+  type: typeof GET_DIMENSION_FILTER;
+  selected_filter: DimFilter;
 }
 
 export type reportActions =
@@ -197,6 +211,7 @@ export type reportActions =
   | setTabItem
   | setTabs
   | setDashboard
+  | getDimFilter
   | setDashboardMetadata;
 
 //Items
@@ -233,4 +248,5 @@ export type AppActions =
   | setTabs
   | setDashboard
   | setDashboardMetadata
+  | getDimFilter
   | setView;

@@ -22,7 +22,7 @@ export const DashboardComponent: React.FC<IProps> = ({
         style={{ float: item.float }}
       >
         {metadata ? (
-          <View metadata={metadata[i]} />
+          <View metadata={{ ...metadata[i], ...dashboard.cells[i] }} />
         ) : (
           <Box display="flex" height="100%">
             <Box margin="auto">

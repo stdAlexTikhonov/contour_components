@@ -6,8 +6,10 @@ import {
   SET_TABS,
   SET_DASHBOARD,
   SET_DASHBOARD_METADATA,
+  GET_DIMENSION_FILTER,
   Dashboard,
   Metadata,
+  DimFilter,
 } from "../types/actions";
 
 export const setReport = (report: string): AppActions => ({
@@ -40,4 +42,9 @@ export const setDashboardMetadata = (
 ): AppActions => ({
   type: SET_DASHBOARD_METADATA,
   metadata,
+});
+
+export const getDimFilter = (selected_filter: DimFilter): AppActions => ({
+  type: GET_DIMENSION_FILTER,
+  selected_filter,
 });
