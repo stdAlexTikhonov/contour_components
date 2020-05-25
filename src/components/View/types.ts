@@ -1,5 +1,7 @@
+import { Metadata } from "../../types/actions";
+
 export interface Props {
-  title: string;
+  metadata: Metadata;
 }
 
 export type IProps = Props;

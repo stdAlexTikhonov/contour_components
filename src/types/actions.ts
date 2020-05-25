@@ -182,6 +182,8 @@ export const SET_DASHBOARD_METADATA = "SET_DASHBOARD_METADATA";
 
 export type Metadata = {
   caption: string;
+  facts: any;
+  filter_dim: any;
 };
 
 export interface setDashboardMetadata {

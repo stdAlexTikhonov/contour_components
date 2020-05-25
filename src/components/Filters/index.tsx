@@ -1,29 +1,13 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { useStyles } from "./styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      minWidth: 120,
-      marginTop: -10,
-      marginLeft: 10,
-    },
-    selectEmpty: {
-      display: "flex",
-      width: "100%",
-    },
-    test: {
-      transform: "translate(0, 10.5px) scale(0.75)",
-    },
-    test1: {},
-  })
-);
+import { IProps } from "./types";
 
-export const Filters = () => {
+export const Filters: React.FC<IProps> = ({ metadata }) => {
   const classes = useStyles();
   const [age, setAge] = React.useState("");
 
@@ -38,7 +22,7 @@ export const Filters = () => {
           id="demo-simple-select-label"
           className={age === "" ? classes.test1 : classes.test}
         >
-          Age
+          Facts
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -46,11 +30,33 @@ export const Filters = () => {
           value={age}
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {metadata.facts &&
+            metadata.facts.items.map((item: any) => (
+              <MenuItem key={item.code} value={item.code}>
+                {item.Caption}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
+      {metadata.filter_dim &&
+        metadata.filter_dim.items.map((item: any) => (
+          <FormControl key={item.code} className={classes.formControl}>
+            <InputLabel
+              id="demo-simple-select-label"
+              className={age === "" ? classes.test1 : classes.test}
+            >
+              {item.Caption}
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              onChange={handleChange}
+            >
+              <MenuItem value={"none"}>None</MenuItem>
+            </Select>
+          </FormControl>
+        ))}
     </div>
   );
 };
