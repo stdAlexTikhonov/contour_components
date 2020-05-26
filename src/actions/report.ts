@@ -7,9 +7,11 @@ import {
   SET_DASHBOARD,
   SET_DASHBOARD_METADATA,
   GET_DIMENSION_FILTER,
+  SET_DATA_TO_TAB,
   Dashboard,
   Metadata,
   DimFilter,
+  Tab,
 } from "../types/actions";
 
 export const setReport = (report: string): AppActions => ({
@@ -27,7 +29,7 @@ export const setTabItem = (tab_item: string | null): AppActions => ({
   tab_item,
 });
 
-export const setTabs = (tabs: [] | null): AppActions => ({
+export const setTabs = (tabs: Tab[] | null): AppActions => ({
   type: SET_TABS,
   tabs,
 });
@@ -49,4 +51,10 @@ export const getDimFilter = (
 ): AppActions => ({
   type: GET_DIMENSION_FILTER,
   selected_filter,
+});
+
+export const setDataToTab = (data: any, index: number): AppActions => ({
+  type: SET_DATA_TO_TAB,
+  data,
+  index,
 });

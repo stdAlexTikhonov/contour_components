@@ -6,7 +6,9 @@ import {
   SET_DASHBOARD,
   SET_DASHBOARD_METADATA,
   GET_DIMENSION_FILTER,
+  SET_DATA_TO_TAB,
   reportActions,
+  Tab,
 } from "../types/actions";
 import { reportType } from "../types/reducers";
 
@@ -57,6 +59,16 @@ export const report = (state = reportDefaultState, action: reportActions) => {
         ...state,
         selected_filter: action.selected_filter,
       };
+    case SET_DATA_TO_TAB: {
+      const tab = state.tabs && state.tabs[action.index];
+      const new_tab: Tab = Object.assign(tab, { data: action.data });
+      state.tabs!.splice(action.index, 1, new_tab);
+      return {
+        ...state,
+        tabs: state.tabs,
+      };
+    }
+
     default:
       return state;
   }
