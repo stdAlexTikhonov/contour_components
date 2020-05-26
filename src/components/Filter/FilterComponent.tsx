@@ -20,7 +20,7 @@ export const FilterComponent: React.FC<IProps> = ({
   resetSelectedFilter,
   handleDataQuery,
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<Array<string>>([]);
   const [values, setValues] = useState<Array<string>>([]);
   const [clicked, setClicked] = useState(false);
   const classes = useStyles();
@@ -29,15 +29,20 @@ export const FilterComponent: React.FC<IProps> = ({
   const { filters } = selected_filter ? selected_filter : { filters: "" };
 
   const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
-    const val = event.target.value as string;
+    const val = event.target.value as Array<string>;
+
     setValue(val);
 
     //Костыль - выпилить
     const { captions } = selected_filter ? selected_filter : { captions: [""] };
     if (values.length === 0 && captions.length > 0) setValues(captions);
 
-    let filter = values.map((item: any) => (item === val ? 1 : 0)).join("");
-    let filter1 = captions.map((item: any) => (item === val ? 1 : 0)).join("");
+    let filter = values
+      .map((item: any) => (val.includes(item) ? 1 : 0))
+      .join("");
+    let filter1 = captions
+      .map((item: any) => (val.includes(item) ? 1 : 0))
+      .join("");
 
     //Установка фильтра на сервере
     await handleDataQuery({
@@ -83,6 +88,7 @@ export const FilterComponent: React.FC<IProps> = ({
       <FormControl key={code} className={classes.formControl}>
         <InputLabel id={"demo-simple-select-label" + code}>{label}</InputLabel>
         <Select
+          multiple
           labelId={"demo-simple-select-label" + code}
           value={value}
           onChange={handleChange}
