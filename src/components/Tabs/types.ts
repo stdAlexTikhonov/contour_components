@@ -12,5 +12,5 @@ export interface LinkStateToProps {
 }
 
 export interface LinkDispatchToProps {
-  handleDataQuery: (data_for_query: DataForQuery) => void;
+  handleDataQuery: (data_for_query: DataForQuery, index: number) => void;
 }

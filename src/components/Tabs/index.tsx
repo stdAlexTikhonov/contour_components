@@ -20,11 +20,11 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
-  handleDataQuery: async (data_for_query: DataForQuery) => {
+  handleDataQuery: async (data_for_query: DataForQuery, index: number) => {
     dispatch(setLoading());
     const data = await getData(data_for_query);
 
-    if (data.success) dispatch(setDataToTab(data, 0));
+    if (data.success) dispatch(setDataToTab(data, index));
     dispatch(resetLoading());
   },
 });

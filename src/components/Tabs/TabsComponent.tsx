@@ -66,25 +66,31 @@ export const TabsComponent: React.FC<IProps> = ({
       console.log(data);
       switch (data.type) {
         case "slice":
-          handleDataQuery({
-            method: "REPORT",
-            session,
-            language,
-            solution,
-            project,
-            report,
-            slice: data.code,
-          });
+          handleDataQuery(
+            {
+              method: "REPORT",
+              session,
+              language,
+              solution,
+              project,
+              report,
+              slice: data.code,
+            },
+            newValue
+          );
           break;
         case "report":
-          handleDataQuery({
-            method: "REPORT",
-            session,
-            language,
-            solution,
-            project,
-            report: data.code,
-          });
+          handleDataQuery(
+            {
+              method: "REPORT",
+              session,
+              language,
+              solution,
+              project,
+              report: data.code,
+            },
+            newValue
+          );
           break;
         case "view":
           break;
