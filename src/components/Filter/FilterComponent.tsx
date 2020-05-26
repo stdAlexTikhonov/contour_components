@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
 
-import { GET_DIM_FILTER } from "../../utils/constants";
+import { GET_DIM_FILTER, SET_DIM_FILTER } from "../../utils/constants";
 
 export const FilterComponent: React.FC<IProps> = ({
   label,
@@ -26,13 +26,32 @@ export const FilterComponent: React.FC<IProps> = ({
   const classes = useStyles();
 
   const { solution, project, report } = useParams();
+  const { filters } = selected_filter ? selected_filter : { filters: "" };
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setValue(event.target.value as string);
+  const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
+    const val = event.target.value as string;
+    setValue(val);
 
     //Костыль - выпилить
-    const { captions } = selected_filter ? selected_filter : { captions: [] };
+    const { captions } = selected_filter ? selected_filter : { captions: [""] };
     if (values.length === 0 && captions.length > 0) setValues(captions);
+
+    let filter = values.map((item: any) => (item === val ? 1 : 0)).join("");
+    let filter1 = captions.map((item: any) => (item === val ? 1 : 0)).join("");
+
+    //Установка фильтра на сервере
+    await handleDataQuery({
+      method: SET_DIM_FILTER,
+      language,
+      session,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      code,
+      filter: filter ? filter : filter1,
+    });
   };
 
   const handleClick = async (e: any) => {
@@ -73,7 +92,7 @@ export const FilterComponent: React.FC<IProps> = ({
         >
           {clicked &&
             arr &&
-            arr.map((val) => {
+            arr.map((val, i) => {
               const replaced = val.replace(/&nbsp;/g, " ");
               return (
                 <MenuItem key={replaced} value={replaced}>

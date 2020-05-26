@@ -27,6 +27,7 @@ export interface DataForQuery extends Common {
   slice?: string;
   view?: string;
   code?: string; //filter code
+  filter?: string;
 }
 
 export type ApiTypes = DataForQuery | Login | Register | Common;

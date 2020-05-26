@@ -8,3 +8,4 @@ export const STYLE: string = "Stylesheet";
 export const CHART: string = "ContourChart";
 export const VIEW_META: string = "ViewMetadata";
 export const GET_DIM_FILTER: string = "GetDimFilter";
+export const SET_DIM_FILTER: string = "SetDimFilter";
