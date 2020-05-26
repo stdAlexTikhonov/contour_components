@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       minWidth: 120,
-      marginTop: -10,
+      marginTop: 0,
       marginLeft: 10,
     },
     selectEmpty: {
