@@ -7,6 +7,7 @@ import { GET_DIM_FILTER } from "../../utils/constants";
 import Select from "@material-ui/core/Select";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
+import { Filter } from "../Filter";
 
 export const FiltersComponent: React.FC<IProps> = ({
   metadata,
@@ -41,13 +42,14 @@ export const FiltersComponent: React.FC<IProps> = ({
     setFact(event.target.value as string);
   };
 
+  const { slice, view } = metadata;
+
   return (
     <div className={classes.selectEmpty}>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Facts</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={fact}
           onChange={handleFact}
         >
@@ -61,35 +63,13 @@ export const FiltersComponent: React.FC<IProps> = ({
       </FormControl>
       {metadata.filter_dim &&
         metadata.filter_dim.items.map((item: any) => (
-          <FormControl key={item.code} className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">
-              {item.Caption}
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id={metadata.id + item.code}
-              value={val}
-              onChange={(value) => console.log(value)}
-              onOpen={() => handleClick(metadata.id, item.code)}
-              onClose={() => {
-                handleClose();
-                setFilter("");
-              }}
-            >
-              {filter === metadata.id + item.code && selected_filter ? (
-                selected_filter?.captions.map((val) => {
-                  const replaced = val.replace(/&nbsp;/g, " ");
-                  return (
-                    <MenuItem key={replaced} value={replaced}>
-                      {replaced}
-                    </MenuItem>
-                  );
-                })
-              ) : (
-                <MenuItem value={"loading"}>{"Loading..."}</MenuItem>
-              )}
-            </Select>
-          </FormControl>
+          <Filter
+            key={item.code}
+            label={item.Caption}
+            code={item.code}
+            slice={slice}
+            view={view}
+          />
         ))}
     </div>
   );
