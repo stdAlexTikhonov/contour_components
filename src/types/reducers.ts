@@ -1,4 +1,4 @@
-import { Dashboard, Metadata } from "../types/actions";
+import { Dashboard, Metadata, DimFilter } from "../types/actions";
 
 export interface authedUserType {
   logged_in: boolean;
@@ -17,6 +17,7 @@ export type reportType = {
   tabs: [] | null;
   dashboard: Dashboard | null;
   metadata: Array<Metadata> | null;
+  selected_filter: DimFilter | null;
 };
 
 export type AppReducers = authedUserType | languageType;

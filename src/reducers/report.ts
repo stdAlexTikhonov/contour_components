@@ -5,6 +5,7 @@ import {
   SET_TABS,
   SET_DASHBOARD,
   SET_DASHBOARD_METADATA,
+  GET_DIMENSION_FILTER,
   reportActions,
 } from "../types/actions";
 import { reportType } from "../types/reducers";
@@ -16,6 +17,7 @@ const reportDefaultState: reportType = {
   tabs: null,
   dashboard: null,
   metadata: null,
+  selected_filter: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -49,6 +51,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         metadata: action.metadata,
+      };
+    case GET_DIMENSION_FILTER:
+      return {
+        ...state,
+        selected_filter: action.selected_filter,
       };
     default:
       return state;
