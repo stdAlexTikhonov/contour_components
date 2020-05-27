@@ -44,7 +44,7 @@ export const ReportComponent: React.FC<IProps> = ({
   }, [report, method, session, language]);
 
   return report ? (
-    <div className={classes.root}>
+    <div className={classes.root} id="hidebar">
       {tabs && report_type !== "dashboard" && <Tabs />}
       {report_type === "dashboard" && <Dashboard />}
     </div>
