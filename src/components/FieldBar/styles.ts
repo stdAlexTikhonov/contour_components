@@ -8,6 +8,7 @@ export const useStyles = makeStyles({
   aside: {
     flexBasis: "30%",
     border: "0.5px solid lightgray",
+    display: "flex",
   },
   main: {
     flexGrow: 1,
