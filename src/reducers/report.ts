@@ -61,7 +61,9 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       };
     case SET_DATA_TO_TAB: {
       const tab = state.tabs && state.tabs[action.index];
-      const new_tab: Tab = Object.assign(tab, { data: action.data });
+      const data = tab?.data ? tab?.data : {};
+      const new_data = Object.assign(data, { ...action.data });
+      const new_tab = Object.assign(tab, { data: new_data });
       state.tabs!.splice(action.index, 1, new_tab);
       return {
         ...state,

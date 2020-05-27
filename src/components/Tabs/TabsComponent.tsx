@@ -7,6 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
+import { REPORT } from "../../utils/constants";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -68,7 +69,7 @@ export const TabsComponent: React.FC<IProps> = ({
         case "slice":
           handleDataQuery(
             {
-              method: "REPORT",
+              method: REPORT,
               session,
               language,
               solution,
@@ -82,7 +83,7 @@ export const TabsComponent: React.FC<IProps> = ({
         case "report":
           handleDataQuery(
             {
-              method: "REPORT",
+              method: REPORT,
               session,
               language,
               solution,
