@@ -27,17 +27,19 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           >
             <KeyboardIcon fontSize="small" />
           </IconButton>
-          <IconButton
-            size="small"
-            aria-label="delete"
-            onClick={() =>
-              setFieldBarPosition(
-                fieldBarPosition === 3 ? 0 : fieldBarPosition + 1
-              )
-            }
-          >
-            <AutorenewIcon fontSize="small" />
-          </IconButton>
+          {fieldBar && (
+            <IconButton
+              size="small"
+              aria-label="delete"
+              onClick={() =>
+                setFieldBarPosition(
+                  fieldBarPosition === 3 ? 0 : fieldBarPosition + 1
+                )
+              }
+            >
+              <AutorenewIcon fontSize="small" />
+            </IconButton>
+          )}
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
 
