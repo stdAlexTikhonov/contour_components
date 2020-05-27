@@ -7,10 +7,15 @@ import { Filters } from "../Filters";
 import { FieldBar } from "../FieldBar";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
+import { POSITIONS } from "../../utils/constants";
+import { POSITIONS_TYPE } from "../FieldBar/types";
 
 export const View: React.FC<IProps> = ({ metadata }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
+  const [fieldBarPosition, setFieldBarPosition] = useState(0);
+
   return (
     <Grid container className={classes.container}>
       <Grid item className={classes.item}>
@@ -22,12 +27,26 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           >
             <KeyboardIcon fontSize="small" />
           </IconButton>
+          <IconButton
+            size="small"
+            aria-label="delete"
+            onClick={() =>
+              setFieldBarPosition(
+                fieldBarPosition === 3 ? 0 : fieldBarPosition + 1
+              )
+            }
+          >
+            <AutorenewIcon fontSize="small" />
+          </IconButton>
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
 
         <Filters metadata={metadata} />
 
-        <FieldBar show={fieldBar} />
+        <FieldBar
+          show={fieldBar}
+          position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
+        />
       </Grid>
     </Grid>
   );
