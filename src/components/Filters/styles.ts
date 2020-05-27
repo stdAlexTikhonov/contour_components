@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       display: "flex",
       width: "100%",
-      overflow: "scroll",
+      overflowX: "scroll",
     },
     test: {
       transform: "translate(0, 10.5px) scale(0.75)",
