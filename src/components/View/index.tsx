@@ -15,6 +15,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
   const [fieldBarPosition, setFieldBarPosition] = useState(0);
+  const { facts, filter_dim } = metadata;
 
   return (
     <Grid container className={classes.container}>
@@ -48,6 +49,8 @@ export const View: React.FC<IProps> = ({ metadata }) => {
         <FieldBar
           show={fieldBar}
           position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
+          facts={facts ? facts.items : []}
+          dims={filter_dim ? filter_dim.items : []}
         />
       </Grid>
     </Grid>

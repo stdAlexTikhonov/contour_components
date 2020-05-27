@@ -1,4 +1,9 @@
-export type Props = { show: boolean; position: POSITIONS_TYPE };
+export type Props = {
+  show: boolean;
+  position: POSITIONS_TYPE;
+  facts: any;
+  dims: any;
+};
 
 export type POSITIONS_TYPE =
   | "column"
