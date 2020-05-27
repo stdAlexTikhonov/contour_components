@@ -41,7 +41,7 @@ export const ReportComponent: React.FC<IProps> = ({
     };
 
     report && handleDataQuery(data_for_query); //получаем данные только если установлен репорт код
-  }, [report, method, session]);
+  }, [report, method, session, language]);
 
   return report ? (
     <div className={classes.root}>

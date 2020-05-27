@@ -1,4 +1,4 @@
-import { Dashboard, Metadata, DimFilter } from "../types/actions";
+import { Dashboard, Metadata, DimFilter, Tab } from "../types/actions";
 
 export interface authedUserType {
   logged_in: boolean;
@@ -14,7 +14,7 @@ export type reportType = {
   code: string | null;
   report_type: string | null;
   tab_item: string | null;
-  tabs: [] | null;
+  tabs: Tab[] | null;
   dashboard: Dashboard | null;
   metadata: Array<Metadata> | null;
   selected_filter: DimFilter | null;

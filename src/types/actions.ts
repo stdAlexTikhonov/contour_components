@@ -161,9 +161,21 @@ export interface setTabItem {
 
 export const SET_TABS = "SET_TABS";
 
+export type Tab = {
+  [index: string]: any;
+};
+
 export interface setTabs {
   type: typeof SET_TABS;
-  tabs: [] | null;
+  tabs: Tab[] | null;
+}
+
+export const SET_DATA_TO_TAB = "SET_DATA_TO_TAB";
+
+export interface setDataToTab {
+  type: typeof SET_DATA_TO_TAB;
+  data: any;
+  index: number;
 }
 
 export const SET_DASHBOARD = "SET_DASHBOARD";
@@ -213,7 +225,8 @@ export type reportActions =
   | setTabs
   | setDashboard
   | getDimFilter
-  | setDashboardMetadata;
+  | setDashboardMetadata
+  | setDataToTab;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -250,4 +263,5 @@ export type AppActions =
   | setDashboard
   | setDashboardMetadata
   | getDimFilter
-  | setView;
+  | setView
+  | setDataToTab;

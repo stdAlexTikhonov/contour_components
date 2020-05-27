@@ -1,5 +1,5 @@
 import { DataForQuery } from "../../utils/types";
-import { Metadata } from "../../types/actions";
+import { Metadata, Tab } from "../../types/actions";
 export interface Props {}
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
@@ -11,7 +11,7 @@ export interface LinkStateToProps {
   report: string | null;
   report_type: string | null;
   tab_item: string | null;
-  tabs: [] | null;
+  tabs: Tab[] | null;
   metadata: Array<Metadata> | null;
 }
 

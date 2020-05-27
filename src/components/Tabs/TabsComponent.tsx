@@ -1,11 +1,13 @@
 import React from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
+import { REPORT } from "../../utils/constants";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,12 +50,55 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const TabsComponent: React.FC<IProps> = ({ tabs }) => {
+export const TabsComponent: React.FC<IProps> = ({
+  tabs,
+  handleDataQuery,
+  session,
+  language,
+}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const { solution, project, report } = useParams();
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
+    if (tabs) {
+      const data: any = tabs[newValue];
+      console.log(data);
+      switch (data.type) {
+        case "slice":
+          handleDataQuery(
+            {
+              method: REPORT,
+              session,
+              language,
+              solution,
+              project,
+              report,
+              slice: data.code,
+            },
+            newValue
+          );
+          break;
+        case "report":
+          handleDataQuery(
+            {
+              method: REPORT,
+              session,
+              language,
+              solution,
+              project,
+              report: data.code,
+            },
+            newValue
+          );
+          break;
+        case "view":
+          break;
+        default:
+          alert("Data type:" + data.type);
+      }
+    }
   };
   return (
     <div className={classes.root}>
