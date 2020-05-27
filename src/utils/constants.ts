@@ -14,3 +14,4 @@ export const BOTTOM: string = "column-reverse";
 export const LEFT: string = "row";
 export const RIGHT: string = "row-reverse";
 export const POSITIONS = [TOP, RIGHT, BOTTOM, LEFT];
+export const SET_FACTS: string = "SetVisibleFacts";
