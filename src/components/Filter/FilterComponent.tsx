@@ -37,12 +37,13 @@ export const FilterComponent: React.FC<IProps> = ({
     const { captions } = selected_filter ? selected_filter : { captions: [""] };
     if (values.length === 0 && captions.length > 0) setValues(captions);
 
-    let filter = values
-      .map((item: any) => (val.includes(item) ? 1 : 0))
-      .join("");
-    let filter1 = captions
-      .map((item: any) => (val.includes(item) ? 1 : 0))
-      .join("");
+    let filter =
+      values &&
+      values.map((item: any) => (val.includes(item) ? 1 : 0)).join("");
+
+    let filter1 =
+      captions &&
+      captions.map((item: any) => (val.includes(item) ? 1 : 0)).join("");
 
     //Установка фильтра на сервере
     await handleDataQuery({
