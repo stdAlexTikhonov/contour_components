@@ -51,6 +51,8 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
           facts={facts ? facts.items : []}
           dims={filter_dim ? filter_dim.items : []}
+          slice={metadata.slice}
+          view={metadata.view}
         />
       </Grid>
     </Grid>
