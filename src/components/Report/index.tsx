@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
         const metadata = reportData.metadata.map((item: any) => ({
           caption: item.Caption,
           facts: item.Facts,
-          filter_dim: item.FilterDimensions,
+          dimensions: item.Dimensions,
         }));
 
         dispatch(setDashboardMetadata(metadata));

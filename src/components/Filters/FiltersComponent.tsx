@@ -54,8 +54,8 @@ export const FiltersComponent: React.FC<IProps> = ({
             ))}
         </Select>
       </FormControl>
-      {metadata.filter_dim &&
-        metadata.filter_dim.items.map((item: any) => (
+      {metadata.dimensions &&
+        metadata.dimensions.items.map((item: any) => (
           <Filter
             key={item.code}
             label={item.Caption}
