@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
@@ -66,7 +67,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             <Droppable droppableId="facts">
               {(provided) => (
                 <List
-                  dense={false}
+                  dense={true}
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -82,7 +83,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <ListItemIcon>
+                          <ListItemIcon style={{ minWidth: 0 }}>
                             <DragIndicatorIcon />
                           </ListItemIcon>
                           <ListItemText primary={item.Caption} />
@@ -100,7 +101,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             <Droppable droppableId="dims">
               {(provided) => (
                 <List
-                  dense={false}
+                  dense={true}
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -116,7 +117,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <ListItemIcon>
+                          <ListItemIcon style={{ minWidth: 0 }}>
                             <DragIndicatorIcon />
                           </ListItemIcon>
                           <ListItemText primary={item.Caption} />
