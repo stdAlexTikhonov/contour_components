@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -13,8 +13,21 @@ export const FieldBar: React.FC<IProps> = ({ show, position, facts, dims }) => {
   const classes = useStyles();
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
+
+  const onHandleDrag = (e: any) => {
+    if (e.source.droppableId === "dims") {
+      const [item] = dims.splice(e.source.index, 1);
+      dims.splice(e.destination.index, 0, item);
+    } else {
+      const [item] = facts.splice(e.source.index, 1);
+      facts.splice(e.destination.index, 0, item);
+      // clone.splice(e.destination.index, 0, item);
+      // setFacts(clone);
+    }
+  };
+
   return (
-    <DragDropContext onDragEnd={() => alert("end")}>
+    <DragDropContext onDragEnd={onHandleDrag}>
       <Box className={classes.root} style={{ flexDirection: position }}>
         <Box
           className={classes.aside}
@@ -25,7 +38,7 @@ export const FieldBar: React.FC<IProps> = ({ show, position, facts, dims }) => {
             style={{ display: "block", overflow: "scroll" }}
           >
             <b>Факты</b>
-            <Droppable droppableId="droppable">
+            <Droppable droppableId="facts">
               {(provided) => (
                 <List
                   dense={false}
@@ -59,7 +72,7 @@ export const FieldBar: React.FC<IProps> = ({ show, position, facts, dims }) => {
           </Box>
           <Box className={classes.main} style={{ overflow: "scroll" }}>
             <b>Измерения</b>
-            <Droppable droppableId="droppable2">
+            <Droppable droppableId="dims">
               {(provided) => (
                 <List
                   dense={false}
