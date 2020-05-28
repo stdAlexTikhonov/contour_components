@@ -199,6 +199,10 @@ export type Metadata = {
   slice: string;
   view: string;
   id: string;
+  filters: any;
+  rows: any;
+  columns: any;
+  attributes: any;
 };
 
 export interface setDashboardMetadata {

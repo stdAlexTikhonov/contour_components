@@ -21,6 +21,10 @@ export const FieldBarComponent: React.FC<IProps> = ({
   language,
   slice,
   view,
+  columns,
+  rows,
+  filters,
+  attributes,
   handleDataQuery,
 }) => {
   const classes = useStyles();

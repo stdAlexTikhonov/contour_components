@@ -38,6 +38,18 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           caption: item.Caption,
           facts: item.Facts,
           dimensions: item.Dimensions,
+          filters: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Filter"
+          ),
+          columns: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Columns"
+          ),
+          rows: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Rows"
+          ),
+          attributes: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Attributes"
+          ),
         }));
 
         dispatch(setDashboardMetadata(metadata));

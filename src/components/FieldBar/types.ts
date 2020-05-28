@@ -7,6 +7,10 @@ export type Props = {
   dims: any;
   slice: string;
   view: string;
+  filters: any;
+  columns: any;
+  rows: any;
+  attributes: any;
 };
 
 export type POSITIONS_TYPE =
