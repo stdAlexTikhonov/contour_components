@@ -18,6 +18,7 @@ export type reportType = {
   dashboard: Dashboard | null;
   metadata: Array<Metadata> | null;
   selected_filter: DimFilter | null;
+  cube_session: string | undefined;
 };
 
 export type AppReducers = authedUserType | languageType;

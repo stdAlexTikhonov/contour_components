@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { Filters } from "../Filters";
 import { FieldBar } from "../FieldBar";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -15,6 +14,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
   const [fieldBarPosition, setFieldBarPosition] = useState(0);
+  const { facts, rows, columns, filters, attributes, slice, view } = metadata;
 
   return (
     <Grid container className={classes.container}>
@@ -43,11 +43,25 @@ export const View: React.FC<IProps> = ({ metadata }) => {
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
 
-        <Filters metadata={metadata} />
+        {/* {fieldBar && (
+          <Filters
+            slice={slice}
+            view={view}
+            facts={facts.items}
+            filters={filters}
+          />
+        )} */}
 
         <FieldBar
           show={fieldBar}
           position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
+          facts={facts ? facts.items : []}
+          slice={slice}
+          view={view}
+          filters={filters}
+          columns={columns}
+          rows={rows}
+          attributes={attributes}
         />
       </Grid>
     </Grid>

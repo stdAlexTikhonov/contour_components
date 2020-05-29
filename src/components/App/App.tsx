@@ -25,7 +25,12 @@ export const AppComponent: React.FC<IProps> = ({
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}
-      <Box display="flex" flexDirection="column" height="100vh">
+      <Box
+        display="flex"
+        flexDirection="column"
+        height="100vh"
+        overflow="hidden"
+      >
         <ButtonAppBar
           languages={languages}
           logged_in={logged_in}
@@ -33,7 +38,7 @@ export const AppComponent: React.FC<IProps> = ({
           currentLanguage={current}
           handleLogout={handleLogout}
         />
-        <Box flexGrow={1} overflow="scroll">
+        <Box flexGrow={1} overflow="scroll" id="mainbox">
           <Switch>
             <Route path="/" exact component={Cards} />
             <Route path={"/login"} component={Login} />

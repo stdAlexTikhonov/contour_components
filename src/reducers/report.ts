@@ -7,6 +7,7 @@ import {
   SET_DASHBOARD_METADATA,
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
+  SET_CUBE_SESSION,
   reportActions,
   Tab,
 } from "../types/actions";
@@ -20,6 +21,7 @@ const reportDefaultState: reportType = {
   dashboard: null,
   metadata: null,
   selected_filter: null,
+  cube_session: undefined,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -70,7 +72,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
         tabs: state.tabs,
       };
     }
-
+    case SET_CUBE_SESSION:
+      return {
+        ...state,
+        cube_session: action.cube_session,
+      };
     default:
       return state;
   }
