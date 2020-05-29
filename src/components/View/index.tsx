@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { Filters } from "../Filters";
 import { FieldBar } from "../FieldBar";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -44,14 +43,14 @@ export const View: React.FC<IProps> = ({ metadata }) => {
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
 
-        {fieldBar && (
+        {/* {fieldBar && (
           <Filters
             slice={slice}
             view={view}
             facts={facts.items}
             filters={filters}
           />
-        )}
+        )} */}
 
         <FieldBar
           show={fieldBar}

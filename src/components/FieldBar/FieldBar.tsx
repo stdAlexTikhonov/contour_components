@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
+import { Filters } from "../Filters";
 import {
   SET_FACT_POSISIOTNS,
   SET_DIM_POSITIONS,
@@ -28,6 +29,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
   handleDataQuery,
 }) => {
   const classes = useStyles();
+  const [local_filters, setLocalFilters] = useState(filters);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -35,8 +37,11 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   const getItem = (id: string, index: number) => {
     switch (id) {
-      case "filters":
-        return filters.splice(index, 1);
+      case "filters": {
+        const item = filters.splice(index, 1);
+        setLocalFilters(filters.slice());
+        return item;
+      }
       case "columns":
         return columns.splice(index, 1);
       case "rows":
@@ -52,6 +57,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
     switch (id) {
       case "filters":
         filters.splice(index, 0, item);
+        setLocalFilters(filters.slice());
         break;
       case "columns":
         columns.splice(index, 0, item);
@@ -120,6 +126,12 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   return (
     <DragDropContext onDragEnd={onHandleDrag}>
+      <Filters
+        slice={slice}
+        view={view}
+        facts={facts.items}
+        filters={local_filters}
+      />
       <Box
         className={classes.root}
         style={{ flexDirection: position, overflow: "hidden" }}
