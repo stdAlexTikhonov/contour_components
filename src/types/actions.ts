@@ -195,7 +195,6 @@ export const SET_DASHBOARD_METADATA = "SET_DASHBOARD_METADATA";
 export type Metadata = {
   caption: string;
   facts: any;
-  dimensions: any;
   slice: string;
   view: string;
   id: string;
