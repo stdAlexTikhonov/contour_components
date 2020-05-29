@@ -28,26 +28,57 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   const { solution, project, report } = useParams();
 
+  const getItem = (id: string, index: number) => {
+    switch (id) {
+      case "filters":
+        return filters.splice(index, 1);
+      case "columns":
+        return columns.splice(index, 1);
+      case "rows":
+        return rows.splice(index, 1);
+      case "attributes":
+        return attributes.splice(index, 1);
+      case "facts":
+        return facts.splice(index, 1);
+    }
+  };
+
+  const putItem = (id: string, index: number, item: any) => {
+    switch (id) {
+      case "filters":
+        filters.splice(index, 0, item);
+        break;
+      case "columns":
+        columns.splice(index, 0, item);
+        break;
+      case "rows":
+        rows.splice(index, 0, item);
+        break;
+      case "attributes":
+        attributes.splice(index, 0, item);
+        break;
+      case "facts":
+        facts.splice(index, 0, item);
+        break;
+    }
+  };
+
   const onHandleDrag = (e: any) => {
-    // if (e.source.droppableId === "dims") {
-    //   const [item] = filters.splice(e.source.index, 1);
-    //   filters.splice(e.destination.index, 0, item);
-    // } else {
-    //   const [item] = facts.splice(e.source.index, 1);
-    //   facts.splice(e.destination.index, 0, item);
-    //   const facts_for_server = facts.map((item: any) => item.code);
-    //   handleDataQuery({
-    //     method: SET_FACT_POSISIOTNS,
-    //     session,
-    //     language,
-    //     solution,
-    //     project,
-    //     report,
-    //     slice,
-    //     view,
-    //     facts: facts_for_server,
-    //   });
-    // }
+    const [item] = getItem(e.source.droppableId, e.source.index);
+    putItem(e.destination.droppableId, e.destination.index, item);
+
+    // const facts_for_server = facts.map((item: any) => item.code);
+    // handleDataQuery({
+    //   method: SET_FACT_POSISIOTNS,
+    //   session,
+    //   language,
+    //   solution,
+    //   project,
+    //   report,
+    //   slice,
+    //   view,
+    //   facts: facts_for_server,
+    // });
   };
 
   return (
