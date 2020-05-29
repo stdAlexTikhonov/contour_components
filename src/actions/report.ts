@@ -8,6 +8,7 @@ import {
   SET_DASHBOARD_METADATA,
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
+  SET_CUBE_SESSION,
   Dashboard,
   Metadata,
   DimFilter,
@@ -57,4 +58,9 @@ export const setDataToTab = (data: any, index: number): AppActions => ({
   type: SET_DATA_TO_TAB,
   data,
   index,
+});
+
+export const setCubeSession = (cube_session: string | null): AppActions => ({
+  type: SET_CUBE_SESSION,
+  cube_session,
 });

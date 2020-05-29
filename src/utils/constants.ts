@@ -17,3 +17,4 @@ export const POSITIONS = [TOP, RIGHT, BOTTOM, LEFT];
 export const SET_FACTS: string = "SetVisibleFacts";
 export const SET_FACT_POSISIOTNS: string = "SetFactPositions";
 export const SET_DIM_POSITIONS: string = "SetDimPositions";
+export const START_CUBE_SESSION: string = "StartCubeSession";

@@ -221,6 +221,13 @@ export interface getDimFilter {
   selected_filter: DimFilter | null;
 }
 
+export const SET_CUBE_SESSION = "SET_CUBE_SESSION";
+
+export interface setCubeSession {
+  type: typeof SET_CUBE_SESSION;
+  cube_session: string | null;
+}
+
 export type reportActions =
   | setReport
   | setReportType
@@ -229,7 +236,8 @@ export type reportActions =
   | setDashboard
   | getDimFilter
   | setDashboardMetadata
-  | setDataToTab;
+  | setDataToTab
+  | setCubeSession;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -267,4 +275,5 @@ export type AppActions =
   | setDashboardMetadata
   | getDimFilter
   | setView
-  | setDataToTab;
+  | setDataToTab
+  | setCubeSession;

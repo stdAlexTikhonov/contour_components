@@ -20,6 +20,7 @@ const reportDefaultState: reportType = {
   dashboard: null,
   metadata: null,
   selected_filter: null,
+  cube_session: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
