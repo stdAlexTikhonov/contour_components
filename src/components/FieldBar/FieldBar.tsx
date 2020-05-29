@@ -120,7 +120,10 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   return (
     <DragDropContext onDragEnd={onHandleDrag}>
-      <Box className={classes.root} style={{ flexDirection: position }}>
+      <Box
+        className={classes.root}
+        style={{ flexDirection: position, overflow: "hidden" }}
+      >
         <Box
           className={classes.aside}
           style={{ display: show ? "flex" : "none", flexDirection: pos }}
