@@ -9,7 +9,7 @@ export const useStyles = makeStyles({
     flexBasis: "30%",
     display: "flex",
     backgroundColor: "white",
-    overflow: "scroll",
+    overflow: "hidden",
   },
   main: {
     flexGrow: 1,

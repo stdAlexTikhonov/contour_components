@@ -10,7 +10,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       display: "flex",
       width: "100%",
-      overflow: "scroll",
+      overflowY: "hidden",
+      overflowX: "scroll",
       minHeight: 50,
     },
     test: {
