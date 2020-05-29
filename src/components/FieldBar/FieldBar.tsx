@@ -76,7 +76,14 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   const onHandleDrag = (e: any) => {
     const [item] = getItem(e.source.droppableId, e.source.index);
-    putItem(e.destination.droppableId, e.destination.index, item);
+    if (e.source.droppableId === "facts")
+      putItem("facts", e.destination.index, item);
+    else if (
+      e.destination.droppableId === "facts" &&
+      e.source.droppableId !== "facts"
+    ) {
+      putItem(e.source.droppableId, e.source.index, item);
+    } else putItem(e.destination.droppableId, e.destination.index, item);
 
     // if (cube_session === undefined)
     //   handleDataQuery({
