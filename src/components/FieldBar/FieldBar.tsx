@@ -4,8 +4,12 @@ import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { SET_FACT_POSISIOTNS, SET_DIM_POSITIONS } from "../../utils/constants";
+import { DragDropContext } from "react-beautiful-dnd";
+import {
+  SET_FACT_POSISIOTNS,
+  SET_DIM_POSITIONS,
+  START_CUBE_SESSION,
+} from "../../utils/constants";
 import { ListComponent } from "../List";
 
 export const FieldBarComponent: React.FC<IProps> = ({
@@ -20,6 +24,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
   rows,
   filters,
   attributes,
+  cube_session,
   handleDataQuery,
 }) => {
   const classes = useStyles();
@@ -67,6 +72,15 @@ export const FieldBarComponent: React.FC<IProps> = ({
     const [item] = getItem(e.source.droppableId, e.source.index);
     putItem(e.destination.droppableId, e.destination.index, item);
 
+    // if (cube_session === undefined)
+    //   handleDataQuery({
+    //     method: START_CUBE_SESSION,
+    //     session,
+    //     solution,
+    //     project,
+    //     report,
+    //   });
+
     if (e.source.droppableId === "facts") {
       const facts_for_server = facts.map((item: any) => item.code);
       handleDataQuery({
@@ -79,6 +93,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
         slice,
         view,
         facts: facts_for_server,
+        cubeSession: cube_session,
       });
     } else {
       const rows_fs = rows.map((item: any) => item.code);
@@ -98,6 +113,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
         columns: columns_fs,
         filters: filters_fs,
         attributes: attr_fs,
+        cubeSession: cube_session,
       });
     }
   };
@@ -116,34 +132,21 @@ export const FieldBarComponent: React.FC<IProps> = ({
             <ListComponent code="facts" title="Факты" items={facts} />
           </Box>
           <Box className={classes.main} style={{ overflow: "scroll" }}>
-            {filters.length > 0 && (
-              <>
-                <ListComponent title="Фильтры" code="filters" items={filters} />
-                <Divider />
-              </>
-            )}
-            {columns.length && (
-              <>
-                <ListComponent title="Колонки" code="columns" items={columns} />
-                <Divider />
-              </>
-            )}
-            {rows.length > 0 && (
-              <>
-                <ListComponent title="Строки" code="rows" items={rows} />
-                <Divider />
-              </>
-            )}
-            {attributes.length > 0 && (
-              <>
-                <ListComponent
-                  title="Атрибуты"
-                  code="attributes"
-                  items={attributes}
-                />
-                <Divider />
-              </>
-            )}
+            <ListComponent title="Фильтры" code="filters" items={filters} />
+            <Divider />
+
+            <ListComponent title="Колонки" code="columns" items={columns} />
+            <Divider />
+
+            <ListComponent title="Строки" code="rows" items={rows} />
+            <Divider />
+
+            <ListComponent
+              title="Атрибуты"
+              code="attributes"
+              items={attributes}
+            />
+            <Divider />
           </Box>
         </Box>
         <Box className={classes.main} />

@@ -225,7 +225,7 @@ export const SET_CUBE_SESSION = "SET_CUBE_SESSION";
 
 export interface setCubeSession {
   type: typeof SET_CUBE_SESSION;
-  cube_session: string | null;
+  cube_session: string | undefined;
 }
 
 export type reportActions =

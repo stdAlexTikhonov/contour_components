@@ -60,7 +60,9 @@ export const setDataToTab = (data: any, index: number): AppActions => ({
   index,
 });
 
-export const setCubeSession = (cube_session: string | null): AppActions => ({
+export const setCubeSession = (
+  cube_session: string | undefined
+): AppActions => ({
   type: SET_CUBE_SESSION,
   cube_session,
 });

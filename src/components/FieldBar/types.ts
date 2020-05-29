@@ -23,6 +23,7 @@ export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 export interface LinkStateToProps {
   session: string | undefined;
   language: string;
+  cube_session: string | undefined;
 }
 
 export interface LinkDispatchToProps {

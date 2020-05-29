@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
         const metadata = reportData.metadata.map((item: any) => ({
           caption: item.Caption,
           facts: item.Facts,
-          dimensions: item.Dimensions,
           filters: item.Dimensions.items.filter(
             (item: any) => item.Axis === "Filter"
           ),
