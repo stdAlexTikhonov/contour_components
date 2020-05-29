@@ -2,7 +2,10 @@ import { Metadata, DimFilter } from "../../types/actions";
 import { DataForQuery } from "../../utils/types";
 
 export interface Props {
-  metadata: Metadata;
+  slice: string;
+  view: string;
+  filters: any;
+  facts: any;
 }
 
 export interface LinkStateToProps {

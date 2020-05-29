@@ -16,7 +16,6 @@ export const FieldBarComponent: React.FC<IProps> = ({
   show,
   position,
   facts,
-  dims,
   session,
   language,
   slice,
@@ -35,8 +34,8 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   const onHandleDrag = (e: any) => {
     if (e.source.droppableId === "dims") {
-      const [item] = dims.splice(e.source.index, 1);
-      dims.splice(e.destination.index, 0, item);
+      const [item] = filters.splice(e.source.index, 1);
+      filters.splice(e.destination.index, 0, item);
     } else {
       const [item] = facts.splice(e.source.index, 1);
       facts.splice(e.destination.index, 0, item);
@@ -109,7 +108,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {dims.map((item: any, i: number) => (
+                  {filters.map((item: any, i: number) => (
                     <Draggable
                       key={item.code}
                       draggableId={item.code}

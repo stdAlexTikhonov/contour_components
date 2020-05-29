@@ -10,14 +10,16 @@ import { Filter } from "../Filter";
 import { SET_FACTS } from "../../utils/constants";
 
 export const FiltersComponent: React.FC<IProps> = ({
-  metadata,
+  filters,
+  facts: _facts,
+  slice,
+  view,
   session,
   language,
   handleDataQuery,
 }) => {
   const classes = useStyles();
   const [facts, setFacts] = useState<Array<string>>([]);
-  const { slice, view } = metadata;
   const { solution, project, report } = useParams();
 
   const handleFact = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -46,16 +48,16 @@ export const FiltersComponent: React.FC<IProps> = ({
           value={facts}
           onChange={handleFact}
         >
-          {metadata.facts &&
-            metadata.facts.items?.map((item: any) => (
+          {_facts &&
+            _facts.map((item: any) => (
               <MenuItem key={item.code} value={item.code}>
                 {item.Caption}
               </MenuItem>
             ))}
         </Select>
       </FormControl>
-      {metadata.filters &&
-        metadata.filters.map((item: any) => (
+      {filters &&
+        filters.map((item: any) => (
           <Filter
             key={item.code}
             label={item.Caption}

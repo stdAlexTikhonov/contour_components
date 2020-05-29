@@ -53,13 +53,19 @@ export const View: React.FC<IProps> = ({ metadata }) => {
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
 
-        <Filters metadata={metadata} />
+        {fieldBar && (
+          <Filters
+            slice={slice}
+            view={view}
+            facts={facts.items}
+            filters={filters}
+          />
+        )}
 
         <FieldBar
           show={fieldBar}
           position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
           facts={facts ? facts.items : []}
-          dims={dimensions ? dimensions.items : []}
           slice={slice}
           view={view}
           filters={filters}

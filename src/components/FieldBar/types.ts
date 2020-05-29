@@ -4,7 +4,6 @@ export type Props = {
   show: boolean;
   position: POSITIONS_TYPE;
   facts: any;
-  dims: any;
   slice: string;
   view: string;
   filters: any;
