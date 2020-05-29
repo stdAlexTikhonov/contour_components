@@ -7,9 +7,10 @@ export const useStyles = makeStyles({
   },
   aside: {
     flexBasis: "30%",
-    border: "0.5px solid lightgray",
+    paddingTop: 5,
     display: "flex",
     overflow: "scroll",
+    backgroundColor: "white",
   },
   main: {
     flexGrow: 1,
