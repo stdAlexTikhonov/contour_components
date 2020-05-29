@@ -15,17 +15,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
   const [fieldBarPosition, setFieldBarPosition] = useState(0);
-
-  const {
-    facts,
-    rows,
-    columns,
-    filters,
-    attributes,
-    slice,
-    view,
-    index,
-  } = metadata;
+  const { facts, rows, columns, filters, attributes, slice, view } = metadata;
 
   return (
     <Grid container className={classes.container}>
@@ -73,7 +63,6 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           columns={columns}
           rows={rows}
           attributes={attributes}
-          index={index}
         />
       </Grid>
     </Grid>

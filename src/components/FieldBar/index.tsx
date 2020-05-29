@@ -4,7 +4,7 @@ import { AppState } from "../../store/config_store";
 
 import { AppActions } from "../../types/actions";
 import { DataForQuery } from "../../utils/types";
-import { setCubeSession, updateFilterDim } from "../../actions/report";
+import { setCubeSession } from "../../actions/report";
 import { getData } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
@@ -24,9 +24,6 @@ const mapDispatchToProps = (
     if (data.success) dispatch(setCubeSession(data.cubeSession));
 
     console.log(data);
-  },
-  handleUpdateFilters: (filters, index) => {
-    dispatch(updateFilterDim(filters, index));
   },
 });
 

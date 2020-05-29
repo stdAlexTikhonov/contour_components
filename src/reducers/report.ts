@@ -8,7 +8,6 @@ import {
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
-  UPDATE_FILTER_DIM,
   reportActions,
   Tab,
 } from "../types/actions";
@@ -78,20 +77,6 @@ export const report = (state = reportDefaultState, action: reportActions) => {
         ...state,
         cube_session: action.cube_session,
       };
-    case UPDATE_FILTER_DIM: {
-      const item = state.metadata && state.metadata[action.index];
-
-      if (item) {
-        item.filters = action.filters;
-        state.metadata?.splice(action.index, 1, item);
-      }
-
-      return {
-        ...state,
-        metadata: state.metadata,
-      };
-    }
-
     default:
       return state;
   }

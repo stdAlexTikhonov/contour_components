@@ -10,7 +10,6 @@ export type Props = {
   columns: any;
   rows: any;
   attributes: any;
-  index: number;
 };
 
 export type POSITIONS_TYPE =
@@ -29,5 +28,4 @@ export interface LinkStateToProps {
 
 export interface LinkDispatchToProps {
   handleDataQuery: (data_for_query: DataForQuery) => void;
-  handleUpdateFilters: (filters: any, index: number) => void;
 }

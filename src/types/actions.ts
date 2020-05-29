@@ -202,7 +202,6 @@ export type Metadata = {
   rows: any;
   columns: any;
   attributes: any;
-  index: number;
 };
 
 export interface setDashboardMetadata {
@@ -229,14 +228,6 @@ export interface setCubeSession {
   cube_session: string | undefined;
 }
 
-export const UPDATE_FILTER_DIM = "UPDATE_FILTER_DIM";
-
-export interface updateFilters {
-  type: typeof UPDATE_FILTER_DIM;
-  filters: any;
-  index: number;
-}
-
 export type reportActions =
   | setReport
   | setReportType
@@ -246,8 +237,7 @@ export type reportActions =
   | getDimFilter
   | setDashboardMetadata
   | setDataToTab
-  | setCubeSession
-  | updateFilters;
+  | setCubeSession;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -286,5 +276,4 @@ export type AppActions =
   | getDimFilter
   | setView
   | setDataToTab
-  | setCubeSession
-  | updateFilters;
+  | setCubeSession;
