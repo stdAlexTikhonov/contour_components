@@ -5,7 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { SET_FACT_POSISIOTNS } from "../../utils/constants";
+import { SET_FACT_POSISIOTNS, SET_DIM_POSITIONS } from "../../utils/constants";
 import { ListComponent } from "../List";
 
 export const FieldBarComponent: React.FC<IProps> = ({
@@ -67,18 +67,39 @@ export const FieldBarComponent: React.FC<IProps> = ({
     const [item] = getItem(e.source.droppableId, e.source.index);
     putItem(e.destination.droppableId, e.destination.index, item);
 
-    // const facts_for_server = facts.map((item: any) => item.code);
-    // handleDataQuery({
-    //   method: SET_FACT_POSISIOTNS,
-    //   session,
-    //   language,
-    //   solution,
-    //   project,
-    //   report,
-    //   slice,
-    //   view,
-    //   facts: facts_for_server,
-    // });
+    if (e.source.droppableId === "facts") {
+      const facts_for_server = facts.map((item: any) => item.code);
+      handleDataQuery({
+        method: SET_FACT_POSISIOTNS,
+        session,
+        language,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        facts: facts_for_server,
+      });
+    } else {
+      const rows_fs = rows.map((item: any) => item.code);
+      const columns_fs = columns.map((item: any) => item.code);
+      const filters_fs = filters.map((item: any) => item.code);
+      const attr_fs = attributes.map((item: any) => item.code);
+      handleDataQuery({
+        method: SET_DIM_POSITIONS,
+        session,
+        language,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        rows: rows_fs,
+        columns: columns_fs,
+        filters: filters_fs,
+        attributes: attr_fs,
+      });
+    }
   };
 
   return (
