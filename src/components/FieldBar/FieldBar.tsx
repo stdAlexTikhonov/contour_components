@@ -25,7 +25,9 @@ export const FieldBarComponent: React.FC<IProps> = ({
   filters,
   attributes,
   cube_session,
+  index: meta_index,
   handleDataQuery,
+  handleUpdateFilters,
 }) => {
   const classes = useStyles();
   let pos = position.split("-")[0] as POSITIONS_TYPE;
@@ -35,8 +37,11 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   const getItem = (id: string, index: number) => {
     switch (id) {
-      case "filters":
-        return filters.splice(index, 1);
+      case "filters": {
+        const item = filters.splice(index, 1);
+        handleUpdateFilters(filters, meta_index);
+        return item;
+      }
       case "columns":
         return columns.splice(index, 1);
       case "rows":
@@ -50,9 +55,12 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   const putItem = (id: string, index: number, item: any) => {
     switch (id) {
-      case "filters":
+      case "filters": {
         filters.splice(index, 0, item);
+        handleUpdateFilters(filters, meta_index);
         break;
+      }
+
       case "columns":
         columns.splice(index, 0, item);
         break;

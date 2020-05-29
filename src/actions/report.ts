@@ -9,6 +9,7 @@ import {
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
+  UPDATE_FILTER_DIM,
   Dashboard,
   Metadata,
   DimFilter,
@@ -65,4 +66,10 @@ export const setCubeSession = (
 ): AppActions => ({
   type: SET_CUBE_SESSION,
   cube_session,
+});
+
+export const updateFilterDim = (filters: any, index: number): AppActions => ({
+  type: UPDATE_FILTER_DIM,
+  filters,
+  index,
 });
