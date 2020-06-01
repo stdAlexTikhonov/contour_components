@@ -4,6 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
+import Checkbox from "@material-ui/core/Checkbox";
 import { Filter } from "../Filter";
 import { IProps } from "./types";
 import { Droppable, Draggable } from "react-beautiful-dnd";
@@ -33,7 +34,10 @@ export const ListComponent: React.FC<IProps> = ({
                     <DragIndicatorIcon />
                   </ListItemIcon>
                   {facts ? (
-                    <ListItemText primary={item.Caption} />
+                    <>
+                      <ListItemText primary={item.Caption} />
+                      <Checkbox />
+                    </>
                   ) : (
                     <Filter
                       label={item.Caption}
