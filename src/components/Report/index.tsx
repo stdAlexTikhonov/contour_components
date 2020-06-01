@@ -49,6 +49,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           attributes: item.Dimensions.items.filter(
             (item: any) => item.Axis === "Attributes"
           ),
+          visibleFacts: item.visibleFacts,
         }));
 
         dispatch(setDashboardMetadata(metadata));

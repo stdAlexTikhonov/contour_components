@@ -7,6 +7,7 @@ export interface Props {
   slice: string;
   view: string;
   facts?: boolean;
+  visibleFacts?: any;
 }
 
 export interface LinkStateToProps {

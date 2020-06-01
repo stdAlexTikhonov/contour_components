@@ -25,6 +25,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
   filters,
   attributes,
   cube_session,
+  visibleFacts,
   handleDataQuery,
 }) => {
   const classes = useStyles();
@@ -151,6 +152,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
               view={view}
               slice={slice}
               facts={true}
+              visibleFacts={visibleFacts}
             />
           </Box>
           <Box className={classes.main} style={{ overflow: "scroll" }}>

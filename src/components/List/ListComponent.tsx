@@ -18,13 +18,18 @@ export const ListComponent: React.FC<IProps> = ({
   slice,
   view,
   facts,
+  visibleFacts,
   handleDataQuery,
   cube_session,
   language,
   session,
 }) => {
   const { solution, project, report } = useParams();
-  const [checked, setChecked] = useState(Array(items.length).fill(0));
+  const [checked, setChecked] = useState(
+    items.map((item: any) =>
+      visibleFacts && visibleFacts.includes(item.code) ? 1 : 0
+    )
+  );
 
   const handleChange: any = (value: string) => () => {
     const codes = items.map((item: any) => item.code);
@@ -32,15 +37,9 @@ export const ListComponent: React.FC<IProps> = ({
     checked[index] = checked[index] === 1 ? 0 : 1;
     setChecked([...checked]);
 
-    const sum = checked.reduce((a, b) => a + b);
-
-    let facts_for_server = codes;
-
-    if (sum > 0) {
-      facts_for_server = codes.filter(
-        (item: any, i: number) => checked[i] === 1
-      );
-    }
+    let facts_for_server = codes.filter(
+      (item: any, i: number) => checked[i] === 1
+    );
 
     handleDataQuery({
       method: SET_FACTS,
@@ -80,6 +79,7 @@ export const ListComponent: React.FC<IProps> = ({
                       <>
                         <ListItemText primary={item.Caption} />
                         <Checkbox
+                          checked={checked[i] === 1}
                           value={item.code}
                           onChange={handleChange(item.code)}
                         />
