@@ -9,7 +9,7 @@ import { Filter } from "../Filter";
 import { IProps } from "./types";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
-import { SET_FACT_POSISIOTNS } from "../../utils/constants";
+import { SET_FACTS } from "../../utils/constants";
 
 export const ListComponent: React.FC<IProps> = ({
   title,
@@ -43,7 +43,7 @@ export const ListComponent: React.FC<IProps> = ({
     }
 
     handleDataQuery({
-      method: SET_FACT_POSISIOTNS,
+      method: SET_FACTS,
       session,
       language,
       solution,
@@ -51,8 +51,7 @@ export const ListComponent: React.FC<IProps> = ({
       report,
       slice,
       view,
-      facts: facts_for_server,
-      cubeSession: cube_session,
+      visibleFacts: facts_for_server,
     });
   };
 
