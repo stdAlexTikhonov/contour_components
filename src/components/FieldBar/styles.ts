@@ -6,9 +6,9 @@ export const useStyles = makeStyles({
     display: "flex",
   },
   aside: {
-    flexBasis: "30%",
+    flexBasis: "50%",
     display: "flex",
-    backgroundColor: "white",
+    backgroundColor: "#ecf0f1",
     overflow: "hidden",
   },
   main: {

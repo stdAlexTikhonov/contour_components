@@ -5,13 +5,12 @@ import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Filters } from "../Filters";
 import {
   SET_FACT_POSISIOTNS,
   SET_DIM_POSITIONS,
   START_CUBE_SESSION,
 } from "../../utils/constants";
-import { ListComponent } from "../List";
+import { List } from "../List";
 
 export const FieldBarComponent: React.FC<IProps> = ({
   show,
@@ -26,6 +25,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
   filters,
   attributes,
   cube_session,
+  visibleFacts,
   handleDataQuery,
 }) => {
   const classes = useStyles();
@@ -133,12 +133,6 @@ export const FieldBarComponent: React.FC<IProps> = ({
 
   return (
     <DragDropContext onDragEnd={onHandleDrag}>
-      <Filters
-        slice={slice}
-        view={view}
-        facts={facts.items}
-        filters={local_filters}
-      />
       <Box
         className={classes.root}
         style={{ flexDirection: position, overflow: "hidden" }}
@@ -151,22 +145,50 @@ export const FieldBarComponent: React.FC<IProps> = ({
             className={classes.aside}
             style={{ display: "block", overflow: "scroll" }}
           >
-            <ListComponent code="facts" title="Факты" items={facts} />
+            <List
+              code="facts"
+              title="Факты"
+              items={facts}
+              view={view}
+              slice={slice}
+              facts={true}
+              visibleFacts={visibleFacts}
+            />
           </Box>
           <Box className={classes.main} style={{ overflow: "scroll" }}>
-            <ListComponent title="Фильтры" code="filters" items={filters} />
+            <List
+              title="Фильтры"
+              code="filters"
+              items={filters}
+              view={view}
+              slice={slice}
+            />
             <Divider />
 
-            <ListComponent title="Колонки" code="columns" items={columns} />
+            <List
+              title="Колонки"
+              code="columns"
+              items={columns}
+              view={view}
+              slice={slice}
+            />
             <Divider />
 
-            <ListComponent title="Строки" code="rows" items={rows} />
+            <List
+              title="Строки"
+              code="rows"
+              items={rows}
+              view={view}
+              slice={slice}
+            />
             <Divider />
 
-            <ListComponent
+            <List
               title="Атрибуты"
               code="attributes"
               items={attributes}
+              view={view}
+              slice={slice}
             />
             <Divider />
           </Box>

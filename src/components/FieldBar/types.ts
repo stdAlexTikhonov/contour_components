@@ -10,6 +10,7 @@ export type Props = {
   columns: any;
   rows: any;
   attributes: any;
+  visibleFacts: any;
 };
 
 export type POSITIONS_TYPE =
