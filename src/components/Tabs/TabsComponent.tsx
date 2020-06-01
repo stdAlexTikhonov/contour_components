@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { REPORT } from "../../utils/constants";
+import { Dashboard } from "../Dashboard";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -26,11 +27,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
@@ -79,7 +76,6 @@ export const TabsComponent: React.FC<IProps> = ({
             },
             newValue
           );
-          alert("This is slice");
           break;
         case "report":
           handleDataQuery(
@@ -123,7 +119,14 @@ export const TabsComponent: React.FC<IProps> = ({
 
       {tabs?.map((item: any, i) => (
         <TabPanel value={value} index={i} key={i}>
-          {item.caption}
+          {item.data ? (
+            <Dashboard
+              dashboard={item.data.dashboard}
+              metadata={item.data.metadata}
+            />
+          ) : (
+            item.caption
+          )}
         </TabPanel>
       ))}
     </div>
