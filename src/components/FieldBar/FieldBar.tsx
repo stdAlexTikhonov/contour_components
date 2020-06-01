@@ -10,7 +10,7 @@ import {
   SET_DIM_POSITIONS,
   START_CUBE_SESSION,
 } from "../../utils/constants";
-import { ListComponent } from "../List";
+import { List } from "../List";
 
 export const FieldBarComponent: React.FC<IProps> = ({
   show,
@@ -144,7 +144,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             className={classes.aside}
             style={{ display: "block", overflow: "scroll" }}
           >
-            <ListComponent
+            <List
               code="facts"
               title="Факты"
               items={facts}
@@ -154,7 +154,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             />
           </Box>
           <Box className={classes.main} style={{ overflow: "scroll" }}>
-            <ListComponent
+            <List
               title="Фильтры"
               code="filters"
               items={filters}
@@ -163,7 +163,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             />
             <Divider />
 
-            <ListComponent
+            <List
               title="Колонки"
               code="columns"
               items={columns}
@@ -172,7 +172,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             />
             <Divider />
 
-            <ListComponent
+            <List
               title="Строки"
               code="rows"
               items={rows}
@@ -181,7 +181,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             />
             <Divider />
 
-            <ListComponent
+            <List
               title="Атрибуты"
               code="attributes"
               items={attributes}

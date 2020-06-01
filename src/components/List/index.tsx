@@ -1,58 +1,27 @@
-import React from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Filter } from "../Filter";
-import { IProps } from "./types";
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import { connect } from "react-redux";
+import { ListComponent } from "./ListComponent";
+import { ThunkDispatch } from "redux-thunk";
+import { LinkStateToProps, LinkDispatchToProps } from "./types";
+import { AppState } from "../../store/config_store";
+import { AppActions } from "../../types/actions";
+import { DataForQuery } from "../../utils/types";
+import { getData } from "../../utils/api";
 
-export const ListComponent: React.FC<IProps> = ({
-  title,
-  code,
-  items,
-  slice,
-  view,
-  facts,
-}) => (
-  <>
-    <b>{title}</b>
-    <Droppable droppableId={code}>
-      {(provided) => (
-        <List dense={true} {...provided.droppableProps} ref={provided.innerRef}>
-          {items.map((item: any, i: number) => (
-            <Draggable key={item.code} draggableId={item.code} index={i}>
-              {(provided) => (
-                <ListItem
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                >
-                  <ListItemIcon style={{ minWidth: 0 }}>
-                    <DragIndicatorIcon />
-                  </ListItemIcon>
-                  {facts ? (
-                    <>
-                      <ListItemText primary={item.Caption} />
-                      <Checkbox />
-                    </>
-                  ) : (
-                    <Filter
-                      label={item.Caption}
-                      code={item.code}
-                      slice={slice}
-                      view={view}
-                    />
-                  )}
-                </ListItem>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </List>
-      )}
-    </Droppable>
-  </>
-);
+const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  session: state.auth.session || undefined,
+  language: state.languages.current,
+  cube_session: state.report.cube_session,
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>
+): LinkDispatchToProps => ({
+  handleDataQuery: async (data_for_query: DataForQuery) => {
+    const data = await getData(data_for_query);
+    if (data.success) console.log("OK.200");
+    //   if (data.success) dispatch(setCubeSession(data.cubeSession));
+    //   console.log(data);
+  },
+});
+
+export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
