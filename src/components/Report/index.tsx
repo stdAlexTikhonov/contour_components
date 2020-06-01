@@ -24,6 +24,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   tab_item: state.report.tab_item,
   tabs: state.report.tabs,
   metadata: state.report.metadata,
+  dashboard: state.report.dashboard,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({

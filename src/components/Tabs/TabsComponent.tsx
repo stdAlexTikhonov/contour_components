@@ -79,6 +79,7 @@ export const TabsComponent: React.FC<IProps> = ({
             },
             newValue
           );
+          alert("This is slice");
           break;
         case "report":
           handleDataQuery(
@@ -92,8 +93,10 @@ export const TabsComponent: React.FC<IProps> = ({
             },
             newValue
           );
+          alert("this is report");
           break;
         case "view":
+          alert("This is view");
           break;
         default:
           alert("Data type:" + data.type);
@@ -117,27 +120,12 @@ export const TabsComponent: React.FC<IProps> = ({
           ))}
         </Tabs>
       </AppBar>
-      {/* <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel> */}
+
+      {tabs?.map((item: any, i) => (
+        <TabPanel value={value} index={i} key={i}>
+          {item.caption}
+        </TabPanel>
+      ))}
     </div>
   );
 };

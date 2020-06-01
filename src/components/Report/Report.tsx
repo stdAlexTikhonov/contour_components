@@ -14,6 +14,7 @@ export const ReportComponent: React.FC<IProps> = ({
   report_type,
   tab_item,
   metadata,
+  dashboard,
   handleDataQuery,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
@@ -46,7 +47,9 @@ export const ReportComponent: React.FC<IProps> = ({
   return report ? (
     <div className={classes.root} id="hidebar">
       {tabs && report_type !== "dashboard" && <Tabs />}
-      {report_type === "dashboard" && <Dashboard />}
+      {report_type === "dashboard" && (
+        <Dashboard dashboard={dashboard} metadata={metadata} />
+      )}
     </div>
   ) : null;
 };

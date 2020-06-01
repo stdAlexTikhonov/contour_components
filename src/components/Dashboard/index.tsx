@@ -1,10 +1,33 @@
-import { DashboardComponent } from "./DashboardComponent";
-import { connect } from "react-redux";
-import { AppState } from "../../store/config_store";
-import { LinkStateToProps } from "./types";
+import React from "react";
+import Box from "@material-ui/core/Box";
+import { IProps } from "./types";
+import { useStyles } from "./styles";
+import { Loader } from "../Loader/Loader";
+import { View } from "../View";
 
-const mapStateToProps = (state: AppState): LinkStateToProps => ({
-  dashboard: state.report.dashboard,
-  metadata: state.report.metadata,
-});
-export const Dashboard = connect(mapStateToProps)(DashboardComponent);
+export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
+  const classes = useStyles();
+
+  return (
+    dashboard &&
+    dashboard!.cells.map((item: any, i: number) => (
+      <Box
+        key={i}
+        className={classes.block}
+        width={item.w}
+        height={item.h + item.hcu}
+        style={{ float: item.float }}
+      >
+        {metadata ? (
+          <View metadata={{ ...metadata[i], ...dashboard.cells[i] }} />
+        ) : (
+          <Box display="flex" height="100%">
+            <Box margin="auto">
+              <Loader />
+            </Box>
+          </Box>
+        )}
+      </Box>
+    ))
+  );
+};
