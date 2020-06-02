@@ -6,7 +6,7 @@ import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
 import { getDimFilter } from "../../actions/report";
-import { FilterComponent } from "./FilterComponent";
+import { AsyncFilterComponent } from "./AsyncFilterComponent";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -21,18 +21,20 @@ const mapDispatchToProps = (
     const data = await getData(data_for_query);
 
     const data_transformed = {
-      captions: data.Captions,
+      captions: data.Captions.map((item: string) =>
+        item.replace(/&nbsp;/g, " ")
+      ),
       filters: data.Filters,
     };
 
-    dispatch(getDimFilter(data_transformed));
+    await dispatch(getDimFilter(data_transformed));
   },
   resetSelectedFilter: () => {
     dispatch(getDimFilter(null));
   },
 });
 
-export const Filter = connect(
+export const AsyncFilter = connect(
   mapStateToProps,
   mapDispatchToProps
-)(FilterComponent);
+)(AsyncFilterComponent);
