@@ -8,9 +8,8 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setDataToTab } from "../../actions/report";
-import { setItems } from "../../actions/items";
-import { setView } from "../../actions/view";
 import { formatGeometry } from "../../utils/helpers";
+import { DASH_VIEW_META } from "../../utils/constants";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   tabs: state.report?.tabs,
@@ -37,6 +36,31 @@ const mapDispatchToProps = (
             index
           )
         );
+    }
+
+    if (reportData.dashboard) {
+      data_for_query.method = DASH_VIEW_META;
+      const dash_meta = await getData(data_for_query);
+      if (dash_meta.success) {
+        const metadata = dash_meta.metadata.map((item: any) => ({
+          caption: item.Caption,
+          facts: item.Facts,
+          filters: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Filter"
+          ),
+          columns: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Columns"
+          ),
+          rows: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Rows"
+          ),
+          attributes: item.Dimensions.items.filter(
+            (item: any) => item.Axis === "Attributes"
+          ),
+          visibleFacts: item.visibleFacts,
+        }));
+        dispatch(setDataToTab({ metadata: metadata }, index));
+      }
     }
     dispatch(resetLoading());
   },
