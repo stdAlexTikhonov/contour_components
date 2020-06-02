@@ -56,7 +56,7 @@ export const ListComponent: React.FC<IProps> = ({
 
   return (
     <>
-      <b>{title}</b>
+      <b style={{ padding: 5, display: "block" }}>{title}</b>
       <Droppable droppableId={code}>
         {(provided) => (
           <List

@@ -163,34 +163,6 @@ export const FieldBarComponent: React.FC<IProps> = ({
               view={view}
               slice={slice}
             />
-            <Divider />
-
-            <List
-              title="Колонки"
-              code="columns"
-              items={columns}
-              view={view}
-              slice={slice}
-            />
-            <Divider />
-
-            <List
-              title="Строки"
-              code="rows"
-              items={rows}
-              view={view}
-              slice={slice}
-            />
-            <Divider />
-
-            <List
-              title="Атрибуты"
-              code="attributes"
-              items={attributes}
-              view={view}
-              slice={slice}
-            />
-            <Divider />
           </Box>
         </Box>
         <Box className={classes.main} />
