@@ -36,6 +36,39 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [options, setOptions] = React.useState<string[]>([]);
   const loading = open && options.length === 0;
 
+  const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
+    const val = event.target.value as Array<string>;
+
+    console.log(val);
+    // setValue(val);
+
+    // //Костыль - выпилить
+    // const { captions } = selected_filter ? selected_filter : { captions: [""] };
+    // if (values.length === 0 && captions.length > 0) setValues(captions);
+
+    // let filter =
+    //   values &&
+    //   values.map((item: any) => (val.includes(item) ? 1 : 0)).join("");
+
+    // let filter1 =
+    //   captions &&
+    //   captions.map((item: any) => (val.includes(item) ? 1 : 0)).join("");
+
+    //Установка фильтра на сервере
+    // await handleDataQuery({
+    //   method: SET_DIM_FILTER,
+    //   language,
+    //   session,
+    //   solution,
+    //   project,
+    //   report,
+    //   slice,
+    //   view,
+    //   code,
+    //   filter: filter ? filter : filter1,
+    // });
+  };
+
   React.useEffect(() => {
     let active = true;
 
