@@ -38,12 +38,14 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [filters, setFilters] = React.useState<string>("");
   const [val, setVal] = React.useState<string[]>([]);
   const loading = open && options.length === 0;
-  console.log(options);
-  const handleChange = async (event: React.ChangeEvent<{}>) => {
-    const val = event.target;
 
-    // setValue(val);
-
+  const handleChange = (
+    event: object,
+    value: string[] | null,
+    reason: string
+  ) => {
+    const new_val = value && options.filter((item) => value.includes(item));
+    new_val && setVal(new_val);
     // //Костыль - выпилить
     // const { captions } = selected_filter ? selected_filter : { captions: [""] };
     // if (values.length === 0 && captions.length > 0) setValues(captions);
@@ -121,19 +123,23 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       value={val}
       id="size-small-outlined"
       size="small"
+      open={open}
       limitTags={2}
       multiple
       style={{ width: 275 }}
+      onChange={handleChange}
       onOpen={() => {
         setOpen(true);
       }}
       onClose={() => {
-        setOpen(false);
+        // setOpen(false);
         resetSelectedFilter();
       }}
-      getOptionSelected={(option, value) => option === value}
-      getOptionLabel={(option) => option}
-      options={options}
+      getOptionSelected={(option, value) => {
+        return option === value;
+      }}
+      getOptionLabel={(option: string) => option}
+      options={options as string[]}
       loading={loading}
       renderOption={(option, { selected }) => {
         return (
