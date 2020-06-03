@@ -16,4 +16,4 @@ export interface LinkDispatchToProps {
   handleDataQuery: (data_for_query: DataForQuery) => void;
 }
 
-export type IProps = Props & LinkStateToProps;
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
