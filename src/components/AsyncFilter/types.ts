@@ -23,6 +23,7 @@ export interface LinkStateToProps {
 export interface LinkDispatchToProps {
   handleDataQuery: (data_for_query: DataForQuery) => Promise<dataType>;
   resetSelectedFilter: () => void;
+  setFilter: (data_for_query: DataForQuery) => void;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;

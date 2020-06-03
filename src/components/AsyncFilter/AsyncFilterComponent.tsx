@@ -1,5 +1,4 @@
 // *https://www.registers.service.gov.uk/registers/country/use-the-api*
-import fetch from "cross-fetch";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
@@ -24,6 +23,7 @@ function sleep(delay = 0) {
 export const AsyncFilterComponent: React.FC<IProps> = ({
   handleDataQuery,
   resetSelectedFilter,
+  setFilter,
   slice,
   view,
   session,
@@ -47,31 +47,26 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   ) => {
     const new_val = value && options.filter((item) => value.includes(item));
     new_val && setVal(new_val);
-    // //Костыль - выпилить
-    // const { captions } = selected_filter ? selected_filter : { captions: [""] };
-    // if (values.length === 0 && captions.length > 0) setValues(captions);
 
-    // let filter =
-    //   values &&
-    //   values.map((item: any) => (val.includes(item) ? 1 : 0)).join("");
+    const filters_for_server = options.reduce(
+      (a, b) => (a += new_val?.includes(b) ? "0" : "1"),
+      ""
+    );
 
-    // let filter1 =
-    //   captions &&
-    //   captions.map((item: any) => (val.includes(item) ? 1 : 0)).join("");
+    // Установка фильтра на сервере
 
-    //Установка фильтра на сервере
-    // await handleDataQuery({
-    //   method: SET_DIM_FILTER,
-    //   language,
-    //   session,
-    //   solution,
-    //   project,
-    //   report,
-    //   slice,
-    //   view,
-    //   code,
-    //   filter: filter ? filter : filter1,
-    // });
+    setFilter({
+      method: SET_DIM_FILTER,
+      language,
+      session,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      code,
+      filter: filters_for_server,
+    });
   };
 
   React.useEffect(() => {
@@ -82,10 +77,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
     }
 
     (async () => {
-      const response = await fetch(
-        "https://country.register.gov.uk/records.json?page-size=5000"
-      );
-
       const data_for_query = {
         method: GET_DIM_FILTER,
         session,
@@ -99,8 +90,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       };
 
       const data: dataType = await handleDataQuery(data_for_query);
-      // await sleep(1e3); // For demo purposes.
-      const countries = await response.json();
 
       if (active) {
         setOptions(data.captions);

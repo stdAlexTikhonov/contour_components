@@ -17,6 +17,9 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
+  setFilter: async (data_for_query: DataForQuery) => {
+    await getData(data_for_query);
+  },
   handleDataQuery: async (data_for_query: DataForQuery) => {
     const data = await getData(data_for_query);
     const data_transformed = {
