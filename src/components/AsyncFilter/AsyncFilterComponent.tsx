@@ -131,8 +131,8 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       onOpen={() => {
         setOpen(true);
       }}
-      onClose={() => {
-        // setOpen(false);
+      onClose={(event: object, reason: string) => {
+        if (reason === "blur" || reason === "toggleInput") setOpen(false);
         resetSelectedFilter();
       }}
       getOptionSelected={(option, value) => {
