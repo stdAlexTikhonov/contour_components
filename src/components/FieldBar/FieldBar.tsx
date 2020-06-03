@@ -76,6 +76,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
   };
 
   const onHandleDrag = (e: any) => {
+    if (!e.destination) return;
     const [item] = getItem(e.source.droppableId, e.source.index);
     if (e.source.droppableId === "facts")
       putItem("facts", e.destination.index, item);
