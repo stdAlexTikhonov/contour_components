@@ -24,6 +24,7 @@ const mapDispatchToProps = (
         item.replace(/&nbsp;/g, " ")
       ),
       filters: data.Filters,
+      disabled: data.Hidden,
     };
 
     dispatch(getDimFilter(data_transformed));

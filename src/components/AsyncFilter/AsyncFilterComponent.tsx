@@ -36,6 +36,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<string[]>([]);
   const [filters, setFilters] = React.useState<string>("");
+  const [disabled, setDisabled] = React.useState<string[]>([]);
   const [val, setVal] = React.useState<string[]>([]);
   const loading = open && options.length === 0;
 
@@ -103,8 +104,11 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
 
       if (active) {
         setOptions(data.captions);
-
         setFilters(data.filters);
+        const dsb = data.captions.filter(
+          (item: string, i: number) => data.disabled[i] === "1"
+        );
+        setDisabled(dsb);
       }
     })();
 
@@ -114,7 +118,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   }, [loading]);
 
   useEffect(() => {
-    const new_val = options.filter((item, i) => filters[i] === "1");
+    const new_val = options.filter((item, i) => filters[i] === "0");
     setVal(new_val);
   }, [filters]);
 
@@ -138,6 +142,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       getOptionSelected={(option, value) => {
         return option === value;
       }}
+      getOptionDisabled={(option: string) => disabled.includes(option)}
       getOptionLabel={(option: string) => option}
       options={options as string[]}
       loading={loading}

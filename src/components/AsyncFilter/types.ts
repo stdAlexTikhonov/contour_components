@@ -11,6 +11,7 @@ export interface Props {
 export type dataType = {
   captions: string[];
   filters: string;
+  disabled: string;
 };
 
 export interface LinkStateToProps {
