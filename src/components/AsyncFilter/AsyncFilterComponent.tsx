@@ -9,6 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { GET_DIM_FILTER, SET_DIM_FILTER } from "../../utils/constants";
+import { replaceAt } from "../../utils/helpers";
 import { IProps } from "./types";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -34,10 +35,11 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<string[]>([]);
+  const [filters, setFilters] = React.useState("");
   const loading = open && options.length === 0;
 
-  const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
-    const val = event.target.value as Array<string>;
+  const handleChange = async (event: React.ChangeEvent<{}>) => {
+    const val = event.target;
 
     console.log(val);
     // setValue(val);
@@ -99,6 +101,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
 
       if (active) {
         setOptions(selected_filter ? selected_filter.captions : []);
+        setFilters(selected_filter ? selected_filter.filters : "");
       }
     })();
 
@@ -125,17 +128,21 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       getOptionLabel={(option) => option}
       options={options}
       loading={loading}
-      renderOption={(option, { selected }) => (
-        <React.Fragment>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option}
-        </React.Fragment>
-      )}
+      renderOption={(option, { selected }) => {
+        const index = options.indexOf(option);
+
+        return (
+          <React.Fragment>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={filters[index] === "1" || selected}
+            />
+            {option}
+          </React.Fragment>
+        );
+      }}
       renderInput={(params) => (
         <TextField
           {...params}
