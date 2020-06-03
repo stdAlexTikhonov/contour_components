@@ -153,6 +153,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
           {...params}
           label={label}
           variant="outlined"
+          placeholder="Type here"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
