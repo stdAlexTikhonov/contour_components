@@ -119,7 +119,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       open={open}
       limitTags={2}
       multiple
-      style={{ width: 275 }}
+      style={{ width: 275, overflow: "hidden" }}
       onChange={handleChange}
       onOpen={() => {
         setOpen(true);

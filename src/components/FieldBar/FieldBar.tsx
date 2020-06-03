@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
+import { Fact } from "../Fact";
 import { DragDropContext } from "react-beautiful-dnd";
 import {
   SET_FACT_POSISIOTNS,
@@ -145,13 +146,10 @@ export const FieldBarComponent: React.FC<IProps> = ({
             className={classes.aside}
             style={{ display: "block", overflow: "scroll" }}
           >
-            <List
-              code="facts"
-              title="Факты"
+            <Fact
               items={facts}
               view={view}
               slice={slice}
-              facts={true}
               visibleFacts={visibleFacts}
             />
           </Box>
