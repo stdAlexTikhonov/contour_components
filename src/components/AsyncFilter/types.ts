@@ -8,6 +8,11 @@ export interface Props {
   view: string;
 }
 
+export type dataType = {
+  captions: string[];
+  filters: string;
+};
+
 export interface LinkStateToProps {
   session: string | undefined;
   language: string;
@@ -15,7 +20,7 @@ export interface LinkStateToProps {
 }
 
 export interface LinkDispatchToProps {
-  handleDataQuery: (data_for_query: DataForQuery) => void;
+  handleDataQuery: (data_for_query: DataForQuery) => Promise<dataType>;
   resetSelectedFilter: () => void;
 }
 

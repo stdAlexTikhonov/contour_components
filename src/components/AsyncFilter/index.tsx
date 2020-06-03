@@ -19,7 +19,6 @@ const mapDispatchToProps = (
 ): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
     const data = await getData(data_for_query);
-
     const data_transformed = {
       captions: data.Captions.map((item: string) =>
         item.replace(/&nbsp;/g, " ")
@@ -27,7 +26,8 @@ const mapDispatchToProps = (
       filters: data.Filters,
     };
 
-    await dispatch(getDimFilter(data_transformed));
+    dispatch(getDimFilter(data_transformed));
+    return data_transformed;
   },
   resetSelectedFilter: () => {
     dispatch(getDimFilter(null));
