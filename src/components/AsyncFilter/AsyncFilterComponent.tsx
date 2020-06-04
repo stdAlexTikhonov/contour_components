@@ -112,6 +112,11 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
     setVal(new_val);
   }, [filters]);
 
+  useEffect(() => {
+    if (selectAll) setVal(options);
+    else setVal([]);
+  }, [selectAll]);
+
   return (
     <Autocomplete
       value={val}
