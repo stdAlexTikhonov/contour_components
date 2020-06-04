@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
@@ -49,6 +49,11 @@ export const FactComponent: React.FC<IProps> = ({
       visibleFacts: facts_for_server,
     });
   };
+
+  useEffect(() => {
+    if (selectAll) setVal(options);
+    else setVal([]);
+  }, [selectAll]);
 
   return (
     <Autocomplete
