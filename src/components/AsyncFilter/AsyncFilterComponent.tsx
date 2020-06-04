@@ -1,5 +1,5 @@
 // *https://www.registers.service.gov.uk/registers/country/use-the-api*
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -39,6 +39,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [disabled, setDisabled] = React.useState<string[]>([]);
   const [val, setVal] = React.useState<string[]>([]);
   const loading = open && options.length === 0;
+  const [selectAll, setSelectAll] = useState(false);
 
   const handleChange = (
     event: object,
@@ -161,7 +162,17 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : null}
-                {params.InputProps.endAdornment}
+                <Checkbox
+                  icon={icon}
+                  checkedIcon={checkedIcon}
+                  style={{ marginRight: 8 }}
+                  checked={selectAll}
+                  onChange={(e) => {
+                    setSelectAll(!selectAll);
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                />
               </React.Fragment>
             ),
           }}

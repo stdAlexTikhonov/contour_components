@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
@@ -20,6 +20,7 @@ export const FactComponent: React.FC<IProps> = ({
   language,
 }) => {
   const { solution, project, report } = useParams();
+  const [selectAll, setSelectAll] = useState(false);
 
   const handleChange = (event: object, value: any, reason: string) => {
     const facts_for_server = value.map((item: any) => item.code);
@@ -65,6 +66,22 @@ export const FactComponent: React.FC<IProps> = ({
           variant="outlined"
           label="Факты"
           placeholder="Type here"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={selectAll}
+                onChange={(e) => {
+                  setSelectAll(!selectAll);
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              />
+            ),
+          }}
         />
       )}
     />
