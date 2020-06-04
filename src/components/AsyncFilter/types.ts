@@ -6,6 +6,7 @@ export interface Props {
   code: string;
   slice: string;
   view: string;
+  report?: string;
 }
 
 export type dataType = {

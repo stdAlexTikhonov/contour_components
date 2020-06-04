@@ -14,6 +14,7 @@ import {
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
+import { report } from "../../reducers";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,

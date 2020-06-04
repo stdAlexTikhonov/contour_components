@@ -203,6 +203,7 @@ export type Metadata = {
   columns: any;
   attributes: any;
   visibleFacts: any;
+  report?: string;
 };
 
 export interface setDashboardMetadata {

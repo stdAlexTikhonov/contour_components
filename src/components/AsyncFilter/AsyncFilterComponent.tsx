@@ -31,6 +31,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   code,
   selected_filter,
   label,
+  report: report_code,
 }) => {
   const { solution, project, report } = useParams();
   const [open, setOpen] = React.useState(false);
@@ -71,7 +72,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         session,
         solution,
         project,
-        report,
+        report: report_code || report,
         slice,
         view,
         code,
@@ -94,7 +95,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         solution,
         language,
         project,
-        report,
+        report: report_code || report,
         slice,
         view,
         code,

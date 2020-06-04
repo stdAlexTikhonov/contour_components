@@ -8,6 +8,7 @@ export type Props = {
   view: string;
   filters: any;
   visibleFacts: any;
+  report?: string;
 };
 
 export type POSITIONS_TYPE =

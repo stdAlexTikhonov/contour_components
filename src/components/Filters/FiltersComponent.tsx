@@ -14,6 +14,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   facts,
   filters,
   visibleFacts,
+  report,
 }) => {
   const classes = useStyles();
   let pos = position.split("-")[0] as POSITIONS_TYPE;
@@ -48,6 +49,7 @@ export const FiltersComponent: React.FC<IProps> = ({
               code={item.code}
               slice={slice}
               view={view}
+              report={report}
             />
           ))}
         </Box>

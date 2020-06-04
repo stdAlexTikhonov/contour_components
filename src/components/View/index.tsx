@@ -24,6 +24,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
     slice,
     view,
     visibleFacts,
+    report,
   } = metadata;
 
   return (
@@ -68,6 +69,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           facts={facts ? facts.items : []}
           slice={slice}
           view={view}
+          report={report}
           filters={filters}
           visibleFacts={visibleFacts ? visibleFacts : []}
         />
