@@ -104,11 +104,15 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
 
       if (active) {
         setOptions(["Select All", ...data.captions]);
+
         setFilters("S" + data.filters);
         const dsb = data.captions.filter(
           (item: string, i: number) => data.disabled[i] === "1"
         );
         setDisabled(dsb);
+        //Проверка на то включены ли все значения
+        const str = Array(data.filters.length).fill("0").join("");
+        if (str === data.filters) setSelectAll(true);
       }
     })();
 

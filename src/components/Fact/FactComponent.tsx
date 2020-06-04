@@ -21,7 +21,9 @@ export const FactComponent: React.FC<IProps> = ({
   visibleFacts,
 }) => {
   const { solution, project, report } = useParams();
-  const [selectAll, setSelectAll] = useState(false);
+  const [selectAll, setSelectAll] = useState(
+    visibleFacts.length === items.length
+  );
   const [open, setOpen] = React.useState(false);
   const selected = items.filter((item: any) =>
     visibleFacts.includes(item.code)
@@ -65,10 +67,7 @@ export const FactComponent: React.FC<IProps> = ({
     if (selectAll) {
       setVal(options);
       facts_for_server = items.map((item: any) => item.code);
-    } else {
-      console.log("hello");
-      setVal([]);
-    }
+    } else setVal([]);
 
     handleDataQuery({
       method: SET_FACTS,
