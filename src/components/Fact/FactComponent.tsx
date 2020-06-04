@@ -22,6 +22,7 @@ export const FactComponent: React.FC<IProps> = ({
 }) => {
   const { solution, project, report } = useParams();
   const [selectAll, setSelectAll] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const selected = items.filter((item: any) =>
     visibleFacts.includes(item.code)
   );
@@ -77,10 +78,17 @@ export const FactComponent: React.FC<IProps> = ({
       multiple
       id="size-small-outlined"
       size="small"
+      open={open}
       renderTags={() => false}
       onChange={handleChange}
       value={val}
       options={options as string[]}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={(event: object, reason: string) => {
+        if (reason === "blur" || reason === "toggleInput") setOpen(false);
+      }}
       renderOption={(option, { selected }) => (
         <React.Fragment>
           <Checkbox
