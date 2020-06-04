@@ -46,28 +46,38 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
     value: string[] | null,
     reason: string
   ) => {
-    const new_val = value && options.filter((item) => value.includes(item));
-    new_val && setVal(new_val);
+    //Проверка - есть ли в списке Select All
+    const check_select_all = value && value.includes("Select All");
 
-    const filters_for_server = options.reduce(
-      (a, b) => (a += new_val?.includes(b) ? "0" : "1"),
-      ""
-    );
+    //Проверка - соответствует ли чекбокс select All предыдущему состоянию
+    const flag = check_select_all !== selectAll;
+    if (flag && value) setSelectAll(check_select_all!);
+    else {
+      const new_val = value && options.filter((item) => value.includes(item));
+      new_val && setVal(new_val);
 
-    // Установка фильтра на сервере
+      const sliced = options.slice(1);
 
-    setFilter({
-      method: SET_DIM_FILTER,
-      language,
-      session,
-      solution,
-      project,
-      report,
-      slice,
-      view,
-      code,
-      filter: filters_for_server,
-    });
+      const filters_for_server = sliced.reduce(
+        (a, b) => (a += new_val?.includes(b) ? "0" : "1"),
+        ""
+      );
+
+      // Установка фильтра на сервере
+
+      setFilter({
+        method: SET_DIM_FILTER,
+        language,
+        session,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        code,
+        filter: filters_for_server,
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -93,8 +103,8 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       const data: dataType = await handleDataQuery(data_for_query);
 
       if (active) {
-        setOptions(data.captions);
-        setFilters(data.filters);
+        setOptions(["Select All", ...data.captions]);
+        setFilters("S" + data.filters);
         const dsb = data.captions.filter(
           (item: string, i: number) => data.disabled[i] === "1"
         );
@@ -113,8 +123,25 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   }, [filters]);
 
   useEffect(() => {
-    if (selectAll) setVal(options);
-    else setVal([]);
+    const sliced = options.slice(1);
+    let filters_for_server = Array.from(sliced).fill("1").join("");
+    if (selectAll) {
+      setVal(options);
+      filters_for_server = Array.from(sliced).fill("0").join("");
+    } else setVal([]);
+
+    setFilter({
+      method: SET_DIM_FILTER,
+      language,
+      session,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      code,
+      filter: filters_for_server,
+    });
   }, [selectAll]);
 
   return (
