@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { ITEMS } from "../../utils/constants";
@@ -38,7 +39,13 @@ export const CardsComponent: React.FC<IProps> = ({
     <div className={classes.container}>
       <Grid
         container
-        style={{ margin: 0, justifyContent: "center" }}
+        style={{
+          margin: "auto",
+          justifyContent: "center",
+          maxHeight: "80%",
+          overflow: "scroll",
+          maxWidth: "80%",
+        }}
         spacing={5}
       >
         {items.map((item: any) => {

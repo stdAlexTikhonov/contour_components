@@ -13,7 +13,6 @@ export const useStyles = makeStyles({
     height: "100%",
     flexWrap: "wrap",
     alignItems: "flex-start",
-    overflow: "scroll",
     justifyContent: "space-around",
   },
   icon: {
