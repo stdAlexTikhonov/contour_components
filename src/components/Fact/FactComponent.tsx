@@ -18,12 +18,23 @@ export const FactComponent: React.FC<IProps> = ({
   view,
   session,
   language,
+  visibleFacts,
 }) => {
   const { solution, project, report } = useParams();
   const [selectAll, setSelectAll] = useState(false);
+  const selected = items.filter((item: any) =>
+    visibleFacts.includes(item.code)
+  );
+  const [options, setOptions] = useState(
+    items.map((item: any) => item.Caption)
+  );
+  const [val, setVal] = useState(selected.map((item: any) => item.Caption));
 
   const handleChange = (event: object, value: any, reason: string) => {
-    const facts_for_server = value.map((item: any) => item.code);
+    setVal(value);
+    const facts_filtered = items.filter((item: any) => value.includes(item));
+
+    const facts_for_server = facts_filtered.map((item: any) => item.code);
 
     // // Установка фильтра на сервере
     handleDataQuery({
@@ -44,10 +55,10 @@ export const FactComponent: React.FC<IProps> = ({
       multiple
       id="size-small-outlined"
       size="small"
+      limitTags={2}
       onChange={handleChange}
-      options={items}
-      disableCloseOnSelect
-      getOptionLabel={(option: any) => option.Caption}
+      value={val}
+      options={options as string[]}
       renderOption={(option, { selected }) => (
         <React.Fragment>
           <Checkbox
@@ -56,7 +67,7 @@ export const FactComponent: React.FC<IProps> = ({
             style={{ marginRight: 8 }}
             checked={selected}
           />
-          {option.Caption}
+          {option}
         </React.Fragment>
       )}
       style={{ minWidth: 275, overflow: "hidden", padding: 5 }}
