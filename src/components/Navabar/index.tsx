@@ -20,7 +20,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
   const items = Object.keys(languages);
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: "#003366" }}>
         <Toolbar>
           <div className={classes.title}>
             <a href="/" className={classes.linkStyle}>

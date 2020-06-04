@@ -88,6 +88,8 @@ export const FactComponent: React.FC<IProps> = ({
             checkedIcon={checkedIcon}
             style={{ marginRight: 8 }}
             checked={selected}
+            color="primary"
+            inputProps={{ "aria-label": "secondary checkbox" }}
           />
           {option}
         </React.Fragment>
