@@ -77,7 +77,7 @@ export const FactComponent: React.FC<IProps> = ({
       multiple
       id="size-small-outlined"
       size="small"
-      limitTags={2}
+      renderTags={() => false}
       onChange={handleChange}
       value={val}
       options={options as string[]}
