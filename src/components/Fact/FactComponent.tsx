@@ -51,8 +51,25 @@ export const FactComponent: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    if (selectAll) setVal(options);
-    else setVal([]);
+    let facts_for_server = [];
+    if (selectAll) {
+      setVal(options);
+      facts_for_server = items.map((item: any) => item.code);
+    } else {
+      setVal([]);
+    }
+
+    handleDataQuery({
+      method: SET_FACTS,
+      session,
+      language,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      visibleFacts: facts_for_server,
+    });
   }, [selectAll]);
 
   return (
