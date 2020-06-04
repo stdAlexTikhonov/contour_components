@@ -9,7 +9,7 @@ export const useStyles = makeStyles({
   },
   container: {
     display: "flex",
-    backgroundColor: "#cfe8fc",
+    backgroundColor: "#f5f5f5",
     height: "100%",
     flexWrap: "wrap",
     alignItems: "flex-start",
