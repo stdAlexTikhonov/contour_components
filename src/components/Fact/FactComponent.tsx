@@ -26,29 +26,38 @@ export const FactComponent: React.FC<IProps> = ({
   const selected = items.filter((item: any) =>
     visibleFacts.includes(item.code)
   );
-  const [options, setOptions] = useState(
-    items.map((item: any) => item.Caption)
-  );
+  const [options, setOptions] = useState([
+    "Select All",
+    ...items.map((item: any) => item.Caption),
+  ]);
   const [val, setVal] = useState(selected.map((item: any) => item.Caption));
 
   const handleChange = (event: object, value: any, reason: string) => {
-    setVal(value);
-    const facts_filtered = items.filter((item: any) => value.includes(item));
+    //Проверка - есть ли в списке Select All
+    const check_select_all = value.includes("Select All");
 
-    const facts_for_server = facts_filtered.map((item: any) => item.code);
+    //Проверка - соответствует ли чекбокс select All предыдущему состоянию
+    const flag = check_select_all !== selectAll;
+    if (flag) setSelectAll(check_select_all);
+    else {
+      setVal(value);
+      const facts_filtered = items.filter((item: any) => value.includes(item));
 
-    // // Установка фильтра на сервере
-    handleDataQuery({
-      method: SET_FACTS,
-      session,
-      language,
-      solution,
-      project,
-      report,
-      slice,
-      view,
-      visibleFacts: facts_for_server,
-    });
+      const facts_for_server = facts_filtered.map((item: any) => item.code);
+
+      // // Установка фильтра на сервере
+      handleDataQuery({
+        method: SET_FACTS,
+        session,
+        language,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        visibleFacts: facts_for_server,
+      });
+    }
   };
 
   useEffect(() => {
@@ -57,6 +66,7 @@ export const FactComponent: React.FC<IProps> = ({
       setVal(options);
       facts_for_server = items.map((item: any) => item.code);
     } else {
+      console.log("hello");
       setVal([]);
     }
 
