@@ -101,19 +101,7 @@ export const FactComponent: React.FC<IProps> = ({
           placeholder="Type here"
           InputProps={{
             ...params.InputProps,
-            endAdornment: (
-              <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
-                style={{ marginRight: 8 }}
-                checked={selectAll}
-                onChange={(e) => {
-                  setSelectAll(!selectAll);
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-              />
-            ),
+            endAdornment: params.InputProps.endAdornment,
           }}
         />
       )}

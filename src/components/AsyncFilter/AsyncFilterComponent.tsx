@@ -167,17 +167,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : null}
-                <Checkbox
-                  icon={icon}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={selectAll}
-                  onChange={(e) => {
-                    setSelectAll(!selectAll);
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                />
+                {params.InputProps.endAdornment}
               </React.Fragment>
             ),
           }}
