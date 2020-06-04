@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
 import { FieldBar } from "../FieldBar";
+import { Filters } from "../Filters";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
@@ -61,16 +62,13 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           />
         )} */}
 
-        <FieldBar
+        <Filters
           show={fieldBar}
           position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
           facts={facts ? facts.items : []}
           slice={slice}
           view={view}
           filters={filters}
-          columns={columns}
-          rows={rows}
-          attributes={attributes}
           visibleFacts={visibleFacts ? visibleFacts : []}
         />
       </Grid>
