@@ -1,0 +1,130 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import { IProps } from "./types";
+import { SET_FACTS } from "../../utils/constants";
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+export const FactComponent: React.FC<IProps> = ({
+  handleDataQuery,
+  items,
+  slice,
+  view,
+  session,
+  language,
+  visibleFacts,
+}) => {
+  const { solution, project, report } = useParams();
+  const [selectAll, setSelectAll] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const selected = items.filter((item: any) =>
+    visibleFacts.includes(item.code)
+  );
+  const [options, setOptions] = useState([
+    "Select All",
+    ...items.map((item: any) => item.Caption),
+  ]);
+  const [val, setVal] = useState(selected.map((item: any) => item.Caption));
+
+  const handleChange = (event: object, value: any, reason: string) => {
+    //Проверка - есть ли в списке Select All
+    const check_select_all = value.includes("Select All");
+
+    //Проверка - соответствует ли чекбокс select All предыдущему состоянию
+    const flag = check_select_all !== selectAll;
+    if (flag) setSelectAll(check_select_all);
+    else {
+      setVal(value);
+      const facts_filtered = items.filter((item: any) => value.includes(item));
+
+      const facts_for_server = facts_filtered.map((item: any) => item.code);
+
+      // // Установка фильтра на сервере
+      handleDataQuery({
+        method: SET_FACTS,
+        session,
+        language,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        visibleFacts: facts_for_server,
+      });
+    }
+  };
+
+  useEffect(() => {
+    let facts_for_server = [];
+    if (selectAll) {
+      setVal(options);
+      facts_for_server = items.map((item: any) => item.code);
+    } else {
+      console.log("hello");
+      setVal([]);
+    }
+
+    handleDataQuery({
+      method: SET_FACTS,
+      session,
+      language,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      visibleFacts: facts_for_server,
+    });
+  }, [selectAll]);
+
+  return (
+    <Autocomplete
+      multiple
+      id="size-small-outlined"
+      size="small"
+      open={open}
+      renderTags={() => false}
+      onChange={handleChange}
+      value={val}
+      options={options as string[]}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={(event: object, reason: string) => {
+        if (reason === "blur" || reason === "toggleInput") setOpen(false);
+      }}
+      renderOption={(option, { selected }) => (
+        <React.Fragment>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+            color="primary"
+            inputProps={{ "aria-label": "secondary checkbox" }}
+          />
+          {option}
+        </React.Fragment>
+      )}
+      style={{ minWidth: 275, overflow: "hidden", padding: 5 }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          variant="outlined"
+          label="Факты"
+          placeholder="Type here"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: params.InputProps.endAdornment,
+          }}
+        />
+      )}
+    />
+  );
+};

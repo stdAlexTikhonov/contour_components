@@ -1,71 +1,58 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import React from "react";
+import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
-import { IProps } from "./types";
-import { Filter } from "../Filter";
-import { SET_FACTS } from "../../utils/constants";
+import { DragDropContext } from "react-beautiful-dnd";
+import Box from "@material-ui/core/Box";
+import { AsyncFilter } from "../AsyncFilter";
+import { Fact } from "../Fact";
 
 export const FiltersComponent: React.FC<IProps> = ({
-  filters,
-  facts: _facts,
-  slice,
+  show,
+  position,
   view,
-  session,
-  language,
-  handleDataQuery,
+  slice,
+  facts,
+  filters,
+  visibleFacts,
 }) => {
   const classes = useStyles();
-  const [facts, setFacts] = useState<Array<string>>([]);
-  const { solution, project, report } = useParams();
+  let pos = position.split("-")[0] as POSITIONS_TYPE;
+  pos = pos === "row" ? "column" : "row";
 
-  const handleFact = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const val = event.target.value as Array<string>;
-    setFacts(val);
-    handleDataQuery({
-      session,
-      language,
-      method: SET_FACTS,
-      solution,
-      project,
-      report,
-      slice,
-      view,
-      visibleFacts: val,
-    });
-  };
+  const onHandleDrag = () => console.log("drag end");
 
   return (
-    <div className={classes.selectEmpty}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Facts</InputLabel>
-        <Select
-          multiple
-          labelId="demo-simple-select-label"
-          value={facts}
-          onChange={handleFact}
+    <DragDropContext onDragEnd={onHandleDrag}>
+      <Box
+        className={classes.root}
+        style={{ flexDirection: position, overflow: "hidden" }}
+      >
+        <Box
+          className={classes.aside}
+          style={{
+            display: show ? "flex" : "none",
+            flexDirection: pos,
+            overflow: "auto",
+          }}
         >
-          {_facts &&
-            _facts.map((item: any) => (
-              <MenuItem key={item.code} value={item.code}>
-                {item.Caption}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-      {filters &&
-        filters.map((item: any) => (
-          <Filter
-            key={item.code}
-            label={item.Caption}
-            code={item.code}
+          <Fact
             slice={slice}
             view={view}
+            visibleFacts={visibleFacts}
+            items={facts}
           />
-        ))}
-    </div>
+          {filters.map((item: any) => (
+            <AsyncFilter
+              key={item.code}
+              label={item.Caption}
+              code={item.code}
+              slice={slice}
+              view={view}
+            />
+          ))}
+        </Box>
+        <Box className={classes.main} />
+      </Box>
+    </DragDropContext>
   );
 };

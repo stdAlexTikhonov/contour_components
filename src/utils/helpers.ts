@@ -13,6 +13,9 @@ export const generateUID = () => {
   );
 };
 
+export const replaceAt = (str: string, index: number, replacement: string) =>
+  str.substr(0, index) + replacement + str.substr(index + replacement.length);
+
 export const formatGeometry = (dashboard: any) => {
   const {
     grid: {

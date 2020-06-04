@@ -1,22 +1,16 @@
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      minWidth: 120,
-      marginTop: 0,
-      marginLeft: 10,
-    },
-    selectEmpty: {
-      display: "flex",
-      width: "100%",
-      overflowY: "hidden",
-      overflowX: "scroll",
-      minHeight: 50,
-    },
-    test: {
-      transform: "translate(0, 10.5px) scale(0.75)",
-    },
-    test1: {},
-  })
-);
+export const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    display: "flex",
+  },
+  aside: {
+    display: "flex",
+    backgroundColor: "#ecf0f1",
+    overflow: "hidden",
+  },
+  main: {
+    flexGrow: 1,
+  },
+});

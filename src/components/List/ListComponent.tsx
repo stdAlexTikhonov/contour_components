@@ -5,7 +5,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Filter } from "../Filter";
+import { AsyncFilter } from "../AsyncFilter";
 import { IProps } from "./types";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
@@ -56,7 +56,7 @@ export const ListComponent: React.FC<IProps> = ({
 
   return (
     <>
-      <b>{title}</b>
+      <b style={{ padding: 5, display: "block" }}>{title}</b>
       <Droppable droppableId={code}>
         {(provided) => (
           <List
@@ -85,7 +85,7 @@ export const ListComponent: React.FC<IProps> = ({
                         />
                       </>
                     ) : (
-                      <Filter
+                      <AsyncFilter
                         label={item.Caption}
                         code={item.code}
                         slice={slice}

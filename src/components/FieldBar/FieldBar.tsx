@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
+import { Fact } from "../Fact";
 import { DragDropContext } from "react-beautiful-dnd";
 import {
   SET_FACT_POSISIOTNS,
@@ -75,6 +76,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
   };
 
   const onHandleDrag = (e: any) => {
+    if (!e.destination) return;
     const [item] = getItem(e.source.droppableId, e.source.index);
     if (e.source.droppableId === "facts")
       putItem("facts", e.destination.index, item);
@@ -145,13 +147,10 @@ export const FieldBarComponent: React.FC<IProps> = ({
             className={classes.aside}
             style={{ display: "block", overflow: "scroll" }}
           >
-            <List
-              code="facts"
-              title="Факты"
+            <Fact
               items={facts}
               view={view}
               slice={slice}
-              facts={true}
               visibleFacts={visibleFacts}
             />
           </Box>
@@ -163,34 +162,6 @@ export const FieldBarComponent: React.FC<IProps> = ({
               view={view}
               slice={slice}
             />
-            <Divider />
-
-            <List
-              title="Колонки"
-              code="columns"
-              items={columns}
-              view={view}
-              slice={slice}
-            />
-            <Divider />
-
-            <List
-              title="Строки"
-              code="rows"
-              items={rows}
-              view={view}
-              slice={slice}
-            />
-            <Divider />
-
-            <List
-              title="Атрибуты"
-              code="attributes"
-              items={attributes}
-              view={view}
-              slice={slice}
-            />
-            <Divider />
           </Box>
         </Box>
         <Box className={classes.main} />
