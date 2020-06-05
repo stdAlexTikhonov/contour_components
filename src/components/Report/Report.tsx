@@ -5,6 +5,7 @@ import { useStyles } from "./styles";
 import { REPORT, ITEMS, DASH_VIEW_META } from "../../utils/constants";
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
+import SimpleBar from "simplebar-react";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -45,11 +46,11 @@ export const ReportComponent: React.FC<IProps> = ({
   }, [report, method, session, language]);
 
   return report ? (
-    <div className={classes.root} id="hidebar">
+    <SimpleBar style={{ maxHeight: "100vh" }}>
       {tabs && report_type !== "dashboard" && <Tabs />}
       {report_type === "dashboard" && (
         <Dashboard dashboard={dashboard} metadata={metadata} />
       )}
-    </div>
+    </SimpleBar>
   ) : null;
 };
