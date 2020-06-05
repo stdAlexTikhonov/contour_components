@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
-  root: {
+  box: {
     minWidth: 275,
     position: "relative",
     paddingRight: 15,
