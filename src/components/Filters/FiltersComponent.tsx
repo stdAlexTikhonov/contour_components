@@ -23,6 +23,32 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const onHandleDrag = () => console.log("drag end");
 
+  const renderItems = () => (
+    <>
+      {" "}
+      <Fact
+        slice={slice}
+        view={view}
+        visibleFacts={visibleFacts}
+        items={facts}
+      />
+      {filters.map((item: any) => (
+        <AsyncFilter
+          key={item.code}
+          label={item.Caption}
+          code={item.code}
+          slice={slice}
+          view={view}
+          report={report}
+        />
+      ))}
+    </>
+  );
+
+  const simpleWrapper = () => (
+    <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
+  );
+
   return (
     <DragDropContext onDragEnd={onHandleDrag}>
       <Box
@@ -36,25 +62,10 @@ export const FiltersComponent: React.FC<IProps> = ({
             flexDirection: pos,
           }}
         >
-          <SimpleBar>
-            <div style={{ display: "flex", flexDirection: pos }}>
-              <Fact
-                slice={slice}
-                view={view}
-                visibleFacts={visibleFacts}
-                items={facts}
-              />
-              {filters.map((item: any) => (
-                <AsyncFilter
-                  key={item.code}
-                  label={item.Caption}
-                  code={item.code}
-                  slice={slice}
-                  view={view}
-                  report={report}
-                />
-              ))}
-            </div>
+          <SimpleBar
+            style={pos === "row" ? { maxWidth: "100%" } : { maxHeight: "100%" }}
+          >
+            {pos === "row" ? simpleWrapper() : renderItems()}
           </SimpleBar>
         </Box>
         <Box className={classes.main} />
