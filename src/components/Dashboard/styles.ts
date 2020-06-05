@@ -5,7 +5,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     block: {
       textAlign: "center",
       color: theme.palette.text.secondary,
-      background: "#f5f5f5",
       whiteSpace: "nowrap",
     },
   })

@@ -8,7 +8,6 @@ export const useStyles = makeStyles({
   container: {
     display: "flex",
     padding: "100px 150px",
-    backgroundColor: "#f5f5f5",
     width: "100%",
     boxSizing: "border-box",
     justifyContent: "center",
