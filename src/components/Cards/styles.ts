@@ -16,6 +16,7 @@ export const useStyles = makeStyles({
   row: {
     display: "flex",
     justifyContent: "center",
+    width: "100%",
   },
   icon: {
     position: "absolute",
