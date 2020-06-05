@@ -2,8 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
   box: {
-    minWidth: 275,
-    position: "relative",
     paddingRight: 15,
     height: "100%",
   },
@@ -17,10 +15,14 @@ export const useStyles = makeStyles({
   icon: {
     position: "absolute",
     top: 5,
-    right: 5,
+    right: 15,
   },
   link: {
     color: "inherit",
     textDecoration: "none",
+    "&:hover": {
+      color: "inherit",
+      textDecoration: "none",
+    },
   },
 });

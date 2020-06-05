@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Container from "@material-ui/core/Container";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { ITEMS } from "../../utils/constants";
@@ -36,56 +38,63 @@ export const CardsComponent: React.FC<IProps> = ({
   }, [session, solution, folder, project, p_folder, language]);
 
   return (
-    <div className={classes.container}>
-      {items.map((item: any) => {
-        let link = "";
-        if (item.type === "report") {
-          link =
-            "/" + solution + "/project/" + project + "/report/" + item.code;
-        } else if (item.type === "folder" && project) {
-          link = "/" + solution + "/project/" + project + "/" + item.code;
-        } else if (item.type === "solution") {
-          link = "/" + item.code;
-        } else if (item.type === "folder") {
-          link = "/" + solution + "/" + item.code;
-        } else if (item.type === "project") {
-          link = "/" + solution + "/project/" + item.code;
-        }
-        return (
-          <Card key={item.code} className={classes.box}>
-            <Link
-              to={link}
-              className={classes.link}
-              onClick={() => handleClick()}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {item.caption}
-                </Typography>
-                {item.icon && (
-                  <img src={"data:image/png;base64," + item.icon} />
-                )}
-                <Typography>{item.description}</Typography>
-                {item.type === "project" && (
-                  <LibraryBooksIcon color="primary" className={classes.icon} />
-                )}
+    <Container className={classes.container}>
+      <Row>
+        {items.map((item: any) => {
+          let link = "";
+          if (item.type === "report") {
+            link =
+              "/" + solution + "/project/" + project + "/report/" + item.code;
+          } else if (item.type === "folder" && project) {
+            link = "/" + solution + "/project/" + project + "/" + item.code;
+          } else if (item.type === "solution") {
+            link = "/" + item.code;
+          } else if (item.type === "folder") {
+            link = "/" + solution + "/" + item.code;
+          } else if (item.type === "project") {
+            link = "/" + solution + "/project/" + item.code;
+          }
+          return (
+            <Col key={item.code} sm={8} md={6} lg={4}>
+              <Card className={classes.box}>
+                <Link
+                  to={link}
+                  className={classes.link}
+                  onClick={() => handleClick()}
+                >
+                  <CardContent>
+                    <Typography variant="h5" component="h2">
+                      {item.caption}
+                    </Typography>
+                    {item.icon && (
+                      <img src={"data:image/png;base64," + item.icon} />
+                    )}
+                    <Typography>{item.description}</Typography>
+                    {item.type === "project" && (
+                      <LibraryBooksIcon
+                        color="primary"
+                        className={classes.icon}
+                      />
+                    )}
 
-                {item.type === "folder" && (
-                  <FolderIcon color="primary" className={classes.icon} />
-                )}
+                    {item.type === "folder" && (
+                      <FolderIcon color="primary" className={classes.icon} />
+                    )}
 
-                {item.type === "report" && (
-                  <BarChartIcon color="primary" className={classes.icon} />
-                )}
+                    {item.type === "report" && (
+                      <BarChartIcon color="primary" className={classes.icon} />
+                    )}
 
-                {item.type === "solution" && (
-                  <ClassIcon color="primary" className={classes.icon} />
-                )}
-              </CardContent>
-            </Link>
-          </Card>
-        );
-      })}
-    </div>
+                    {item.type === "solution" && (
+                      <ClassIcon color="primary" className={classes.icon} />
+                    )}
+                  </CardContent>
+                </Link>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
   );
 };
