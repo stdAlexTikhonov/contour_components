@@ -5,6 +5,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
 import { AsyncFilter } from "../AsyncFilter";
 import { Fact } from "../Fact";
+import SimpleBar from "simplebar-react";
 
 export const FiltersComponent: React.FC<IProps> = ({
   show,
