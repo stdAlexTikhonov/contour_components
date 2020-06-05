@@ -6,12 +6,19 @@ export const useStyles = makeStyles({
     height: "100%",
   },
   container: {
+    display: "flex",
     padding: "100px 150px",
     backgroundColor: "#f5f5f5",
     height: "100vh",
     width: "100%",
     overflow: "scroll",
     boxSizing: "border-box",
+
+    justifyContent: "center",
+  },
+  row: {
+    display: "flex",
+    justifyContent: "center",
   },
   icon: {
     position: "absolute",

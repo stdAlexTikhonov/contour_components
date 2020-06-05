@@ -39,7 +39,7 @@ export const CardsComponent: React.FC<IProps> = ({
 
   return (
     <Container className={classes.container} fluid>
-      <Row>
+      <Row className={classes.row}>
         {items.map((item: any) => {
           let link = "";
           if (item.type === "report") {
