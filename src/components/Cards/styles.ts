@@ -2,12 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
   box: {
-    paddingRight: 15,
+    padding: 15,
     height: "100%",
   },
   container: {
     display: "flex",
-    padding: "100px 150px",
+    padding: 100,
     width: "100%",
     boxSizing: "border-box",
     justifyContent: "center",
