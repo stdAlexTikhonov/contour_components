@@ -34,7 +34,6 @@ export const FiltersComponent: React.FC<IProps> = ({
           style={{
             display: show ? "flex" : "none",
             flexDirection: pos,
-            overflow: "auto",
           }}
         >
           <SimpleBar>
