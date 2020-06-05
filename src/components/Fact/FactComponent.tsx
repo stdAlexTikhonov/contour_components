@@ -112,7 +112,7 @@ export const FactComponent: React.FC<IProps> = ({
           {option}
         </React.Fragment>
       )}
-      style={{ minWidth: 275, overflow: "hidden", padding: 5 }}
+      style={{ minWidth: 275, minHeight: 50, overflow: "hidden", padding: 5 }}
       renderInput={(params) => (
         <TextField
           {...params}
