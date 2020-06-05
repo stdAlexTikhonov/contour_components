@@ -38,7 +38,7 @@ export const CardsComponent: React.FC<IProps> = ({
   }, [session, solution, folder, project, p_folder, language]);
 
   return (
-    <Container className={classes.container}>
+    <Container className={classes.container} fluid>
       <Row>
         {items.map((item: any) => {
           let link = "";

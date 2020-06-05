@@ -33,7 +33,7 @@ export const AppComponent: React.FC<IProps> = ({
         currentLanguage={current}
         handleLogout={handleLogout}
       />
-      <Box display="flex" height="100vh" style={{ background: "#f5f5f5" }}>
+      <Box>
         <Switch>
           <Route path="/" exact component={Cards} />
           <Route path={"/login"} component={Login} />
