@@ -55,7 +55,13 @@ export const CardsComponent: React.FC<IProps> = ({
             link = "/" + solution + "/project/" + item.code;
           }
           return (
-            <Col key={item.code} sm={8} md={6} lg={4}>
+            <Col
+              key={item.code}
+              sm={{ span: 8 }}
+              md={{ span: 6 }}
+              lg={{ span: 4 }}
+              style={{ marginTop: 10, marginBottom: 10 }}
+            >
               <Card className={classes.box}>
                 <Link
                   to={link}

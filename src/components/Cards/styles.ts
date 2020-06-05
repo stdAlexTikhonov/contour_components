@@ -15,7 +15,7 @@ export const useStyles = makeStyles({
   icon: {
     position: "absolute",
     top: 5,
-    right: 15,
+    right: 25,
   },
   link: {
     color: "inherit",
