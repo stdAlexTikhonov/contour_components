@@ -7,7 +7,7 @@ export const useStyles = makeStyles({
   },
   aside: {
     display: "flex",
-    backgroundColor: "#ecf0f1",
+    backgroundColor: "#f5f5f5",
     overflow: "hidden",
   },
   main: {
