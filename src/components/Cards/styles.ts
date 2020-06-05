@@ -8,12 +8,11 @@ export const useStyles = makeStyles({
     height: "100%",
   },
   container: {
-    display: "flex",
     backgroundColor: "#f5f5f5",
-    height: "100%",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    justifyContent: "space-around",
+    height: "80vh",
+    width: "80%",
+    margin: "auto",
+    overflow: "scroll",
   },
   icon: {
     position: "absolute",
