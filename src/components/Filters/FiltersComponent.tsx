@@ -62,9 +62,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             flexDirection: pos,
           }}
         >
-          <SimpleBar
-            style={pos === "row" ? { maxWidth: "100%" } : { maxHeight: "100%" }}
-          >
+          <SimpleBar style={{ maxHeight: "100%" }}>
             {pos === "row" ? simpleWrapper() : renderItems()}
           </SimpleBar>
         </Box>
