@@ -20,7 +20,6 @@ export const FactComponent: React.FC<IProps> = ({
   language,
   visibleFacts,
 }) => {
-  console.log(visibleFacts);
   const { solution, project, report } = useParams();
   const [selectAll, setSelectAll] = useState(
     visibleFacts.length === items.length
