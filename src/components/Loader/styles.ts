@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      position: "absolute",
+      position: "fixed",
       top: 0,
       left: 0,
       background: "rgba(0,0,0,0.5)",

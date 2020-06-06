@@ -20,7 +20,6 @@ export const FactComponent: React.FC<IProps> = ({
   language,
   visibleFacts,
 }) => {
-  console.log(visibleFacts);
   const { solution, project, report } = useParams();
   const [selectAll, setSelectAll] = useState(
     visibleFacts.length === items.length
@@ -112,7 +111,13 @@ export const FactComponent: React.FC<IProps> = ({
           {option}
         </React.Fragment>
       )}
-      style={{ minWidth: 275, overflow: "hidden", padding: 5 }}
+      style={{
+        minWidth: 275,
+        maxWidth: 275,
+        minHeight: 50,
+        overflow: "hidden",
+        padding: 5,
+      }}
       renderInput={(params) => (
         <TextField
           {...params}

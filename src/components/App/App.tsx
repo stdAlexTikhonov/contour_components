@@ -25,43 +25,37 @@ export const AppComponent: React.FC<IProps> = ({
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}
-      <Box
-        display="flex"
-        flexDirection="column"
-        height="100vh"
-        overflow="hidden"
-      >
-        <ButtonAppBar
-          languages={languages}
-          logged_in={logged_in}
-          changeLanguage={changeLanguage}
-          currentLanguage={current}
-          handleLogout={handleLogout}
-        />
-        <Box flexGrow={1} overflow="scroll" id="mainbox">
-          <Switch>
-            <Route path="/" exact component={Cards} />
-            <Route path={"/login"} component={Login} />
-            <Route path={"/register"} component={RegistrationForm} />
-            <Route path={"/:solution/"} exact component={Cards} />
-            <Route path={"/:solution/:folder"} exact component={Cards} />
-            <Route
-              path={"/:solution/project/:project"}
-              exact
-              component={Project}
-            />
-            <Route
-              path={"/:solution/project/:project/:p_folder"}
-              exact
-              component={Project}
-            />
-            <Route
-              path={"/:solution/project/:project/report/:report"}
-              exact
-              component={Report}
-            />
-          </Switch>
-        </Box>
+
+      <ButtonAppBar
+        languages={languages}
+        logged_in={logged_in}
+        changeLanguage={changeLanguage}
+        currentLanguage={current}
+        handleLogout={handleLogout}
+      />
+      <Box>
+        <Switch>
+          <Route path="/" exact component={Cards} />
+          <Route path={"/login"} component={Login} />
+          <Route path={"/register"} component={RegistrationForm} />
+          <Route path={"/:solution/"} exact component={Cards} />
+          <Route path={"/:solution/:folder"} exact component={Cards} />
+          <Route
+            path={"/:solution/project/:project"}
+            exact
+            component={Project}
+          />
+          <Route
+            path={"/:solution/project/:project/:p_folder"}
+            exact
+            component={Project}
+          />
+          <Route
+            path={"/:solution/project/:project/report/:report"}
+            exact
+            component={Report}
+          />
+        </Switch>
       </Box>
     </BrowserRouter>
   );
