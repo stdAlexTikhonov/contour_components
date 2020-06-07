@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import { AsyncFilter } from "../AsyncFilter";
 import { Fact } from "../Fact";
 import SimpleBar from "simplebar-react";
+import CustomMenu from "../CustomMenu";
 
 export const FiltersComponent: React.FC<IProps> = ({
   show,
@@ -32,6 +33,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         visibleFacts={visibleFacts}
         items={facts}
       />
+      <CustomMenu />
       {filters.map((item: any) => (
         <AsyncFilter
           key={item.code}
