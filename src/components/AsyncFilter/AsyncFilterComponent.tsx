@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
@@ -18,6 +19,18 @@ import { IProps, dataType } from "./types";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+  })
+);
+
 export const AsyncFilterComponent: React.FC<IProps> = ({
   handleDataQuery,
   resetSelectedFilter,
@@ -31,6 +44,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   label,
   report: report_code,
 }) => {
+  const classes = useStyles();
   const { solution, project, report } = useParams();
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<string[]>([]);
@@ -46,9 +60,11 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const handleClick = () => ok_btn.current.click();
 
   const reactControlPanel = () => (
-    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-      <Button onClick={handleClick}>Ok</Button>
-      <Button>Cancel</Button>
+    <div className={classes.root}>
+      <Button variant="contained" onClick={handleClick}>
+        Ok
+      </Button>
+      <Button variant="contained">Cancel</Button>
     </div>
   );
 
@@ -74,20 +90,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         ""
       );
 
-      // Установка фильтра на сервере
-
-      // setFilter({
-      //   method: SET_DIM_FILTER,
-      //   language,
-      //   session,
-      //   solution,
-      //   project,
-      //   report: report_code || report,
-      //   slice,
-      //   view,
-      //   code,
-      //   filter: filters_for_server,
-      // });
       setFiltersToServer(filters_for_server);
     }
   };
@@ -248,6 +250,11 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         )}
       />
       <Button
+        style={{
+          position: "absolute",
+          top: -40,
+          left: 0,
+        }}
         ref={ok_btn}
         onClick={() => {
           setFilter({
