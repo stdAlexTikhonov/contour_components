@@ -13,6 +13,15 @@ export const generateUID = () => {
   );
 };
 
+export const sleep = (delay = 0) => {
+  return new Promise((resolve) => {
+    const timeout = setTimeout(function () {
+      resolve();
+      clearTimeout(timeout);
+    }, delay);
+  });
+};
+
 export const replaceAt = (str: string, index: number, replacement: string) =>
   str.substr(0, index) + replacement + str.substr(index + replacement.length);
 

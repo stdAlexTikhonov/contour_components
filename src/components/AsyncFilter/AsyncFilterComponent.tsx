@@ -12,6 +12,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { GET_DIM_FILTER, SET_DIM_FILTER } from "../../utils/constants";
+import { sleep } from "../../utils/helpers";
 import { replaceAt } from "../../utils/helpers";
 import { IProps, dataType } from "./types";
 
@@ -121,15 +122,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         const str = Array(data.filters.length).fill("0").join("");
         if (str === data.filters) setSelectAll(true);
       }
-
-      const popper = document.getElementsByClassName(
-        "MuiAutocomplete-popper"
-      )[0];
-      // popper.appendChild(controlPanel);
-      const controlPanel = document.createElement("div");
-      controlPanel.style.width = "100%";
-      ReactDOM.render(reactControlPanel(), controlPanel);
-      popper.appendChild(controlPanel);
     })();
 
     return () => {
@@ -179,8 +171,17 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         padding: 5,
       }}
       onChange={handleChange}
-      onOpen={() => {
+      onOpen={async () => {
         setOpen(true);
+        await sleep(1000);
+        const popper = document.getElementsByClassName(
+          "MuiAutocomplete-popper"
+        )[0];
+        // popper.appendChild(controlPanel);
+        const controlPanel = document.createElement("div");
+        controlPanel.style.width = "100%";
+        ReactDOM.render(reactControlPanel(), controlPanel);
+        popper.appendChild(controlPanel);
       }}
       onClose={(event: object, reason: string) => {
         if (reason === "blur" || reason === "toggleInput") setOpen(false);
