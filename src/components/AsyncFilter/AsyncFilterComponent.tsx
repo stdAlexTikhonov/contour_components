@@ -1,4 +1,3 @@
-// *https://www.registers.service.gov.uk/registers/country/use-the-api*
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
@@ -48,6 +47,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const loading = open && options.length === 0;
   const [selectAll, setSelectAll] = useState(false);
   const [sortDir, setSortDir] = useState(true);
+  const [filtersToServer, setFiltersToServer] = useState("");
 
   const handleChange = (
     event: object,
@@ -73,18 +73,19 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
 
       // Установка фильтра на сервере
 
-      setFilter({
-        method: SET_DIM_FILTER,
-        language,
-        session,
-        solution,
-        project,
-        report: report_code || report,
-        slice,
-        view,
-        code,
-        filter: filters_for_server,
-      });
+      // setFilter({
+      //   method: SET_DIM_FILTER,
+      //   language,
+      //   session,
+      //   solution,
+      //   project,
+      //   report: report_code || report,
+      //   slice,
+      //   view,
+      //   code,
+      //   filter: filters_for_server,
+      // });
+      setFiltersToServer(filters_for_server);
     }
   };
 
@@ -142,114 +143,127 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       filters_for_server = Array.from(sliced).fill("0").join("");
     } else setVal([]);
 
-    setFilter({
-      method: SET_DIM_FILTER,
-      language,
-      session,
-      solution,
-      project,
-      report,
-      slice,
-      view,
-      code,
-      filter: filters_for_server,
-    });
+    // setFilter({
+    //   method: SET_DIM_FILTER,
+    //   language,
+    //   session,
+    //   solution,
+    //   project,
+    //   report,
+    //   slice,
+    //   view,
+    //   code,
+    //   filter: filters_for_server,
+    // });
+
+    setFiltersToServer(filters_for_server);
   }, [selectAll]);
 
   return (
-    <Autocomplete
-      value={val}
-      size="small"
-      open={open}
-      renderTags={() => false}
-      multiple
-      style={{
-        minWidth: 275,
-        maxWidth: 275,
-        minHeight: 50,
-        overflow: "hidden",
-        padding: 5,
-      }}
-      onChange={handleChange}
-      onOpen={async () => {
-        setOpen(true);
-        await sleep(1000);
-        const popper = document.getElementsByClassName(
-          "MuiAutocomplete-popper"
-        )[0];
-        // popper.appendChild(controlPanel);
-        const controlPanel = document.createElement("div");
-        controlPanel.style.width = "100%";
-        ReactDOM.render(reactControlPanel(), controlPanel);
-        popper.appendChild(controlPanel);
-      }}
-      onClose={(event: object, reason: string) => {
-        if (reason === "blur" || reason === "toggleInput") setOpen(false);
-        resetSelectedFilter();
-      }}
-      getOptionSelected={(option, value) => {
-        return option === value;
-      }}
-      getOptionDisabled={(option: string) => disabled.includes(option)}
-      getOptionLabel={(option: string) => option}
-      options={options as string[]}
-      loading={loading}
-      renderOption={(option, { selected }) => {
-        return (
-          <React.Fragment>
-            <Checkbox
-              icon={icon}
-              checkedIcon={checkedIcon}
-              style={{ marginRight: 8 }}
-              checked={selected}
-              color="primary"
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            {option}
-          </React.Fragment>
-        );
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          variant="outlined"
-          placeholder="Type here"
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : (
-                  open && (
-                    <IconButton
-                      onClick={() => {
-                        setSortDir(!sortDir);
-                        const sortDirNum = sortDir ? 1 : -1;
+    <>
+      <Autocomplete
+        value={val}
+        size="small"
+        open={open}
+        renderTags={() => false}
+        multiple
+        style={{
+          minWidth: 275,
+          maxWidth: 275,
+          minHeight: 50,
+          overflow: "hidden",
+          padding: 5,
+        }}
+        onChange={handleChange}
+        onOpen={async () => {
+          setOpen(true);
+          await sleep(1000);
+          const popper = document.getElementsByClassName(
+            "MuiAutocomplete-popper"
+          )[0];
+          // popper.appendChild(controlPanel);
+          const controlPanel = document.createElement("div");
+          controlPanel.style.width = "100%";
+          ReactDOM.render(reactControlPanel(), controlPanel);
+          popper.appendChild(controlPanel);
+        }}
+        onClose={(event: object, reason: string) => {
+          if (reason === "blur" || reason === "toggleInput") setOpen(false);
+          resetSelectedFilter();
+        }}
+        getOptionSelected={(option, value) => {
+          return option === value;
+        }}
+        getOptionDisabled={(option: string) => disabled.includes(option)}
+        getOptionLabel={(option: string) => option}
+        options={options as string[]}
+        loading={loading}
+        renderOption={(option, { selected }) => {
+          return (
+            <React.Fragment>
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={selected}
+                color="primary"
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+              {option}
+            </React.Fragment>
+          );
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={label}
+            variant="outlined"
+            placeholder="Type here"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : (
+                    open && (
+                      <IconButton
+                        onClick={() => {
+                          setSortDir(!sortDir);
+                          const sortDirNum = sortDir ? 1 : -1;
 
-                        val.sort((a, b) =>
-                          a < b ? sortDirNum : -1 * sortDirNum
-                        );
-                      }}
-                      color="primary"
-                      size="small"
-                      style={{
-                        outline: "none",
-                        transform: sortDir ? "rotate(90deg)" : "rotate(-90deg)",
-                      }}
-                      aria-label="sort"
-                    >
-                      <ArrowRightAltIcon />
-                    </IconButton>
-                  )
-                )}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
-    />
+                          val.sort((a, b) =>
+                            a < b ? sortDirNum : -1 * sortDirNum
+                          );
+                        }}
+                        color="primary"
+                        size="small"
+                        style={{
+                          outline: "none",
+                          transform: sortDir
+                            ? "rotate(90deg)"
+                            : "rotate(-90deg)",
+                        }}
+                        aria-label="sort"
+                      >
+                        <ArrowRightAltIcon />
+                      </IconButton>
+                    )
+                  )}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
+      />
+      <Button
+        onClick={() => {
+          console.log(filtersToServer);
+        }}
+      >
+        O
+      </Button>
+    </>
   );
 };
