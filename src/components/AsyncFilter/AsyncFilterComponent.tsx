@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
@@ -17,13 +17,6 @@ import { IProps, dataType } from "./types";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
-const reactControlPanel = () => (
-  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-    <Button>Ok</Button>
-    <Button>Cancel</Button>
-  </div>
-);
 
 export const AsyncFilterComponent: React.FC<IProps> = ({
   handleDataQuery,
@@ -48,6 +41,16 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [selectAll, setSelectAll] = useState(false);
   const [sortDir, setSortDir] = useState(true);
   const [filtersToServer, setFiltersToServer] = useState("");
+  const ok_btn = useRef<any>();
+
+  const handleClick = () => ok_btn.current.click();
+
+  const reactControlPanel = () => (
+    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <Button onClick={handleClick}>Ok</Button>
+      <Button>Cancel</Button>
+    </div>
+  );
 
   const handleChange = (
     event: object,
@@ -143,19 +146,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       filters_for_server = Array.from(sliced).fill("0").join("");
     } else setVal([]);
 
-    // setFilter({
-    //   method: SET_DIM_FILTER,
-    //   language,
-    //   session,
-    //   solution,
-    //   project,
-    //   report,
-    //   slice,
-    //   view,
-    //   code,
-    //   filter: filters_for_server,
-    // });
-
     setFiltersToServer(filters_for_server);
   }, [selectAll]);
 
@@ -188,7 +178,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
           popper.appendChild(controlPanel);
         }}
         onClose={(event: object, reason: string) => {
-          if (reason === "blur" || reason === "toggleInput") setOpen(false);
+          if (reason === "toggleInput") setOpen(false);
           resetSelectedFilter();
         }}
         getOptionSelected={(option, value) => {
@@ -258,8 +248,20 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         )}
       />
       <Button
+        ref={ok_btn}
         onClick={() => {
-          console.log(filtersToServer);
+          setFilter({
+            method: SET_DIM_FILTER,
+            language,
+            session,
+            solution,
+            project,
+            report,
+            slice,
+            view,
+            code,
+            filter: filtersToServer,
+          });
         }}
       >
         O
