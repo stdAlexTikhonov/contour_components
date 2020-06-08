@@ -18,18 +18,6 @@ import { IProps, dataType } from "./types";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const createButton = (label: string) => {
-  const button = document.createElement("button");
-  button.className =
-    "MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary";
-  button.style.marginLeft = "7px";
-  const span = document.createElement("span");
-  span.className = "MuiButton-label";
-  span.innerText = label;
-  button.appendChild(span);
-  return button;
-};
-
 const reactControlPanel = () => (
   <div style={{ display: "flex", justifyContent: "flex-end" }}>
     <Button>Ok</Button>
@@ -65,12 +53,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
     value: string[] | null,
     reason: string
   ) => {
-    const popper = document.getElementsByClassName("MuiAutocomplete-popper")[0];
-    // popper.appendChild(controlPanel);
-    const controlPanel = document.createElement("div");
-    controlPanel.style.width = "100%";
-    ReactDOM.render(reactControlPanel(), controlPanel);
-    popper.appendChild(controlPanel);
     //Проверка - есть ли в списке Select All
     const check_select_all = value && value.includes("Select All");
 
@@ -139,6 +121,15 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         const str = Array(data.filters.length).fill("0").join("");
         if (str === data.filters) setSelectAll(true);
       }
+
+      const popper = document.getElementsByClassName(
+        "MuiAutocomplete-popper"
+      )[0];
+      // popper.appendChild(controlPanel);
+      const controlPanel = document.createElement("div");
+      controlPanel.style.width = "100%";
+      ReactDOM.render(reactControlPanel(), controlPanel);
+      popper.appendChild(controlPanel);
     })();
 
     return () => {
@@ -176,7 +167,6 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   return (
     <Autocomplete
       value={val}
-      id="size-small-outlined"
       size="small"
       open={open}
       renderTags={() => false}
