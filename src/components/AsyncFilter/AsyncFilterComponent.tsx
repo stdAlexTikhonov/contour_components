@@ -58,6 +58,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [val, setVal] = React.useState<string[]>([]);
   const loading = open && options.length === 0;
   const [selectAll, setSelectAll] = useState(false);
+  const [sortDir, setSortDir] = useState(true);
 
   const handleChange = (
     event: object,
@@ -232,9 +233,20 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
                 ) : (
                   open && (
                     <IconButton
+                      onClick={() => {
+                        setSortDir(!sortDir);
+                        const sortDirNum = sortDir ? 1 : -1;
+
+                        val.sort((a, b) =>
+                          a < b ? sortDirNum : -1 * sortDirNum
+                        );
+                      }}
                       color="primary"
                       size="small"
-                      style={{ outline: "none", transform: "rotate(90deg)" }}
+                      style={{
+                        outline: "none",
+                        transform: sortDir ? "rotate(90deg)" : "rotate(-90deg)",
+                      }}
                       aria-label="sort"
                     >
                       <ArrowRightAltIcon />
