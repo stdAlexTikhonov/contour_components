@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { IProps } from "./types";
 import { SET_FACTS } from "../../utils/constants";
-import { FilterControlPanel } from "../FilterControlPanel";
 import { sleep } from "../../utils/helpers";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -36,6 +36,13 @@ export const FactComponent: React.FC<IProps> = ({
     ...items.map((item: any) => item.Caption),
   ]);
   const [val, setVal] = useState(selected.map((item: any) => item.Caption));
+
+  const FilterControlPanel = () => (
+    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <Button>Ok</Button>
+      <Button>Cancel</Button>
+    </div>
+  );
 
   const handleChange = (event: object, value: any, reason: string) => {
     //Проверка - есть ли в списке Select All
@@ -104,7 +111,7 @@ export const FactComponent: React.FC<IProps> = ({
         // popper.appendChild(controlPanel);
         const controlPanel = document.createElement("div");
         controlPanel.style.width = "100%";
-        ReactDOM.render(<FilterControlPanel />, controlPanel);
+        ReactDOM.render(FilterControlPanel(), controlPanel);
         popper.appendChild(controlPanel);
       }}
       onClose={(event: object, reason: string) => {
