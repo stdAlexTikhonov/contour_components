@@ -64,7 +64,9 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
       <Button variant="contained" onClick={handleClick}>
         Ok
       </Button>
-      <Button variant="contained">Cancel</Button>
+      <Button onClick={() => setVal(val)} variant="contained">
+        Cancel
+      </Button>
     </div>
   );
 
@@ -127,6 +129,7 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
         //Проверка на то включены ли все значения
         const str = Array(data.filters.length).fill("0").join("");
         if (str === data.filters) setSelectAll(true);
+        setFiltersToServer(str);
       }
     })();
 
