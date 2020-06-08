@@ -1,7 +1,11 @@
 // *https://www.registers.service.gov.uk/registers/country/use-the-api*
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import IconButton from "@material-ui/core/IconButton";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -14,11 +18,24 @@ import { IProps, dataType } from "./types";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
+const createButton = (label: string) => {
+  const button = document.createElement("button");
+  button.className =
+    "MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary";
+  button.style.marginLeft = "7px";
+  const span = document.createElement("span");
+  span.className = "MuiButton-label";
+  span.innerText = label;
+  button.appendChild(span);
+  return button;
+};
+
+const reactControlPanel = () => (
+  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+    <Button>Ok</Button>
+    <Button>Cancel</Button>
+  </div>
+);
 
 export const AsyncFilterComponent: React.FC<IProps> = ({
   handleDataQuery,
@@ -47,6 +64,12 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
     value: string[] | null,
     reason: string
   ) => {
+    const popper = document.getElementsByClassName("MuiAutocomplete-popper")[0];
+    // popper.appendChild(controlPanel);
+    const controlPanel = document.createElement("div");
+    controlPanel.style.width = "100%";
+    ReactDOM.render(reactControlPanel(), controlPanel);
+    popper.appendChild(controlPanel);
     //Проверка - есть ли в списке Select All
     const check_select_all = value && value.includes("Select All");
 
@@ -206,7 +229,18 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
               <React.Fragment>
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
-                ) : null}
+                ) : (
+                  open && (
+                    <IconButton
+                      color="primary"
+                      size="small"
+                      style={{ outline: "none", transform: "rotate(90deg)" }}
+                      aria-label="sort"
+                    >
+                      <ArrowRightAltIcon />
+                    </IconButton>
+                  )
+                )}
                 {params.InputProps.endAdornment}
               </React.Fragment>
             ),
