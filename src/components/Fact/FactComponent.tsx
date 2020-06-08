@@ -44,7 +44,7 @@ export const FactComponent: React.FC<IProps> = ({
   const FilterControlPanel = () => (
     <div style={{ display: "flex", justifyContent: "flex-end" }}>
       <Button onClick={handleClick}>Ok</Button>
-      <Button>Cancel</Button>
+      <Button onClick={() => setVal(val)}>Cancel</Button>
     </div>
   );
 
