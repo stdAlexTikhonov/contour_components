@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -10,6 +11,18 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { IProps } from "./types";
 import { SET_FACTS } from "../../utils/constants";
 import { sleep } from "../../utils/helpers";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+  })
+);
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -23,6 +36,7 @@ export const FactComponent: React.FC<IProps> = ({
   language,
   visibleFacts,
 }) => {
+  const classes = useStyles();
   const my_ref = useRef<any>();
   const { solution, project, report } = useParams();
   const [selectAll, setSelectAll] = useState(
@@ -42,9 +56,13 @@ export const FactComponent: React.FC<IProps> = ({
   const handleClick = () => my_ref.current.click();
 
   const FilterControlPanel = () => (
-    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-      <Button onClick={handleClick}>Ok</Button>
-      <Button onClick={() => setVal(val)}>Cancel</Button>
+    <div className={classes.root}>
+      <Button variant="contained" onClick={handleClick}>
+        Ok
+      </Button>
+      <Button variant="contained" onClick={() => setVal(val)}>
+        Cancel
+      </Button>
     </div>
   );
 
@@ -89,7 +107,7 @@ export const FactComponent: React.FC<IProps> = ({
         options={options as string[]}
         onOpen={async () => {
           setOpen(true);
-          await sleep(500);
+          await sleep(100);
           const popper = document.getElementsByClassName(
             "MuiAutocomplete-popper"
           )[0];
