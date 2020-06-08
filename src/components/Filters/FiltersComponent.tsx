@@ -33,7 +33,6 @@ export const FiltersComponent: React.FC<IProps> = ({
         visibleFacts={visibleFacts}
         items={facts}
       />
-      <CustomMenu />
       {filters.map((item: any) => (
         <AsyncFilter
           key={item.code}
