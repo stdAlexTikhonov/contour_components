@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
@@ -7,6 +8,8 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { IProps } from "./types";
 import { SET_FACTS } from "../../utils/constants";
+import { FilterControlPanel } from "../FilterControlPanel";
+import { sleep } from "../../utils/helpers";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -92,8 +95,17 @@ export const FactComponent: React.FC<IProps> = ({
       onChange={handleChange}
       value={val}
       options={options as string[]}
-      onOpen={() => {
+      onOpen={async () => {
         setOpen(true);
+        await sleep(500);
+        const popper = document.getElementsByClassName(
+          "MuiAutocomplete-popper"
+        )[0];
+        // popper.appendChild(controlPanel);
+        const controlPanel = document.createElement("div");
+        controlPanel.style.width = "100%";
+        ReactDOM.render(<FilterControlPanel />, controlPanel);
+        popper.appendChild(controlPanel);
       }}
       onClose={(event: object, reason: string) => {
         if (reason === "blur" || reason === "toggleInput") setOpen(false);
