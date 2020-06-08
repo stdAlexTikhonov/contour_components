@@ -49,34 +49,22 @@ export const FactComponent: React.FC<IProps> = ({
   );
 
   const handleChange = (event: object, value: any, reason: string) => {
-    //Проверка - есть ли в списке Select All
-    // const check_select_all = value.includes("Select All");
+    // Проверка - есть ли в списке Select All
+    const check_select_all = value.includes("Select All");
 
-    //Проверка - соответствует ли чекбокс select All предыдущему состоянию
-    // const flag = check_select_all !== selectAll;
-    // if (flag) setSelectAll(check_select_all);
-    // else {
+    // Проверка - соответствует ли чекбокс select All предыдущему состоянию
+    const flag = check_select_all !== selectAll;
+    if (flag) setSelectAll(check_select_all);
+    else {
+      setVal(value);
+      const facts_filtered = items.filter((item: any) =>
+        value.includes(item.Caption)
+      );
 
-    setVal(value);
-    const facts_filtered = items.filter((item: any) =>
-      value.includes(item.Caption)
-    );
+      const facts_for_server = facts_filtered.map((item: any) => item.code);
 
-    const facts_for_server = facts_filtered.map((item: any) => item.code);
-
-    // // Установка фильтра на сервере
-    // handleDataQuery({
-    //   method: SET_FACTS,
-    //   session,
-    //   language,
-    //   solution,
-    //   project,
-    //   report,
-    //   slice,
-    //   view,
-    //   visibleFacts: facts_for_server,
-    // });
-    setFactsForQuery(facts_for_server);
+      setFactsForQuery(facts_for_server);
+    }
   };
 
   useEffect(() => {
@@ -149,7 +137,7 @@ export const FactComponent: React.FC<IProps> = ({
       />
 
       <Button
-        style={{ position: "absolute", top: 0, left: 0 }}
+        style={{ position: "absolute", top: -40, left: 0 }}
         ref={my_ref}
         onClick={() => {
           handleDataQuery({
@@ -164,7 +152,9 @@ export const FactComponent: React.FC<IProps> = ({
             visibleFacts: factsForQuery,
           });
         }}
-      ></Button>
+      >
+        O
+      </Button>
     </>
   );
 };
