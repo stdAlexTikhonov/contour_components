@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       maxWidth: 275,
       backgroundColor: theme.palette.background.paper,
-      margin: "2px 0",
+      margin: "5px 0",
       borderRadius: 3,
       boxShadow:
         "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
@@ -80,46 +80,50 @@ export const CustomDropdown = () => {
             label="Outlined"
             variant="outlined"
           />
-          <List
-            className={classes.root}
-            {...getMenuProps()}
-            style={{ listStyle: "none", maxHeight: "40vh", overflow: "scroll" }}
-          >
-            {true
-              ? items
-                  .filter(
-                    (item) => !inputValue || item.value.includes(inputValue)
-                  )
-                  .map((item, index) => {
-                    const labelId = `checkbox-list-label-${item.value}`;
-                    return (
-                      <ListItem
-                        key={item.value}
-                        {...getItemProps({
-                          index,
-                          item,
-                        })}
-                        role={undefined}
-                        dense
-                        button
-                        onClick={handleToggle(item.value)}
-                      >
-                        <ListItemIcon style={{ minWidth: "auto" }}>
-                          <Checkbox
-                            edge="start"
-                            checked={checked.indexOf(item.value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            color="primary"
-                            inputProps={{ "aria-labelledby": labelId }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText id={labelId} primary={item.value} />
-                      </ListItem>
-                    );
-                  })
-              : null}
-          </List>
+          {isOpen ? (
+            <List
+              className={classes.root}
+              {...getMenuProps()}
+              style={{
+                listStyle: "none",
+                maxHeight: "40vh",
+                overflow: "scroll",
+              }}
+            >
+              {items
+                .filter(
+                  (item) => !inputValue || item.value.includes(inputValue)
+                )
+                .map((item, index) => {
+                  const labelId = `checkbox-list-label-${item.value}`;
+                  return (
+                    <ListItem
+                      key={item.value}
+                      {...getItemProps({
+                        index,
+                        item,
+                      })}
+                      role={undefined}
+                      dense
+                      button
+                      onClick={handleToggle(item.value)}
+                    >
+                      <ListItemIcon style={{ minWidth: "auto" }}>
+                        <Checkbox
+                          edge="start"
+                          checked={checked.indexOf(item.value) !== -1}
+                          tabIndex={-1}
+                          disableRipple
+                          color="primary"
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText id={labelId} primary={item.value} />
+                    </ListItem>
+                  );
+                })}
+            </List>
+          ) : null}
         </div>
       )}
     </Downshift>
