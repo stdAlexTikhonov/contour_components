@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import SimpleBar from "simplebar-react";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Divider from "@material-ui/core/Divider";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useStyles } from "./styles";
 
@@ -24,6 +25,7 @@ export const CustomDropdown = () => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState<string[]>([]);
   const [dropDown, setDropDown] = React.useState(false);
+  const [selectAll, setSelectAll] = React.useState(false);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -63,6 +65,8 @@ export const CustomDropdown = () => {
         selectedItem,
         getRootProps,
       }) => {
+        const selectAllId = generateUID();
+
         return (
           <div style={{ padding: 5, position: "relative" }}>
             <TextField
@@ -77,6 +81,26 @@ export const CustomDropdown = () => {
             />
             {isOpen || dropDown ? (
               <div className={classes.root}>
+                <ListItem
+                  key={selectAllId}
+                  role={undefined}
+                  dense
+                  button
+                  onClick={() => setSelectAll(!selectAll)}
+                >
+                  <ListItemIcon style={{ minWidth: "auto" }}>
+                    <Checkbox
+                      edge="start"
+                      checked={selectAll}
+                      tabIndex={-1}
+                      disableRipple
+                      color="primary"
+                      inputProps={{ "aria-labelledby": selectAllId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText id={selectAllId} primary={"Select All"} />
+                </ListItem>
+                <Divider />
                 <SimpleBar style={{ maxHeight: "40vh" }}>
                   <List
                     {...getMenuProps()}
@@ -118,6 +142,7 @@ export const CustomDropdown = () => {
                       })}
                   </List>
                 </SimpleBar>
+                <Divider />
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <Button style={{ outline: "none" }} onClick={handleOk}>
                     Ok
