@@ -14,5 +14,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: "black",
       fontWeight: 400,
     },
+    margin: {
+      position: "absolute",
+      right: 11,
+      top: 11,
+      cursor: "pointer",
+      outline: 0,
+    },
   })
 );

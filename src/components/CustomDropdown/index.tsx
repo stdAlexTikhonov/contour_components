@@ -8,6 +8,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useStyles } from "./styles";
 
 let items: any[] = [];
@@ -19,6 +23,7 @@ for (let i = 0; i < 100; i++) {
 export const CustomDropdown = () => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState<string[]>([]);
+  const [dropDown, setDropDown] = React.useState(false);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -41,6 +46,8 @@ export const CustomDropdown = () => {
     console.log(checked);
   };
 
+  const handleDropDown = () => setDropDown(!dropDown);
+
   return (
     <Downshift itemToString={(item) => (item ? item.value : "")}>
       {({
@@ -54,7 +61,7 @@ export const CustomDropdown = () => {
         selectedItem,
         getRootProps,
       }) => (
-        <div style={{ padding: 5 }}>
+        <div style={{ padding: 5, position: "relative" }}>
           <TextField
             size="small"
             style={{ minWidth: 265 }}
@@ -65,7 +72,7 @@ export const CustomDropdown = () => {
             label="Outlined"
             variant="outlined"
           />
-          {isOpen ? (
+          {isOpen || dropDown ? (
             <div className={classes.root}>
               <List
                 {...getMenuProps()}
@@ -114,6 +121,15 @@ export const CustomDropdown = () => {
               </div>
             </div>
           ) : null}
+          <IconButton
+            aria-label="delete"
+            className={classes.margin}
+            size="small"
+            style={{ outline: "none" }}
+            onClick={handleDropDown}
+          >
+            {dropDown || isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          </IconButton>
         </div>
       )}
     </Downshift>
