@@ -8,6 +8,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import SimpleBar from "simplebar-react";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -76,47 +77,47 @@ export const CustomDropdown = () => {
             />
             {isOpen || dropDown ? (
               <div className={classes.root}>
-                <List
-                  {...getMenuProps()}
-                  style={{
-                    listStyle: "none",
-                    maxHeight: "40vh",
-                    overflow: "scroll",
-                  }}
-                >
-                  {items
-                    .filter(
-                      (item) => !inputValue || item.value.includes(inputValue)
-                    )
-                    .map((item, index) => {
-                      const labelId = `checkbox-list-label-${item.value}`;
-                      return (
-                        <ListItem
-                          key={item.value}
-                          {...getItemProps({
-                            index,
-                            item,
-                          })}
-                          role={undefined}
-                          dense
-                          button
-                          onClick={handleToggle(item.value)}
-                        >
-                          <ListItemIcon style={{ minWidth: "auto" }}>
-                            <Checkbox
-                              edge="start"
-                              checked={checked.indexOf(item.value) !== -1}
-                              tabIndex={-1}
-                              disableRipple
-                              color="primary"
-                              inputProps={{ "aria-labelledby": labelId }}
-                            />
-                          </ListItemIcon>
-                          <ListItemText id={labelId} primary={item.value} />
-                        </ListItem>
-                      );
-                    })}
-                </List>
+                <SimpleBar style={{ maxHeight: "40vh" }}>
+                  <List
+                    {...getMenuProps()}
+                    style={{
+                      listStyle: "none",
+                    }}
+                  >
+                    {items
+                      .filter(
+                        (item) => !inputValue || item.value.includes(inputValue)
+                      )
+                      .map((item, index) => {
+                        const labelId = `checkbox-list-label-${item.value}`;
+                        return (
+                          <ListItem
+                            key={item.value}
+                            {...getItemProps({
+                              index,
+                              item,
+                            })}
+                            role={undefined}
+                            dense
+                            button
+                            onClick={handleToggle(item.value)}
+                          >
+                            <ListItemIcon style={{ minWidth: "auto" }}>
+                              <Checkbox
+                                edge="start"
+                                checked={checked.indexOf(item.value) !== -1}
+                                tabIndex={-1}
+                                disableRipple
+                                color="primary"
+                                inputProps={{ "aria-labelledby": labelId }}
+                              />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={item.value} />
+                          </ListItem>
+                        );
+                      })}
+                  </List>
+                </SimpleBar>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <Button style={{ outline: "none" }} onClick={handleOk}>
                     Ok
