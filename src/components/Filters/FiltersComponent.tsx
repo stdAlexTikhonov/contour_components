@@ -5,6 +5,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
 import { AsyncFilter } from "../AsyncFilter";
 import { Fact } from "../Fact";
+import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 
 export const FiltersComponent: React.FC<IProps> = ({
@@ -25,13 +26,13 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const renderItems = () => (
     <>
-      {" "}
       <Fact
         slice={slice}
         view={view}
         visibleFacts={visibleFacts}
         items={facts}
       />
+      <CustomDropdown />
       {filters.map((item: any) => (
         <AsyncFilter
           key={item.code}
