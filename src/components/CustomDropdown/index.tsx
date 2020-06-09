@@ -18,7 +18,6 @@ import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import { withStyles } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
 import { COLOR } from "../../utils/constants";
 
 const ContourComponentsRadio = withStyles({
