@@ -57,14 +57,23 @@ export const AsyncFilterComponent: React.FC<IProps> = ({
   const [filtersToServer, setFiltersToServer] = useState("");
   const ok_btn = useRef<any>();
 
-  const handleClick = () => ok_btn.current.click();
+  const handleClick = () => {
+    ok_btn.current.click();
+    setOpen(false);
+  };
 
   const reactControlPanel = () => (
     <div className={classes.root}>
       <Button variant="contained" onClick={handleClick}>
         Ok
       </Button>
-      <Button onClick={() => setVal(val)} variant="contained">
+      <Button
+        onClick={() => {
+          setVal(val);
+          setOpen(false);
+        }}
+        variant="contained"
+      >
         Cancel
       </Button>
     </div>
