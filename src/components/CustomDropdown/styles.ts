@@ -17,9 +17,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     margin: {
       position: "absolute",
       right: 11,
-      top: 11,
+      top: 9,
       cursor: "pointer",
-      outline: 0,
     },
   })
 );

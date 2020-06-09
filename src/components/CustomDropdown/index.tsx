@@ -9,7 +9,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useStyles } from "./styles";
@@ -40,10 +39,12 @@ export const CustomDropdown = () => {
 
   const handleOk = () => {
     console.log(checked);
+    setDropDown(false);
   };
 
   const handleCancel = () => {
     console.log(checked);
+    setDropDown(false);
   };
 
   const handleDropDown = () => setDropDown(!dropDown);
@@ -60,78 +61,84 @@ export const CustomDropdown = () => {
         highlightedIndex,
         selectedItem,
         getRootProps,
-      }) => (
-        <div style={{ padding: 5, position: "relative" }}>
-          <TextField
-            size="small"
-            style={{ minWidth: 265 }}
-            // {...getRootProps({}, { suppressRefError: true })}
-            InputLabelProps={{ ...getLabelProps() }}
-            id="outlined-basic"
-            InputProps={{ ...getInputProps() }}
-            label="Outlined"
-            variant="outlined"
-          />
-          {isOpen || dropDown ? (
-            <div className={classes.root}>
-              <List
-                {...getMenuProps()}
-                style={{
-                  listStyle: "none",
-                  maxHeight: "40vh",
-                  overflow: "scroll",
-                }}
-              >
-                {items
-                  .filter(
-                    (item) => !inputValue || item.value.includes(inputValue)
-                  )
-                  .map((item, index) => {
-                    const labelId = `checkbox-list-label-${item.value}`;
-                    return (
-                      <ListItem
-                        key={item.value}
-                        {...getItemProps({
-                          index,
-                          item,
-                        })}
-                        role={undefined}
-                        dense
-                        button
-                        onClick={handleToggle(item.value)}
-                      >
-                        <ListItemIcon style={{ minWidth: "auto" }}>
-                          <Checkbox
-                            edge="start"
-                            checked={checked.indexOf(item.value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            color="primary"
-                            inputProps={{ "aria-labelledby": labelId }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText id={labelId} primary={item.value} />
-                      </ListItem>
-                    );
-                  })}
-              </List>
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button onClick={handleOk}>Ok</Button>
-                <Button onClick={handleCancel}>Cancel</Button>
+      }) => {
+        return (
+          <div style={{ padding: 5, position: "relative" }}>
+            <TextField
+              size="small"
+              style={{ minWidth: 265 }}
+              // {...getRootProps({}, { suppressRefError: true })}
+              InputLabelProps={{ ...getLabelProps() }}
+              id="outlined-basic"
+              InputProps={{ ...getInputProps() }}
+              label="Outlined"
+              variant="outlined"
+            />
+            {isOpen || dropDown ? (
+              <div className={classes.root}>
+                <List
+                  {...getMenuProps()}
+                  style={{
+                    listStyle: "none",
+                    maxHeight: "40vh",
+                    overflow: "scroll",
+                  }}
+                >
+                  {items
+                    .filter(
+                      (item) => !inputValue || item.value.includes(inputValue)
+                    )
+                    .map((item, index) => {
+                      const labelId = `checkbox-list-label-${item.value}`;
+                      return (
+                        <ListItem
+                          key={item.value}
+                          {...getItemProps({
+                            index,
+                            item,
+                          })}
+                          role={undefined}
+                          dense
+                          button
+                          onClick={handleToggle(item.value)}
+                        >
+                          <ListItemIcon style={{ minWidth: "auto" }}>
+                            <Checkbox
+                              edge="start"
+                              checked={checked.indexOf(item.value) !== -1}
+                              tabIndex={-1}
+                              disableRipple
+                              color="primary"
+                              inputProps={{ "aria-labelledby": labelId }}
+                            />
+                          </ListItemIcon>
+                          <ListItemText id={labelId} primary={item.value} />
+                        </ListItem>
+                      );
+                    })}
+                </List>
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Button style={{ outline: "none" }} onClick={handleOk}>
+                    Ok
+                  </Button>
+                  <Button style={{ outline: "none" }} onClick={handleCancel}>
+                    Cancel
+                  </Button>
+                </div>
               </div>
-            </div>
-          ) : null}
-          <IconButton
-            aria-label="delete"
-            className={classes.margin}
-            size="small"
-            style={{ outline: "none" }}
-            onClick={handleDropDown}
-          >
-            {dropDown || isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </IconButton>
-        </div>
-      )}
+            ) : null}
+            <IconButton
+              aria-label="delete"
+              className={classes.margin}
+              size="small"
+              style={{ outline: "none" }}
+              onClick={handleDropDown}
+            >
+              {isOpen || dropDown ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+            </IconButton>
+          </div>
+        );
+      }}
     </Downshift>
   );
 };
