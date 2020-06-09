@@ -27,7 +27,7 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   let itemsX: any[] = [];
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     itemsX.push({ value: generateUID() });
   }
 

@@ -6,7 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
+import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import SimpleBar from "simplebar-react";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,6 +16,30 @@ import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
+import Radio, { RadioProps } from "@material-ui/core/Radio";
+import { withStyles } from "@material-ui/core/styles";
+import { green } from "@material-ui/core/colors";
+import { COLOR } from "../../utils/constants";
+
+const ContourComponentsRadio = withStyles({
+  root: {
+    color: COLOR,
+    "&$checked": {
+      color: COLOR,
+    },
+  },
+  checked: {},
+})((props: RadioProps) => <Radio color="default" {...props} />);
+
+export const ContourComponentsCheckbox = withStyles({
+  root: {
+    color: COLOR,
+    "&$checked": {
+      color: COLOR,
+    },
+  },
+  checked: {},
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
 interface IProps {
   items: any[];
@@ -42,6 +66,11 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
     }
 
     setChecked(newChecked);
+  };
+
+  const handleRadio = (value: string) => () => {
+    console.log(value);
+    setSelected(value);
   };
 
   const handleOk = () => {
@@ -110,14 +139,24 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
                           onClick={handleToggle(item.value)}
                         >
                           <ListItemIcon style={{ minWidth: "auto" }}>
-                            <Checkbox
-                              edge="start"
-                              checked={checked.indexOf(item.value) !== -1}
-                              tabIndex={-1}
-                              disableRipple
-                              color="primary"
-                              inputProps={{ "aria-labelledby": labelId }}
-                            />
+                            {multy ? (
+                              <ContourComponentsCheckbox
+                                edge="start"
+                                checked={checked.indexOf(item.value) !== -1}
+                                tabIndex={-1}
+                                disableRipple
+                                color="primary"
+                                inputProps={{ "aria-labelledby": labelId }}
+                              />
+                            ) : (
+                              <ContourComponentsRadio
+                                checked={selected === item.value}
+                                onChange={handleRadio(item.value)}
+                                value={item.value}
+                                name="radio-button-demo"
+                                inputProps={{ "aria-label": item.value }}
+                              />
+                            )}
                           </ListItemIcon>
                           <ListItemText id={labelId} primary={item.value} />
                         </ListItem>
