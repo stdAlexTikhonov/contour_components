@@ -53,14 +53,23 @@ export const FactComponent: React.FC<IProps> = ({
   const [val, setVal] = useState(selected.map((item: any) => item.Caption));
   const [factsForQuery, setFactsForQuery] = useState<string[]>([]);
 
-  const handleClick = () => my_ref.current.click();
+  const handleClick = () => {
+    my_ref.current.click();
+    setOpen(false);
+  };
 
   const FilterControlPanel = () => (
     <div className={classes.root}>
       <Button variant="contained" onClick={handleClick}>
         Ok
       </Button>
-      <Button variant="contained" onClick={() => setVal(val)}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setVal(val);
+          setOpen(false);
+        }}
+      >
         Cancel
       </Button>
     </div>
