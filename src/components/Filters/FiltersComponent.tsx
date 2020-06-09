@@ -7,6 +7,7 @@ import { AsyncFilter } from "../AsyncFilter";
 import { Fact } from "../Fact";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
+import { generateUID } from "../../utils/helpers";
 
 export const FiltersComponent: React.FC<IProps> = ({
   show,
@@ -24,6 +25,12 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const onHandleDrag = () => console.log("drag end");
 
+  let itemsX: any[] = [];
+
+  for (let i = 0; i < 100; i++) {
+    itemsX.push({ value: generateUID() });
+  }
+
   const renderItems = () => (
     <>
       <Fact
@@ -32,7 +39,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         visibleFacts={visibleFacts}
         items={facts}
       />
-      <CustomDropdown />
+      <CustomDropdown items={itemsX} label={"Test"} />
       {filters.map((item: any) => (
         <AsyncFilter
           key={item.code}

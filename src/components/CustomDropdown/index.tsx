@@ -17,13 +17,12 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 
-let items: any[] = [];
-
-for (let i = 0; i < 100; i++) {
-  items.push({ value: generateUID() });
+interface IProps {
+  items: any[];
+  label: string;
 }
 
-export const CustomDropdown = () => {
+export const CustomDropdown: React.FC<IProps> = ({ items, label }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState<string[]>([]);
   const [dropDown, setDropDown] = React.useState(false);
@@ -73,7 +72,7 @@ export const CustomDropdown = () => {
             InputLabelProps={{ ...getLabelProps() }}
             id="outlined-basic"
             InputProps={{ ...getInputProps() }}
-            label="Outlined"
+            label={label}
             variant="outlined"
           />
           <Collapse in={dropDown || isOpen}>
