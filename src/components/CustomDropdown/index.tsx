@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Downshift from "downshift";
 import { generateUID } from "../../utils/helpers";
@@ -55,6 +55,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
   const [selected, setSelected] = React.useState("");
 
   const handleToggle = (value: string) => () => {
+    setSelectAll(false);
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -84,6 +85,11 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
 
   const handleDropDown = () => setDropDown(!dropDown);
 
+  const handleSelectAll = (value: boolean) => {
+    setSelectAll(value);
+    setChecked(value ? items.map((item) => item.value) : []);
+  };
+
   return (
     <Downshift itemToString={(item) => (item ? item.value : "")}>
       {({
@@ -110,7 +116,9 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
           />
           <Collapse in={dropDown || isOpen}>
             <div className={classes.root}>
-              {multy && <SelectAll selected={selectAll} click={setSelectAll} />}
+              {multy && (
+                <SelectAll selected={selectAll} click={handleSelectAll} />
+              )}
               <Divider />
               <SimpleBar style={{ maxHeight: "40vh" }}>
                 <List
