@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 3,
       boxShadow:
         "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
+      fontSize: "1rem",
+      color: "black",
+      fontWeight: 400,
     },
   })
 );
@@ -31,6 +34,21 @@ for (let i = 0; i < 100; i++) {
 
 export const CustomDropdown = () => {
   const classes = useStyles();
+  const [checked, setChecked] = React.useState<string[]>([]);
+
+  const handleToggle = (value: string) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
   return (
     <Downshift
       onChange={(selection) =>
@@ -84,14 +102,15 @@ export const CustomDropdown = () => {
                         role={undefined}
                         dense
                         button
-                        onClick={() => console.log(item.value)}
+                        onClick={handleToggle(item.value)}
                       >
                         <ListItemIcon style={{ minWidth: "auto" }}>
                           <Checkbox
                             edge="start"
-                            checked={false}
+                            checked={checked.indexOf(item.value) !== -1}
                             tabIndex={-1}
                             disableRipple
+                            color="primary"
                             inputProps={{ "aria-labelledby": labelId }}
                           />
                         </ListItemIcon>
