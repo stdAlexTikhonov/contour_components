@@ -20,13 +20,16 @@ import { useStyles } from "./styles";
 interface IProps {
   items: any[];
   label: string;
+  multy: boolean;
 }
 
-export const CustomDropdown: React.FC<IProps> = ({ items, label }) => {
+export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
+  const single = !multy;
   const classes = useStyles();
   const [checked, setChecked] = React.useState<string[]>([]);
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(false);
+  const [selected, setSelected] = React.useState("");
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -68,8 +71,10 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label }) => {
           <TextField
             size="small"
             style={{ minWidth: 265 }}
-            // {...getRootProps({}, { suppressRefError: true })}
-            InputLabelProps={{ ...getLabelProps() }}
+            // {...getRootProps()}
+            InputLabelProps={{
+              ...getLabelProps(),
+            }}
             id="outlined-basic"
             InputProps={{ ...getInputProps() }}
             label={label}
@@ -77,7 +82,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label }) => {
           />
           <Collapse in={dropDown || isOpen}>
             <div className={classes.root}>
-              <SelectAll selected={selectAll} click={setSelectAll} />
+              {multy && <SelectAll selected={selectAll} click={setSelectAll} />}
               <Divider />
               <SimpleBar style={{ maxHeight: "40vh" }}>
                 <List
