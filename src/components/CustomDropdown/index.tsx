@@ -12,6 +12,7 @@ import SimpleBar from "simplebar-react";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Divider from "@material-ui/core/Divider";
+import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useStyles } from "./styles";
 
@@ -79,7 +80,7 @@ export const CustomDropdown = () => {
               label="Outlined"
               variant="outlined"
             />
-            {isOpen || dropDown ? (
+            <Collapse in={dropDown || isOpen}>
               <div className={classes.root}>
                 <ListItem
                   key={selectAllId}
@@ -152,7 +153,7 @@ export const CustomDropdown = () => {
                   </Button>
                 </div>
               </div>
-            ) : null}
+            </Collapse>
             <IconButton
               aria-label="delete"
               className={classes.margin}
