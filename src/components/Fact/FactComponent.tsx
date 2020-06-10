@@ -1,12 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { IProps } from "./types";
 import { SET_FACTS } from "../../utils/constants";
+import { sleep } from "../../utils/helpers";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+  })
+);
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -20,6 +36,8 @@ export const FactComponent: React.FC<IProps> = ({
   language,
   visibleFacts,
 }) => {
+  const classes = useStyles();
+  const my_ref = useRef<any>();
   const { solution, project, report } = useParams();
   const [selectAll, setSelectAll] = useState(
     visibleFacts.length === items.length
@@ -33,32 +51,46 @@ export const FactComponent: React.FC<IProps> = ({
     ...items.map((item: any) => item.Caption),
   ]);
   const [val, setVal] = useState(selected.map((item: any) => item.Caption));
+  const [factsForQuery, setFactsForQuery] = useState<string[]>([]);
+
+  const handleClick = () => {
+    my_ref.current.click();
+    setOpen(false);
+  };
+
+  const FilterControlPanel = () => (
+    <div className={classes.root}>
+      <Button variant="contained" onClick={handleClick}>
+        Ok
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setVal(val);
+          setOpen(false);
+        }}
+      >
+        Cancel
+      </Button>
+    </div>
+  );
 
   const handleChange = (event: object, value: any, reason: string) => {
-    //Проверка - есть ли в списке Select All
+    // Проверка - есть ли в списке Select All
     const check_select_all = value.includes("Select All");
 
-    //Проверка - соответствует ли чекбокс select All предыдущему состоянию
+    // Проверка - соответствует ли чекбокс select All предыдущему состоянию
     const flag = check_select_all !== selectAll;
     if (flag) setSelectAll(check_select_all);
     else {
       setVal(value);
-      const facts_filtered = items.filter((item: any) => value.includes(item));
+      const facts_filtered = items.filter((item: any) =>
+        value.includes(item.Caption)
+      );
 
       const facts_for_server = facts_filtered.map((item: any) => item.code);
 
-      // // Установка фильтра на сервере
-      handleDataQuery({
-        method: SET_FACTS,
-        session,
-        language,
-        solution,
-        project,
-        report,
-        slice,
-        view,
-        visibleFacts: facts_for_server,
-      });
+      setFactsForQuery(facts_for_server);
     }
   };
 
@@ -69,67 +101,87 @@ export const FactComponent: React.FC<IProps> = ({
       facts_for_server = items.map((item: any) => item.code);
     } else setVal([]);
 
-    handleDataQuery({
-      method: SET_FACTS,
-      session,
-      language,
-      solution,
-      project,
-      report,
-      slice,
-      view,
-      visibleFacts: facts_for_server,
-    });
+    setFactsForQuery(facts_for_server);
   }, [selectAll]);
 
   return (
-    <Autocomplete
-      multiple
-      id="size-small-outlined"
-      size="small"
-      open={open}
-      renderTags={() => false}
-      onChange={handleChange}
-      value={val}
-      options={options as string[]}
-      onOpen={() => {
-        setOpen(true);
-      }}
-      onClose={(event: object, reason: string) => {
-        if (reason === "blur" || reason === "toggleInput") setOpen(false);
-      }}
-      renderOption={(option, { selected }) => (
-        <React.Fragment>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-            color="primary"
-            inputProps={{ "aria-label": "secondary checkbox" }}
+    <>
+      <Autocomplete
+        multiple
+        size="small"
+        open={open}
+        renderTags={() => false}
+        onChange={handleChange}
+        value={val}
+        options={options as string[]}
+        onOpen={async () => {
+          setOpen(true);
+          await sleep(100);
+          const popper = document.getElementsByClassName(
+            "MuiAutocomplete-popper"
+          )[0];
+          // popper.appendChild(controlPanel);
+          const controlPanel = document.createElement("div");
+          controlPanel.style.width = "100%";
+          ReactDOM.render(FilterControlPanel(), controlPanel);
+          popper.appendChild(controlPanel);
+        }}
+        onClose={(event: object, reason: string) => {
+          if (reason === "toggleInput") setOpen(false);
+        }}
+        renderOption={(option, { selected }) => (
+          <React.Fragment>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+              color="primary"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
+            {option}
+          </React.Fragment>
+        )}
+        style={{
+          minWidth: 275,
+          maxWidth: 275,
+          minHeight: 50,
+          overflow: "hidden",
+          padding: 5,
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label="Факты"
+            placeholder="Type here"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: params.InputProps.endAdornment,
+            }}
           />
-          {option}
-        </React.Fragment>
-      )}
-      style={{
-        minWidth: 275,
-        maxWidth: 275,
-        minHeight: 50,
-        overflow: "hidden",
-        padding: 5,
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="outlined"
-          label="Факты"
-          placeholder="Type here"
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: params.InputProps.endAdornment,
-          }}
-        />
-      )}
-    />
+        )}
+      />
+
+      <Button
+        style={{ position: "absolute", top: -40, left: 0 }}
+        ref={my_ref}
+        onClick={() => {
+          handleDataQuery({
+            method: SET_FACTS,
+            session,
+            language,
+            solution,
+            project,
+            report,
+            slice,
+            view,
+            visibleFacts: factsForQuery,
+          });
+        }}
+      >
+        O
+      </Button>
+    </>
   );
 };

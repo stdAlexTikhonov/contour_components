@@ -33,6 +33,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
         <Box justifyContent="flex-start" display="flex">
           <IconButton
             size="small"
+            style={{ outline: "none" }}
             aria-label="delete"
             onClick={() => setFieldBar(!fieldBar)}
           >
@@ -42,6 +43,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
             <IconButton
               size="small"
               aria-label="delete"
+              style={{ outline: "none" }}
               onClick={() =>
                 setFieldBarPosition(
                   fieldBarPosition === 3 ? 0 : fieldBarPosition + 1
