@@ -65,7 +65,6 @@ export const CustomDropdown: React.FC<IProps> = ({
   );
   const [val, setVal] = React.useState("");
   const handleToggle = (value: string) => () => {
-    setSelectAll(false);
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -74,7 +73,7 @@ export const CustomDropdown: React.FC<IProps> = ({
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
+    setSelectAll(newChecked.length === items.length);
     setChecked(newChecked);
   };
 
