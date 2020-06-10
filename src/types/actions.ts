@@ -204,6 +204,7 @@ export type Metadata = {
   attributes: any;
   visibleFacts: any;
   report?: string;
+  multipleFacts: boolean;
 };
 
 export interface setDashboardMetadata {
