@@ -189,6 +189,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                               item,
                             })}
                             role={undefined}
+                            style={{ maxWidth: 261, overflow: "hidden" }}
                             dense
                             button
                             onClick={handleToggle(item.value)}
