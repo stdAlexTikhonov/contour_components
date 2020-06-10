@@ -98,14 +98,18 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
-            item === "0" ? data.Captions[i] : null
+            item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
           )
           .filter((item: string | null) => item);
 
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
-        setItems(data.Captions.map((item: any) => ({ value: item })));
+        setItems(
+          data.Captions.map((item: any) => ({
+            value: item.replace(/&nbsp;/g, " "),
+          }))
+        );
         setLoading(false);
       } else {
         await sleep(100);
