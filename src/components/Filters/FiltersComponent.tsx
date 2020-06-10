@@ -4,7 +4,6 @@ import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
 import { AsyncFilter } from "../AsyncFilter";
-import { Fact } from "../Fact";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { generateUID } from "../../utils/helpers";
@@ -17,6 +16,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   facts,
   filters,
   visibleFacts,
+  multipleFacts,
   report,
 }) => {
   const classes = useStyles();
@@ -33,14 +33,21 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const renderItems = () => (
     <>
-      <Fact
-        slice={slice}
-        view={view}
-        visibleFacts={visibleFacts}
-        items={facts}
+      <CustomDropdown
+        items={facts.map((fact: any) => ({ value: fact.Caption }))}
+        label={"Факты"}
+        multy={multipleFacts}
+        selected={facts
+          .filter((item: any) => visibleFacts.includes(item.code))
+          .map((fact: any) => fact.Caption)}
       />
-      <CustomDropdown items={itemsX} label={"Multy values"} multy={true} />
-      <CustomDropdown items={itemsX} label={"Single value"} multy={false} />
+      <CustomDropdown
+        items={itemsX}
+        label={"Multy values"}
+        multy={true}
+        selected={[]}
+      />
+
       {filters.map((item: any) => (
         <AsyncFilter
           key={item.code}

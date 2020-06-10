@@ -9,6 +9,7 @@ export type Props = {
   filters: any;
   visibleFacts: any;
   report?: string;
+  multipleFacts: boolean;
 };
 
 export type POSITIONS_TYPE =

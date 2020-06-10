@@ -2,7 +2,7 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { ContourComponentsCheckbox } from "./index";
+import { CustomCheckbox } from "./CustomCheckbox";
 
 interface IProps {
   selected: boolean;
@@ -18,7 +18,7 @@ export const SelectAll: React.FC<IProps> = ({ selected, click }) => (
     onClick={() => click(!selected)}
   >
     <ListItemIcon style={{ minWidth: "auto" }}>
-      <ContourComponentsCheckbox
+      <CustomCheckbox
         edge="start"
         checked={selected}
         tabIndex={-1}

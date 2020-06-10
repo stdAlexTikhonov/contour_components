@@ -25,6 +25,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
     view,
     visibleFacts,
     report,
+    multipleFacts,
   } = metadata;
 
   return (
@@ -74,6 +75,7 @@ export const View: React.FC<IProps> = ({ metadata }) => {
           report={report}
           filters={filters}
           visibleFacts={visibleFacts ? visibleFacts : []}
+          multipleFacts={multipleFacts}
         />
       </Grid>
     </Grid>
