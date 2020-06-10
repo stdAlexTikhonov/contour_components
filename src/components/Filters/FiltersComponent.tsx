@@ -46,7 +46,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         multy={multipleFacts}
         selected={facts
           .filter((item: any) => visibleFacts.includes(item.code))
-          .map((fact: any) => ({ value: fact.Caption }))}
+          .map((fact: any) => fact.Caption)}
       />
       <CustomDropdown
         items={itemsX}

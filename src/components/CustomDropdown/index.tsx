@@ -55,11 +55,11 @@ export const CustomDropdown: React.FC<IProps> = ({
 }) => {
   const single = !multy;
   const classes = useStyles();
-  const [checked, setChecked] = React.useState<string[]>([]);
+  const [checked, setChecked] = React.useState<string[]>(multy ? selected : []);
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(false);
   const [localSelected, setSelected] = React.useState(
-    single ? selected[0].value : ""
+    single ? selected[0] : ""
   );
   const [val, setVal] = React.useState("");
   const handleToggle = (value: string) => () => {
