@@ -51,6 +51,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
+  const [multiple, setMultiple] = React.useState(multy);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -94,7 +95,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           view,
           code,
         });
-        console.log(data);
+
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
             item === "0" ? data.Captions[i] : null
@@ -102,6 +103,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           .filter((item: string | null) => item);
 
         setChecked(selected_from_server);
+        setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
         setItems(data.Captions.map((item: any) => ({ value: item })));
         setLoading(false);
@@ -155,7 +157,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           />
           <Collapse in={isOpen}>
             <div className={classes.root}>
-              {multy && (
+              {multiple && (
                 <SelectAll selected={selectAll} click={handleSelectAll} />
               )}
               <Divider />
@@ -188,7 +190,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                             onClick={handleToggle(item.value)}
                           >
                             <ListItemIcon style={{ minWidth: "auto" }}>
-                              {multy ? (
+                              {multiple ? (
                                 <CustomCheckbox
                                   edge="start"
                                   checked={checked.indexOf(item.value) !== -1}
