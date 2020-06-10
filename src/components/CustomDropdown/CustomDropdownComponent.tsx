@@ -21,6 +21,7 @@ import { IProps } from "./types";
 import { sleep } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { GET_DIM_FILTER } from "../../utils/constants";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -166,7 +167,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     listStyle: "none",
                   }}
                 >
-                  {localItems &&
+                  {loading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : (
                     localItems
                       .filter(
                         (item) => !inputValue || item.value.includes(inputValue)
@@ -208,7 +211,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                             <ListItemText id={labelId} primary={item.value} />
                           </ListItem>
                         );
-                      })}
+                      })
+                  )}
                 </List>
               </SimpleBar>
               <Divider />
