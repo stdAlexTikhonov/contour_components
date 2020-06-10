@@ -3,7 +3,6 @@ import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
-import { AsyncFilter } from "../AsyncFilter";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { generateUID } from "../../utils/helpers";
@@ -42,25 +41,18 @@ export const FiltersComponent: React.FC<IProps> = ({
           .map((fact: any) => fact.Caption)}
         _async={false}
       />
-      <CustomDropdown
-        items={[]}
-        label={"Multy values"}
-        multy={true}
-        selected={[]}
-        _async={true}
-        slice={slice}
-        view={view}
-        code={filters[0].code}
-        report={report}
-      />
 
       {filters.map((item: any) => (
-        <AsyncFilter
+        <CustomDropdown
           key={item.code}
+          items={[]}
           label={item.Caption}
-          code={item.code}
+          multy={true}
+          selected={[]}
+          _async={true}
           slice={slice}
           view={view}
+          code={item.code}
           report={report}
         />
       ))}
