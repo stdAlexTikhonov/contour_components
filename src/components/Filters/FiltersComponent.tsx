@@ -40,12 +40,18 @@ export const FiltersComponent: React.FC<IProps> = ({
         selected={facts
           .filter((item: any) => visibleFacts.includes(item.code))
           .map((fact: any) => fact.Caption)}
+        _async={false}
       />
       <CustomDropdown
         items={itemsX}
         label={"Multy values"}
         multy={true}
         selected={[]}
+        _async={true}
+        slice={slice}
+        view={view}
+        code={filters[0].code}
+        report={report}
       />
 
       {filters.map((item: any) => (
