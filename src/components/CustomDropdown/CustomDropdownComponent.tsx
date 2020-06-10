@@ -51,7 +51,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
-  const [multyFilter, setMultyFilter] = React.useState(false);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -82,35 +81,36 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleDropDown = () => {
-    (async () => {
-      if (localItems.length === 0 && _async) {
-        const data = await getData({
-          method: GET_DIM_FILTER,
-          session,
-          solution,
-          language,
-          project,
-          report: report_code || report,
-          slice,
-          view,
-          code,
-        });
+    localItems.length === 0 &&
+      (async () => {
+        if (_async) {
+          const data = await getData({
+            method: GET_DIM_FILTER,
+            session,
+            solution,
+            language,
+            project,
+            report: report_code || report,
+            slice,
+            view,
+            code,
+          });
+          console.log(data);
+          const selected_from_server = data.Filters.split("")
+            .map((item: string, i: number) =>
+              item === "0" ? data.Captions[i] : null
+            )
+            .filter((item: string | null) => item);
 
-        const selected_from_server = data.Filters.split("")
-          .map((item: string, i: number) =>
-            item === "0" ? data.Captions[i] : null
-          )
-          .filter((item: string | null) => item);
-        setMultyFilter(data.MultipleValues);
-        setChecked(selected_from_server);
-        setSelectAll(selected_from_server.length === data.Captions.length);
-        setItems(data.Captions.map((item: any) => ({ value: item })));
-        setLoading(false);
-      } else {
-        await sleep(100);
-        setLoading(false);
-      }
-    })();
+          setChecked(selected_from_server);
+          setSelectAll(selected_from_server.length === data.Captions.length);
+          setItems(data.Captions.map((item: any) => ({ value: item })));
+          setLoading(false);
+        } else {
+          await sleep(1000);
+          setLoading(false);
+        }
+      })();
     setDropDown(!dropDown);
   };
 
@@ -156,7 +156,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           />
           <Collapse in={isOpen}>
             <div className={classes.root}>
-              {(multy || multyFilter) && (
+              {multy && (
                 <SelectAll selected={selectAll} click={handleSelectAll} />
               )}
               <Divider />
@@ -189,7 +189,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                             onClick={handleToggle(item.value)}
                           >
                             <ListItemIcon style={{ minWidth: "auto" }}>
-                              {multy || multyFilter ? (
+                              {multy ? (
                                 <CustomCheckbox
                                   edge="start"
                                   checked={checked.indexOf(item.value) !== -1}
