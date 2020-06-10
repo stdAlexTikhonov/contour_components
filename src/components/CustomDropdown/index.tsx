@@ -57,7 +57,9 @@ export const CustomDropdown: React.FC<IProps> = ({
   const classes = useStyles();
   const [checked, setChecked] = React.useState<string[]>(multy ? selected : []);
   const [dropDown, setDropDown] = React.useState(false);
-  const [selectAll, setSelectAll] = React.useState(false);
+  const [selectAll, setSelectAll] = React.useState(
+    selected.length === items.length
+  );
   const [localSelected, setSelected] = React.useState(
     single ? selected[0] : ""
   );
