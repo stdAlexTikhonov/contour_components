@@ -24,12 +24,6 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const onHandleDrag = () => console.log("drag end");
 
-  let itemsX: any[] = [];
-
-  for (let i = 0; i < 10; i++) {
-    itemsX.push({ value: generateUID() });
-  }
-
   const renderItems = () => (
     <>
       <CustomDropdown
@@ -80,6 +74,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             style={{
               maxHeight: "100%",
               width: pos === "row" ? "100%" : "275px",
+              paddingTop: 3,
             }}
           >
             {pos === "row" ? simpleWrapper() : renderItems()}
