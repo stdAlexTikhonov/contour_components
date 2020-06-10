@@ -44,17 +44,24 @@ interface IProps {
   items: any[];
   label: string;
   multy: boolean;
+  selected: any[];
 }
 
-export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
+export const CustomDropdown: React.FC<IProps> = ({
+  items,
+  label,
+  multy,
+  selected,
+}) => {
   const single = !multy;
   const classes = useStyles();
   const [checked, setChecked] = React.useState<string[]>([]);
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(false);
-  const [selected, setSelected] = React.useState("");
+  const [localSelected, setSelected] = React.useState(
+    single ? selected[0].value : ""
+  );
   const [val, setVal] = React.useState("");
-
   const handleToggle = (value: string) => () => {
     setSelectAll(false);
     const currentIndex = checked.indexOf(value);
@@ -100,7 +107,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
       }}
       onOuterClick={() => setDropDown(false)}
       itemToString={(item) => (item ? item.value : "")}
-      inputValue={dropDown ? val : selected}
+      inputValue={dropDown ? val : localSelected}
     >
       {({
         getInputProps,
@@ -167,7 +174,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
                               />
                             ) : (
                               <ContourComponentsRadio
-                                checked={selected === item.value}
+                                checked={localSelected === item.value}
                                 onChange={handleRadio(item.value)}
                                 value={item.value}
                                 name="radio-button-demo"
