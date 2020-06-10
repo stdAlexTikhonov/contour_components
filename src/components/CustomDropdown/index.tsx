@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Downshift from "downshift";
-import { generateUID } from "../../utils/helpers";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import SimpleBar from "simplebar-react";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,29 +14,8 @@ import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
-import { withStyles } from "@material-ui/core/styles";
-import { COLOR } from "../../utils/constants";
-
-const ContourComponentsRadio = withStyles({
-  root: {
-    color: COLOR,
-    "&$checked": {
-      color: COLOR,
-    },
-  },
-  checked: {},
-})((props: RadioProps) => <Radio color="default" {...props} />);
-
-export const ContourComponentsCheckbox = withStyles({
-  root: {
-    color: COLOR,
-    "&$checked": {
-      color: COLOR,
-    },
-  },
-  checked: {},
-})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
+import { CustomCheckbox } from "./CustomCheckbox";
+import { CustomRadio } from "./CustomRadio";
 
 interface IProps {
   items: any[];
@@ -165,7 +142,7 @@ export const CustomDropdown: React.FC<IProps> = ({
                         >
                           <ListItemIcon style={{ minWidth: "auto" }}>
                             {multy ? (
-                              <ContourComponentsCheckbox
+                              <CustomCheckbox
                                 edge="start"
                                 checked={checked.indexOf(item.value) !== -1}
                                 tabIndex={-1}
@@ -174,7 +151,7 @@ export const CustomDropdown: React.FC<IProps> = ({
                                 inputProps={{ "aria-labelledby": labelId }}
                               />
                             ) : (
-                              <ContourComponentsRadio
+                              <CustomRadio
                                 checked={localSelected === item.value}
                                 onChange={handleRadio(item.value)}
                                 value={item.value}
