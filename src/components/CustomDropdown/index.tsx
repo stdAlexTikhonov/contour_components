@@ -91,7 +91,12 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
   };
 
   return (
-    <Downshift itemToString={(item) => (item ? item.value : "")}>
+    <Downshift
+      isOpen={dropDown}
+      onInputValueChange={() => setDropDown(true)}
+      onOuterClick={() => setDropDown(false)}
+      itemToString={(item) => (item ? item.value : "")}
+    >
       {({
         getInputProps,
         getItemProps,
@@ -114,7 +119,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
             label={label}
             variant="outlined"
           />
-          <Collapse in={dropDown || isOpen}>
+          <Collapse in={isOpen}>
             <div className={classes.root}>
               {multy && (
                 <SelectAll selected={selectAll} click={handleSelectAll} />
@@ -189,7 +194,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
             style={{ outline: "none" }}
             onClick={handleDropDown}
           >
-            {isOpen || dropDown ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+            {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           </IconButton>
         </div>
       )}
