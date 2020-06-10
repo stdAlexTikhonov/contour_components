@@ -60,7 +60,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    setSelectAll(newChecked.length === items.length);
+    setSelectAll(newChecked.length === localItems.length);
     setChecked(newChecked);
   };
 
@@ -94,6 +94,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
             view,
             code,
           });
+          console.log(data);
+          const selected_from_server = data.Filters.split("")
+            .map((item: string, i: number) =>
+              item === "0" ? data.Captions[i] : null
+            )
+            .filter((item: string | null) => item);
+
+          setChecked(selected_from_server);
+          setSelectAll(selected_from_server.length === data.Captions.length);
           setItems(data.Captions.map((item: any) => ({ value: item })));
           setLoading(false);
         } else {
@@ -106,7 +115,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleSelectAll = (value: boolean) => {
     setSelectAll(value);
-    setChecked(value ? items.map((item) => item.value) : []);
+    setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
   useEffect(() => {}, []);
