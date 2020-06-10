@@ -7,7 +7,6 @@ export const useStyles = makeStyles({
   },
   container: {
     display: "flex",
-    padding: 100,
     width: "100%",
     boxSizing: "border-box",
     justifyContent: "center",
