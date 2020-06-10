@@ -46,6 +46,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [localSelected, setSelected] = React.useState(
     single ? selected[0] : ""
   );
+  const [localItems, setItems] = React.useState<any[]>(items);
+
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
 
@@ -77,35 +79,37 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setDropDown(false);
   };
 
-  const handleDropDown = () => setDropDown(!dropDown);
+  const handleDropDown = () => {
+    localItems.length === 0 &&
+      (async () => {
+        if (_async) {
+          const data = await getData({
+            method: GET_DIM_FILTER,
+            session,
+            solution,
+            language,
+            project,
+            report: report_code || report,
+            slice,
+            view,
+            code,
+          });
+          setItems(data.Captions.map((item: any) => ({ value: item })));
+          setLoading(false);
+        } else {
+          await sleep(1000);
+          setLoading(false);
+        }
+      })();
+    setDropDown(!dropDown);
+  };
 
   const handleSelectAll = (value: boolean) => {
     setSelectAll(value);
     setChecked(value ? items.map((item) => item.value) : []);
   };
 
-  useEffect(() => {
-    (async () => {
-      if (_async) {
-        const data = await getData({
-          method: GET_DIM_FILTER,
-          session,
-          solution,
-          language,
-          project,
-          report: report_code || report,
-          slice,
-          view,
-          code,
-        });
-        console.log(data);
-        setLoading(false);
-      } else {
-        await sleep(1000);
-        setLoading(false);
-      }
-    })();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Downshift
@@ -153,48 +157,49 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     listStyle: "none",
                   }}
                 >
-                  {items
-                    .filter(
-                      (item) => !inputValue || item.value.includes(inputValue)
-                    )
-                    .map((item, index) => {
-                      const labelId = `checkbox-list-label-${item.value}`;
-                      return (
-                        <ListItem
-                          key={item.value}
-                          {...getItemProps({
-                            index,
-                            item,
-                          })}
-                          role={undefined}
-                          dense
-                          button
-                          onClick={handleToggle(item.value)}
-                        >
-                          <ListItemIcon style={{ minWidth: "auto" }}>
-                            {multy ? (
-                              <CustomCheckbox
-                                edge="start"
-                                checked={checked.indexOf(item.value) !== -1}
-                                tabIndex={-1}
-                                disableRipple
-                                color="primary"
-                                inputProps={{ "aria-labelledby": labelId }}
-                              />
-                            ) : (
-                              <CustomRadio
-                                checked={localSelected === item.value}
-                                onChange={handleRadio(item.value)}
-                                value={item.value}
-                                name="radio-button-demo"
-                                inputProps={{ "aria-label": item.value }}
-                              />
-                            )}
-                          </ListItemIcon>
-                          <ListItemText id={labelId} primary={item.value} />
-                        </ListItem>
-                      );
-                    })}
+                  {localItems &&
+                    localItems
+                      .filter(
+                        (item) => !inputValue || item.value.includes(inputValue)
+                      )
+                      .map((item, index) => {
+                        const labelId = `checkbox-list-label-${item.value}`;
+                        return (
+                          <ListItem
+                            key={item.value}
+                            {...getItemProps({
+                              index,
+                              item,
+                            })}
+                            role={undefined}
+                            dense
+                            button
+                            onClick={handleToggle(item.value)}
+                          >
+                            <ListItemIcon style={{ minWidth: "auto" }}>
+                              {multy ? (
+                                <CustomCheckbox
+                                  edge="start"
+                                  checked={checked.indexOf(item.value) !== -1}
+                                  tabIndex={-1}
+                                  disableRipple
+                                  color="primary"
+                                  inputProps={{ "aria-labelledby": labelId }}
+                                />
+                              ) : (
+                                <CustomRadio
+                                  checked={localSelected === item.value}
+                                  onChange={handleRadio(item.value)}
+                                  value={item.value}
+                                  name="radio-button-demo"
+                                  inputProps={{ "aria-label": item.value }}
+                                />
+                              )}
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={item.value} />
+                          </ListItem>
+                        );
+                      })}
                 </List>
               </SimpleBar>
               <Divider />

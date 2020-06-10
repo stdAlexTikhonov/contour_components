@@ -43,7 +43,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         _async={false}
       />
       <CustomDropdown
-        items={itemsX}
+        items={[]}
         label={"Multy values"}
         multy={true}
         selected={[]}
