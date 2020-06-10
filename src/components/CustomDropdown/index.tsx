@@ -53,6 +53,7 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(false);
   const [selected, setSelected] = React.useState("");
+  const [val, setVal] = React.useState("");
 
   const handleToggle = (value: string) => () => {
     setSelectAll(false);
@@ -93,9 +94,13 @@ export const CustomDropdown: React.FC<IProps> = ({ items, label, multy }) => {
   return (
     <Downshift
       isOpen={dropDown}
-      onInputValueChange={() => setDropDown(true)}
+      onInputValueChange={(value) => {
+        setDropDown(true);
+        setVal(value);
+      }}
       onOuterClick={() => setDropDown(false)}
       itemToString={(item) => (item ? item.value : "")}
+      inputValue={dropDown ? val : selected}
     >
       {({
         getInputProps,
