@@ -49,6 +49,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [localSelected, setSelected] = React.useState(
     single ? selected[0] : ""
   );
+  const [selectedFromServer, setSelectedFromServer] = React.useState<string[]>(
+    []
+  );
   const [localItems, setItems] = React.useState<any[]>(items);
 
   const [val, setVal] = React.useState("");
@@ -95,7 +98,17 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleCancel = () => {
-    console.log(checked);
+    if (multiple && selected.length > 0) {
+      setChecked(selected);
+      setSelectAll(localItems.length === selected.length);
+    } else if (single && selected.length === 0) {
+      setSelected(selectedFromServer.length > 0 ? selectedFromServer[0] : "");
+    } else if (multiple) {
+      setChecked(selectedFromServer);
+      setSelectAll(selectedFromServer.length === localItems.length);
+    } else {
+      setSelected(selected[0]);
+    }
     setDropDown(false);
   };
 
@@ -120,6 +133,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           )
           .filter((item: string | null) => item);
 
+        setSelectedFromServer(selected_from_server);
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
