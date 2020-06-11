@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
 import SimpleBar from "simplebar-react";
 import { ITEMS } from "../../utils/constants";
+import { bMobile } from "../../utils/helpers";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import FolderIcon from "@material-ui/icons/Folder";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
@@ -26,11 +27,6 @@ export const CardsComponent: React.FC<IProps> = ({
   const classes = useStyles();
   const { solution, folder, project, p_folder } = useParams();
 
-  var bMobile = // will be true if running on a mobile device
-    navigator.userAgent.indexOf("Mobile") !== -1 ||
-    navigator.userAgent.indexOf("iPhone") !== -1 ||
-    navigator.userAgent.indexOf("Android") !== -1 ||
-    navigator.userAgent.indexOf("Windows Phone") !== -1;
   const isSlimScreen = useMediaQuery("(max-width: 500px");
 
   useEffect(() => {
