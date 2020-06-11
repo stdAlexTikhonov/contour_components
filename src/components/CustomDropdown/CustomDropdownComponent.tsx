@@ -50,6 +50,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
   );
+  const [factsForServer, setFactsForServer] = React.useState(selected);
   const [localSelected, setSelected] = React.useState(
     single ? selected[0] : ""
   );
@@ -142,6 +143,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         visibleFacts: facts_for_server,
       });
 
+      setFactsForServer(checked);
       //console.log(facts_for_server);
     }
     console.log(checked);
@@ -160,9 +162,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     } else {
       //Fact
       if (multiple) {
-        setChecked(selected);
-        setSelectAll(localItems.length === selected.length);
-      } else setSelected(selected[0]);
+        setChecked(factsForServer);
+        setSelectAll(localItems.length === factsForServer.length);
+      } else setSelected(factsForServer[0]);
     }
 
     setDropDown(false);
