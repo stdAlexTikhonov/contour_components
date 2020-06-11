@@ -60,16 +60,20 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [sort, setSort] = React.useState(false);
 
   const handleToggle = (value: string) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    if (multiple) {
+      const currentIndex = checked.indexOf(value);
+      const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
+      if (currentIndex === -1) {
+        newChecked.push(value);
+      } else {
+        newChecked.splice(currentIndex, 1);
+      }
+      setSelectAll(newChecked.length === localItems.length);
+      setChecked(newChecked);
     } else {
-      newChecked.splice(currentIndex, 1);
+      setChecked([value]);
     }
-    setSelectAll(newChecked.length === localItems.length);
-    setChecked(newChecked);
   };
 
   const handleInversion = () => {
@@ -99,11 +103,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       //   (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
       //   ""
       // );
-      console.log(checked);
+
       // console.log(filters_for_server);
     } else {
       console.log("Fact");
     }
+    console.log(checked);
     setDropDown(false);
   };
 
@@ -136,7 +141,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           view,
           code,
         });
-        console.log(data.Filters);
+
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
             item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
