@@ -22,6 +22,8 @@ import { sleep } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { GET_DIM_FILTER } from "../../utils/constants";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -52,6 +54,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
+  const [sort, setSort] = React.useState(false);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -64,6 +67,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
     setSelectAll(newChecked.length === localItems.length);
     setChecked(newChecked);
+  };
+
+  const handleInversion = () => {
+    const data = localItems.map((item: any) => item.value);
+    const inverted = data.filter((item: string) => !checked.includes(item));
+    setChecked(inverted);
+    setSelectAll(data.length === inverted.length);
+  };
+
+  const handleSort = () => {
+    setSort(!sort);
+
+    sort
+      ? localItems.sort((a, b) => (a.value < b.value ? 1 : -1))
+      : localItems.sort((a, b) => (a.value < b.value ? -1 : 1));
   };
 
   const handleRadio = (value: string) => () => {
@@ -223,6 +241,24 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               </SimpleBar>
               <Divider />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                {multiple && (
+                  <Button
+                    style={{ outline: "none", minWidth: "unset" }}
+                    onClick={handleInversion}
+                  >
+                    <AutorenewIcon />
+                  </Button>
+                )}
+                <Button
+                  style={{ outline: "none", minWidth: "unset" }}
+                  onClick={handleSort}
+                >
+                  <ArrowRightAltIcon
+                    style={{
+                      transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
+                    }}
+                  />
+                </Button>
                 <Button style={{ outline: "none" }} onClick={handleOk}>
                   Ok
                 </Button>
