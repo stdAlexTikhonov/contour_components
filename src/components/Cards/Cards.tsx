@@ -25,6 +25,12 @@ export const CardsComponent: React.FC<IProps> = ({
 }) => {
   const classes = useStyles();
   const { solution, folder, project, p_folder } = useParams();
+
+  var bMobile = // will be true if running on a mobile device
+    navigator.userAgent.indexOf("Mobile") !== -1 ||
+    navigator.userAgent.indexOf("iPhone") !== -1 ||
+    navigator.userAgent.indexOf("Android") !== -1 ||
+    navigator.userAgent.indexOf("Windows Phone") !== -1;
   const isSlimScreen = useMediaQuery("(max-width: 500px");
 
   useEffect(() => {
@@ -44,7 +50,7 @@ export const CardsComponent: React.FC<IProps> = ({
       <Container
         className={classes.container}
         fluid
-        style={{ padding: isSlimScreen ? 0 : 100 }}
+        style={{ padding: isSlimScreen || bMobile ? 0 : 100 }}
       >
         <Row className={classes.row}>
           {items.map((item: any) => {
