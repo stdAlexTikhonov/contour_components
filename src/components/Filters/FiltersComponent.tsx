@@ -27,7 +27,10 @@ export const FiltersComponent: React.FC<IProps> = ({
   const renderItems = () => (
     <>
       <CustomDropdown
-        items={facts.map((fact: any) => ({ value: fact.Caption }))}
+        items={facts.map((fact: any) => ({
+          value: fact.Caption,
+          code: fact.code,
+        }))}
         label={"Факты"}
         multy={multipleFacts}
         selected={facts

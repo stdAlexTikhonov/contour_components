@@ -20,7 +20,11 @@ import { CustomRadio } from "./CustomRadio";
 import { IProps } from "./types";
 import { sleep } from "../../utils/helpers";
 import { getData } from "../../utils/api";
-import { GET_DIM_FILTER } from "../../utils/constants";
+import {
+  GET_DIM_FILTER,
+  SET_DIM_FILTER,
+  SET_FACTS,
+} from "../../utils/constants";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
@@ -41,13 +45,17 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
-  const [checked, setChecked] = React.useState<string[]>(multy ? selected : []);
+  const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
   );
+  const [factsForServer, setFactsForServer] = React.useState(selected);
   const [localSelected, setSelected] = React.useState(
     single ? selected[0] : ""
+  );
+  const [selectedFromServer, setSelectedFromServer] = React.useState<string[]>(
+    []
   );
   const [localItems, setItems] = React.useState<any[]>(items);
 
@@ -57,16 +65,20 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [sort, setSort] = React.useState(false);
 
   const handleToggle = (value: string) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    if (multiple) {
+      const currentIndex = checked.indexOf(value);
+      const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
+      if (currentIndex === -1) {
+        newChecked.push(value);
+      } else {
+        newChecked.splice(currentIndex, 1);
+      }
+      setSelectAll(newChecked.length === localItems.length);
+      setChecked(newChecked);
     } else {
-      newChecked.splice(currentIndex, 1);
+      setChecked([value]);
     }
-    setSelectAll(newChecked.length === localItems.length);
-    setChecked(newChecked);
   };
 
   const handleInversion = () => {
@@ -90,12 +102,71 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleOk = () => {
+    if (_async) {
+      //Filter
+      const filters_for_server = localItems.reduce(
+        (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
+        ""
+      );
+
+      getData({
+        method: SET_DIM_FILTER,
+        language,
+        session,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        code,
+        filter: filters_for_server,
+      });
+
+      setSelectedFromServer(checked);
+
+      // console.log(filters_for_server);
+    } else {
+      //Fact
+      const facts_for_server = localItems
+        .filter((item: any) => checked.includes(item.value))
+        .map((item: any) => item.code);
+
+      getData({
+        method: SET_FACTS,
+        session,
+        language,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        visibleFacts: facts_for_server,
+      });
+
+      setFactsForServer(checked);
+      //console.log(facts_for_server);
+    }
     console.log(checked);
     setDropDown(false);
   };
 
   const handleCancel = () => {
-    console.log(checked);
+    if (_async) {
+      //Filter
+      if (multiple) {
+        setChecked(selectedFromServer);
+        setSelectAll(selectedFromServer.length === localItems.length);
+      } else {
+        setSelected(selectedFromServer[0]);
+      }
+    } else {
+      //Fact
+      if (multiple) {
+        setChecked(factsForServer);
+        setSelectAll(localItems.length === factsForServer.length);
+      } else setSelected(factsForServer[0]);
+    }
+
     setDropDown(false);
   };
 
@@ -120,6 +191,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           )
           .filter((item: string | null) => item);
 
+        setSelectedFromServer(selected_from_server);
+        data.MultipleValues === false && setSelected(selected_from_server[0]);
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
@@ -177,97 +250,100 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
             label={label}
             variant="outlined"
           />
-          <Collapse in={isOpen}>
-            <div className={classes.root}>
-              {multiple && (
-                <SelectAll selected={selectAll} click={handleSelectAll} />
-              )}
-              <Divider />
-              <SimpleBar style={{ maxHeight: "40vh" }}>
-                <List
-                  {...getMenuProps()}
-                  style={{
-                    listStyle: "none",
-                  }}
-                >
-                  {loading ? (
-                    <CircularProgress color="inherit" size={20} />
-                  ) : (
-                    localItems
-                      .filter(
-                        (item) => !inputValue || item.value.includes(inputValue)
-                      )
-                      .map((item, index) => {
-                        const labelId = `checkbox-list-label-${item.value}`;
-                        return (
-                          <ListItem
-                            key={item.value}
-                            {...getItemProps({
-                              index,
-                              item,
-                            })}
-                            role={undefined}
-                            style={{ maxWidth: 261, overflow: "hidden" }}
-                            dense
-                            button
-                            onClick={handleToggle(item.value)}
-                          >
-                            <ListItemIcon style={{ minWidth: "auto" }}>
-                              {multiple ? (
-                                <CustomCheckbox
-                                  edge="start"
-                                  checked={checked.indexOf(item.value) !== -1}
-                                  tabIndex={-1}
-                                  disableRipple
-                                  color="primary"
-                                  inputProps={{ "aria-labelledby": labelId }}
-                                />
-                              ) : (
-                                <CustomRadio
-                                  checked={localSelected === item.value}
-                                  onChange={handleRadio(item.value)}
-                                  value={item.value}
-                                  name="radio-button-demo"
-                                  inputProps={{ "aria-label": item.value }}
-                                />
-                              )}
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={item.value} />
-                          </ListItem>
-                        );
-                      })
-                  )}
-                </List>
-              </SimpleBar>
-              <Divider />
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          {!loading && (
+            <Collapse in={isOpen}>
+              <div className={classes.root}>
                 {multiple && (
+                  <SelectAll selected={selectAll} click={handleSelectAll} />
+                )}
+                <Divider />
+                <SimpleBar style={{ maxHeight: "40vh" }}>
+                  <List
+                    {...getMenuProps()}
+                    style={{
+                      listStyle: "none",
+                    }}
+                  >
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : (
+                      localItems
+                        .filter(
+                          (item) =>
+                            !inputValue || item.value.includes(inputValue)
+                        )
+                        .map((item, index) => {
+                          const labelId = `checkbox-list-label-${item.value}`;
+                          return (
+                            <ListItem
+                              key={item.value}
+                              {...getItemProps({
+                                index,
+                                item,
+                              })}
+                              role={undefined}
+                              style={{ maxWidth: 261, overflow: "hidden" }}
+                              dense
+                              button
+                              onClick={handleToggle(item.value)}
+                            >
+                              <ListItemIcon style={{ minWidth: "auto" }}>
+                                {multiple ? (
+                                  <CustomCheckbox
+                                    edge="start"
+                                    checked={checked.indexOf(item.value) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    color="primary"
+                                    inputProps={{ "aria-labelledby": labelId }}
+                                  />
+                                ) : (
+                                  <CustomRadio
+                                    checked={localSelected === item.value}
+                                    onChange={handleRadio(item.value)}
+                                    value={item.value}
+                                    name="radio-button-demo"
+                                    inputProps={{ "aria-label": item.value }}
+                                  />
+                                )}
+                              </ListItemIcon>
+                              <ListItemText id={labelId} primary={item.value} />
+                            </ListItem>
+                          );
+                        })
+                    )}
+                  </List>
+                </SimpleBar>
+                <Divider />
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  {multiple && (
+                    <Button
+                      style={{ outline: "none", minWidth: "unset" }}
+                      onClick={handleInversion}
+                    >
+                      <AutorenewIcon />
+                    </Button>
+                  )}
                   <Button
                     style={{ outline: "none", minWidth: "unset" }}
-                    onClick={handleInversion}
+                    onClick={handleSort}
                   >
-                    <AutorenewIcon />
+                    <ArrowRightAltIcon
+                      style={{
+                        transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
+                      }}
+                    />
                   </Button>
-                )}
-                <Button
-                  style={{ outline: "none", minWidth: "unset" }}
-                  onClick={handleSort}
-                >
-                  <ArrowRightAltIcon
-                    style={{
-                      transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
-                    }}
-                  />
-                </Button>
-                <Button style={{ outline: "none" }} onClick={handleOk}>
-                  Ok
-                </Button>
-                <Button style={{ outline: "none" }} onClick={handleCancel}>
-                  Cancel
-                </Button>
+                  <Button style={{ outline: "none" }} onClick={handleOk}>
+                    Ok
+                  </Button>
+                  <Button style={{ outline: "none" }} onClick={handleCancel}>
+                    Cancel
+                  </Button>
+                </div>
               </div>
-            </div>
-          </Collapse>
+            </Collapse>
+          )}
           <IconButton
             aria-label="delete"
             className={classes.margin}
