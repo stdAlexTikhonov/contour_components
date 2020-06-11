@@ -241,12 +241,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               </SimpleBar>
               <Divider />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button
-                  style={{ outline: "none", minWidth: "unset" }}
-                  onClick={handleInversion}
-                >
-                  <AutorenewIcon />
-                </Button>
+                {multiple && (
+                  <Button
+                    style={{ outline: "none", minWidth: "unset" }}
+                    onClick={handleInversion}
+                  >
+                    <AutorenewIcon />
+                  </Button>
+                )}
                 <Button
                   style={{ outline: "none", minWidth: "unset" }}
                   onClick={handleSort}
