@@ -14,6 +14,7 @@ import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import ClassIcon from "@material-ui/icons/Class";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
+import { useMediaQuery } from "@material-ui/core";
 
 export const CardsComponent: React.FC<IProps> = ({
   items,
@@ -24,6 +25,7 @@ export const CardsComponent: React.FC<IProps> = ({
 }) => {
   const classes = useStyles();
   const { solution, folder, project, p_folder } = useParams();
+  const isSlimScreen = useMediaQuery("(max-width: 500px");
 
   useEffect(() => {
     handleDataQuery({
@@ -39,7 +41,11 @@ export const CardsComponent: React.FC<IProps> = ({
 
   return (
     <SimpleBar style={{ maxHeight: "100vh" }}>
-      <Container className={classes.container} fluid>
+      <Container
+        className={classes.container}
+        fluid
+        style={{ padding: isSlimScreen ? 0 : 100 }}
+      >
         <Row className={classes.row}>
           {items.map((item: any) => {
             let link = "";
