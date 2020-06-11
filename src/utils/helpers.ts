@@ -6,6 +6,12 @@ export const transform_languages_data = (langs: []) => {
   return hash;
 };
 
+export const bMobile = // will be true if running on a mobile device
+  navigator.userAgent.indexOf("Mobile") !== -1 ||
+  navigator.userAgent.indexOf("iPhone") !== -1 ||
+  navigator.userAgent.indexOf("Android") !== -1 ||
+  navigator.userAgent.indexOf("Windows Phone") !== -1;
+
 export const generateUID = () => {
   return (
     Math.random().toString(36).substring(2, 15) +

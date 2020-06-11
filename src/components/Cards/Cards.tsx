@@ -8,12 +8,14 @@ import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
 import SimpleBar from "simplebar-react";
 import { ITEMS } from "../../utils/constants";
+import { bMobile } from "../../utils/helpers";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import FolderIcon from "@material-ui/icons/Folder";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import ClassIcon from "@material-ui/icons/Class";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
+import { useMediaQuery } from "@material-ui/core";
 
 export const CardsComponent: React.FC<IProps> = ({
   items,
@@ -24,6 +26,8 @@ export const CardsComponent: React.FC<IProps> = ({
 }) => {
   const classes = useStyles();
   const { solution, folder, project, p_folder } = useParams();
+
+  const isSlimScreen = useMediaQuery("(max-width: 500px");
 
   useEffect(() => {
     handleDataQuery({
@@ -39,7 +43,11 @@ export const CardsComponent: React.FC<IProps> = ({
 
   return (
     <SimpleBar style={{ maxHeight: "100vh" }}>
-      <Container className={classes.container} fluid>
+      <Container
+        className={classes.container}
+        fluid
+        style={{ padding: isSlimScreen || bMobile ? 0 : 100 }}
+      >
         <Row className={classes.row}>
           {items.map((item: any) => {
             let link = "";
