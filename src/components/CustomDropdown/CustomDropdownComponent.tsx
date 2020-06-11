@@ -20,7 +20,11 @@ import { CustomRadio } from "./CustomRadio";
 import { IProps } from "./types";
 import { sleep } from "../../utils/helpers";
 import { getData } from "../../utils/api";
-import { GET_DIM_FILTER } from "../../utils/constants";
+import {
+  GET_DIM_FILTER,
+  SET_DIM_FILTER,
+  SET_FACTS,
+} from "../../utils/constants";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
@@ -98,15 +102,45 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleOk = () => {
     if (_async) {
-      console.log("Filter");
-      // const filters_for_server = localItems.reduce(
-      //   (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
-      //   ""
-      // );
+      //Filter
+      const filters_for_server = localItems.reduce(
+        (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
+        ""
+      );
+
+      getData({
+        method: SET_DIM_FILTER,
+        language,
+        session,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        code,
+        filter: filters_for_server,
+      });
 
       // console.log(filters_for_server);
     } else {
-      console.log("Fact");
+      //Fact
+      const facts_for_server = localItems
+        .filter((item: any) => checked.includes(item.value))
+        .map((item: any) => item.code);
+
+      getData({
+        method: SET_FACTS,
+        session,
+        language,
+        solution,
+        project,
+        report,
+        slice,
+        view,
+        visibleFacts: facts_for_server,
+      });
+
+      //console.log(facts_for_server);
     }
     console.log(checked);
     setDropDown(false);
