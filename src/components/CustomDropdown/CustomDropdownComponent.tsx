@@ -121,6 +121,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         filter: filters_for_server,
       });
 
+      setSelectedFromServer(checked);
+
       // console.log(filters_for_server);
     } else {
       //Fact
