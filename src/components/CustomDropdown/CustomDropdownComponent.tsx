@@ -41,7 +41,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
-  const [checked, setChecked] = React.useState<string[]>(multy ? selected : []);
+  const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
@@ -93,7 +93,17 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleOk = () => {
-    console.log(checked);
+    if (_async) {
+      console.log("Filter");
+      // const filters_for_server = localItems.reduce(
+      //   (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
+      //   ""
+      // );
+      console.log(checked);
+      // console.log(filters_for_server);
+    } else {
+      console.log("Fact");
+    }
     setDropDown(false);
   };
 
@@ -126,7 +136,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           view,
           code,
         });
-
+        console.log(data.Filters);
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
             item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
@@ -134,6 +144,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           .filter((item: string | null) => item);
 
         setSelectedFromServer(selected_from_server);
+        data.MultipleValues === false && setSelected(selected_from_server[0]);
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
