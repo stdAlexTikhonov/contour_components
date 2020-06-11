@@ -23,6 +23,7 @@ import { getData } from "../../utils/api";
 import { GET_DIM_FILTER } from "../../utils/constants";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -66,6 +67,13 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
     setSelectAll(newChecked.length === localItems.length);
     setChecked(newChecked);
+  };
+
+  const handleInversion = () => {
+    const data = localItems.map((item: any) => item.value);
+    const inverted = data.filter((item: string) => !checked.includes(item));
+    setChecked(inverted);
+    setSelectAll(data.length === inverted.length);
   };
 
   const handleSort = () => {
@@ -233,6 +241,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               </SimpleBar>
               <Divider />
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                  style={{ outline: "none", minWidth: "unset" }}
+                  onClick={handleInversion}
+                >
+                  <AutorenewIcon />
+                </Button>
                 <Button
                   style={{ outline: "none", minWidth: "unset" }}
                   onClick={handleSort}
