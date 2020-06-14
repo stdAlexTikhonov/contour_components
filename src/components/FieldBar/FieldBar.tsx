@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
-import { Fact } from "../Fact";
 import { DragDropContext } from "react-beautiful-dnd";
 import {
   SET_FACT_POSISIOTNS,
@@ -147,12 +145,7 @@ export const FieldBarComponent: React.FC<IProps> = ({
             className={classes.aside}
             style={{ display: "block", overflow: "scroll" }}
           >
-            <Fact
-              items={facts}
-              view={view}
-              slice={slice}
-              visibleFacts={visibleFacts}
-            />
+            {/* Filter */}
           </Box>
           <Box className={classes.main} style={{ overflow: "scroll" }}>
             <List
