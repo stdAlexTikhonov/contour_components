@@ -5,7 +5,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import Checkbox from "@material-ui/core/Checkbox";
-import { AsyncFilter } from "../AsyncFilter";
 import { IProps } from "./types";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
@@ -85,12 +84,13 @@ export const ListComponent: React.FC<IProps> = ({
                         />
                       </>
                     ) : (
-                      <AsyncFilter
-                        label={item.Caption}
-                        code={item.code}
-                        slice={slice}
-                        view={view}
-                      />
+                      <div>Here will Custom dropdown</div>
+                      // <AsyncFilter
+                      //   label={item.Caption}
+                      //   code={item.code}
+                      //   slice={slice}
+                      //   view={view}
+                      // />
                     )}
                   </ListItem>
                 )}

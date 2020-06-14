@@ -1,67 +1,48 @@
 import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
-import Paper from "@material-ui/core/Paper";
-import Collapse from "@material-ui/core/Collapse";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { List } from "react-virtualized";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      height: 180,
-    },
-    container: {
-      display: "flex",
-    },
-    paper: {
-      margin: theme.spacing(1),
-    },
-    svg: {
-      width: 100,
-      height: 100,
-    },
-    polygon: {
-      fill: theme.palette.common.white,
-      stroke: theme.palette.divider,
-      strokeWidth: 1,
-    },
-  })
-);
+// List data as an array of strings
+const list = [
+  1790,
+  // And so on...
+];
 
-export const Test = () => {
-  const classes = useStyles();
-  const [checked, setChecked] = React.useState(false);
+let year = 1791;
 
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
+while (year < 2019) {
+  year++;
+  list.push(year);
+}
 
+export type row = {
+  key: any;
+  index: number;
+  isScrolling: boolean;
+  isVisible: boolean;
+  style: any;
+};
+
+function rowRenderer({
+  key, // Unique key within array of rows
+  index, // Index of row within collection
+  isScrolling, // The List is currently being scrolled
+  isVisible, // This row is visible within the List (eg it is not an overscanned row)
+  style, // Style object to be applied to row (to position it)
+}: row) {
   return (
-    <div className={classes.root}>
-      <Switch checked={checked} onChange={handleChange} />
-
-      <div className={classes.container}>
-        <Collapse in={checked}>
-          <Paper elevation={4} className={classes.paper}>
-            <svg className={classes.svg}>
-              <polygon
-                points="0,100 50,00, 100,100"
-                className={classes.polygon}
-              />
-            </svg>
-          </Paper>
-        </Collapse>
-        <Collapse in={checked} collapsedHeight={40}>
-          <Paper elevation={4} className={classes.paper}>
-            <svg className={classes.svg}>
-              <polygon
-                points="0,100 50,00, 100,100"
-                className={classes.polygon}
-              />
-            </svg>
-          </Paper>
-        </Collapse>
-      </div>
+    <div key={key} style={style}>
+      {list[index]}
     </div>
   );
-};
+}
+
+// Render your list
+export const Test = () => (
+  <List
+    width={300}
+    height={300}
+    rowCount={list.length}
+    rowHeight={20}
+    rowRenderer={rowRenderer}
+  />
+);

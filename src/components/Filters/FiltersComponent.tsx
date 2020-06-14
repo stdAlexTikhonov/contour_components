@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { generateUID } from "../../utils/helpers";
+import { Test } from "../Test";
 
 export const FiltersComponent: React.FC<IProps> = ({
   show,
@@ -38,7 +39,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           .map((fact: any) => fact.Caption)}
         _async={false}
       />
-
+      <Test />
       {filters.map((item: any) => (
         <CustomDropdown
           key={item.code}
