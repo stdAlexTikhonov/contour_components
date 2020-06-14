@@ -1,5 +1,9 @@
 import React from "react";
 import { List } from "react-virtualized";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Checkbox from "@material-ui/core/Checkbox";
 
 // List data as an array of strings
 const list = [
@@ -30,9 +34,26 @@ function rowRenderer({
   style, // Style object to be applied to row (to position it)
 }: row) {
   return (
-    <div key={key} style={style}>
-      {list[index]}
-    </div>
+    <ListItem
+      key={key}
+      role={undefined}
+      style={style}
+      dense
+      button
+      onClick={() => alert(list[index])}
+    >
+      <ListItemIcon style={{ minWidth: "auto" }}>
+        <Checkbox
+          edge="start"
+          checked={false}
+          tabIndex={-1}
+          disableRipple
+          color="primary"
+          inputProps={{ "aria-labelledby": "" + list[index] }}
+        />
+      </ListItemIcon>
+      <ListItemText id={"" + list[index]} primary={list[index]} />
+    </ListItem>
   );
 }
 
