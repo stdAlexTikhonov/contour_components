@@ -8,6 +8,9 @@ import { LanguageSelector } from "../LanguageSelector";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 import { SimpleBreadcrumbs } from "../Breadcrumbs";
+import { isMobile } from "../../utils/helpers";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import { useMediaQuery } from "@material-ui/core";
 
 export const ButtonAppBar: React.FC<IProps> = ({
   languages,
@@ -18,6 +21,8 @@ export const ButtonAppBar: React.FC<IProps> = ({
 }) => {
   const classes = useStyles();
   const items = Object.keys(languages);
+  const isSlimScreen = useMediaQuery("(max-width: 600px");
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: "#003366" }}>
@@ -35,17 +40,26 @@ export const ButtonAppBar: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             language={currentLanguage}
           />
-          <Button color="inherit" onClick={() => logged_in && handleLogout()}>
-            <Link to="/login" className={classes.linkStyle}>
-              {logged_in ? "Logout" : "Login"}
-            </Link>
-          </Button>
-          {!logged_in && (
-            <Button color="inherit">
-              <Link to="/register" className={classes.linkStyle}>
-                Register
-              </Link>
-            </Button>
+          {isMobile || isSlimScreen ? (
+            <MoreIcon />
+          ) : (
+            <>
+              <Button
+                color="inherit"
+                onClick={() => logged_in && handleLogout()}
+              >
+                <Link to="/login" className={classes.linkStyle}>
+                  {logged_in ? "Logout" : "Login"}
+                </Link>
+              </Button>
+              {!logged_in && (
+                <Button color="inherit">
+                  <Link to="/register" className={classes.linkStyle}>
+                    Register
+                  </Link>
+                </Button>
+              )}
+            </>
           )}
         </Toolbar>
       </AppBar>
