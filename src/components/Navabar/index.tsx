@@ -11,6 +11,12 @@ import { SimpleBreadcrumbs } from "../Breadcrumbs";
 import { isMobile } from "../../utils/helpers";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { useMediaQuery } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import ListItemText from "@material-ui/core/ListItemText";
+import {
+  StyledMenu,
+  StyledMenuItem,
+} from "../LanguageSelector/StyledComponents";
 
 export const ButtonAppBar: React.FC<IProps> = ({
   languages,
@@ -22,6 +28,16 @@ export const ButtonAppBar: React.FC<IProps> = ({
   const classes = useStyles();
   const items = Object.keys(languages);
   const isSlimScreen = useMediaQuery("(max-width: 600px");
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -41,7 +57,43 @@ export const ButtonAppBar: React.FC<IProps> = ({
             language={currentLanguage}
           />
           {isMobile || isSlimScreen ? (
-            <MoreIcon />
+            <>
+              <IconButton
+                aria-controls="hidden-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+                color="primary"
+                style={{ color: "white", padding: 0, outline: "none" }}
+              >
+                <MoreIcon />
+              </IconButton>
+              <StyledMenu
+                id="hidden-menu"
+                anchorEl={anchorEl}
+                keepMounted={true}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <StyledMenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                  }}
+                >
+                  <Link to="/login" className={classes.linkStyle}>
+                    {logged_in ? "Logout" : "Login"}
+                  </Link>
+                </StyledMenuItem>
+                <StyledMenuItem
+                  onClick={() => {
+                    setAnchorEl(null);
+                  }}
+                >
+                  <Link to="/register" className={classes.linkStyle}>
+                    Register
+                  </Link>
+                </StyledMenuItem>
+              </StyledMenu>
+            </>
           ) : (
             <>
               <Button
