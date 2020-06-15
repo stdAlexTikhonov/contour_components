@@ -85,7 +85,7 @@ export const FiltersComponent: React.FC<IProps> = ({
               maxHeight: "100%",
               width: pos === "row" ? "100%" : "275px",
               paddingTop: 3,
-              overflow: scroll ? "scroll" : "hidden",
+              overflow: scroll ? "unset" : "hidden",
             }}
           >
             {pos === "row" ? simpleWrapper() : renderItems()}
