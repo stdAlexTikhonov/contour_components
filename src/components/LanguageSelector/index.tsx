@@ -4,7 +4,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { IProps } from "./types";
 import { StyledMenu, StyledMenuItem } from "./StyledComponents";
-
+import { useMediaQuery } from "@material-ui/core";
+import { isMobile } from "../../utils/helpers";
 import LanguageIcon from "@material-ui/icons/Language";
 
 export const LanguageSelector: React.FC<IProps> = ({
@@ -23,18 +24,21 @@ export const LanguageSelector: React.FC<IProps> = ({
     setAnchorEl(null);
   };
 
+  const isSlimScreen = useMediaQuery("(max-width: 600px");
+
   return (
     <div>
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
         color="primary"
-        style={{ color: "white" }}
+        style={{ color: "white", minWidth: "unset", outline: "none" }}
         onClick={handleClick}
       >
         <LanguageIcon style={{ paddingRight: 5 }} />
-        {language}
-        <ExpandMoreIcon />
+
+        {!(isMobile || isSlimScreen) && language}
+        {!(isMobile || isSlimScreen) && <ExpandMoreIcon />}
       </Button>
       <StyledMenu
         id="customized-menu"

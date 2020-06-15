@@ -6,7 +6,7 @@ export const transform_languages_data = (langs: []) => {
   return hash;
 };
 
-export const bMobile = // will be true if running on a mobile device
+export const isMobile = // will be true if running on a mobile device
   navigator.userAgent.indexOf("Mobile") !== -1 ||
   navigator.userAgent.indexOf("iPhone") !== -1 ||
   navigator.userAgent.indexOf("Android") !== -1 ||

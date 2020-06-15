@@ -20,6 +20,20 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: "white",
       textDecoration: "none",
       cursor: "pointer",
+      "&:hover": {
+        color: "white",
+        textDecoration: "none",
+        cursor: "pointer",
+      },
+    },
+    menuLink: {
+      color: "black",
+      textDecoration: "none",
+      "&:hover": {
+        textDecoration: "none",
+        cursor: "pointer",
+        color: "black",
+      },
     },
   })
 );
