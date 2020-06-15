@@ -28,6 +28,7 @@ import {
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
+import CustomList from "./CustomList";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -261,54 +262,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     <SelectAll selected={selectAll} click={handleSelectAll} />
                   )}
                   <Divider />
-                  <SimpleBar style={{ maxHeight: "40vh" }}>
-                    <List
-                      {...getMenuProps()}
-                      style={{
-                        listStyle: "none",
-                      }}
-                    >
-                      {filtered.map((item, index) => {
-                        const labelId = `checkbox-list-label-${item.value}`;
-                        return (
-                          <ListItem
-                            key={item.value}
-                            {...getItemProps({
-                              index,
-                              item,
-                            })}
-                            role={undefined}
-                            style={{ maxWidth: 261, overflow: "hidden" }}
-                            dense
-                            button
-                            onClick={handleToggle(item.value)}
-                          >
-                            <ListItemIcon style={{ minWidth: "auto" }}>
-                              {multiple ? (
-                                <CustomCheckbox
-                                  edge="start"
-                                  checked={checked.indexOf(item.value) !== -1}
-                                  tabIndex={-1}
-                                  disableRipple
-                                  color="primary"
-                                  inputProps={{ "aria-labelledby": labelId }}
-                                />
-                              ) : (
-                                <CustomRadio
-                                  checked={localSelected === item.value}
-                                  onChange={handleRadio(item.value)}
-                                  value={item.value}
-                                  name="radio-button-demo"
-                                  inputProps={{ "aria-label": item.value }}
-                                />
-                              )}
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={item.value} />
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </SimpleBar>
+                  {filtered.length > 0 && (
+                    <CustomList
+                      width={265}
+                      height={300}
+                      rowHeight={40}
+                      items={filtered}
+                      getMenuProps={getMenuProps}
+                    />
+                  )}
                   <Divider />
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     {multiple && (

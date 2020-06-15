@@ -38,7 +38,7 @@ export default class Test extends React.Component<{ test: string }> {
       ...style,
       padding: 15,
     };
-    console.log(this.props);
+
     return (
       <ListItem
         key={key}
