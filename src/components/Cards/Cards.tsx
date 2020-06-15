@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
 import SimpleBar from "simplebar-react";
 import { ITEMS } from "../../utils/constants";
-import { bMobile } from "../../utils/helpers";
+import { isMobile } from "../../utils/helpers";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import FolderIcon from "@material-ui/icons/Folder";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
@@ -46,7 +46,7 @@ export const CardsComponent: React.FC<IProps> = ({
       <Container
         className={classes.container}
         fluid
-        style={{ padding: isSlimScreen || bMobile ? 0 : 100 }}
+        style={{ padding: isSlimScreen || isMobile ? 0 : 100 }}
       >
         <Row className={classes.row}>
           {items.map((item: any) => {
