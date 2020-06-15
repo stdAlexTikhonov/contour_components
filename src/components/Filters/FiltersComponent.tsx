@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
-import { generateUID } from "../../utils/helpers";
+import { sleep } from "../../utils/helpers";
 
 export const FiltersComponent: React.FC<IProps> = ({
   show,
@@ -19,6 +19,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   report,
 }) => {
   const classes = useStyles();
+  const [scroll, setScroll] = useState(true);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -38,7 +39,6 @@ export const FiltersComponent: React.FC<IProps> = ({
           .map((fact: any) => fact.Caption)}
         _async={false}
       />
-
       {filters.map((item: any) => (
         <CustomDropdown
           key={item.code}
@@ -60,6 +60,12 @@ export const FiltersComponent: React.FC<IProps> = ({
     <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
   );
 
+  const handleClick = async () => {
+    setScroll(false);
+    await sleep(500);
+    setScroll(true);
+  };
+
   return (
     <DragDropContext onDragEnd={onHandleDrag}>
       <Box
@@ -72,12 +78,14 @@ export const FiltersComponent: React.FC<IProps> = ({
             display: show ? "flex" : "none",
             flexDirection: pos,
           }}
+          onClick={handleClick}
         >
           <SimpleBar
             style={{
               maxHeight: "100%",
               width: pos === "row" ? "100%" : "275px",
               paddingTop: 3,
+              overflow: scroll ? "unset" : "hidden",
             }}
           >
             {pos === "row" ? simpleWrapper() : renderItems()}
