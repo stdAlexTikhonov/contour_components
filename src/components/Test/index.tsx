@@ -33,12 +33,15 @@ function rowRenderer({
   isVisible, // This row is visible within the List (eg it is not an overscanned row)
   style, // Style object to be applied to row (to position it)
 }: row) {
+  const my_style = {
+    ...style,
+    padding: 15,
+  };
   return (
     <ListItem
       key={key}
       role={undefined}
-      style={style}
-      dense
+      style={my_style}
       button
       onClick={() => alert(list[index])}
     >
@@ -63,7 +66,7 @@ export const Test = () => (
     width={300}
     height={300}
     rowCount={list.length}
-    rowHeight={20}
+    rowHeight={40}
     rowRenderer={rowRenderer}
   />
 );
