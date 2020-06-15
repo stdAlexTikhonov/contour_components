@@ -77,21 +77,24 @@ export const ButtonAppBar: React.FC<IProps> = ({
                 <StyledMenuItem
                   onClick={() => {
                     setAnchorEl(null);
+                    logged_in && handleLogout();
                   }}
                 >
-                  <Link to="/login" className={classes.linkStyle}>
+                  <Link to="/login" className={classes.menuLink}>
                     {logged_in ? "Logout" : "Login"}
                   </Link>
                 </StyledMenuItem>
-                <StyledMenuItem
-                  onClick={() => {
-                    setAnchorEl(null);
-                  }}
-                >
-                  <Link to="/register" className={classes.linkStyle}>
-                    Register
-                  </Link>
-                </StyledMenuItem>
+                {!logged_in && (
+                  <StyledMenuItem
+                    onClick={() => {
+                      setAnchorEl(null);
+                    }}
+                  >
+                    <Link to="/register" className={classes.menuLink}>
+                      Register
+                    </Link>
+                  </StyledMenuItem>
+                )}
               </StyledMenu>
             </>
           ) : (
