@@ -1,5 +1,10 @@
 import React from "react";
 import { List } from "react-virtualized";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { CustomCheckbox } from "./CustomCheckbox";
+import { CustomRadio } from "./CustomRadio";
 
 export type row = {
   key: any;
@@ -15,6 +20,12 @@ export type IProps = {
   rowHeight: number;
   items: any;
   getMenuProps: any;
+  getItemProps: any;
+  handleToggle: any;
+  multiple: boolean;
+  handleRadio: any;
+  checked: string[];
+  localSelected: string;
 };
 
 export default class CustomList extends React.Component<IProps> {
@@ -26,10 +37,42 @@ export default class CustomList extends React.Component<IProps> {
     style, // Style object to be applied to row (to position it)
   }: row) => {
     const item = this.props.items[index];
+    const labelId = `checkbox-list-label-${index}`;
     return (
-      <div key={key} style={style}>
-        {item.value}
-      </div>
+      <ListItem
+        key={key}
+        {...this.props.getItemProps({
+          index,
+          item,
+        })}
+        role={undefined}
+        style={style}
+        dense
+        button
+        onClick={this.props.handleToggle(item.value)}
+      >
+        <ListItemIcon style={{ minWidth: "auto" }}>
+          {this.props.multiple ? (
+            <CustomCheckbox
+              edge="start"
+              checked={this.props.checked.indexOf(item.value) !== -1}
+              tabIndex={-1}
+              disableRipple
+              color="primary"
+              inputProps={{ "aria-labelledby": labelId }}
+            />
+          ) : (
+            <CustomRadio
+              checked={this.props.localSelected === item.value}
+              onChange={this.props.handleRadio(item.value)}
+              value={item.value}
+              name="radio-button-demo"
+              inputProps={{ "aria-label": item.value }}
+            />
+          )}
+        </ListItemIcon>
+        <ListItemText id={labelId} primary={item.value} />
+      </ListItem>
     );
   };
   render() {

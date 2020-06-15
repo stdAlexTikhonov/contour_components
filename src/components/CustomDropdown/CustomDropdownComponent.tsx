@@ -269,6 +269,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                       rowHeight={40}
                       items={filtered}
                       getMenuProps={getMenuProps}
+                      getItemProps={getItemProps}
+                      handleToggle={handleToggle}
+                      multiple={multiple}
+                      handleRadio={handleRadio}
+                      checked={checked}
+                      localSelected={localSelected}
                     />
                   )}
                   <Divider />
