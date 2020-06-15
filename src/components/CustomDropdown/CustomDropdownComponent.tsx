@@ -236,125 +236,121 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         isOpen,
         inputValue,
         getRootProps,
-      }) => (
-        <div style={{ padding: 5, position: "relative" }}>
-          <TextField
-            size="small"
-            style={{ minWidth: 265 }}
-            // {...getRootProps()}
-            InputLabelProps={{
-              ...getLabelProps(),
-            }}
-            id="outlined-basic"
-            InputProps={{ ...getInputProps() }}
-            label={label}
-            variant="outlined"
-          />
-          {!loading && (
-            <Collapse in={isOpen}>
-              <div className={classes.root}>
-                {multiple && (
-                  <SelectAll selected={selectAll} click={handleSelectAll} />
-                )}
-                <Divider />
-                <SimpleBar style={{ maxHeight: "40vh" }}>
-                  <List
-                    {...getMenuProps()}
-                    style={{
-                      listStyle: "none",
-                    }}
-                  >
-                    {loading ? (
-                      <CircularProgress color="inherit" size={20} />
-                    ) : (
-                      localItems
-                        .filter(
-                          (item) =>
-                            !inputValue || item.value.includes(inputValue)
-                        )
-                        .map((item, index) => {
-                          const labelId = `checkbox-list-label-${item.value}`;
-                          return (
-                            <ListItem
-                              key={item.value}
-                              {...getItemProps({
-                                index,
-                                item,
-                              })}
-                              role={undefined}
-                              style={{ maxWidth: 261, overflow: "hidden" }}
-                              dense
-                              button
-                              onClick={handleToggle(item.value)}
-                            >
-                              <ListItemIcon style={{ minWidth: "auto" }}>
-                                {multiple ? (
-                                  <CustomCheckbox
-                                    edge="start"
-                                    checked={checked.indexOf(item.value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    color="primary"
-                                    inputProps={{ "aria-labelledby": labelId }}
-                                  />
-                                ) : (
-                                  <CustomRadio
-                                    checked={localSelected === item.value}
-                                    onChange={handleRadio(item.value)}
-                                    value={item.value}
-                                    name="radio-button-demo"
-                                    inputProps={{ "aria-label": item.value }}
-                                  />
-                                )}
-                              </ListItemIcon>
-                              <ListItemText id={labelId} primary={item.value} />
-                            </ListItem>
-                          );
-                        })
-                    )}
-                  </List>
-                </SimpleBar>
-                <Divider />
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      }) => {
+        const filtered = localItems.filter(
+          (item) => !inputValue || item.value.includes(inputValue)
+        );
+        return (
+          <div style={{ padding: 5, position: "relative" }}>
+            <TextField
+              size="small"
+              style={{ minWidth: 265 }}
+              // {...getRootProps()}
+              InputLabelProps={{
+                ...getLabelProps(),
+              }}
+              id="outlined-basic"
+              InputProps={{ ...getInputProps() }}
+              label={label}
+              variant="outlined"
+            />
+            {!loading && (
+              <Collapse in={isOpen}>
+                <div className={classes.root}>
                   {multiple && (
+                    <SelectAll selected={selectAll} click={handleSelectAll} />
+                  )}
+                  <Divider />
+                  <SimpleBar style={{ maxHeight: "40vh" }}>
+                    <List
+                      {...getMenuProps()}
+                      style={{
+                        listStyle: "none",
+                      }}
+                    >
+                      {filtered.map((item, index) => {
+                        const labelId = `checkbox-list-label-${item.value}`;
+                        return (
+                          <ListItem
+                            key={item.value}
+                            {...getItemProps({
+                              index,
+                              item,
+                            })}
+                            role={undefined}
+                            style={{ maxWidth: 261, overflow: "hidden" }}
+                            dense
+                            button
+                            onClick={handleToggle(item.value)}
+                          >
+                            <ListItemIcon style={{ minWidth: "auto" }}>
+                              {multiple ? (
+                                <CustomCheckbox
+                                  edge="start"
+                                  checked={checked.indexOf(item.value) !== -1}
+                                  tabIndex={-1}
+                                  disableRipple
+                                  color="primary"
+                                  inputProps={{ "aria-labelledby": labelId }}
+                                />
+                              ) : (
+                                <CustomRadio
+                                  checked={localSelected === item.value}
+                                  onChange={handleRadio(item.value)}
+                                  value={item.value}
+                                  name="radio-button-demo"
+                                  inputProps={{ "aria-label": item.value }}
+                                />
+                              )}
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={item.value} />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </SimpleBar>
+                  <Divider />
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    {multiple && (
+                      <Button
+                        style={{ outline: "none", minWidth: "unset" }}
+                        onClick={handleInversion}
+                      >
+                        <AutorenewIcon />
+                      </Button>
+                    )}
                     <Button
                       style={{ outline: "none", minWidth: "unset" }}
-                      onClick={handleInversion}
+                      onClick={handleSort}
                     >
-                      <AutorenewIcon />
+                      <ArrowRightAltIcon
+                        style={{
+                          transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
+                        }}
+                      />
                     </Button>
-                  )}
-                  <Button
-                    style={{ outline: "none", minWidth: "unset" }}
-                    onClick={handleSort}
-                  >
-                    <ArrowRightAltIcon
-                      style={{
-                        transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
-                      }}
-                    />
-                  </Button>
-                  <Button style={{ outline: "none" }} onClick={handleOk}>
-                    Ok
-                  </Button>
-                  <Button style={{ outline: "none" }} onClick={handleCancel}>
-                    Cancel
-                  </Button>
+                    <Button style={{ outline: "none" }} onClick={handleOk}>
+                      Ok
+                    </Button>
+                    <Button style={{ outline: "none" }} onClick={handleCancel}>
+                      Cancel
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Collapse>
-          )}
-          <IconButton
-            aria-label="delete"
-            className={classes.margin}
-            size="small"
-            style={{ outline: "none" }}
-            onClick={handleDropDown}
-          >
-            {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </IconButton>
-        </div>
-      )}
+              </Collapse>
+            )}
+            <IconButton
+              aria-label="delete"
+              className={classes.margin}
+              size="small"
+              style={{ outline: "none" }}
+              onClick={handleDropDown}
+            >
+              {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+            </IconButton>
+          </div>
+        );
+      }}
     </Downshift>
   );
 };
