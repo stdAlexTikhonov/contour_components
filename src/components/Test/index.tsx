@@ -13,7 +13,7 @@ const list = [
 
 let year = 1791;
 
-while (year < 2019) {
+while (year < 10000) {
   year++;
   list.push(year);
 }
@@ -26,47 +26,51 @@ export type row = {
   style: any;
 };
 
-function rowRenderer({
-  key, // Unique key within array of rows
-  index, // Index of row within collection
-  isScrolling, // The List is currently being scrolled
-  isVisible, // This row is visible within the List (eg it is not an overscanned row)
-  style, // Style object to be applied to row (to position it)
-}: row) {
-  const my_style = {
-    ...style,
-    padding: 15,
+export default class Test extends React.Component<{ test: string }> {
+  rowRenderer = ({
+    key, // Unique key within array of rows
+    index, // Index of row within collection
+    isScrolling, // The List is currently being scrolled
+    isVisible, // This row is visible within the List (eg it is not an overscanned row)
+    style, // Style object to be applied to row (to position it)
+  }: row) => {
+    const my_style = {
+      ...style,
+      padding: 15,
+    };
+    console.log(this.props);
+    return (
+      <ListItem
+        key={key}
+        role={undefined}
+        style={my_style}
+        button
+        onClick={() => alert(list[index])}
+      >
+        <ListItemIcon style={{ minWidth: "auto" }}>
+          <Checkbox
+            edge="start"
+            checked={false}
+            tabIndex={-1}
+            disableRipple
+            color="primary"
+            inputProps={{ "aria-labelledby": "" + list[index] }}
+          />
+        </ListItemIcon>
+        <ListItemText id={"" + list[index]} primary={list[index]} />
+      </ListItem>
+    );
   };
-  return (
-    <ListItem
-      key={key}
-      role={undefined}
-      style={my_style}
-      button
-      onClick={() => alert(list[index])}
-    >
-      <ListItemIcon style={{ minWidth: "auto" }}>
-        <Checkbox
-          edge="start"
-          checked={false}
-          tabIndex={-1}
-          disableRipple
-          color="primary"
-          inputProps={{ "aria-labelledby": "" + list[index] }}
-        />
-      </ListItemIcon>
-      <ListItemText id={"" + list[index]} primary={list[index]} />
-    </ListItem>
-  );
-}
 
-// Render your list
-export const Test = () => (
-  <List
-    width={300}
-    height={300}
-    rowCount={list.length}
-    rowHeight={40}
-    rowRenderer={rowRenderer}
-  />
-);
+  render() {
+    return (
+      <List
+        width={300}
+        height={300}
+        rowCount={list.length}
+        rowHeight={40}
+        rowRenderer={this.rowRenderer.bind(this)}
+      />
+    );
+  }
+}
