@@ -128,9 +128,16 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       // console.log(filters_for_server);
     } else {
       //Fact
-      const facts_for_server = localItems
+      let facts_for_server = localItems
         .filter((item: any) => checked.includes(item.value))
         .map((item: any) => item.code);
+
+      if (multiple) {
+        setFactsForServer(checked);
+      } else {
+        setFactsForServer([localSelected]);
+        facts_for_server = [localSelected];
+      }
 
       getData({
         method: SET_FACTS,
@@ -144,7 +151,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         visibleFacts: facts_for_server,
       });
 
-      setFactsForServer(checked);
       //console.log(facts_for_server);
     }
     console.log(checked);
