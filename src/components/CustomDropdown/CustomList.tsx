@@ -84,6 +84,7 @@ export default class CustomList extends React.Component<IProps> {
         rowHeight={this.props.rowHeight}
         rowRenderer={this.rowRenderer.bind(this)}
         rowCount={this.props.items.length}
+        style={{ outline: "none" }}
       />
     );
   }
