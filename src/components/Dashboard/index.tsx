@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { useStyles } from "./styles";
@@ -7,6 +7,13 @@ import { View } from "../View";
 
 export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log(metadata);
+    //   cells.sort((a: any, b: any) =>
+    //   a.row === b.row ? a.col - b.col : a.row - b.row
+    // );
+  }, [metadata]);
 
   return (
     dashboard &&
