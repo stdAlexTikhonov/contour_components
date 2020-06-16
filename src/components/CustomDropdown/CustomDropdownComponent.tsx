@@ -29,6 +29,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import CustomList from "./CustomList";
+import { Example } from "./DatePicker";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -47,6 +48,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
+  const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
   const [selectAll, setSelectAll] = React.useState(
@@ -205,6 +207,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
 
+        const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+        setIsDate(regex.test(data.Captions[0]));
+
         descending
           ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
           : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
@@ -219,8 +224,10 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         await sleep(100);
         setLoading(false);
       }
+
+      setDropDown(!dropDown);
     })();
-    setDropDown(!dropDown);
+    // setDropDown(!dropDown);
   };
 
   const handleSelectAll = (value: boolean) => {
@@ -232,7 +239,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   return (
     <Downshift
-      isOpen={dropDown}
+      isOpen={dropDown && !isDate}
       onInputValueChange={(value) => {
         setDropDown(true);
         setVal(value);
