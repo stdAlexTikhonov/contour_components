@@ -84,10 +84,6 @@ export const formatGeometry = (dashboard: any) => {
 
   const mid = cols.items.length / 2;
 
-  cells.sort((a: any, b: any) =>
-    a.row === b.row ? a.col - b.col : a.row - b.row
-  );
-
   const sum = (a: number, b: number): number => a + b;
 
   const data = cells.map((elem: any, i: number) => {
