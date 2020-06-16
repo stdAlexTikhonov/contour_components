@@ -42,6 +42,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   report: report_code,
   session,
   language,
+  descending,
 }) => {
   const { solution, project, report } = useParams();
   const single = !multy;
@@ -93,8 +94,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setSort(!sort);
 
     sort
-      ? localItems.sort((a, b) => (a.value < b.value ? 1 : -1))
-      : localItems.sort((a, b) => (a.value < b.value ? -1 : 1));
+      ? localItems.sort((a, b) => (a.value < b.value ? -1 : 1))
+      : localItems.sort((a, b) => (a.value < b.value ? 1 : -1));
   };
 
   const handleRadio = (value: string) => () => {
@@ -203,6 +204,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
+
+        descending
+          ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
+          : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
+
         setItems(
           data.Captions.map((item: any) => ({
             value: item.replace(/&nbsp;/g, " "),

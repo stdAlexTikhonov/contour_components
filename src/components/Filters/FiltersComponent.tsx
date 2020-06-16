@@ -51,6 +51,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           view={view}
           code={item.code}
           report={report}
+          descending={item.Descending}
         />
       ))}
     </>

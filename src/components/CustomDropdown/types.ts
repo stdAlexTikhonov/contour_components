@@ -8,6 +8,7 @@ export interface Props {
   slice?: string;
   view?: string;
   report?: string;
+  descending?: boolean;
 }
 
 export interface LinkStateToProps {
