@@ -45,6 +45,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
   const [minDate, setMinDate] = React.useState(null);
+  const [filters, setFilters] = React.useState(null);
   const [maxDate, setMaxDate] = React.useState(null);
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
@@ -98,6 +99,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleRadio = (value: string) => () => {
     console.log(value);
     setSelected(value);
+  };
+
+  const setFilterOnServer = (user_filters: string) => {
+    getData({
+      method: SET_DIM_FILTER,
+      language,
+      session,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      code,
+      filter: user_filters,
+    });
   };
 
   const handleOk = () => {
@@ -207,6 +223,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setIsDate(check_date);
 
         if (check_date) {
+          setFilters(data.Filters);
           const data_transfrom = data.Captions.map(
             (item: string) => new Date(item)
           );
@@ -219,13 +236,13 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           descending
             ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
             : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
-
-          setItems(
-            data.Captions.map((item: any) => ({
-              value: item.replace(/&nbsp;/g, " "),
-            }))
-          );
         }
+
+        setItems(
+          data.Captions.map((item: any) => ({
+            value: item.replace(/&nbsp;/g, " "),
+          }))
+        );
 
         setLoading(false);
       } else {
@@ -243,8 +260,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
-  useEffect(() => {}, []);
-
   return (
     <ThemeProvider>
       {isDate ? (
@@ -252,6 +267,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           serverDates={checked.map((item) => new Date(item))}
           minDate={minDate}
           maxDate={maxDate}
+          filters={filters}
+          dates={localItems.map((item) => item.value)}
+          onSubmit={setFilterOnServer}
         />
       ) : (
         <Downshift
