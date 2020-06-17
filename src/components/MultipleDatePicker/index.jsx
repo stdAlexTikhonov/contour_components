@@ -25,6 +25,8 @@ function reducer(state, action) {
   switch (action.type) {
     case "setSelectedDates":
       return { ...state, selectedDates: action.payload };
+    case "setInitialValues":
+      return { ...action.payload };
     default:
       return new Error("wrong action type in multiple date picker reducer");
   }
@@ -32,6 +34,8 @@ function reducer(state, action) {
 
 const MultipleDatePicker = ({
   open,
+  minDate: minDateServer,
+  maxDate: maxDateServer,
   readOnly,
   onCancel,
   onSubmit,
@@ -110,6 +114,7 @@ const MultipleDatePicker = ({
 
   useEffect(() => {
     if (open) {
+      console.log(outerSelectedDates);
       dispatch({
         type: "setSelectedDates",
         payload: outerSelectedDates != null ? outerSelectedDates : [],
@@ -147,6 +152,8 @@ MultipleDatePicker.propTypes = {
   cancelButtonText: PropTypes.string,
   submitButtonText: PropTypes.string,
   selectedDatesTitle: PropTypes.string,
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string,
 };
 
 export default MultipleDatePicker;

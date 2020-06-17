@@ -44,6 +44,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
+  const [minDate, setMinDate] = React.useState(null);
+  const [maxDate, setMaxDate] = React.useState(null);
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
   );
@@ -201,17 +203,30 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setSelectAll(selected_from_server.length === data.Captions.length);
 
         const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-        setIsDate(regex.test(data.Captions[0]));
+        const check_date = regex.test(data.Captions[0]);
+        setIsDate(check_date);
 
-        descending
-          ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
-          : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
+        if (check_date) {
+          const data_transfrom = data.Captions.map(
+            (item: string) => new Date(item)
+          );
 
-        setItems(
-          data.Captions.map((item: any) => ({
-            value: item.replace(/&nbsp;/g, " "),
-          }))
-        );
+          data_transfrom.sort((a: any, b: any) => (a < b ? -1 : 1));
+
+          setMinDate(data_transfrom[0]);
+          setMaxDate(data_transfrom[data_transfrom.length - 1]);
+        } else {
+          descending
+            ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
+            : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
+
+          setItems(
+            data.Captions.map((item: any) => ({
+              value: item.replace(/&nbsp;/g, " "),
+            }))
+          );
+        }
+
         setLoading(false);
       } else {
         await sleep(100);
@@ -233,7 +248,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   return (
     <ThemeProvider>
       {isDate ? (
-        <DatePicker />
+        <DatePicker
+          serverDates={checked.map((item) => new Date(item))}
+          minDate={minDate}
+          maxDate={maxDate}
+        />
       ) : (
         <Downshift
           isOpen={dropDown && !isDate}

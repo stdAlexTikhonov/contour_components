@@ -107,6 +107,7 @@ class CalendarToolbar extends Component {
             }
             onClick={() => this.setState({ clicked: true })}
             onChange={this.handleInputChange}
+            onBlur={() => this.setState({ clicked: false })}
           />
         </Typography>
         <IconButton

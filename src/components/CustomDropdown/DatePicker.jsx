@@ -7,10 +7,11 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { useStyles } from "./styles";
 import ThemeProvider from "./ThemeProvider";
 
-export const DatePicker = () => {
+export const DatePicker = ({ serverDates, minDate, maxDate }) => {
+  const shouldShowComponent = minDate && maxDate;
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const [dates, setDates] = useState(null);
+  const [dates, setDates] = useState(serverDates);
   const onCancel = useCallback(() => setOpen(false), [setOpen]);
   const onSubmit = useCallback(
     (dates) => {
@@ -40,12 +41,16 @@ export const DatePicker = () => {
           {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         </IconButton>
       </div>
-      <MultipleDatePicker
-        open={open}
-        selectedDates={dates}
-        onCancel={onCancel}
-        onSubmit={onSubmit}
-      />
+      {shouldShowComponent && (
+        <MultipleDatePicker
+          open={open}
+          selectedDates={dates}
+          minDate={minDate.toString()}
+          maxDate={maxDate.toString()}
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+        />
+      )}
     </ThemeProvider>
   );
 };
