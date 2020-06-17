@@ -18,6 +18,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   multipleFacts,
   language,
   report,
+  chart,
 }) => {
   const classes = useStyles();
   const [scroll, setScroll] = useState(true);
@@ -93,7 +94,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             {pos === "row" ? simpleWrapper() : renderItems()}
           </SimpleBar>
         </Box>
-        <Box className={classes.main} />
+        {chart && <Box className={classes.main} id={chart.id} />}
       </Box>
     </DragDropContext>
   );

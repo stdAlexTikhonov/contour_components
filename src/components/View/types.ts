@@ -4,7 +4,12 @@ export interface Props {
   metadata: Metadata;
 }
 
-export type IProps = Props;
+export interface LinkStateToProps {
+  session: string | undefined;
+  language: string;
+}
+
+export type IProps = Props & LinkStateToProps;
 
 // export interface LinkStateToProps {
 //   items: any;
