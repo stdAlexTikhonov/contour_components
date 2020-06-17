@@ -114,10 +114,13 @@ const MultipleDatePicker = ({
 
   useEffect(() => {
     if (open) {
-      console.log(outerSelectedDates);
       dispatch({
-        type: "setSelectedDates",
-        payload: outerSelectedDates != null ? outerSelectedDates : [],
+        type: "setInitialValues",
+        payload: {
+          selectedDates: outerSelectedDates != null ? outerSelectedDates : [],
+          minDate: new Date(minDateServer),
+          maxDate: new Date(maxDateServer),
+        },
       });
     }
   }, [open, outerSelectedDates]);
