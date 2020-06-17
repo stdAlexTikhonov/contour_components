@@ -11,7 +11,7 @@ import KeyboardIcon from "@material-ui/icons/Keyboard";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import { POSITIONS, CHART } from "../../utils/constants";
 import { getData } from "../../utils/api";
-import { generateUID } from "../../utils/helpers";
+import { generateUID, sleep } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
 
 export const ViewComponent: React.FC<IProps> = ({
@@ -23,7 +23,8 @@ export const ViewComponent: React.FC<IProps> = ({
   const [fieldBar, setFieldBar] = useState(false);
   const [fieldBarPosition, setFieldBarPosition] = useState(0);
   const { solution, project } = useParams();
-  const [chart, setChart] = useState(null);
+  const [chart, setChart] = useState<any>(null);
+  const [showChart, setShowChart] = useState<boolean>(false);
   const {
     facts,
     rows,
@@ -53,6 +54,7 @@ export const ViewComponent: React.FC<IProps> = ({
       if (data.success) {
         data.chart.id = generateUID();
         setChart(data.chart);
+        setShowChart(true);
       }
     })();
   }, []);
@@ -65,7 +67,12 @@ export const ViewComponent: React.FC<IProps> = ({
             size="small"
             style={{ outline: "none" }}
             aria-label="delete"
-            onClick={() => setFieldBar(!fieldBar)}
+            onClick={async () => {
+              setFieldBar(!fieldBar);
+              setShowChart(false);
+              await sleep(200);
+              setShowChart(true);
+            }}
           >
             <KeyboardIcon fontSize="small" />
           </IconButton>
@@ -74,11 +81,14 @@ export const ViewComponent: React.FC<IProps> = ({
               size="small"
               aria-label="delete"
               style={{ outline: "none" }}
-              onClick={() =>
+              onClick={async () => {
                 setFieldBarPosition(
                   fieldBarPosition === 3 ? 0 : fieldBarPosition + 1
-                )
-              }
+                );
+                setShowChart(false);
+                await sleep(200);
+                setShowChart(true);
+              }}
             >
               <AutorenewIcon fontSize="small" />
             </IconButton>
@@ -105,7 +115,7 @@ export const ViewComponent: React.FC<IProps> = ({
           filters={filters}
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
-          chart={chart}
+          chart={showChart ? chart : null}
         />
       </Grid>
     </Grid>
