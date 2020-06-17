@@ -16,6 +16,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   filters,
   visibleFacts,
   multipleFacts,
+  language,
   report,
 }) => {
   const classes = useStyles();
@@ -32,7 +33,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           value: fact.Caption,
           code: fact.code,
         }))}
-        label={"Факты"}
+        label={language === "ru" ? "Факты" : "Facts"}
         multy={multipleFacts}
         selected={facts
           .filter((item: any) => visibleFacts.includes(item.code))
