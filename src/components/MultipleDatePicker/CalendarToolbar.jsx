@@ -95,6 +95,7 @@ class CalendarToolbar extends Component {
       <div className={classes.root}>
         <IconButton
           disabled={!this.props.prevMonth}
+          style={{ outline: "none" }}
           onClick={this.handleTouchTapPrevYear}
         >
           <LeftIcon />
@@ -111,12 +112,14 @@ class CalendarToolbar extends Component {
           />
         </Typography>
         <IconButton
+          style={{ outline: "none" }}
           disabled={!this.props.nextMonth}
           onClick={this.handleTouchTapNextYear}
         >
           <RightIcon />
         </IconButton>
         <IconButton
+          style={{ outline: "none" }}
           disabled={!this.props.prevMonth}
           onClick={this.handleTouchTapPrevMonth}
         >
@@ -126,6 +129,7 @@ class CalendarToolbar extends Component {
           {capitalizeFirstLetter(dateTimeFormattedMonth)}
         </Typography>
         <IconButton
+          style={{ outline: "none" }}
           disabled={!this.props.nextMonth}
           onClick={this.handleTouchTapNextMonth}
         >
