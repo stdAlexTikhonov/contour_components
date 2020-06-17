@@ -2,12 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Downshift from "downshift";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import Button from "@material-ui/core/Button";
-import SimpleBar from "simplebar-react";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Divider from "@material-ui/core/Divider";
@@ -15,8 +10,6 @@ import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
-import { CustomCheckbox } from "./CustomCheckbox";
-import { CustomRadio } from "./CustomRadio";
 import { IProps } from "./types";
 import { sleep } from "../../utils/helpers";
 import { getData } from "../../utils/api";
@@ -25,10 +18,11 @@ import {
   SET_DIM_FILTER,
   SET_FACTS,
 } from "../../utils/constants";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import CustomList from "./CustomList";
+import { DatePicker } from "./DatePicker";
+import ThemeProvider from "./ThemeProvider";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -47,8 +41,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
+  const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
+  const [minDate, setMinDate] = React.useState(null);
+  const [filters, setFilters] = React.useState(null);
+  const [maxDate, setMaxDate] = React.useState(null);
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
   );
@@ -101,6 +99,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleRadio = (value: string) => () => {
     console.log(value);
     setSelected(value);
+  };
+
+  const setFilterOnServer = (user_filters: string) => {
+    getData({
+      method: SET_DIM_FILTER,
+      language,
+      session,
+      solution,
+      project,
+      report,
+      slice,
+      view,
+      code,
+      filter: user_filters,
+    });
   };
 
   const handleOk = () => {
@@ -205,22 +218,41 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setMultiple(data.MultipleValues);
         setSelectAll(selected_from_server.length === data.Captions.length);
 
-        descending
-          ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
-          : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
+        const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+        const check_date = regex.test(data.Captions[0]);
+        setIsDate(check_date);
+
+        if (check_date) {
+          setFilters(data.Filters);
+          const data_transfrom = data.Captions.map(
+            (item: string) => new Date(item)
+          );
+
+          data_transfrom.sort((a: any, b: any) => (a < b ? -1 : 1));
+
+          setMinDate(data_transfrom[0]);
+          setMaxDate(data_transfrom[data_transfrom.length - 1]);
+        } else {
+          descending
+            ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
+            : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
+        }
 
         setItems(
           data.Captions.map((item: any) => ({
             value: item.replace(/&nbsp;/g, " "),
           }))
         );
+
         setLoading(false);
       } else {
         await sleep(100);
         setLoading(false);
       }
+
+      setDropDown(!dropDown);
     })();
-    setDropDown(!dropDown);
+    // setDropDown(!dropDown);
   };
 
   const handleSelectAll = (value: boolean) => {
@@ -228,109 +260,130 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
-  useEffect(() => {}, []);
-
   return (
-    <Downshift
-      isOpen={dropDown}
-      onInputValueChange={(value) => {
-        setDropDown(true);
-        setVal(value);
-      }}
-      onOuterClick={() => setDropDown(false)}
-      itemToString={(item) => (item ? item.value : "")}
-      inputValue={dropDown ? val : localSelected}
-    >
-      {({
-        getInputProps,
-        getItemProps,
-        getLabelProps,
-        getMenuProps,
-        isOpen,
-        inputValue,
-        getRootProps,
-      }) => {
-        const filtered = localItems.filter(
-          (item) => !inputValue || item.value.includes(inputValue)
-        );
-        return (
-          <div style={{ padding: 5, position: "relative" }}>
-            <TextField
-              size="small"
-              style={{ minWidth: 265 }}
-              // {...getRootProps()}
-              InputLabelProps={{
-                ...getLabelProps(),
-              }}
-              id="outlined-basic"
-              InputProps={{ ...getInputProps() }}
-              label={label}
-              variant="outlined"
-            />
-            {!loading && (
-              <Collapse in={isOpen}>
-                <div className={classes.root}>
-                  {multiple && (
-                    <SelectAll selected={selectAll} click={handleSelectAll} />
-                  )}
-                  <Divider />
-                  {filtered.length > 0 && (
-                    <CustomList
-                      width={265}
-                      height={244}
-                      rowHeight={40}
-                      items={filtered}
-                      getMenuProps={getMenuProps}
-                      getItemProps={getItemProps}
-                      handleToggle={handleToggle}
-                      multiple={multiple}
-                      handleRadio={handleRadio}
-                      checked={checked}
-                      localSelected={localSelected}
-                    />
-                  )}
-                  <Divider />
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    {multiple && (
-                      <Button
-                        style={{ outline: "none", minWidth: "unset" }}
-                        onClick={handleInversion}
+    <ThemeProvider>
+      {isDate ? (
+        <DatePicker
+          serverDates={checked.map((item) => new Date(item))}
+          minDate={minDate}
+          maxDate={maxDate}
+          filters={filters}
+          dates={localItems.map((item) => item.value)}
+          onSubmit={setFilterOnServer}
+        />
+      ) : (
+        <Downshift
+          isOpen={dropDown && !isDate}
+          onInputValueChange={(value) => {
+            setDropDown(true);
+            setVal(value);
+          }}
+          onOuterClick={() => setDropDown(false)}
+          itemToString={(item) => (item ? item.value : "")}
+          inputValue={dropDown ? val : localSelected}
+        >
+          {({
+            getInputProps,
+            getItemProps,
+            getLabelProps,
+            getMenuProps,
+            isOpen,
+            inputValue,
+            getRootProps,
+          }) => {
+            const filtered = localItems.filter(
+              (item) => !inputValue || item.value.includes(inputValue)
+            );
+            return (
+              <div style={{ padding: 5, position: "relative" }}>
+                <TextField
+                  size="small"
+                  style={{ minWidth: 265 }}
+                  // {...getRootProps()}
+                  InputLabelProps={{
+                    ...getLabelProps(),
+                  }}
+                  id="outlined-basic"
+                  InputProps={{ ...getInputProps() }}
+                  label={label}
+                  variant="outlined"
+                />
+                {!loading && (
+                  <Collapse in={isOpen}>
+                    <div className={classes.root}>
+                      {multiple && (
+                        <SelectAll
+                          selected={selectAll}
+                          click={handleSelectAll}
+                        />
+                      )}
+                      <Divider />
+                      {filtered.length > 0 && (
+                        <CustomList
+                          width={265}
+                          height={244}
+                          rowHeight={40}
+                          items={filtered}
+                          getMenuProps={getMenuProps}
+                          getItemProps={getItemProps}
+                          handleToggle={handleToggle}
+                          multiple={multiple}
+                          handleRadio={handleRadio}
+                          checked={checked}
+                          localSelected={localSelected}
+                        />
+                      )}
+                      <Divider />
+                      <div
+                        style={{ display: "flex", justifyContent: "flex-end" }}
                       >
-                        <AutorenewIcon />
-                      </Button>
-                    )}
-                    <Button
-                      style={{ outline: "none", minWidth: "unset" }}
-                      onClick={handleSort}
-                    >
-                      <ArrowRightAltIcon
-                        style={{
-                          transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
-                        }}
-                      />
-                    </Button>
-                    <Button style={{ outline: "none" }} onClick={handleOk}>
-                      Ok
-                    </Button>
-                    <Button style={{ outline: "none" }} onClick={handleCancel}>
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              </Collapse>
-            )}
-            <IconButton
-              aria-label="delete"
-              className={classes.margin}
-              size="small"
-              style={{ outline: "none" }}
-              onClick={handleDropDown}
-            >
-              {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-            </IconButton>
-          </div>
-        );
-      }}
-    </Downshift>
+                        {multiple && (
+                          <Button
+                            style={{ outline: "none", minWidth: "unset" }}
+                            onClick={handleInversion}
+                          >
+                            <AutorenewIcon />
+                          </Button>
+                        )}
+                        <Button
+                          style={{ outline: "none", minWidth: "unset" }}
+                          onClick={handleSort}
+                        >
+                          <ArrowRightAltIcon
+                            style={{
+                              transform: sort
+                                ? "rotate(-90deg)"
+                                : "rotate(90deg)",
+                            }}
+                          />
+                        </Button>
+                        <Button style={{ outline: "none" }} onClick={handleOk}>
+                          Ok
+                        </Button>
+                        <Button
+                          style={{ outline: "none" }}
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  </Collapse>
+                )}
+                <IconButton
+                  aria-label="delete"
+                  className={classes.margin}
+                  size="small"
+                  style={{ outline: "none", position: "absolute" }}
+                  onClick={handleDropDown}
+                >
+                  {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                </IconButton>
+              </div>
+            );
+          }}
+        </Downshift>
+      )}
+    </ThemeProvider>
   );
 };
