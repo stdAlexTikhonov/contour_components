@@ -41,7 +41,7 @@ const MultipleDatePicker = ({
   onSubmit,
   selectedDates: outerSelectedDates,
   cancelButtonText,
-  submitButtonText = "Submit",
+  submitButtonText = "OK",
   selectedDatesTitle = "Selected Dates",
 }) => {
   if (cancelButtonText == null) {
