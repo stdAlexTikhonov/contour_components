@@ -10,6 +10,7 @@ export type Props = {
   visibleFacts: any;
   report?: string;
   multipleFacts: boolean;
+  chart: any;
 };
 
 export type POSITIONS_TYPE =

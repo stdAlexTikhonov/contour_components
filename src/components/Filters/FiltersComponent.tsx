@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -6,6 +6,13 @@ import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { sleep } from "../../utils/helpers";
+
+declare global {
+  interface Window {
+    // add you custom properties and methods
+    contourChart: any;
+  }
+}
 
 export const FiltersComponent: React.FC<IProps> = ({
   show,
@@ -18,6 +25,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   multipleFacts,
   language,
   report,
+  chart,
 }) => {
   const classes = useStyles();
   const [scroll, setScroll] = useState(true);
@@ -68,6 +76,13 @@ export const FiltersComponent: React.FC<IProps> = ({
     setScroll(true);
   };
 
+  useEffect(() => {
+    if (chart) {
+      // contourChart(chart.id, chart, {});
+      window.contourChart(chart.id, chart, {});
+    }
+  }, [chart]);
+
   return (
     <DragDropContext onDragEnd={onHandleDrag}>
       <Box
@@ -93,7 +108,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             {pos === "row" ? simpleWrapper() : renderItems()}
           </SimpleBar>
         </Box>
-        <Box className={classes.main} />
+        {chart && <Box className={classes.main} id={chart.id} />}
       </Box>
     </DragDropContext>
   );

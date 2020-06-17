@@ -12,5 +12,6 @@ export const useStyles = makeStyles({
   },
   main: {
     flexGrow: 1,
+    position: "relative",
   },
 });

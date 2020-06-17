@@ -1,83 +1,11 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import { useStyles } from "./styles";
-import { IProps } from "./types";
-import { FieldBar } from "../FieldBar";
-import { Filters } from "../Filters";
-import IconButton from "@material-ui/core/IconButton";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
-import { POSITIONS } from "../../utils/constants";
-import { POSITIONS_TYPE } from "../FieldBar/types";
+import { connect } from "react-redux";
+import { ViewComponent } from "./ViewComponent";
+import { AppState } from "../../store/config_store";
+import { LinkStateToProps } from "./types";
 
-export const View: React.FC<IProps> = ({ metadata }) => {
-  const classes = useStyles();
-  const [fieldBar, setFieldBar] = useState(false);
-  const [fieldBarPosition, setFieldBarPosition] = useState(0);
-  const {
-    facts,
-    rows,
-    columns,
-    filters,
-    attributes,
-    slice,
-    view,
-    visibleFacts,
-    report,
-    multipleFacts,
-  } = metadata;
+const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  session: state.auth.session || undefined,
+  language: state.languages.current,
+});
 
-  return (
-    <Grid container className={classes.container}>
-      <Grid item className={classes.item}>
-        <Box justifyContent="flex-start" display="flex">
-          <IconButton
-            size="small"
-            style={{ outline: "none" }}
-            aria-label="delete"
-            onClick={() => setFieldBar(!fieldBar)}
-          >
-            <KeyboardIcon fontSize="small" />
-          </IconButton>
-          {fieldBar && (
-            <IconButton
-              size="small"
-              aria-label="delete"
-              style={{ outline: "none" }}
-              onClick={() =>
-                setFieldBarPosition(
-                  fieldBarPosition === 3 ? 0 : fieldBarPosition + 1
-                )
-              }
-            >
-              <AutorenewIcon fontSize="small" />
-            </IconButton>
-          )}
-        </Box>
-        <b className={classes.title}>{metadata.caption}</b>
-
-        {/* {fieldBar && (
-          <Filters
-            slice={slice}
-            view={view}
-            facts={facts.items}
-            filters={filters}
-          />
-        )} */}
-
-        <Filters
-          show={fieldBar}
-          position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
-          facts={facts ? facts.items : []}
-          slice={slice}
-          view={view}
-          report={report}
-          filters={filters}
-          visibleFacts={visibleFacts ? visibleFacts : []}
-          multipleFacts={multipleFacts}
-        />
-      </Grid>
-    </Grid>
-  );
-};
+export const View = connect(mapStateToProps)(ViewComponent);

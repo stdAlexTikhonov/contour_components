@@ -137,12 +137,12 @@ const Calendar = ({
           submitButtonText={submitButtonText}
         />
       </div>
-      <DateDisplay
+      {/* <DateDisplay
         selectedDatesTitle={selectedDatesTitle}
         selectedDates={selectedDates}
         readOnly={readOnly}
         onRemoveAtIndex={onRemoveAtIndex}
-      />
+      /> */}
     </div>
   );
 };
