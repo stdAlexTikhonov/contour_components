@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { IconButton, Typography, withStyles } from "@material-ui/core";
+import {
+  IconButton,
+  Typography,
+  withStyles,
+  TextField,
+} from "@material-ui/core";
 import LeftIcon from "@material-ui/icons/ArrowLeft";
 import RightIcon from "@material-ui/icons/ArrowRight";
 import moment from "moment";
@@ -21,6 +26,7 @@ class CalendarToolbar extends Component {
     displayDate: PropTypes.object.isRequired,
     nextMonth: PropTypes.bool,
     onMonthChange: PropTypes.func,
+    onYearChange: PropTypes.func,
     prevMonth: PropTypes.bool,
   };
 
@@ -43,10 +49,25 @@ class CalendarToolbar extends Component {
     }
   };
 
+  handleTouchTapNextYear = (e) => {
+    e.preventDefault();
+    if (this.props.onYearChange) {
+      this.props.onYearChange(1);
+    }
+  };
+
+  handleTouchTapPrevYear = (e) => {
+    e.preventDefault();
+    if (this.props.onYearChange) {
+      this.props.onYearChange(-1);
+    }
+  };
+
   render() {
     const { classes, displayDate } = this.props;
 
-    const dateTimeFormatted = moment(displayDate).format("MMMM YYYY");
+    const dateTimeFormattedMonth = moment(displayDate).format("MMMM");
+    const dateTimeFormattedYear = moment(displayDate).format("YYYY");
     // const dateTimeFormatted = new dateTimeFormat('en-US', {
     //   month: 'long',
     //   year: 'numeric'
@@ -56,12 +77,27 @@ class CalendarToolbar extends Component {
       <div className={classes.root}>
         <IconButton
           disabled={!this.props.prevMonth}
+          onClick={this.handleTouchTapPrevYear}
+        >
+          <LeftIcon />
+        </IconButton>
+        <Typography variant="subtitle1">
+          <TextField value={capitalizeFirstLetter(dateTimeFormattedYear)} />
+        </Typography>
+        <IconButton
+          disabled={!this.props.nextMonth}
+          onClick={this.handleTouchTapNextYear}
+        >
+          <RightIcon />
+        </IconButton>
+        <IconButton
+          disabled={!this.props.prevMonth}
           onClick={this.handleTouchTapPrevMonth}
         >
           <LeftIcon />
         </IconButton>
         <Typography variant="subtitle1">
-          {capitalizeFirstLetter(dateTimeFormatted)}
+          {capitalizeFirstLetter(dateTimeFormattedMonth)}
         </Typography>
         <IconButton
           disabled={!this.props.nextMonth}

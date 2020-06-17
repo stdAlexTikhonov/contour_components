@@ -72,6 +72,13 @@ const Calendar = ({
     utils.getFirstDayOfMonth(initialDate || new Date())
   );
 
+  const handleYearChange = useCallback(
+    (year) => {
+      setDisplayDate((displayDate) => utils.addYears(displayDate, year));
+    },
+    [setDisplayDate]
+  );
+
   const handleMonthChange = useCallback(
     (months) => {
       setDisplayDate((displayDate) => utils.addMonths(displayDate, months));
@@ -98,6 +105,7 @@ const Calendar = ({
           <CalendarToolbar
             displayDate={displayDate}
             onMonthChange={handleMonthChange}
+            onYearChange={handleYearChange}
             prevMonth={toolbarInteractions.prevMonth}
             nextMonth={toolbarInteractions.nextMonth}
           />
