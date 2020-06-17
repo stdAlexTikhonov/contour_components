@@ -37,6 +37,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   session,
   language,
   descending,
+  filterChange,
 }) => {
   const { solution, project, report } = useParams();
   const single = !multy;
@@ -167,8 +168,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       //console.log(facts_for_server);
     }
-    console.log(checked);
+
     setDropDown(false);
+    filterChange();
   };
 
   const handleCancel = () => {

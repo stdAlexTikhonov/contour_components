@@ -11,6 +11,7 @@ export type Props = {
   report?: string;
   multipleFacts: boolean;
   chart: any;
+  filterChange: any;
 };
 
 export type POSITIONS_TYPE =
