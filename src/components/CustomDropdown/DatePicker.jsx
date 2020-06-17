@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import TextField from "@material-ui/core/TextField";
-import MultipleDatesPicker from "@randex/material-ui-multiple-dates-picker";
+import MultipleDatePicker from "../MultipleDatePicker";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -40,7 +40,7 @@ export const DatePicker = () => {
           {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         </IconButton>
       </div>
-      <MultipleDatesPicker
+      <MultipleDatePicker
         open={open}
         selectedDates={dates}
         onCancel={onCancel}
