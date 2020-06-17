@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
 import {
   IconButton,
@@ -26,8 +26,14 @@ class CalendarToolbar extends Component {
     displayDate: PropTypes.object.isRequired,
     nextMonth: PropTypes.bool,
     onMonthChange: PropTypes.func,
+    onUserYearChange: PropTypes.func,
     onYearChange: PropTypes.func,
     prevMonth: PropTypes.bool,
+  };
+
+  state = {
+    value: "2020",
+    clicked: false,
   };
 
   static defaultProps = {
@@ -63,8 +69,20 @@ class CalendarToolbar extends Component {
     }
   };
 
+  handleInputChange = (e) => {
+    const val = e.target.value;
+    if (val.length !== 0 && isNaN(parseInt(val))) return false;
+    else {
+      if (this.props.onUserYearChange && val.length === 4) {
+        this.props.onUserYearChange(val);
+      }
+      this.setState((prev) => ({ value: val }));
+    }
+  };
+
   render() {
     const { classes, displayDate } = this.props;
+    const { clicked, value } = this.state;
 
     const dateTimeFormattedMonth = moment(displayDate).format("MMMM");
     const dateTimeFormattedYear = moment(displayDate).format("YYYY");
@@ -82,7 +100,14 @@ class CalendarToolbar extends Component {
           <LeftIcon />
         </IconButton>
         <Typography variant="subtitle1">
-          <TextField value={capitalizeFirstLetter(dateTimeFormattedYear)} />
+          <TextField
+            inputProps={{ style: { textAlign: "center" } }}
+            value={
+              clicked ? value : capitalizeFirstLetter(dateTimeFormattedYear)
+            }
+            onClick={() => this.setState({ clicked: true })}
+            onChange={this.handleInputChange}
+          />
         </Typography>
         <IconButton
           disabled={!this.props.nextMonth}
