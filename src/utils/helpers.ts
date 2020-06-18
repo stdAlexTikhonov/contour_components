@@ -14,6 +14,7 @@ export const isMobile = // will be true if running on a mobile device
 
 export const generateUID = () => {
   return (
+    "_" +
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15)
   );
@@ -114,7 +115,7 @@ export const formatGeometry = (dashboard: any) => {
     return {
       ...elem,
       hcu: rows.cu,
-      id: "_" + generateUID(),
+      id: generateUID(),
     };
   });
 

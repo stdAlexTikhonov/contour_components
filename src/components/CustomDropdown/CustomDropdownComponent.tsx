@@ -11,8 +11,9 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { sleep } from "../../utils/helpers";
+import { sleep, generateUID } from "../../utils/helpers";
 import { getData } from "../../utils/api";
+import Popper from "@material-ui/core/Popper";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
@@ -42,6 +43,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
@@ -193,7 +197,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setDropDown(false);
   };
 
-  const handleDropDown = () => {
+  const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     (async () => {
       if (localItems.length === 0 && _async) {
         const data = await getData({
@@ -254,6 +258,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       setDropDown(!dropDown);
     })();
+    setAnchorEl(event.currentTarget);
     // setDropDown(!dropDown);
   };
 
@@ -261,6 +266,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setSelectAll(value);
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
+
+  const id = dropDown ? generateUID() : undefined;
 
   return (
     <ThemeProvider>
@@ -311,7 +318,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   variant="outlined"
                 />
                 {!loading && (
-                  <Collapse in={isOpen}>
+                  <Popper id={id} open={isOpen} anchorEl={anchorEl}>
                     <div className={classes.root}>
                       {multiple && (
                         <SelectAll
@@ -370,9 +377,10 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                         </Button>
                       </div>
                     </div>
-                  </Collapse>
+                  </Popper>
                 )}
                 <IconButton
+                  aria-describedby={id}
                   aria-label="delete"
                   className={classes.margin}
                   size="small"
