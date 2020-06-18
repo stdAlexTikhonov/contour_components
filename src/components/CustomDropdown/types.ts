@@ -9,6 +9,7 @@ export interface Props {
   view?: string;
   report?: string;
   descending?: boolean;
+  filterChange: any;
 }
 
 export interface LinkStateToProps {

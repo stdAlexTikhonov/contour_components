@@ -11,8 +11,9 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { sleep } from "../../utils/helpers";
+import { sleep, generateUID } from "../../utils/helpers";
 import { getData } from "../../utils/api";
+import Popper from "@material-ui/core/Popper";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
@@ -37,10 +38,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   session,
   language,
   descending,
+  filterChange,
 }) => {
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
@@ -116,7 +121,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     });
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
+    let cubeSession;
     if (_async) {
       //Filter
       const filters_for_server = localItems.reduce(
@@ -124,7 +130,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         ""
       );
 
-      getData({
+      const data = await getData({
         method: SET_DIM_FILTER,
         language,
         session,
@@ -138,7 +144,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       });
 
       setSelectedFromServer(checked);
-
+      console.log(data);
+      cubeSession = data.cubeSession;
       // console.log(filters_for_server);
     } else {
       //Fact
@@ -153,7 +160,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         facts_for_server = [localSelected];
       }
 
-      getData({
+      const data = await getData({
         method: SET_FACTS,
         session,
         language,
@@ -165,10 +172,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         visibleFacts: facts_for_server,
       });
 
+      console.log(data);
+      cubeSession = data.cubeSession;
       //console.log(facts_for_server);
     }
-    console.log(checked);
+
     setDropDown(false);
+    filterChange(cubeSession);
+    setAnchorEl(null);
   };
 
   const handleCancel = () => {
@@ -189,9 +200,10 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
 
     setDropDown(false);
+    setAnchorEl(null);
   };
 
-  const handleDropDown = () => {
+  const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     (async () => {
       if (localItems.length === 0 && _async) {
         const data = await getData({
@@ -252,6 +264,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       setDropDown(!dropDown);
     })();
+    setAnchorEl(event.currentTarget);
     // setDropDown(!dropDown);
   };
 
@@ -259,6 +272,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setSelectAll(value);
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
+
+  const open = Boolean(anchorEl);
+  const id = dropDown ? generateUID() : undefined;
 
   return (
     <ThemeProvider>
@@ -371,6 +387,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   </Collapse>
                 )}
                 <IconButton
+                  aria-describedby={id}
                   aria-label="delete"
                   className={classes.margin}
                   size="small"

@@ -59,6 +59,27 @@ export const ViewComponent: React.FC<IProps> = ({
     })();
   }, []);
 
+  const handleFilterChange = async (cubeSession: string) => {
+    setShowChart(false);
+    const data = await getData({
+      method: CHART,
+      solution,
+      project,
+      session,
+      language,
+      view,
+      slice,
+      report,
+      cubeSession,
+    });
+
+    if (data.success) {
+      data.chart.id = generateUID();
+      setChart(data.chart);
+      setShowChart(true);
+    }
+  };
+
   return (
     <Grid container className={classes.container}>
       <Grid item className={classes.item}>
@@ -116,6 +137,7 @@ export const ViewComponent: React.FC<IProps> = ({
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}
+          filterChange={handleFilterChange}
         />
       </Grid>
     </Grid>

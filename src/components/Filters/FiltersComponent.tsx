@@ -26,6 +26,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   language,
   report,
   chart,
+  filterChange,
 }) => {
   const classes = useStyles();
   const [scroll, setScroll] = useState(true);
@@ -47,6 +48,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           .filter((item: any) => visibleFacts.includes(item.code))
           .map((fact: any) => fact.Caption)}
         _async={false}
+        filterChange={filterChange}
       />
       {filters.map((item: any) => (
         <CustomDropdown
@@ -61,6 +63,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           code={item.code}
           report={report}
           descending={item.Descending}
+          filterChange={filterChange}
         />
       ))}
     </>
