@@ -121,7 +121,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     });
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
+    let cubeSession;
     if (_async) {
       //Filter
       const filters_for_server = localItems.reduce(
@@ -129,7 +130,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         ""
       );
 
-      getData({
+      const data = await getData({
         method: SET_DIM_FILTER,
         language,
         session,
@@ -143,7 +144,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       });
 
       setSelectedFromServer(checked);
-
+      console.log(data);
+      cubeSession = data.cubeSession;
       // console.log(filters_for_server);
     } else {
       //Fact
@@ -158,7 +160,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         facts_for_server = [localSelected];
       }
 
-      getData({
+      const data = await getData({
         method: SET_FACTS,
         session,
         language,
@@ -170,11 +172,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         visibleFacts: facts_for_server,
       });
 
+      console.log(data);
+      cubeSession = data.cubeSession;
       //console.log(facts_for_server);
     }
 
     setDropDown(false);
-    filterChange();
+    filterChange(cubeSession);
+    setAnchorEl(null);
   };
 
   const handleCancel = () => {
@@ -195,6 +200,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
 
     setDropDown(false);
+    setAnchorEl(null);
   };
 
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -267,6 +273,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
+  const open = Boolean(anchorEl);
   const id = dropDown ? generateUID() : undefined;
 
   return (
@@ -318,7 +325,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   variant="outlined"
                 />
                 {!loading && (
-                  <Popper id={id} open={isOpen} anchorEl={anchorEl}>
+                  <Popper id={id} open={open} anchorEl={anchorEl}>
                     <div className={classes.root}>
                       {multiple && (
                         <SelectAll

@@ -59,7 +59,7 @@ export const ViewComponent: React.FC<IProps> = ({
     })();
   }, []);
 
-  const handleFilterChange = async () => {
+  const handleFilterChange = async (cubeSession: string) => {
     setShowChart(false);
     const data = await getData({
       method: CHART,
@@ -70,6 +70,7 @@ export const ViewComponent: React.FC<IProps> = ({
       view,
       slice,
       report,
+      cubeSession,
     });
 
     if (data.success) {
