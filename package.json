@@ -50,7 +50,8 @@
     "pretty-quick": "^2.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_DEV_URL=http://v7.contourbi.ru/ react-scripts start",
+    "dev": "REACT_APP_DEV_URL=http://localhost:3000/ react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
