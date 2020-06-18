@@ -46,34 +46,9 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
             break;
         }
 
-        // if (i > pi)
-        //   link =
-        //     bredcrumbs_transformed[0] +
-        //     "/" +
-        //     (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
-        //     "project/" +
-        //     bredcrumbs_transformed[pi] +
-        //     "/" +
-        //     breadcrumb.code;
-        // else if (pi === i)
-        //   link =
-        //     bredcrumbs_transformed[0] +
-        //     "/" +
-        //     (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
-        //     "project/" +
-        //     bredcrumbs_transformed[pi];
-        // else
-        //   link =
-        //     bredcrumbs_transformed[0] + "/" + (i > 0 ? breadcrumb.code : "");
-        // ******** Refactor this ********
-
         if (i < len)
           return (
-            <Link
-              color="inherit"
-              href={process.env.REACT_APP_DEV_URL + link}
-              key={i}
-            >
+            <Link color="inherit" href={"../" + link} key={i}>
               {breadcrumb.caption}
             </Link>
           );
