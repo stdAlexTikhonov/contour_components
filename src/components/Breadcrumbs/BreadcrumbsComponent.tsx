@@ -17,6 +17,8 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
   const bredcrumbs_transformed = breadcrumbs.map((item) => item.code);
   const classes = useStyles();
 
+  console.log(window.location);
+
   return (
     <Breadcrumbs aria-label="breadcrumb" maxItems={3} className={classes.root}>
       {breadcrumbs.map((breadcrumb: Breadcrumb, i: number) => {
@@ -48,7 +50,7 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
 
         if (i < len)
           return (
-            <Link color="inherit" href={"../" + link} key={i}>
+            <Link color="inherit" href={"/" + link} key={i}>
               {breadcrumb.caption}
             </Link>
           );
