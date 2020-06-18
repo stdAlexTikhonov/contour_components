@@ -71,7 +71,7 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
           return (
             <Link
               color="inherit"
-              href={process.env.REACT_APP_DEV_URL + link}
+              href={"http://localhost:3000/" + link}
               key={i}
             >
               {breadcrumb.caption}
