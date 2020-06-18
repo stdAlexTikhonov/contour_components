@@ -21,27 +21,51 @@ export const BreadcrumbsComponent: React.FC<IProps> = ({ breadcrumbs }) => {
     <Breadcrumbs aria-label="breadcrumb" maxItems={3} className={classes.root}>
       {breadcrumbs.map((breadcrumb: Breadcrumb, i: number) => {
         //******** Refactor this **********/
-        let link = "";
-        if (i > pi)
-          link =
-            bredcrumbs_transformed[0] +
-            "/" +
-            (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
-            "project/" +
-            bredcrumbs_transformed[pi] +
-            "/" +
-            breadcrumb.code;
-        else if (pi === i)
-          link =
-            bredcrumbs_transformed[0] +
-            "/" +
-            (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
-            "project/" +
-            bredcrumbs_transformed[pi];
-        else
-          link =
-            bredcrumbs_transformed[0] + "/" + (i > 0 ? breadcrumb.code : "");
-        //******** Refactor this ********
+        let link = breadcrumb.code;
+        switch (breadcrumb.type) {
+          case "solution":
+            link = breadcrumb.code;
+            break;
+          case "folder":
+            if (i < pi) {
+              link = bredcrumbs_transformed[0] + "/" + breadcrumb.code;
+            }
+
+            if (i > pi) {
+              link =
+                bredcrumbs_transformed[0] +
+                "/project/" +
+                bredcrumbs_transformed[pi] +
+                "/" +
+                breadcrumb.code;
+            }
+
+            break;
+          case "project":
+            link = bredcrumbs_transformed[0] + "/project/" + breadcrumb.code;
+            break;
+        }
+
+        // if (i > pi)
+        //   link =
+        //     bredcrumbs_transformed[0] +
+        //     "/" +
+        //     (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
+        //     "project/" +
+        //     bredcrumbs_transformed[pi] +
+        //     "/" +
+        //     breadcrumb.code;
+        // else if (pi === i)
+        //   link =
+        //     bredcrumbs_transformed[0] +
+        //     "/" +
+        //     (pi > 1 ? bredcrumbs_transformed[pi - 1] + "/" : "") +
+        //     "project/" +
+        //     bredcrumbs_transformed[pi];
+        // else
+        //   link =
+        //     bredcrumbs_transformed[0] + "/" + (i > 0 ? breadcrumb.code : "");
+        // ******** Refactor this ********
 
         if (i < len)
           return (
