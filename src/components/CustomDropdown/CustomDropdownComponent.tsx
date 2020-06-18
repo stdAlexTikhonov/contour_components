@@ -325,7 +325,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   variant="outlined"
                 />
                 {!loading && (
-                  <Popper id={id} open={open} anchorEl={anchorEl}>
+                  <Collapse in={isOpen}>
                     <div className={classes.root}>
                       {multiple && (
                         <SelectAll
@@ -384,7 +384,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                         </Button>
                       </div>
                     </div>
-                  </Popper>
+                  </Collapse>
                 )}
                 <IconButton
                   aria-describedby={id}
