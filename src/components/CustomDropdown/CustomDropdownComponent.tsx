@@ -12,7 +12,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { sleep, generateUID } from "../../utils/helpers";
+import { sleep, sliceWord } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import {
   GET_DIM_FILTER,
@@ -285,6 +285,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
+  const word = localSelected ? localSelected : label;
+
   return (
     <div style={{ textAlign: "left" }}>
       <Button
@@ -298,7 +300,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       >
         <div style={{ width: "100%", textAlign: "left" }}>
-          {localSelected ? localSelected : label}
+          {open ? word : sliceWord(word)}
         </div>
       </Button>
       <Popover
