@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { sleep } from "../../utils/helpers";
+import Popover from "../Test";
 
 declare global {
   interface Window {
@@ -37,34 +38,37 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const renderItems = () => (
     <>
-      <CustomDropdown
-        items={facts.map((fact: any) => ({
-          value: fact.Caption,
-          code: fact.code,
-        }))}
-        label={language === "ru" ? "Факты" : "Facts"}
-        multy={multipleFacts}
-        selected={facts
-          .filter((item: any) => visibleFacts.includes(item.code))
-          .map((fact: any) => fact.Caption)}
-        _async={false}
-        filterChange={filterChange}
-      />
-      {filters.map((item: any) => (
+      <Popover label={language === "ru" ? "Факты" : "Facts"}>
         <CustomDropdown
-          key={item.code}
-          items={[]}
-          label={item.Caption}
-          multy={true}
-          selected={[]}
-          _async={true}
-          slice={slice}
-          view={view}
-          code={item.code}
-          report={report}
-          descending={item.Descending}
+          items={facts.map((fact: any) => ({
+            value: fact.Caption,
+            code: fact.code,
+          }))}
+          label={language === "ru" ? "Факты" : "Facts"}
+          multy={multipleFacts}
+          selected={facts
+            .filter((item: any) => visibleFacts.includes(item.code))
+            .map((fact: any) => fact.Caption)}
+          _async={false}
           filterChange={filterChange}
         />
+      </Popover>
+      {filters.map((item: any) => (
+        <Popover label={item.Caption} key={item.code}>
+          <CustomDropdown
+            items={[]}
+            label={item.Caption}
+            multy={true}
+            selected={[]}
+            _async={true}
+            slice={slice}
+            view={view}
+            code={item.code}
+            report={report}
+            descending={item.Descending}
+            filterChange={filterChange}
+          />
+        </Popover>
       ))}
     </>
   );
