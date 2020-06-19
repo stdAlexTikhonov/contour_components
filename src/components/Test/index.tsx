@@ -9,6 +9,13 @@ const useStyles = makeStyles((theme: Theme) =>
     typography: {
       padding: theme.spacing(2),
     },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+    text: {
+      textTransform: "capitalize",
+      textDecoration: "underline",
+    },
   })
 );
 
@@ -36,14 +43,8 @@ export default function SimplePopover(props: LayoutProps) {
 
   return (
     <div>
-      <Button
-        aria-describedby={id}
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-        size="small"
-      >
-        {props.label}
+      <Button aria-describedby={id} onClick={handleClick} size="small">
+        <span className={classes.text}>{props.label}</span>
       </Button>
       <Popover
         id={id}
