@@ -46,12 +46,8 @@ const CalendarActionButton = ({
   readOnly,
 }) => (
   <DialogActions>
+    {!readOnly && <Button onClick={onOk}>{submitButtonText}</Button>}
     <Button onClick={onCancel}>{cancelButtonText}</Button>
-    {!readOnly && (
-      <Button color="primary" onClick={onOk}>
-        {submitButtonText}
-      </Button>
-    )}
   </DialogActions>
 );
 

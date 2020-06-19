@@ -295,6 +295,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         style={{
           outline: "none",
           textTransform: "capitalize",
+          fontWeight: "normal",
         }}
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       >
