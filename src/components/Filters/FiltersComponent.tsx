@@ -104,7 +104,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           <SimpleBar
             style={{
               maxHeight: "100%",
-              width: pos === "row" ? "100%" : 100,
+              width: pos === "row" ? "100%" : 105,
               overflow: scroll ? "unset" : "hidden",
             }}
           >
