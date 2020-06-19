@@ -98,7 +98,7 @@ const MultipleDatePicker = ({
 
   const handleCancel = useCallback(
     (e) => {
-      document.body.click();
+      onCancel();
       e.preventDefault();
       dismiss();
     },

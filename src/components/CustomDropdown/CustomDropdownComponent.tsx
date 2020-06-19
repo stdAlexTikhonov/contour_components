@@ -131,6 +131,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       code,
       filter: user_filters,
     });
+
+    setAnchorEl(null);
   };
 
   const handleOk = async () => {
@@ -291,7 +293,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         size="small"
         style={{
           outline: "none",
-          width: "100%",
           textTransform: "capitalize",
         }}
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
@@ -323,6 +324,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               filters={filters}
               dates={localItems.map((item) => item.value)}
               onSubmit={setFilterOnServer}
+              onCancel={() => setAnchorEl(null)}
             />
           ) : (
             <Downshift

@@ -11,12 +11,16 @@ export const DatePicker = ({
   filters,
   dates: datesFromServer,
   onSubmit: setFiltersOnServer,
+  onCancel: setPopoverNull,
 }) => {
   const shouldShowComponent = minDate && maxDate;
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [dates, setDates] = useState(serverDates);
-  const onCancel = useCallback(() => setOpen(false), [setOpen]);
+  const onCancel = useCallback(() => {
+    setOpen(false);
+    setPopoverNull();
+  }, [setOpen]);
   const onSubmit = useCallback(
     (dates) => {
       const dates_formatted = dates.map((item) =>
