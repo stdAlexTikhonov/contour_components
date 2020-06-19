@@ -38,24 +38,6 @@ export const DatePicker = ({
 
   return (
     <ThemeProvider>
-      <div style={{ padding: 5, position: "relative " }}>
-        <TextField
-          size="small"
-          style={{ minWidth: 265 }}
-          id="outlined-basic"
-          label={"Date"}
-          variant="outlined"
-        />
-        <IconButton
-          aria-label="delete"
-          className={classes.margin}
-          size="small"
-          style={{ outline: "none", position: "absolute" }}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-        </IconButton>
-      </div>
       {shouldShowComponent && (
         <MultipleDatePicker
           open={open}
