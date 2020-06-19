@@ -50,6 +50,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         _async={false}
         filterChange={filterChange}
       />
+
       {filters.map((item: any) => (
         <CustomDropdown
           key={item.code}
@@ -73,12 +74,6 @@ export const FiltersComponent: React.FC<IProps> = ({
     <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
   );
 
-  const handleClick = async () => {
-    setScroll(false);
-    await sleep(500);
-    setScroll(true);
-  };
-
   useEffect(() => {
     if (chart) {
       // contourChart(chart.id, chart, {});
@@ -98,13 +93,11 @@ export const FiltersComponent: React.FC<IProps> = ({
             display: show ? "flex" : "none",
             flexDirection: pos,
           }}
-          onClick={handleClick}
         >
           <SimpleBar
             style={{
               maxHeight: "100%",
-              width: pos === "row" ? "100%" : "275px",
-              paddingTop: 3,
+              width: pos === "row" ? "100%" : 105,
               overflow: scroll ? "unset" : "hidden",
             }}
           >

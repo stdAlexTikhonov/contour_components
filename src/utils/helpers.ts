@@ -6,6 +6,10 @@ export const transform_languages_data = (langs: []) => {
   return hash;
 };
 
+export const sliceWord = (word: string) => {
+  return word.length > 11 ? word.substr(0, 7) + "..." : word;
+};
+
 export const isMobile = // will be true if running on a mobile device
   navigator.userAgent.indexOf("Mobile") !== -1 ||
   navigator.userAgent.indexOf("iPhone") !== -1 ||

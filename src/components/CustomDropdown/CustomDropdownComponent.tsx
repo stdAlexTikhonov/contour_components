@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import Popover from "@material-ui/core/Popover";
 import Downshift from "downshift";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
 import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { sleep, generateUID } from "../../utils/helpers";
+import { sleep, sliceWord } from "../../utils/helpers";
 import { getData } from "../../utils/api";
-import Popper from "@material-ui/core/Popper";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
@@ -43,9 +43,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
@@ -68,6 +65,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
   const [sort, setSort] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    handleDropDown(event);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const handleToggle = (value: string) => () => {
     if (multiple) {
@@ -102,7 +114,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleRadio = (value: string) => () => {
-    console.log(value);
     setSelected(value);
   };
 
@@ -113,12 +124,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       session,
       solution,
       project,
-      report,
+      report: report_code || report,
       slice,
       view,
       code,
       filter: user_filters,
     });
+
+    setAnchorEl(null);
   };
 
   const handleOk = async () => {
@@ -136,7 +149,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         session,
         solution,
         project,
-        report,
+        report: report_code || report,
         slice,
         view,
         code,
@@ -166,7 +179,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         language,
         solution,
         project,
-        report,
+        report: report_code || report,
         slice,
         view,
         visibleFacts: facts_for_server,
@@ -178,8 +191,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
 
     setDropDown(false);
-    filterChange(cubeSession);
     setAnchorEl(null);
+    filterChange(cubeSession);
   };
 
   const handleCancel = () => {
@@ -264,8 +277,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       setDropDown(!dropDown);
     })();
-    setAnchorEl(event.currentTarget);
-    // setDropDown(!dropDown);
   };
 
   const handleSelectAll = (value: boolean) => {
@@ -273,134 +284,164 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
-  const open = Boolean(anchorEl);
-  const id = dropDown ? generateUID() : undefined;
+  const word = localSelected ? localSelected : label;
 
   return (
-    <ThemeProvider>
-      {isDate ? (
-        <DatePicker
-          serverDates={checked.map((item) => new Date(item))}
-          minDate={minDate}
-          maxDate={maxDate}
-          filters={filters}
-          dates={localItems.map((item) => item.value)}
-          onSubmit={setFilterOnServer}
-        />
-      ) : (
-        <Downshift
-          isOpen={dropDown && !isDate}
-          onInputValueChange={(value) => {
-            setDropDown(true);
-            setVal(value);
-          }}
-          onOuterClick={() => setDropDown(false)}
-          itemToString={(item) => (item ? item.value : "")}
-          inputValue={dropDown ? val : localSelected}
-        >
-          {({
-            getInputProps,
-            getItemProps,
-            getLabelProps,
-            getMenuProps,
-            isOpen,
-            inputValue,
-            getRootProps,
-          }) => {
-            const filtered = localItems.filter(
-              (item) => !inputValue || item.value.includes(inputValue)
-            );
-            return (
-              <div style={{ padding: 5, position: "relative" }}>
-                <TextField
-                  size="small"
-                  style={{ minWidth: 265 }}
-                  // {...getRootProps()}
-                  InputLabelProps={{
-                    ...getLabelProps(),
-                  }}
-                  id="outlined-basic"
-                  InputProps={{ ...getInputProps() }}
-                  label={label}
-                  variant="outlined"
-                />
-                {!loading && (
-                  <Collapse in={isOpen}>
-                    <div className={classes.root}>
-                      {multiple && (
-                        <SelectAll
-                          selected={selectAll}
-                          click={handleSelectAll}
+    <div style={{ textAlign: "left" }}>
+      <Button
+        aria-describedby={id}
+        onClick={handleClick}
+        size="small"
+        style={{
+          outline: "none",
+          textTransform: "capitalize",
+        }}
+        endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+      >
+        <div style={{ width: "100%", textAlign: "left" }}>
+          {open ? word : sliceWord(word)}
+        </div>
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <ThemeProvider>
+          {isDate ? (
+            <DatePicker
+              serverDates={checked.map((item) => new Date(item))}
+              minDate={minDate}
+              maxDate={maxDate}
+              filters={filters}
+              dates={localItems.map((item) => item.value)}
+              onSubmit={setFilterOnServer}
+              onCancel={() => setAnchorEl(null)}
+            />
+          ) : (
+            <Downshift
+              isOpen={dropDown && !isDate}
+              onInputValueChange={(value) => {
+                setDropDown(true);
+                setVal(value);
+              }}
+              onOuterClick={() => setDropDown(false)}
+              itemToString={(item) => (item ? item.value : "")}
+              inputValue={val}
+            >
+              {({
+                getInputProps,
+                getItemProps,
+                getLabelProps,
+                getMenuProps,
+                isOpen,
+                inputValue,
+                getRootProps,
+              }) => {
+                const filtered = localItems.filter(
+                  (item) => !inputValue || item.value.includes(inputValue)
+                );
+                return (
+                  <div style={{ padding: 5, position: "relative" }}>
+                    {loading ? (
+                      <CircularProgress />
+                    ) : (
+                      <>
+                        <TextField
+                          size="small"
+                          style={{ minWidth: 265 }}
+                          // {...getRootProps()}
+                          InputLabelProps={{
+                            ...getLabelProps(),
+                          }}
+                          id="outlined-basic"
+                          InputProps={{ ...getInputProps() }}
+                          label={"Search"}
+                          variant="outlined"
                         />
-                      )}
-                      <Divider />
-                      {filtered.length > 0 && (
-                        <CustomList
-                          width={265}
-                          height={244}
-                          rowHeight={40}
-                          items={filtered}
-                          getMenuProps={getMenuProps}
-                          getItemProps={getItemProps}
-                          handleToggle={handleToggle}
-                          multiple={multiple}
-                          handleRadio={handleRadio}
-                          checked={checked}
-                          localSelected={localSelected}
-                        />
-                      )}
-                      <Divider />
-                      <div
-                        style={{ display: "flex", justifyContent: "flex-end" }}
-                      >
-                        {multiple && (
-                          <Button
-                            style={{ outline: "none", minWidth: "unset" }}
-                            onClick={handleInversion}
-                          >
-                            <AutorenewIcon />
-                          </Button>
-                        )}
-                        <Button
-                          style={{ outline: "none", minWidth: "unset" }}
-                          onClick={handleSort}
-                        >
-                          <ArrowRightAltIcon
-                            style={{
-                              transform: sort
-                                ? "rotate(-90deg)"
-                                : "rotate(90deg)",
-                            }}
-                          />
-                        </Button>
-                        <Button style={{ outline: "none" }} onClick={handleOk}>
-                          Ok
-                        </Button>
-                        <Button
-                          style={{ outline: "none" }}
-                          onClick={handleCancel}
-                        >
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
-                  </Collapse>
-                )}
-                <IconButton
-                  aria-describedby={id}
-                  aria-label="delete"
-                  className={classes.margin}
-                  size="small"
-                  style={{ outline: "none", position: "absolute" }}
-                  onClick={handleDropDown}
-                >
-                  {isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                </IconButton>
-              </div>
-            );
-          }}
-        </Downshift>
-      )}
-    </ThemeProvider>
+                        <Collapse in={isOpen}>
+                          <div className={classes.root}>
+                            {multiple && (
+                              <SelectAll
+                                selected={selectAll}
+                                click={handleSelectAll}
+                              />
+                            )}
+                            <Divider />
+                            {filtered.length > 0 && (
+                              <CustomList
+                                width={265}
+                                rowHeight={40}
+                                items={filtered}
+                                getMenuProps={getMenuProps}
+                                getItemProps={getItemProps}
+                                handleToggle={handleToggle}
+                                multiple={multiple}
+                                handleRadio={handleRadio}
+                                checked={checked}
+                                localSelected={localSelected}
+                              />
+                            )}
+                            <Divider />
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                              }}
+                            >
+                              {multiple && (
+                                <Button
+                                  style={{ outline: "none", minWidth: "unset" }}
+                                  onClick={handleInversion}
+                                >
+                                  <AutorenewIcon />
+                                </Button>
+                              )}
+                              <Button
+                                style={{ outline: "none", minWidth: "unset" }}
+                                onClick={handleSort}
+                              >
+                                <ArrowRightAltIcon
+                                  style={{
+                                    transform: sort
+                                      ? "rotate(-90deg)"
+                                      : "rotate(90deg)",
+                                  }}
+                                />
+                              </Button>
+                              <Button
+                                style={{ outline: "none" }}
+                                onClick={handleOk}
+                              >
+                                Ok
+                              </Button>
+                              <Button
+                                style={{ outline: "none" }}
+                                onClick={handleCancel}
+                              >
+                                Cancel
+                              </Button>
+                            </div>
+                          </div>
+                        </Collapse>
+                      </>
+                    )}
+                  </div>
+                );
+              }}
+            </Downshift>
+          )}
+        </ThemeProvider>
+      </Popover>
+    </div>
   );
 };

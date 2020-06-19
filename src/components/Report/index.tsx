@@ -59,6 +59,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       }
       reportData.type && dispatch(setReportType(reportData.type));
 
+      reportData.dashboard && console.log(reportData.dashboard);
       //if we got dashboard prop then we can save data for dashboard
       reportData.dashboard &&
         dispatch(setDashboard(formatGeometry(reportData.dashboard)));

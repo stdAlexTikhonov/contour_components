@@ -16,7 +16,6 @@ export type row = {
 
 export type IProps = {
   width: number;
-  height: number;
   rowHeight: number;
   items: any;
   getMenuProps: any;
@@ -80,7 +79,11 @@ export default class CustomList extends React.Component<IProps> {
       <List
         {...this.props.getMenuProps()}
         width={this.props.width}
-        height={this.props.height}
+        height={
+          this.props.items.length < 6
+            ? this.props.rowHeight * this.props.items.length
+            : 244
+        }
         rowHeight={this.props.rowHeight}
         rowRenderer={this.rowRenderer.bind(this)}
         rowCount={this.props.items.length}
