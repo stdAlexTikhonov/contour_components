@@ -23,3 +23,7 @@ code {
 body::-webkit-scrollbar {
   display: none;
 }
+
+.MuiButton-endIcon {
+  margin: 0 !important;
+}

@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,7 @@ export default function SimplePopover(props: LayoutProps) {
           width: "100%",
           textTransform: "capitalize",
         }}
+        endIcon={<ArrowDropDownIcon />}
       >
         <div style={{ width: "100%", textAlign: "left" }}>{props.label}</div>
       </Button>
