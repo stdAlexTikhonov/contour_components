@@ -42,9 +42,20 @@ export default function SimplePopover(props: LayoutProps) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div>
-      <Button aria-describedby={id} onClick={handleClick} size="small">
-        <span className={classes.text}>{props.label}</span>
+    <div style={{ textAlign: "left" }}>
+      <Button
+        aria-describedby={id}
+        onClick={handleClick}
+        size="small"
+        style={{
+          outline: "none",
+          width: "100%",
+          textAlign: "left",
+          textTransform: "capitalize",
+          textDecoration: "underline",
+        }}
+      >
+        {props.label}
       </Button>
       <Popover
         id={id}

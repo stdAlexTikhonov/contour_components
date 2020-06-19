@@ -334,7 +334,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                       {filtered.length > 0 && (
                         <CustomList
                           width={265}
-                          height={244}
                           rowHeight={40}
                           items={filtered}
                           getMenuProps={getMenuProps}
