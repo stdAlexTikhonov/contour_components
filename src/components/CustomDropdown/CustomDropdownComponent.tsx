@@ -43,9 +43,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const single = !multy;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
@@ -179,7 +176,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
     setDropDown(false);
     filterChange(cubeSession);
-    setAnchorEl(null);
   };
 
   const handleCancel = () => {
@@ -200,7 +196,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
 
     setDropDown(false);
-    setAnchorEl(null);
   };
 
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -264,8 +259,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       setDropDown(!dropDown);
     })();
-    setAnchorEl(event.currentTarget);
-    // setDropDown(!dropDown);
   };
 
   const handleSelectAll = (value: boolean) => {
