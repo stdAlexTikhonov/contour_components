@@ -114,7 +114,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleRadio = (value: string) => () => {
-    console.log(value);
     setSelected(value);
   };
 
@@ -125,7 +124,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       session,
       solution,
       project,
-      report,
+      report: report_code || report,
       slice,
       view,
       code,
@@ -150,7 +149,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         session,
         solution,
         project,
-        report,
+        report: report_code || report,
         slice,
         view,
         code,
@@ -180,7 +179,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         language,
         solution,
         project,
-        report,
+        report: report_code || report,
         slice,
         view,
         visibleFacts: facts_for_server,
