@@ -50,12 +50,10 @@ export default function SimplePopover(props: LayoutProps) {
         style={{
           outline: "none",
           width: "100%",
-          textAlign: "left",
           textTransform: "capitalize",
-          textDecoration: "underline",
         }}
       >
-        {props.label}
+        <div style={{ width: "100%", textAlign: "left" }}>{props.label}</div>
       </Button>
       <Popover
         id={id}
