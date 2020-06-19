@@ -345,84 +345,86 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 );
                 return (
                   <div style={{ padding: 5, position: "relative" }}>
-                    <TextField
-                      size="small"
-                      style={{ minWidth: 265 }}
-                      // {...getRootProps()}
-                      InputLabelProps={{
-                        ...getLabelProps(),
-                      }}
-                      id="outlined-basic"
-                      InputProps={{ ...getInputProps() }}
-                      label={label}
-                      variant="outlined"
-                    />
                     {!loading && (
-                      <Collapse in={isOpen}>
-                        <div className={classes.root}>
-                          {multiple && (
-                            <SelectAll
-                              selected={selectAll}
-                              click={handleSelectAll}
-                            />
-                          )}
-                          <Divider />
-                          {filtered.length > 0 && (
-                            <CustomList
-                              width={265}
-                              rowHeight={40}
-                              items={filtered}
-                              getMenuProps={getMenuProps}
-                              getItemProps={getItemProps}
-                              handleToggle={handleToggle}
-                              multiple={multiple}
-                              handleRadio={handleRadio}
-                              checked={checked}
-                              localSelected={localSelected}
-                            />
-                          )}
-                          <Divider />
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "flex-end",
-                            }}
-                          >
+                      <>
+                        <TextField
+                          size="small"
+                          style={{ minWidth: 265 }}
+                          // {...getRootProps()}
+                          InputLabelProps={{
+                            ...getLabelProps(),
+                          }}
+                          id="outlined-basic"
+                          InputProps={{ ...getInputProps() }}
+                          label={label}
+                          variant="outlined"
+                        />
+                        <Collapse in={isOpen}>
+                          <div className={classes.root}>
                             {multiple && (
+                              <SelectAll
+                                selected={selectAll}
+                                click={handleSelectAll}
+                              />
+                            )}
+                            <Divider />
+                            {filtered.length > 0 && (
+                              <CustomList
+                                width={265}
+                                rowHeight={40}
+                                items={filtered}
+                                getMenuProps={getMenuProps}
+                                getItemProps={getItemProps}
+                                handleToggle={handleToggle}
+                                multiple={multiple}
+                                handleRadio={handleRadio}
+                                checked={checked}
+                                localSelected={localSelected}
+                              />
+                            )}
+                            <Divider />
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                              }}
+                            >
+                              {multiple && (
+                                <Button
+                                  style={{ outline: "none", minWidth: "unset" }}
+                                  onClick={handleInversion}
+                                >
+                                  <AutorenewIcon />
+                                </Button>
+                              )}
                               <Button
                                 style={{ outline: "none", minWidth: "unset" }}
-                                onClick={handleInversion}
+                                onClick={handleSort}
                               >
-                                <AutorenewIcon />
+                                <ArrowRightAltIcon
+                                  style={{
+                                    transform: sort
+                                      ? "rotate(-90deg)"
+                                      : "rotate(90deg)",
+                                  }}
+                                />
                               </Button>
-                            )}
-                            <Button
-                              style={{ outline: "none", minWidth: "unset" }}
-                              onClick={handleSort}
-                            >
-                              <ArrowRightAltIcon
-                                style={{
-                                  transform: sort
-                                    ? "rotate(-90deg)"
-                                    : "rotate(90deg)",
-                                }}
-                              />
-                            </Button>
-                            <Button
-                              style={{ outline: "none" }}
-                              onClick={handleOk}
-                            >
-                              Ok
-                            </Button>
-                            <Button
-                              style={{ outline: "none" }}
-                              onClick={handleCancel}
-                            >
-                              Cancel
-                            </Button>
+                              <Button
+                                style={{ outline: "none" }}
+                                onClick={handleOk}
+                              >
+                                Ok
+                              </Button>
+                              <Button
+                                style={{ outline: "none" }}
+                                onClick={handleCancel}
+                              >
+                                Cancel
+                              </Button>
+                            </div>
                           </div>
-                        </div>
-                      </Collapse>
+                        </Collapse>
+                      </>
                     )}
                   </div>
                 );

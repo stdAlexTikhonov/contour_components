@@ -4,6 +4,7 @@ import DateUtilities from "./utils";
 import Calendar from "./Calendar";
 import { Dialog } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { findAllInRenderedTree } from "react-dom/test-utils";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -97,6 +98,7 @@ const MultipleDatePicker = ({
 
   const handleCancel = useCallback(
     (e) => {
+      document.body.click();
       e.preventDefault();
       dismiss();
     },
@@ -126,7 +128,11 @@ const MultipleDatePicker = ({
   }, [open, outerSelectedDates]);
 
   return (
-    <Dialog open={open} classes={{ paper: classes.dialogPaper }}>
+    <Dialog
+      open={open}
+      classes={{ paper: classes.dialogPaper }}
+      onBackdropClick={handleCancel}
+    >
       {/* <DialogContent> */}
       <Calendar
         selectedDates={selectedDates}
