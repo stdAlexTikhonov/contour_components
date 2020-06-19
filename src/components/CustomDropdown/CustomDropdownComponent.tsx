@@ -5,6 +5,7 @@ import Popover from "@material-ui/core/Popover";
 import Downshift from "downshift";
 import Button from "@material-ui/core/Button";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
 import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -345,7 +346,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 );
                 return (
                   <div style={{ padding: 5, position: "relative" }}>
-                    {!loading && (
+                    {loading ? (
+                      <CircularProgress />
+                    ) : (
                       <>
                         <TextField
                           size="small"
