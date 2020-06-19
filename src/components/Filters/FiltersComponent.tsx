@@ -74,12 +74,6 @@ export const FiltersComponent: React.FC<IProps> = ({
     <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
   );
 
-  const handleClick = async () => {
-    setScroll(false);
-    await sleep(500);
-    setScroll(true);
-  };
-
   useEffect(() => {
     if (chart) {
       // contourChart(chart.id, chart, {});
@@ -99,7 +93,6 @@ export const FiltersComponent: React.FC<IProps> = ({
             display: show ? "flex" : "none",
             flexDirection: pos,
           }}
-          onClick={handleClick}
         >
           <SimpleBar
             style={{
