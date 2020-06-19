@@ -190,6 +190,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
 
     setDropDown(false);
+    setAnchorEl(null);
     filterChange(cubeSession);
   };
 
@@ -295,7 +296,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         }}
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       >
-        <div style={{ width: "100%", textAlign: "left" }}>{label}</div>
+        <div style={{ width: "100%", textAlign: "left" }}>
+          {localSelected ? localSelected : label}
+        </div>
       </Button>
       <Popover
         id={id}
@@ -330,7 +333,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               }}
               onOuterClick={() => setDropDown(false)}
               itemToString={(item) => (item ? item.value : "")}
-              inputValue={dropDown ? val : localSelected}
+              inputValue={val}
             >
               {({
                 getInputProps,
@@ -359,7 +362,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                           }}
                           id="outlined-basic"
                           InputProps={{ ...getInputProps() }}
-                          label={label}
+                          label={"Search"}
                           variant="outlined"
                         />
                         <Collapse in={isOpen}>
