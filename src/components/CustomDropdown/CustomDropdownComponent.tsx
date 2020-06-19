@@ -273,9 +273,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setChecked(value ? localItems.map((item) => item.value) : []);
   };
 
-  const open = Boolean(anchorEl);
-  const id = dropDown ? generateUID() : undefined;
-
   return (
     <ThemeProvider>
       {isDate ? (
@@ -387,7 +384,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   </Collapse>
                 )}
                 <IconButton
-                  aria-describedby={id}
                   aria-label="delete"
                   className={classes.margin}
                   size="small"
