@@ -58,6 +58,7 @@ export default class CustomList extends React.Component<IProps> {
               checked={this.props.checked.indexOf(item.value) !== -1}
               tabIndex={-1}
               inputProps={{ "aria-labelledby": labelId }}
+              disabled={item.disabled}
             />
           ) : (
             <CustomRadio
