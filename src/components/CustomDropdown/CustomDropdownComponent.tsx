@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Popover from "@material-ui/core/Popover";
@@ -85,7 +85,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     if (multiple) {
       const currentIndex = checked.indexOf(value);
       const newChecked = [...checked];
-
       if (currentIndex === -1) {
         newChecked.push(value);
       } else {

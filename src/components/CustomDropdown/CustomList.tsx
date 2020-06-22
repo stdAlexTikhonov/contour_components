@@ -48,12 +48,13 @@ export default class CustomList extends React.Component<IProps> {
         style={style}
         dense
         button
-        onClick={this.props.handleToggle(item.value)}
+        onClick={() => null}
       >
         <ListItemIcon style={{ minWidth: "auto" }}>
           {this.props.multiple ? (
             <CustomCheckbox
               edge="start"
+              onClick={this.props.handleToggle(item.value)}
               checked={this.props.checked.indexOf(item.value) !== -1}
               tabIndex={-1}
               inputProps={{ "aria-labelledby": labelId }}
