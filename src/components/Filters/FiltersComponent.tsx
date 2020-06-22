@@ -77,7 +77,11 @@ export const FiltersComponent: React.FC<IProps> = ({
   useEffect(() => {
     if (chart) {
       // contourChart(chart.id, chart, {});
-      window.contourChart(chart.id, chart, {});
+      try {
+        window.contourChart(chart.id, chart, {});
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, [chart]);
 
