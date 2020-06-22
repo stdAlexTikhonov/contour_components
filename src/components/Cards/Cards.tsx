@@ -82,7 +82,10 @@ export const CardsComponent: React.FC<IProps> = ({
                         {item.caption}
                       </Typography>
                       {item.icon && (
-                        <img src={"data:image/png;base64," + item.icon} />
+                        <img
+                          style={{ width: "100%" }}
+                          src={"data:image/png;base64," + item.icon}
+                        />
                       )}
                       <Typography>{item.description}</Typography>
                       {item.type === "project" && (
