@@ -84,7 +84,7 @@ export const CardsComponent: React.FC<IProps> = ({
                       {item.icon && (
                         <img
                           alt="Card"
-                          style={{ width: "100%" }}
+                          style={{ maxWidth: "100%" }}
                           src={"data:image/png;base64," + item.icon}
                         />
                       )}
