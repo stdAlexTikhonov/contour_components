@@ -56,9 +56,6 @@ export default class CustomList extends React.Component<IProps> {
               edge="start"
               checked={this.props.checked.indexOf(item.value) !== -1}
               tabIndex={-1}
-              disabled={item.disabled}
-              disableRipple
-              color="primary"
               inputProps={{ "aria-labelledby": labelId }}
             />
           ) : (

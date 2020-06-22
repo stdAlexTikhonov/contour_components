@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { sleep } from "../../utils/helpers";
+import { ChartPlaceholder } from "../ChartPlaceholder";
 
 declare global {
   interface Window {
@@ -30,6 +31,7 @@ export const FiltersComponent: React.FC<IProps> = ({
 }) => {
   const classes = useStyles();
   const [scroll, setScroll] = useState(true);
+  const [error, setError] = useState(false);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -79,8 +81,10 @@ export const FiltersComponent: React.FC<IProps> = ({
       // contourChart(chart.id, chart, {});
       try {
         window.contourChart(chart.id, chart, {});
+        setError(false);
       } catch (e) {
         console.log(e);
+        setError(true);
       }
     }
   }, [chart]);
@@ -108,7 +112,15 @@ export const FiltersComponent: React.FC<IProps> = ({
             {pos === "row" ? simpleWrapper() : renderItems()}
           </SimpleBar>
         </Box>
-        {chart && <Box className={classes.main} id={chart.id} />}
+        {chart ? (
+          error ? (
+            <ChartPlaceholder title={"Chart is not avalible."} />
+          ) : (
+            <Box className={classes.main} id={chart.id} />
+          )
+        ) : (
+          <ChartPlaceholder title={"No chart data."} />
+        )}
       </Box>
     </DragDropContext>
   );
