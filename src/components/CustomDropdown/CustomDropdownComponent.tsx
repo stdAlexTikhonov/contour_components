@@ -281,7 +281,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleSelectAll = (value: boolean) => {
     setSelectAll(value);
-    setChecked(value ? localItems.map((item) => item.value) : []);
+    const disabled = localItems.filter((item: any) => item.disabled);
+    const checked_disabled = disabled.filter((item) =>
+      checked.includes(item.value)
+    );
+
+    const not_disabled = localItems.filter((item: any) => !item.disabled);
+
+    setChecked(
+      value
+        ? [
+            ...not_disabled.map((item) => item.value),
+            ...checked_disabled.map((item) => item.value),
+          ]
+        : checked_disabled.map((item) => item.value)
+    );
   };
 
   const word = localSelected ? localSelected : label;
