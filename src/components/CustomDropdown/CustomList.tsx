@@ -56,6 +56,7 @@ export default class CustomList extends React.Component<IProps> {
               edge="start"
               checked={this.props.checked.indexOf(item.value) !== -1}
               tabIndex={-1}
+              disabled={item.disabled}
               disableRipple
               color="primary"
               inputProps={{ "aria-labelledby": labelId }}
@@ -65,6 +66,7 @@ export default class CustomList extends React.Component<IProps> {
               checked={this.props.localSelected === item.value}
               onChange={this.props.handleRadio(item.value)}
               value={item.value}
+              disabled={item.disabled}
               name="radio-button-demo"
               inputProps={{ "aria-label": item.value }}
             />

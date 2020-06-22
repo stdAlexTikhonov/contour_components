@@ -231,6 +231,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           code,
         });
 
+        console.log(data);
+
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
             item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
@@ -264,8 +266,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         }
 
         setItems(
-          data.Captions.map((item: any) => ({
+          data.Captions.map((item: any, i: number) => ({
             value: item.replace(/&nbsp;/g, " "),
+            disabled: data.Hidden[i] === "1",
           }))
         );
 
