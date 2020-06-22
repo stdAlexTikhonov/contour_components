@@ -5,7 +5,6 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
-import { sleep } from "../../utils/helpers";
 import { ChartPlaceholder } from "../ChartPlaceholder";
 
 declare global {
@@ -30,7 +29,6 @@ export const FiltersComponent: React.FC<IProps> = ({
   filterChange,
 }) => {
   const classes = useStyles();
-  const [scroll, setScroll] = useState(true);
   const [error, setError] = useState(false);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
@@ -106,7 +104,6 @@ export const FiltersComponent: React.FC<IProps> = ({
             style={{
               maxHeight: "100%",
               width: pos === "row" ? "100%" : 105,
-              overflow: scroll ? "unset" : "hidden",
             }}
           >
             {pos === "row" ? simpleWrapper() : renderItems()}

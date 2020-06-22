@@ -46,8 +46,8 @@ export default class CustomList extends React.Component<IProps> {
         })}
         role={undefined}
         style={style}
-        dense
-        button
+        dense={true}
+        button={true}
         onClick={() => null}
       >
         <ListItemIcon style={{ minWidth: "auto" }}>
@@ -86,6 +86,7 @@ export default class CustomList extends React.Component<IProps> {
             : 244
         }
         rowHeight={this.props.rowHeight}
+        // tslint:disable-next-line: jsx-no-bind
         rowRenderer={this.rowRenderer.bind(this)}
         rowCount={this.props.items.length}
         style={{ outline: "none" }}
