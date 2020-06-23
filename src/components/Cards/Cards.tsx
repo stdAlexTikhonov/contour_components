@@ -42,82 +42,77 @@ export const CardsComponent: React.FC<IProps> = ({
   }, [session, solution, folder, project, p_folder, language, handleDataQuery]);
 
   return (
-    <SimpleBar style={{ maxHeight: "100vh" }}>
-      <Container
-        className={classes.container}
-        fluid={true}
-        style={{ padding: isSlimScreen || isMobile ? 0 : 100 }}
-      >
-        <Row className={classes.row}>
-          {items.map((item: any) => {
-            let link = "";
-            if (item.type === "report") {
-              link =
-                "/" + solution + "/project/" + project + "/report/" + item.code;
-            } else if (item.type === "folder" && project) {
-              link = "/" + solution + "/project/" + project + "/" + item.code;
-            } else if (item.type === "solution") {
-              link = "/" + item.code;
-            } else if (item.type === "folder") {
-              link = "/" + solution + "/" + item.code;
-            } else if (item.type === "project") {
-              link = "/" + solution + "/project/" + item.code;
-            }
-            return (
-              <Col
-                key={item.code}
-                sm={{ span: 8 }}
-                md={{ span: 6 }}
-                lg={{ span: 4 }}
-                style={{ marginTop: 10, marginBottom: 10 }}
-              >
-                <Card className={classes.box}>
-                  <Link
-                    to={link}
-                    className={classes.link}
-                    onClick={() => handleClick()}
-                  >
-                    <CardContent>
-                      <Typography variant="h5" component="h2">
-                        {item.caption}
-                      </Typography>
-                      {item.icon && (
-                        <img
-                          alt="Card"
-                          style={{ maxWidth: "100%" }}
-                          src={"data:image/png;base64," + item.icon}
-                        />
-                      )}
-                      <Typography>{item.description}</Typography>
-                      {item.type === "project" && (
-                        <LibraryBooksIcon
-                          color="primary"
-                          className={classes.icon}
-                        />
-                      )}
+    <Container
+      className={classes.container}
+      fluid={true}
+      style={{ padding: isSlimScreen || isMobile ? 0 : 100 }}
+    >
+      <Row className={classes.row}>
+        {items.map((item: any) => {
+          let link = "";
+          if (item.type === "report") {
+            link =
+              "/" + solution + "/project/" + project + "/report/" + item.code;
+          } else if (item.type === "folder" && project) {
+            link = "/" + solution + "/project/" + project + "/" + item.code;
+          } else if (item.type === "solution") {
+            link = "/" + item.code;
+          } else if (item.type === "folder") {
+            link = "/" + solution + "/" + item.code;
+          } else if (item.type === "project") {
+            link = "/" + solution + "/project/" + item.code;
+          }
+          return (
+            <Col
+              key={item.code}
+              sm={{ span: 8 }}
+              md={{ span: 6 }}
+              lg={{ span: 4 }}
+              style={{ marginTop: 10, marginBottom: 10 }}
+            >
+              <Card className={classes.box}>
+                <Link
+                  to={link}
+                  className={classes.link}
+                  onClick={() => handleClick()}
+                >
+                  <CardContent>
+                    <Typography variant="h5" component="h2">
+                      {item.caption}
+                    </Typography>
+                    {item.icon && (
+                      <img
+                        alt="Card"
+                        style={{ maxWidth: "100%" }}
+                        src={"data:image/png;base64," + item.icon}
+                      />
+                    )}
+                    <Typography>{item.description}</Typography>
+                    {item.type === "project" && (
+                      <LibraryBooksIcon
+                        color="primary"
+                        className={classes.icon}
+                      />
+                    )}
 
-                      {item.type === "folder" && (
-                        <FolderIcon color="primary" className={classes.icon} />
-                      )}
+                    {item.type === "folder" && (
+                      <FolderIcon color="primary" className={classes.icon} />
+                    )}
 
-                      {item.type === "report" && (
-                        <BarChartIcon
-                          color="primary"
-                          className={classes.icon}
-                        />
-                      )}
+                    {item.type === "report" && (
+                      <BarChartIcon color="primary" className={classes.icon} />
+                    )}
 
-                      {item.type === "solution" && (
-                        <ClassIcon color="primary" className={classes.icon} />
-                      )}
-                    </CardContent>
-                  </Link>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
-    </SimpleBar>
+                    {item.type === "solution" && (
+                      <ClassIcon color="primary" className={classes.icon} />
+                    )}
+                  </CardContent>
+                </Link>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
   );
 };
