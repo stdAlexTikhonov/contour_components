@@ -15,6 +15,11 @@ export interface Props {
 export interface LinkStateToProps {
   session: string | undefined;
   language: string;
+  cube_session: string | undefined;
 }
 
-export type IProps = Props & LinkStateToProps;
+export interface LinkDispatchToProps {
+  settingCubeSession: (cube_session: string) => void;
+}
+
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;

@@ -36,6 +36,7 @@ export const ViewComponent: React.FC<IProps> = ({
     visibleFacts,
     report,
     multipleFacts,
+    filterDimensions,
   } = metadata;
 
   useEffect(() => {
@@ -133,7 +134,7 @@ export const ViewComponent: React.FC<IProps> = ({
           slice={slice}
           view={view}
           report={report}
-          filters={filters}
+          filters={filterDimensions || filters}
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}
