@@ -27,8 +27,8 @@ export const AppComponent: React.FC<IProps> = ({
     getInitialData();
   }, []);
 
-  const trigger = useScrollTrigger();
-  console.log(trigger);
+  const trigger = useScrollTrigger({ threshold: 100 });
+
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}
