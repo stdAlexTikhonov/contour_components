@@ -39,13 +39,13 @@ export const CardsComponent: React.FC<IProps> = ({
       p_folder,
       language,
     });
-  }, [session, solution, folder, project, p_folder, language]);
+  }, [session, solution, folder, project, p_folder, language, handleDataQuery]);
 
   return (
     <SimpleBar style={{ maxHeight: "100vh" }}>
       <Container
         className={classes.container}
-        fluid
+        fluid={true}
         style={{ padding: isSlimScreen || isMobile ? 0 : 100 }}
       >
         <Row className={classes.row}>
@@ -82,7 +82,11 @@ export const CardsComponent: React.FC<IProps> = ({
                         {item.caption}
                       </Typography>
                       {item.icon && (
-                        <img src={"data:image/png;base64," + item.icon} />
+                        <img
+                          alt="Card"
+                          style={{ maxWidth: "100%" }}
+                          src={"data:image/png;base64," + item.icon}
+                        />
                       )}
                       <Typography>{item.description}</Typography>
                       {item.type === "project" && (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Popover from "@material-ui/core/Popover";
@@ -85,7 +85,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     if (multiple) {
       const currentIndex = checked.indexOf(value);
       const newChecked = [...checked];
-
       if (currentIndex === -1) {
         newChecked.push(value);
       } else {
@@ -264,8 +263,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         }
 
         setItems(
-          data.Captions.map((item: any) => ({
+          data.Captions.map((item: any, i: number) => ({
             value: item.replace(/&nbsp;/g, " "),
+            disabled: data.Hidden[i] === "1",
           }))
         );
 
@@ -281,7 +281,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleSelectAll = (value: boolean) => {
     setSelectAll(value);
-    setChecked(value ? localItems.map((item) => item.value) : []);
+    const disabled = localItems.filter((item: any) => item.disabled);
+    const checked_disabled = disabled.filter((item) =>
+      checked.includes(item.value)
+    );
+
+    const not_disabled = localItems.filter((item: any) => !item.disabled);
+
+    setChecked(
+      value
+        ? [
+            ...not_disabled.map((item) => item.value),
+            ...checked_disabled.map((item) => item.value),
+          ]
+        : checked_disabled.map((item) => item.value)
+    );
   };
 
   const word = localSelected ? localSelected : label;

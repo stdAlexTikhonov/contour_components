@@ -46,25 +46,26 @@ export default class CustomList extends React.Component<IProps> {
         })}
         role={undefined}
         style={style}
-        dense
-        button
-        onClick={this.props.handleToggle(item.value)}
+        dense={true}
+        button={true}
+        onClick={() => null}
       >
         <ListItemIcon style={{ minWidth: "auto" }}>
           {this.props.multiple ? (
             <CustomCheckbox
               edge="start"
+              onClick={this.props.handleToggle(item.value)}
               checked={this.props.checked.indexOf(item.value) !== -1}
               tabIndex={-1}
-              disableRipple
-              color="primary"
               inputProps={{ "aria-labelledby": labelId }}
+              disabled={item.disabled}
             />
           ) : (
             <CustomRadio
               checked={this.props.localSelected === item.value}
               onChange={this.props.handleRadio(item.value)}
               value={item.value}
+              disabled={item.disabled}
               name="radio-button-demo"
               inputProps={{ "aria-label": item.value }}
             />
@@ -85,6 +86,7 @@ export default class CustomList extends React.Component<IProps> {
             : 244
         }
         rowHeight={this.props.rowHeight}
+        // tslint:disable-next-line: jsx-no-bind
         rowRenderer={this.rowRenderer.bind(this)}
         rowCount={this.props.items.length}
         style={{ outline: "none" }}

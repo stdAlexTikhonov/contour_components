@@ -11,4 +11,10 @@ export const CustomCheckbox = withStyles({
     },
   },
   checked: {},
+  disabled: {
+    color: "#757575",
+    "&$checked": {
+      color: "#757575",
+    },
+  },
 })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
