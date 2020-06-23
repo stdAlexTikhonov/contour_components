@@ -13,7 +13,6 @@ import Box from "@material-ui/core/Box";
 import Slide from "@material-ui/core/Slide";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import ThemeProvider from "../CustomDropdown/ThemeProvider";
 
 export const AppComponent: React.FC<IProps> = ({
   loading,
@@ -33,44 +32,42 @@ export const AppComponent: React.FC<IProps> = ({
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}
-      <ThemeProvider>
-        <Slide in={!trigger}>
-          <AppBar>
-            <ButtonAppBar
-              languages={languages}
-              logged_in={logged_in}
-              changeLanguage={changeLanguage}
-              currentLanguage={current}
-              handleLogout={handleLogout}
-            />
-          </AppBar>
-        </Slide>
-        <Toolbar />
-        <Box>
-          <Switch>
-            <Route path="/" exact component={Cards} />
-            <Route path={"/login"} component={Login} />
-            <Route path={"/register"} component={RegistrationForm} />
-            <Route path={"/:solution/"} exact component={Cards} />
-            <Route path={"/:solution/:folder"} exact component={Cards} />
-            <Route
-              path={"/:solution/project/:project"}
-              exact
-              component={Project}
-            />
-            <Route
-              path={"/:solution/project/:project/:p_folder"}
-              exact
-              component={Project}
-            />
-            <Route
-              path={"/:solution/project/:project/report/:report"}
-              exact
-              component={Report}
-            />
-          </Switch>
-        </Box>
-      </ThemeProvider>
+      <Slide in={!trigger}>
+        <AppBar>
+          <ButtonAppBar
+            languages={languages}
+            logged_in={logged_in}
+            changeLanguage={changeLanguage}
+            currentLanguage={current}
+            handleLogout={handleLogout}
+          />
+        </AppBar>
+      </Slide>
+      <Toolbar />
+      <Box>
+        <Switch>
+          <Route path="/" exact component={Cards} />
+          <Route path={"/login"} component={Login} />
+          <Route path={"/register"} component={RegistrationForm} />
+          <Route path={"/:solution/"} exact component={Cards} />
+          <Route path={"/:solution/:folder"} exact component={Cards} />
+          <Route
+            path={"/:solution/project/:project"}
+            exact
+            component={Project}
+          />
+          <Route
+            path={"/:solution/project/:project/:p_folder"}
+            exact
+            component={Project}
+          />
+          <Route
+            path={"/:solution/project/:project/report/:report"}
+            exact
+            component={Report}
+          />
+        </Switch>
+      </Box>
     </BrowserRouter>
   );
 };

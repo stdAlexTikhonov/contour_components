@@ -6,7 +6,6 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
-import SimpleBar from "simplebar-react";
 import { ITEMS } from "../../utils/constants";
 import { isMobile } from "../../utils/helpers";
 import BarChartIcon from "@material-ui/icons/BarChart";
