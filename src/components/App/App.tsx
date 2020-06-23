@@ -8,7 +8,11 @@ import { RegistrationForm } from "../Registration";
 import { LoaderComponent } from "../Loader/index";
 import { IProps } from "./types";
 import { Project } from "../Project";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Box from "@material-ui/core/Box";
+import Slide from "@material-ui/core/Slide";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 export const AppComponent: React.FC<IProps> = ({
   loading,
@@ -22,17 +26,24 @@ export const AppComponent: React.FC<IProps> = ({
   useEffect(() => {
     getInitialData();
   }, []);
+
+  const trigger = useScrollTrigger();
+  console.log(trigger);
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}
-
-      <ButtonAppBar
-        languages={languages}
-        logged_in={logged_in}
-        changeLanguage={changeLanguage}
-        currentLanguage={current}
-        handleLogout={handleLogout}
-      />
+      <Slide in={!trigger}>
+        <AppBar>
+          <ButtonAppBar
+            languages={languages}
+            logged_in={logged_in}
+            changeLanguage={changeLanguage}
+            currentLanguage={current}
+            handleLogout={handleLogout}
+          />
+        </AppBar>
+      </Slide>
+      <Toolbar />
       <Box>
         <Switch>
           <Route path="/" exact component={Cards} />
