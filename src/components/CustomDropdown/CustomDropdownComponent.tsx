@@ -39,6 +39,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   language,
   descending,
   filterChange,
+  settingCubeSession,
 }) => {
   const { solution, project, report } = useParams();
   const single = !multy;
@@ -158,6 +159,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       setSelectedFromServer(checked);
       console.log(data);
       cubeSession = data.cubeSession;
+      settingCubeSession(data.cubeSession);
       // console.log(filters_for_server);
     } else {
       //Fact
@@ -186,6 +188,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       console.log(data);
       cubeSession = data.cubeSession;
+      settingCubeSession(data.cubeSession);
       //console.log(facts_for_server);
     }
 

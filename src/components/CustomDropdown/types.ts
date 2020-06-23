@@ -17,4 +17,8 @@ export interface LinkStateToProps {
   language: string;
 }
 
-export type IProps = Props & LinkStateToProps;
+export interface LinkDispatchToProps {
+  settingCubeSession: (cube_session: string) => void;
+}
+
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
