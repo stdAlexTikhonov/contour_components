@@ -10,6 +10,7 @@ import { AppActions } from "../../types/actions";
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
+  cube_session: state.report.cube_session,
 });
 
 const mapDispatchToProps = (

@@ -39,6 +39,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   language,
   descending,
   filterChange,
+  cube_session,
   settingCubeSession,
 }) => {
   const { solution, project, report } = useParams();
@@ -129,6 +130,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       view,
       code,
       filter: user_filters,
+      cubeSession: cube_session,
     });
 
     setAnchorEl(null);
@@ -154,6 +156,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         view,
         code,
         filter: filters_for_server,
+        cubeSession: cube_session,
       });
 
       setSelectedFromServer(checked);
@@ -184,6 +187,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         slice,
         view,
         visibleFacts: facts_for_server,
+        cubeSession: cube_session,
       });
 
       console.log(data);
@@ -220,7 +224,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     (async () => {
-      if (localItems.length === 0 && _async) {
+      if (_async) {
         const data = await getData({
           method: GET_DIM_FILTER,
           session,
@@ -231,6 +235,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           slice,
           view,
           code,
+          cubeSession: cube_session,
         });
 
         const selected_from_server = data.Filters.split("")

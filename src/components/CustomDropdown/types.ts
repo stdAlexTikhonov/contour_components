@@ -15,6 +15,7 @@ export interface Props {
 export interface LinkStateToProps {
   session: string | undefined;
   language: string;
+  cube_session: string | undefined;
 }
 
 export interface LinkDispatchToProps {
