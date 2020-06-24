@@ -15,13 +15,15 @@ export const LanguageSelector: React.FC<IProps> = ({
   languages,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [opened, setOpened] = React.useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setOpened(true);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpened(false);
   };
 
   const isSlimScreen = useMediaQuery("(max-width: 600px");
@@ -44,7 +46,7 @@ export const LanguageSelector: React.FC<IProps> = ({
         id="customized-menu"
         anchorEl={anchorEl}
         keepMounted={true}
-        open={Boolean(anchorEl)}
+        open={opened}
         onClose={handleClose}
       >
         {items.map((item, i) => (

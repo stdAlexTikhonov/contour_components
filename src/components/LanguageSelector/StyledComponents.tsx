@@ -13,11 +13,11 @@ export const StyledMenu = withStyles({
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: "bottom",
-      horizontal: "center",
+      horizontal: "right",
     }}
     transformOrigin={{
       vertical: "top",
-      horizontal: "center",
+      horizontal: "right",
     }}
     {...props}
   />
