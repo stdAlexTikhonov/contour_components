@@ -291,4 +291,5 @@ export type AppActions =
   | getDimFilter
   | setView
   | setDataToTab
-  | setCubeSession;
+  | setCubeSession
+  | setCubeSessionId;
