@@ -40,9 +40,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   descending,
   filterChange,
   cube_session,
+  cubes,
   settingCubeSession,
 }) => {
   const { solution, project, report } = useParams();
+  const cube_report = report_code || report;
+  const cube_id = slice + cube_report; // cube identification
   const single = !multy;
   const classes = useStyles();
   const [isDate, setIsDate] = React.useState<boolean>(false);
@@ -109,13 +112,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleSort = () => {
     setSort(!sort);
 
-    sort
-      ? localItems.sort((a, b) => (a.value < b.value ? -1 : 1))
-      : localItems.sort((a, b) => (a.value < b.value ? 1 : -1));
+    localItems.reverse();
   };
 
   const handleRadio = (value: string) => () => {
     setSelected(value);
+    setChecked([value]);
   };
 
   const setFilterOnServer = (user_filters: string) => {
@@ -130,7 +132,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       view,
       code,
       filter: user_filters,
-      cubeSession: cube_session,
+      cubeSession: cubes[cube_id],
     });
 
     setAnchorEl(null);
@@ -156,13 +158,13 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         view,
         code,
         filter: filters_for_server,
-        cubeSession: cube_session,
+        cubeSession: cubes[cube_id],
       });
 
       setSelectedFromServer(checked);
       console.log(data);
       cubeSession = data.cubeSession;
-      settingCubeSession(data.cubeSession);
+      settingCubeSession(cube_id, data.cubeSession);
       // console.log(filters_for_server);
     } else {
       //Fact
@@ -187,12 +189,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         slice,
         view,
         visibleFacts: facts_for_server,
-        cubeSession: cube_session,
+        cubeSession: cubes[cube_id],
       });
 
       console.log(data);
       cubeSession = data.cubeSession;
-      settingCubeSession(data.cubeSession);
+      settingCubeSession(cube_id, data.cubeSession);
       //console.log(facts_for_server);
     }
 
@@ -235,7 +237,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           slice,
           view,
           code,
-          cubeSession: cube_session,
+          cubeSession: cubes[cube_id],
         });
 
         const selected_from_server = data.Filters.split("")
@@ -264,10 +266,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
           setMinDate(data_transfrom[0]);
           setMaxDate(data_transfrom[data_transfrom.length - 1]);
-        } else {
-          descending
-            ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
-            : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
         }
 
         setItems(

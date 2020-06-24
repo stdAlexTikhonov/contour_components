@@ -5,3 +5,4 @@ export * from "./items";
 export * from "./breadcrumbs";
 export * from "./view";
 export * from "./report";
+export * from "./cubes";
