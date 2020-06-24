@@ -43,6 +43,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   settingCubeSession,
 }) => {
   const { solution, project, report } = useParams();
+  const cube_report = report_code || report;
+  const cube_id = slice + cube_report; // cube identification
   const single = !multy;
   const classes = useStyles();
   const [isDate, setIsDate] = React.useState<boolean>(false);
@@ -129,7 +131,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       view,
       code,
       filter: user_filters,
-      cubeSession: cube_session,
     });
 
     setAnchorEl(null);
@@ -155,13 +156,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         view,
         code,
         filter: filters_for_server,
-        cubeSession: cube_session,
       });
 
       setSelectedFromServer(checked);
       console.log(data);
       cubeSession = data.cubeSession;
-      settingCubeSession(data.cubeSession);
+      settingCubeSession(cube_id, data.cubeSession);
       // console.log(filters_for_server);
     } else {
       //Fact
@@ -186,12 +186,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         slice,
         view,
         visibleFacts: facts_for_server,
-        cubeSession: cube_session,
       });
 
       console.log(data);
       cubeSession = data.cubeSession;
-      settingCubeSession(data.cubeSession);
+      settingCubeSession(cube_id, data.cubeSession);
       //console.log(facts_for_server);
     }
 
@@ -234,7 +233,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           slice,
           view,
           code,
-          cubeSession: cube_session,
         });
 
         const selected_from_server = data.Filters.split("")
