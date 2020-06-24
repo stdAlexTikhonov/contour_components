@@ -7,6 +7,7 @@ import { StyledMenu, StyledMenuItem } from "./StyledComponents";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
 import LanguageIcon from "@material-ui/icons/Language";
+import { useStyles } from "./styles";
 
 export const LanguageSelector: React.FC<IProps> = ({
   items,
@@ -16,6 +17,7 @@ export const LanguageSelector: React.FC<IProps> = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
+  const classes = useStyles();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setOpened(true);
@@ -51,6 +53,7 @@ export const LanguageSelector: React.FC<IProps> = ({
       >
         {items.map((item, i) => (
           <StyledMenuItem
+            className={languages[item] === language ? classes.selected : ""}
             key={i}
             onClick={() => {
               changeLanguage(item);

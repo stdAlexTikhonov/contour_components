@@ -24,12 +24,10 @@ export const StyledMenu = withStyles({
 ));
 
 export const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
+  selected: {
+    backgroundColor: theme.palette.primary.main,
+    "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+      color: theme.palette.common.white,
     },
   },
 }))(MenuItem);
