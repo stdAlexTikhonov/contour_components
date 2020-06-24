@@ -1,3 +1,5 @@
+import { SpawnSyncOptionsWithStringEncoding } from "child_process";
+
 //User actions
 export const SET_AUTHED_USER = "SET_AUTHED_USER";
 export const SET_LOGGED_IN = "SET_LOGGED_IN";
@@ -135,6 +137,15 @@ export const SET_VIEW = "SET_VIEW";
 export interface setView {
   type: typeof SET_VIEW;
   view: string;
+}
+
+//cubes
+export const SET_CUBE_SESSION_ID = "SET_CUBE_SESSION_ID";
+
+export interface setCubeSessionId {
+  type: typeof SET_CUBE_SESSION_ID;
+  cube_id: string;
+  cube_session: string;
 }
 
 //report
