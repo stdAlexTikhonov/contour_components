@@ -109,13 +109,12 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleSort = () => {
     setSort(!sort);
 
-    sort
-      ? localItems.sort((a, b) => (a.value < b.value ? -1 : 1))
-      : localItems.sort((a, b) => (a.value < b.value ? 1 : -1));
+    localItems.reverse();
   };
 
   const handleRadio = (value: string) => () => {
     setSelected(value);
+    setChecked([value]);
   };
 
   const setFilterOnServer = (user_filters: string) => {
@@ -264,10 +263,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
           setMinDate(data_transfrom[0]);
           setMaxDate(data_transfrom[data_transfrom.length - 1]);
-        } else {
-          descending
-            ? data.Captions.sort((a: any, b: any) => (a < b ? 1 : -1))
-            : data.Captions.sort((a: any, b: any) => (a < b ? -1 : 1));
         }
 
         setItems(
