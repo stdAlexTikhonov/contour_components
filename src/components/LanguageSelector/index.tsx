@@ -52,7 +52,6 @@ export const LanguageSelector: React.FC<IProps> = ({
             key={i}
             onClick={() => {
               changeLanguage(item);
-              setAnchorEl(null);
             }}
           >
             <ListItemText primary={languages[item]} />
