@@ -7,7 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
-import { REPORT } from "../../utils/constants";
+import { REPORT, ITEMS } from "../../utils/constants";
 import { Dashboard } from "../Dashboard";
 import { sleep } from "../../utils/helpers";
 
@@ -55,7 +55,7 @@ export const TabsComponent: React.FC<IProps> = ({
   language,
 }) => {
   useEffect(() => {
-    handleChange(0); //при открытии отчёта выбираем первую вкладку
+    // handleChange(0); //при открытии отчёта выбираем первую вкладку
   }, []);
 
   const classes = useStyles();
@@ -86,7 +86,7 @@ export const TabsComponent: React.FC<IProps> = ({
         case "report":
           handleDataQuery(
             {
-              method: REPORT,
+              method: ITEMS,
               session,
               language,
               solution,
@@ -127,7 +127,7 @@ export const TabsComponent: React.FC<IProps> = ({
       {tabs?.map((item: any, i) => {
         return (
           <TabPanel value={value} index={i} key={i}>
-            {item.data && (
+            {item.data && item.data.dashboard && (
               <Dashboard
                 dashboard={item.data.dashboard}
                 metadata={item.data.metadata}

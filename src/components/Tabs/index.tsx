@@ -38,6 +38,10 @@ const mapDispatchToProps = (
         );
     }
 
+    if (reportData.items) {
+      dispatch(setDataToTab({ tabs: reportData.items }, index));
+    }
+
     if (reportData.dashboard) {
       data_for_query.method = DASH_VIEW_META;
       const dash_meta = await getData(data_for_query);

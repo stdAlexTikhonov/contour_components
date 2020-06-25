@@ -32,7 +32,6 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
     dispatch(setLoading());
     const reportData = await getData(data_for_query);
-
     //if success and response have type property then we can save type
     if (reportData.success) {
       if (reportData.metadata) {
