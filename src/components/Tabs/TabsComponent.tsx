@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -53,11 +53,15 @@ export const TabsComponent: React.FC<IProps> = ({
   session,
   language,
 }) => {
+  useEffect(() => {
+    handleChange(0);
+  }, []);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { solution, project, report } = useParams();
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (newValue: number) => {
     setValue(newValue);
     if (tabs) {
       const data: any = tabs[newValue];
@@ -104,7 +108,7 @@ export const TabsComponent: React.FC<IProps> = ({
       <AppBar position="static" color="default">
         <Tabs
           value={value}
-          onChange={handleChange}
+          onChange={() => handleChange(value)}
           indicatorColor="primary"
           textColor="primary"
           variant="scrollable"
