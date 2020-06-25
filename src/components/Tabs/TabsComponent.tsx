@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { REPORT, ITEMS } from "../../utils/constants";
 import { Dashboard } from "../Dashboard";
 import { sleep } from "../../utils/helpers";
+import { Tabs as MyTabs } from ".";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,7 +55,7 @@ export const TabsComponent: React.FC<IProps> = ({
   language,
 }) => {
   useEffect(() => {
-    // handleChange(0); //при открытии отчёта выбираем первую вкладку
+    handleChange(0); //при открытии отчёта выбираем первую вкладку
   }, []);
 
   const classes = useStyles();
@@ -95,7 +95,6 @@ export const TabsComponent: React.FC<IProps> = ({
             },
             newValue
           );
-          alert("this is report");
           break;
         case "view":
           alert("This is view");
@@ -131,6 +130,13 @@ export const TabsComponent: React.FC<IProps> = ({
               <Dashboard
                 dashboard={item.data.dashboard}
                 metadata={item.data.metadata}
+              />
+            )}
+            {item.data && item.data.tabs && (
+              <MyTabs
+                tabs={item.data.tabs}
+                session={session}
+                language={language}
               />
             )}
           </TabPanel>

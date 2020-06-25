@@ -70,4 +70,4 @@ const mapDispatchToProps = (
   },
 });
 
-export const Tabs = connect(mapStateToProps, mapDispatchToProps)(TabsComponent);
+export const Tabs = connect(null, mapDispatchToProps)(TabsComponent);
