@@ -372,6 +372,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 const filtered = localItems.filter(
                   (item) => !inputValue || item.value.includes(inputValue)
                 );
+                console.log(filtered);
                 return (
                   <div
                     style={{
@@ -379,7 +380,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                       position: "relative",
                       minHeight: isOpen
                         ? filtered.length < 6
-                          ? 40 * filtered.length + 85
+                          ? 40 * Math.max(filtered.length, 2) + 85
                           : 365
                         : "auto",
                     }}
