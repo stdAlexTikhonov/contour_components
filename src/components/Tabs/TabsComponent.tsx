@@ -63,7 +63,7 @@ export const TabsComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
 
   const handleChange = async (newValue: number) => {
-    await sleep(100); //иногда данные не успевают подгрузиться
+    await sleep(300); //иногда данные не успевают подгрузиться
     setValue(newValue);
     if (tabs) {
       const data: any = tabs[newValue];
@@ -77,7 +77,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report,
+              report: "Main",
               slice: data.code,
             },
             newValue
@@ -126,17 +126,17 @@ export const TabsComponent: React.FC<IProps> = ({
       {tabs?.map((item: any, i) => {
         return (
           <TabPanel value={value} index={i} key={i}>
-            {item.data && item.data.dashboard && (
-              <Dashboard
-                dashboard={item.data.dashboard}
-                metadata={item.data.metadata}
-              />
-            )}
             {item.data && item.data.tabs && (
               <MyTabs
                 tabs={item.data.tabs}
                 session={session}
                 language={language}
+              />
+            )}
+            {item.data && item.data.dashboard && (
+              <Dashboard
+                dashboard={item.data.dashboard}
+                metadata={item.data.metadata}
               />
             )}
           </TabPanel>

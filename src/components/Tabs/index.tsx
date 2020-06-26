@@ -10,6 +10,7 @@ import { setLoading, resetLoading } from "../../actions/loading";
 import { setDataToTab } from "../../actions/report";
 import { formatGeometry } from "../../utils/helpers";
 import { DASH_VIEW_META } from "../../utils/constants";
+import { REPORT } from "../../utils/constants";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   tabs: state.report?.tabs,
@@ -21,8 +22,11 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery, index: number) => {
+    console.log(data_for_query);
     dispatch(setLoading());
     const reportData = await getData(data_for_query);
+
+    console.log(reportData);
 
     if (reportData.success) {
       reportData.type &&
@@ -39,6 +43,9 @@ const mapDispatchToProps = (
     }
 
     if (reportData.items) {
+      reportData.items.forEach(
+        (item: any) => (item.report = data_for_query.report)
+      );
       dispatch(setDataToTab({ tabs: reportData.items }, index));
     }
 
