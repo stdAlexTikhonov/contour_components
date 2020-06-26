@@ -272,7 +272,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           data.Captions.map((item: any, i: number) => ({
             value: item.replace(/&nbsp;/g, " "),
             disabled: data.Hidden[i] === "1",
-          }))
+          })).filter((item: any) => !item.disabled)
         );
 
         setLoading(false);
@@ -373,16 +373,17 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   (item) => !inputValue || item.value.includes(inputValue)
                 );
 
+                const height =
+                  filtered.length < 6
+                    ? 40 * filtered.length + 85 + +Boolean(multiple) * 40
+                    : 325 + +Boolean(multiple) * 40;
+
                 return (
                   <div
                     style={{
                       padding: 5,
                       position: "relative",
-                      minHeight: isOpen
-                        ? filtered.length < 6
-                          ? 40 * filtered.length + 125
-                          : 365
-                        : "auto",
+                      minHeight: isOpen ? height : "auto",
                     }}
                   >
                     {loading ? (
