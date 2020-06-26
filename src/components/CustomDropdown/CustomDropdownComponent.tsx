@@ -323,6 +323,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           {open ? word : sliceWord(word)}
         </div>
       </Button>
+
       <Popover
         id={id}
         open={open}
@@ -371,8 +372,19 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 const filtered = localItems.filter(
                   (item) => !inputValue || item.value.includes(inputValue)
                 );
+                console.log(filtered);
                 return (
-                  <div style={{ padding: 5, position: "relative" }}>
+                  <div
+                    style={{
+                      padding: 5,
+                      position: "relative",
+                      minHeight: isOpen
+                        ? filtered.length < 6
+                          ? 40 * Math.max(filtered.length, 2) + 85
+                          : 365
+                        : "auto",
+                    }}
+                  >
                     {loading ? (
                       <CircularProgress />
                     ) : (
@@ -421,7 +433,10 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                             >
                               {multiple && (
                                 <Button
-                                  style={{ outline: "none", minWidth: "unset" }}
+                                  style={{
+                                    outline: "none",
+                                    minWidth: "unset",
+                                  }}
                                   onClick={handleInversion}
                                 >
                                   <AutorenewIcon />
