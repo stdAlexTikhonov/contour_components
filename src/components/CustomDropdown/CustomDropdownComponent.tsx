@@ -65,7 +65,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     []
   );
   const [localItems, setItems] = React.useState<any[]>(items);
-
+  const [visibleItems, setVisibleItems] = React.useState<any[]>(items);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
@@ -268,12 +268,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           setMaxDate(data_transfrom[data_transfrom.length - 1]);
         }
 
-        setItems(
-          data.Captions.map((item: any, i: number) => ({
-            value: item.replace(/&nbsp;/g, " "),
-            disabled: data.Hidden[i] === "1",
-          })).filter((item: any) => !item.disabled)
-        );
+        const items = data.Captions.map((item: any, i: number) => ({
+          value: item.replace(/&nbsp;/g, " "),
+          disabled: data.Hidden[i] === "1",
+          index: i,
+        }));
+
+        setItems(items);
+
+        setVisibleItems(items.filter((item: any) => !item.disabled));
 
         setLoading(false);
       } else {
@@ -369,7 +372,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 inputValue,
                 getRootProps,
               }) => {
-                const filtered = localItems.filter(
+                const filtered = visibleItems.filter(
                   (item) => !inputValue || item.value.includes(inputValue)
                 );
 
