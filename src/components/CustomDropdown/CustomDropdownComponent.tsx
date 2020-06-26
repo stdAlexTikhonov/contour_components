@@ -380,7 +380,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                       position: "relative",
                       minHeight: isOpen
                         ? filtered.length < 6
-                          ? 40 * Math.max(filtered.length, 2) + 85
+                          ? 40 * filtered.length + 125
                           : 365
                         : "auto",
                     }}
