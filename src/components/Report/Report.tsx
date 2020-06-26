@@ -46,7 +46,9 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return report ? (
     <>
-      {tabs && report_type !== "dashboard" && <Tabs />}
+      {tabs && report_type !== "dashboard" && (
+        <Tabs tabs={tabs} session={session} language={language} />
+      )}
       {report_type === "dashboard" && (
         <Dashboard dashboard={dashboard} metadata={metadata} />
       )}

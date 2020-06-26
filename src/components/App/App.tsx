@@ -28,7 +28,7 @@ export const AppComponent: React.FC<IProps> = ({
   }, []);
 
   const trigger = useScrollTrigger();
-  console.log(trigger);
+
   return (
     <BrowserRouter>
       {loading && <LoaderComponent />}

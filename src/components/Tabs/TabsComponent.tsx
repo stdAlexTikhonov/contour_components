@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
-import { REPORT } from "../../utils/constants";
+import { REPORT, ITEMS } from "../../utils/constants";
 import { Dashboard } from "../Dashboard";
+import { sleep } from "../../utils/helpers";
+import { Tabs as MyTabs } from ".";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,14 +55,15 @@ export const TabsComponent: React.FC<IProps> = ({
   language,
 }) => {
   useEffect(() => {
-    handleChange(0);
+    handleChange(0); //при открытии отчёта выбираем первую вкладку
   }, []);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { solution, project, report } = useParams();
 
-  const handleChange = (newValue: number) => {
+  const handleChange = async (newValue: number) => {
+    await sleep(300); //иногда данные не успевают подгрузиться
     setValue(newValue);
     if (tabs) {
       const data: any = tabs[newValue];
@@ -75,7 +77,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report,
+              report: "Main",
               slice: data.code,
             },
             newValue
@@ -84,7 +86,7 @@ export const TabsComponent: React.FC<IProps> = ({
         case "report":
           handleDataQuery(
             {
-              method: REPORT,
+              method: ITEMS,
               session,
               language,
               solution,
@@ -93,7 +95,6 @@ export const TabsComponent: React.FC<IProps> = ({
             },
             newValue
           );
-          alert("this is report");
           break;
         case "view":
           alert("This is view");
@@ -105,34 +106,42 @@ export const TabsComponent: React.FC<IProps> = ({
   };
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={() => handleChange(value)}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-        >
-          {tabs?.map((item: any, i) => (
-            <Tab key={i} label={item.caption} {...a11yProps(i)} />
-          ))}
-        </Tabs>
-      </AppBar>
-
-      {tabs?.map((item: any, i) => (
-        <TabPanel value={value} index={i} key={i}>
-          {item.data ? (
-            <Dashboard
-              dashboard={item.data.dashboard}
-              metadata={item.data.metadata}
-            />
-          ) : (
-            item.caption
-          )}
-        </TabPanel>
-      ))}
+      {tabs && tabs.length > 1 && (
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={(event, newValue) => handleChange(newValue)}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
+            {tabs?.map((item: any, i) => (
+              <Tab key={i} label={item.caption} {...a11yProps(i)} />
+            ))}
+          </Tabs>
+        </AppBar>
+      )}
+      {tabs?.map((item: any, i) => {
+        return (
+          <TabPanel value={value} index={i} key={i}>
+            {item.data && item.data.tabs && (
+              <MyTabs
+                tabs={item.data.tabs}
+                session={session}
+                language={language}
+              />
+            )}
+            {item.data && item.data.dashboard && (
+              <Dashboard
+                dashboard={item.data.dashboard}
+                metadata={item.data.metadata}
+              />
+            )}
+          </TabPanel>
+        );
+      })}
     </div>
   );
 };

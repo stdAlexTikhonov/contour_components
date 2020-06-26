@@ -1,9 +1,13 @@
 import { DataForQuery } from "../../utils/types";
 import { Tab } from "../../types/actions";
 
-export interface Props {}
+export interface Props {
+  tabs: Tab[] | null;
+  session: string | undefined;
+  language: string;
+}
 
-export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
+export type IProps = Props & LinkDispatchToProps;
 
 export interface LinkStateToProps {
   tabs: Tab[] | null;
