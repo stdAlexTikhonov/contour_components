@@ -71,6 +71,14 @@ export default class CustomList extends React.Component<IProps> {
             />
           )}
         </ListItemIcon>
+        {item.image && (
+          <img
+            width={20}
+            style={{ marginRight: 10 }}
+            alt={"Flag"}
+            src={"https://stat.world/biportal/" + item.image}
+          />
+        )}
         <ListItemText id={labelId} primary={item.value} />
       </ListItem>
     );
