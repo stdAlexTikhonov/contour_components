@@ -112,7 +112,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleSort = () => {
     setSort(!sort);
 
-    localItems.reverse();
+    visibleItems.reverse();
   };
 
   const handleRadio = (value: string) => () => {
