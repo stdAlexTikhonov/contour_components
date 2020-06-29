@@ -19,8 +19,6 @@ import {
   SET_DIM_FILTER,
   SET_FACTS,
 } from "../../utils/constants";
-import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
 import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
 import ThemeProvider from "./ThemeProvider";
@@ -393,7 +391,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 inputValue,
                 getRootProps,
               }) => {
-                const filtered = visibleItems.filter(
+                const whichItems = visible ? visibleItems : localItems;
+
+                const filtered = whichItems.filter(
                   (item) => !inputValue || item.value.includes(inputValue)
                 );
 
