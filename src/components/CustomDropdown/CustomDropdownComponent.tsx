@@ -54,6 +54,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [minDate, setMinDate] = React.useState(null);
   const [filters, setFilters] = React.useState(null);
   const [maxDate, setMaxDate] = React.useState(null);
+  const [images, setImages] = React.useState([]);
   const [selectAll, setSelectAll] = React.useState(
     selected.length === items.length
   );
@@ -239,6 +240,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           code,
           cubeSession: cubes[cube_id],
         });
+
+        data.images && setImages(data.images);
 
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
@@ -432,6 +435,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                                 handleRadio={handleRadio}
                                 checked={checked}
                                 localSelected={localSelected}
+                                images={images && images}
                               />
                             )}
                             <Divider />

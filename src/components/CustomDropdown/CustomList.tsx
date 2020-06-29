@@ -25,6 +25,7 @@ export type IProps = {
   handleRadio: any;
   checked: string[];
   localSelected: string;
+  images: string[];
 };
 
 export default class CustomList extends React.Component<IProps> {
@@ -71,6 +72,14 @@ export default class CustomList extends React.Component<IProps> {
             />
           )}
         </ListItemIcon>
+        {this.props.images[index] && (
+          <img
+            width={20}
+            style={{ marginRight: 10 }}
+            alt={"Flag"}
+            src={"https://stat.world/biportal/" + this.props.images[index]}
+          />
+        )}
         <ListItemText id={labelId} primary={item.value} />
       </ListItem>
     );
