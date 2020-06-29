@@ -250,7 +250,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         data.MultipleValues === false && setSelected(selected_from_server[0]);
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
-        setSelectAll(selected_from_server.length === data.Captions.length);
 
         const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
         const check_date = regex.test(data.Captions[0]);
@@ -276,7 +275,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
         setItems(items);
 
-        setVisibleItems(items.filter((item: any) => !item.disabled));
+        const visible = items.filter((item: any) => !item.disabled);
+        setVisibleItems(visible);
+
+        const notAll = visible.some(
+          (item: any) => !selected_from_server.includes(item.value)
+        );
+
+        setSelectAll(!notAll);
 
         setLoading(false);
       } else {
