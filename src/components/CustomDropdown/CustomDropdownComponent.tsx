@@ -240,6 +240,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           cubeSession: cubes[cube_id],
         });
 
+        console.log(data);
+
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
             item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
@@ -251,8 +253,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
 
-        const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-        const check_date = regex.test(data.Captions[0]);
+        //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+        //const check_data = regex.test(data.Captions[0]);
+        const check_date = data.type === "Date";
         setIsDate(check_date);
 
         if (check_date) {
