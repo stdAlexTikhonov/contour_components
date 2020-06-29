@@ -4,7 +4,7 @@ import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import FastForwardIcon from "@material-ui/icons/FastForward";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 
 type IProps = {
   multiple: boolean;
@@ -43,7 +43,7 @@ export const ControlButtons: React.FC<IProps> = ({
         }}
         onClick={handleExpand}
       >
-        <FastForwardIcon />
+        <BookmarkBorderIcon />
       </Button>
       <Button
         style={{
