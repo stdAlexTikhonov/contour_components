@@ -66,6 +66,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [localItems, setItems] = React.useState<any[]>(items);
   const [visibleItems, setVisibleItems] = React.useState<any[]>(items);
   const [visible, setVisible] = React.useState<boolean>(false);
+  const [expanded, setExpanded] = React.useState<boolean>(false);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
@@ -112,7 +113,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleSort = () => {
     setSort(!sort);
 
-    visibleItems.reverse();
+    visible ? visibleItems.reverse() : localItems.reverse();
   };
 
   const handleRadio = (value: string) => () => {
@@ -225,8 +226,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleExpand = () => {
-    handleCancel();
-    alert("expand");
+    setExpanded(!expanded);
   };
 
   const showHidden = () => {
@@ -451,6 +451,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                             )}
                             <Divider />
                             <ControlButtons
+                              expanded={expanded}
                               visible={visible}
                               multiple={multiple}
                               sort={sort}

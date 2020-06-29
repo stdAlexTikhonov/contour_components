@@ -5,11 +5,13 @@ import AutorenewIcon from "@material-ui/icons/Autorenew";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 
 type IProps = {
   multiple: boolean;
   sort: boolean;
   visible: boolean;
+  expanded: boolean;
   handleInversion: () => void;
   handleOk: () => void;
   handleCancel: () => void;
@@ -20,6 +22,7 @@ type IProps = {
 
 export const ControlButtons: React.FC<IProps> = ({
   visible,
+  expanded,
   multiple,
   handleInversion,
   handleOk,
@@ -43,7 +46,7 @@ export const ControlButtons: React.FC<IProps> = ({
         }}
         onClick={handleExpand}
       >
-        <BookmarkBorderIcon />
+        {expanded ? <BookmarkIcon /> : <BookmarkBorderIcon />}
       </Button>
       <Button
         style={{
