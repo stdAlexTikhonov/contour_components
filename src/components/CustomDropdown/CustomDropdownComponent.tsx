@@ -24,6 +24,7 @@ import AutorenewIcon from "@material-ui/icons/Autorenew";
 import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
 import ThemeProvider from "./ThemeProvider";
+import { ControlButtons } from "./ControlButtons";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -66,6 +67,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   );
   const [localItems, setItems] = React.useState<any[]>(items);
   const [visibleItems, setVisibleItems] = React.useState<any[]>(items);
+  const [visible, setVisible] = React.useState<boolean>(false);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
@@ -222,6 +224,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
     setDropDown(false);
     setAnchorEl(null);
+  };
+
+  const handleExpand = () => {
+    handleCancel();
+    alert("expand");
+  };
+
+  const showHidden = () => {
+    setVisible(!visible);
   };
 
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -439,48 +450,17 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                               />
                             )}
                             <Divider />
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                              }}
-                            >
-                              {multiple && (
-                                <Button
-                                  style={{
-                                    outline: "none",
-                                    minWidth: "unset",
-                                  }}
-                                  onClick={handleInversion}
-                                >
-                                  <AutorenewIcon />
-                                </Button>
-                              )}
-                              <Button
-                                style={{ outline: "none", minWidth: "unset" }}
-                                onClick={handleSort}
-                              >
-                                <ArrowRightAltIcon
-                                  style={{
-                                    transform: sort
-                                      ? "rotate(-90deg)"
-                                      : "rotate(90deg)",
-                                  }}
-                                />
-                              </Button>
-                              <Button
-                                style={{ outline: "none" }}
-                                onClick={handleOk}
-                              >
-                                Ok
-                              </Button>
-                              <Button
-                                style={{ outline: "none" }}
-                                onClick={handleCancel}
-                              >
-                                Cancel
-                              </Button>
-                            </div>
+                            <ControlButtons
+                              visible={visible}
+                              multiple={multiple}
+                              sort={sort}
+                              handleSort={handleSort}
+                              handleCancel={handleCancel}
+                              handleExpand={handleExpand}
+                              handleOk={handleOk}
+                              handleInversion={handleInversion}
+                              showHidden={showHidden}
+                            />
                           </div>
                         </Collapse>
                       </>
