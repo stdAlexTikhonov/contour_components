@@ -77,7 +77,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report: "Main",
+              report,
               slice: data.code,
             },
             newValue

@@ -65,7 +65,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     []
   );
   const [localItems, setItems] = React.useState<any[]>(items);
-
+  const [visibleItems, setVisibleItems] = React.useState<any[]>(items);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
@@ -250,7 +250,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         data.MultipleValues === false && setSelected(selected_from_server[0]);
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
-        setSelectAll(selected_from_server.length === data.Captions.length);
 
         const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
         const check_date = regex.test(data.Captions[0]);
@@ -268,12 +267,22 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           setMaxDate(data_transfrom[data_transfrom.length - 1]);
         }
 
-        setItems(
-          data.Captions.map((item: any, i: number) => ({
-            value: item.replace(/&nbsp;/g, " "),
-            disabled: data.Hidden[i] === "1",
-          }))
+        const items = data.Captions.map((item: any, i: number) => ({
+          value: item.replace(/&nbsp;/g, " "),
+          disabled: data.Hidden[i] === "1",
+          index: i,
+        }));
+
+        setItems(items);
+
+        const visible = items.filter((item: any) => !item.disabled);
+        setVisibleItems(visible);
+
+        const notAll = visible.some(
+          (item: any) => !selected_from_server.includes(item.value)
         );
+
+        setSelectAll(!notAll);
 
         setLoading(false);
       } else {
@@ -369,20 +378,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 inputValue,
                 getRootProps,
               }) => {
-                const filtered = localItems.filter(
+                const filtered = visibleItems.filter(
                   (item) => !inputValue || item.value.includes(inputValue)
                 );
+
+                const height =
+                  filtered.length < 6
+                    ? 40 * filtered.length + 85 + +Boolean(multiple) * 40
+                    : 325 + +Boolean(multiple) * 40;
 
                 return (
                   <div
                     style={{
                       padding: 5,
                       position: "relative",
-                      minHeight: isOpen
-                        ? filtered.length < 6
-                          ? 40 * filtered.length + 125
-                          : 365
-                        : "auto",
+                      minHeight: isOpen ? height : "auto",
                     }}
                   >
                     {loading ? (
