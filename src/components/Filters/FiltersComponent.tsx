@@ -28,7 +28,12 @@ export const FiltersComponent: React.FC<IProps> = ({
   chart,
   filterChange,
   meta_index,
+  filter_index,
+  filter_expanded,
 }) => {
+  const ind = filter_index(meta_index);
+  const expanded = filter_expanded(meta_index);
+  console.log(expanded);
   const classes = useStyles();
   const [error, setError] = useState(false);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
@@ -55,22 +60,33 @@ export const FiltersComponent: React.FC<IProps> = ({
       />
 
       {filters.map((item: any, index: number) => (
-        <CustomDropdown
-          key={item.code}
-          items={[]}
-          label={item.Caption}
-          multy={true}
-          selected={[]}
-          _async={true}
-          slice={slice}
-          view={view}
-          code={item.code}
-          report={report}
-          descending={item.Descending}
-          filterChange={filterChange}
-          meta_index={meta_index}
-          filter_index={index + 1}
-        />
+        <>
+          <CustomDropdown
+            key={item.code}
+            items={[]}
+            label={item.Caption}
+            multy={true}
+            selected={[]}
+            _async={true}
+            slice={slice}
+            view={view}
+            code={item.code}
+            report={report}
+            descending={item.Descending}
+            filterChange={filterChange}
+            meta_index={meta_index}
+            filter_index={index + 1}
+          />
+          {expanded !== null && ind === index + 1 && (
+            <div
+              style={{
+                width: "100%",
+                height: 35,
+                background: "lightgreen",
+              }}
+            ></div>
+          )}
+        </>
       ))}
     </>
   );
