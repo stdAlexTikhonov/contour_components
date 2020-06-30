@@ -5,6 +5,7 @@ import {
   SET_TABS,
   SET_DASHBOARD,
   SET_DASHBOARD_METADATA,
+  SET_EXPANDED_FILTER,
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
@@ -70,6 +71,15 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         tabs: state.tabs,
+      };
+    }
+    case SET_EXPANDED_FILTER: {
+      const view = state.metadata && state.metadata[action.index];
+      view!.expandedFilter = action.expanded_filter;
+      state.metadata!.splice(action.index, 1, view!);
+      return {
+        ...state,
+        metadata: state.metadata,
       };
     }
     case SET_CUBE_SESSION:
