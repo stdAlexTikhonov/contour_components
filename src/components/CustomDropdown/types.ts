@@ -11,6 +11,7 @@ export interface Props {
   descending?: boolean;
   filterChange: any;
   meta_index: number;
+  filter_index: number;
 }
 
 export interface LinkStateToProps {
@@ -22,7 +23,11 @@ export interface LinkStateToProps {
 
 export interface LinkDispatchToProps {
   settingCubeSession: (cube_id: string, cube_session: string) => void;
-  settingExpandedFilter: (expanded_filter: any, index: number) => void;
+  settingExpandedFilter: (
+    expanded_filter: any,
+    index: number,
+    filter_index: number
+  ) => void;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;

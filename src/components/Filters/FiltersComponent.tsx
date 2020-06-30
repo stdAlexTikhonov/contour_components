@@ -51,9 +51,10 @@ export const FiltersComponent: React.FC<IProps> = ({
         _async={false}
         filterChange={filterChange}
         meta_index={meta_index}
+        filter_index={0}
       />
 
-      {filters.map((item: any) => (
+      {filters.map((item: any, index: number) => (
         <CustomDropdown
           key={item.code}
           items={[]}
@@ -68,6 +69,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           descending={item.Descending}
           filterChange={filterChange}
           meta_index={meta_index}
+          filter_index={index + 1}
         />
       ))}
     </>

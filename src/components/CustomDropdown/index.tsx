@@ -20,8 +20,12 @@ const mapDispatchToProps = (
   settingCubeSession: (cube_id: string, cube_session: string) => {
     dispatch(setCubeSessionId(cube_id, cube_session));
   },
-  settingExpandedFilter: (expanded_filter: any, index: number) => {
-    dispatch(setExpandedFilter(expanded_filter, index));
+  settingExpandedFilter: (
+    expanded_filter: any,
+    index: number,
+    filter_index: number
+  ) => {
+    dispatch(setExpandedFilter(expanded_filter, index, filter_index));
   },
 });
 

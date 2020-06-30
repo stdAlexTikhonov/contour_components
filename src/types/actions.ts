@@ -218,6 +218,7 @@ export type Metadata = {
   multipleFacts: boolean;
   filterDimensions: any;
   expandedFilter: any;
+  filterIndex: number;
 };
 
 export interface setDashboardMetadata {
@@ -231,6 +232,7 @@ export interface setExpandedFilter {
   type: typeof SET_EXPANDED_FILTER;
   expanded_filter: Array<any>;
   index: number;
+  filter_index: number;
 }
 
 export const GET_DIMENSION_FILTER = "GET_DIMETION_FILTER";

@@ -76,6 +76,7 @@ export const report = (state = reportDefaultState, action: reportActions) => {
     case SET_EXPANDED_FILTER: {
       const view = state.metadata && state.metadata[action.index];
       view!.expandedFilter = action.expanded_filter;
+      view!.filterIndex = action.filter_index;
       state.metadata!.splice(action.index, 1, view!);
       return {
         ...state,

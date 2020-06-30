@@ -50,11 +50,13 @@ export const setDashboardMetadata = (
 
 export const setExpandedFilter = (
   expanded_filter: any,
-  index: number
+  index: number,
+  filter_index: number
 ): AppActions => ({
   type: SET_EXPANDED_FILTER,
   expanded_filter,
   index,
+  filter_index,
 });
 
 export const getDimFilter = (
