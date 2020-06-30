@@ -228,9 +228,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleExpand = () => {
-    expanded &&
-      Number.isInteger(meta_index) &&
-      settingExpandedFilter(localItems, meta_index!);
+    Number.isInteger(meta_index) &&
+      settingExpandedFilter(expanded ? null : localItems, meta_index!);
     setExpanded(!expanded);
   };
 
