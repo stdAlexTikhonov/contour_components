@@ -40,7 +40,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   filterChange,
   cube_session,
   cubes,
+  meta_index,
   settingCubeSession,
+  settingExpandedFilter,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -226,6 +228,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleExpand = () => {
+    expanded &&
+      Number.isInteger(meta_index) &&
+      settingExpandedFilter(localItems, meta_index!);
     setExpanded(!expanded);
   };
 

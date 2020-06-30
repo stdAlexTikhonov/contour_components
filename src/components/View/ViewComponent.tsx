@@ -18,6 +18,7 @@ export const ViewComponent: React.FC<IProps> = ({
   metadata,
   session,
   language,
+  index,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -139,6 +140,7 @@ export const ViewComponent: React.FC<IProps> = ({
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}
           filterChange={handleFilterChange}
+          meta_index={index}
         />
       </Grid>
     </Grid>

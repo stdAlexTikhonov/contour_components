@@ -27,6 +27,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   report,
   chart,
   filterChange,
+  meta_index,
 }) => {
   const classes = useStyles();
   const [error, setError] = useState(false);
@@ -49,6 +50,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           .map((fact: any) => fact.Caption)}
         _async={false}
         filterChange={filterChange}
+        meta_index={meta_index}
       />
 
       {filters.map((item: any) => (
@@ -65,6 +67,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           report={report}
           descending={item.Descending}
           filterChange={filterChange}
+          meta_index={meta_index}
         />
       ))}
     </>

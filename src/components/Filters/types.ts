@@ -12,6 +12,7 @@ export type Props = {
   multipleFacts: boolean;
   chart: any;
   filterChange: any;
+  meta_index: number;
 };
 
 export type POSITIONS_TYPE =

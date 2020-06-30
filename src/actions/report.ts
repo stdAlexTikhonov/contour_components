@@ -48,7 +48,10 @@ export const setDashboardMetadata = (
   metadata,
 });
 
-export const setExpandedFilter = (expanded_filter: any, index: number) => ({
+export const setExpandedFilter = (
+  expanded_filter: any,
+  index: number
+): AppActions => ({
   type: SET_EXPANDED_FILTER,
   expanded_filter,
   index,
