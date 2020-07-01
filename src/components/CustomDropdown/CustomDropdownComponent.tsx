@@ -242,7 +242,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setExpanded(!expanded);
     selectFilter(filter_index);
     expand_func(!expanded);
-    setFilterItems(localItems);
+    setFilterItems(visibleItems);
   };
 
   const showHidden = () => {
