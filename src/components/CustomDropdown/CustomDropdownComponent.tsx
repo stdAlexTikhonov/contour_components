@@ -96,19 +96,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const id = open ? "simple-popover" : undefined;
 
   const handleToggle = (value: string) => () => {
-    if (multiple) {
-      const currentIndex = checked.indexOf(value);
-      const newChecked = [...checked];
-      if (currentIndex === -1) {
-        newChecked.push(value);
-      } else {
-        newChecked.splice(currentIndex, 1);
-      }
-      setSelectAll(newChecked.length === localItems.length);
-      setChecked(newChecked);
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    if (currentIndex === -1) {
+      newChecked.push(value);
     } else {
-      setChecked([value]);
+      newChecked.splice(currentIndex, 1);
     }
+    setSelectAll(newChecked.length === localItems.length);
+    setChecked(newChecked);
   };
 
   const handleInversion = () => {
