@@ -15,6 +15,7 @@ export interface Props {
   selected_filter: number;
   expand_func: React.Dispatch<React.SetStateAction<boolean>>;
   selectFilter: React.Dispatch<React.SetStateAction<number>>;
+  setFilterItems: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 export interface LinkStateToProps {

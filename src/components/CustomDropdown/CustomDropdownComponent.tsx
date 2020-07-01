@@ -47,6 +47,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   settingExpandedFilter,
   expand_func,
   selectFilter,
+  setFilterItems,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -241,6 +242,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setExpanded(!expanded);
     selectFilter(filter_index);
     expand_func(!expanded);
+    setFilterItems(localItems);
   };
 
   const showHidden = () => {

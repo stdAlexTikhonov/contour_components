@@ -6,6 +6,8 @@ import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { ChartPlaceholder } from "../ChartPlaceholder";
+import Button from "@material-ui/core/Button";
+import { sliceWord } from "../../utils/helpers";
 
 declare global {
   interface Window {
@@ -32,6 +34,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [filterItems, setFilterItems] = useState<any[]>([]);
   const [selectedFilter, setSelectedFilter] = useState(-1);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
@@ -57,15 +60,39 @@ export const FiltersComponent: React.FC<IProps> = ({
         expand_func={setExpand}
         selectFilter={setSelectedFilter}
         selected_filter={selectedFilter}
+        setFilterItems={setFilterItems}
       />
       {expand && selectedFilter === 0 && (
         <div
           style={{
-            minWidth: pos === "row" ? 300 : 115,
-            height: pos === "row" ? 32 : 300,
-            background: "lightgreen",
+            display: "flex",
+            flexDirection: pos,
+            alignItems: "flex-start",
           }}
-        />
+        >
+          {filterItems.length > 0 &&
+            filterItems.map((item: any) => (
+              <Button
+                key={item.code}
+                aria-describedby={item.code}
+                size="small"
+                style={{
+                  outline: "none",
+                  textTransform: "capitalize",
+                  fontWeight: "normal",
+                }}
+              >
+                <div
+                  style={{
+                    textAlign: pos === "row" ? "center" : "left",
+                    width: "100%",
+                  }}
+                >
+                  {sliceWord(item.value)}
+                </div>
+              </Button>
+            ))}
+        </div>
       )}
       {filters.map((item: any, index: number) => (
         <>
@@ -87,15 +114,39 @@ export const FiltersComponent: React.FC<IProps> = ({
             expand_func={setExpand}
             selectFilter={setSelectedFilter}
             selected_filter={selectedFilter}
+            setFilterItems={setFilterItems}
           />
           {expand && selectedFilter === index + 1 && (
             <div
               style={{
-                minWidth: pos === "row" ? 300 : 115,
-                height: pos === "row" ? 32 : 300,
-                background: "lightgreen",
+                display: "flex",
+                flexDirection: pos,
+                alignItems: "flex-start",
               }}
-            />
+            >
+              {filterItems.length > 0 &&
+                filterItems.map((item: any) => (
+                  <Button
+                    key={item.code}
+                    aria-describedby={item.code}
+                    size="small"
+                    style={{
+                      outline: "none",
+                      textTransform: "capitalize",
+                      fontWeight: "normal",
+                    }}
+                  >
+                    <div
+                      style={{
+                        textAlign: pos === "row" ? "center" : "left",
+                        width: "100%",
+                      }}
+                    >
+                      {sliceWord(item.value)}
+                    </div>
+                  </Button>
+                ))}
+            </div>
           )}
         </>
       ))}
