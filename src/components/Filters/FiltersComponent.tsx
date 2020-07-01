@@ -8,6 +8,8 @@ import SimpleBar from "simplebar-react";
 import { ChartPlaceholder } from "../ChartPlaceholder";
 import Button from "@material-ui/core/Button";
 import { sliceWord } from "../../utils/helpers";
+import { CustomRadioPaddingRight } from "../CustomDropdown/CustomRadio";
+import { CustomCheckboxPaddingRight } from "../CustomDropdown/CustomCheckbox";
 
 declare global {
   interface Window {
@@ -82,6 +84,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                   fontWeight: "normal",
                 }}
               >
+                <CustomCheckboxPaddingRight />
                 <div
                   style={{
                     textAlign: pos === "row" ? "center" : "left",
@@ -136,6 +139,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                       fontWeight: "normal",
                     }}
                   >
+                    <CustomCheckboxPaddingRight />
                     <div
                       style={{
                         textAlign: pos === "row" ? "center" : "left",
