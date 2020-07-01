@@ -32,7 +32,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState(-1);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -62,7 +62,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         <div
           style={{
             minWidth: pos === "row" ? 300 : 115,
-            height: pos === "row" ? 30 : 300,
+            height: pos === "row" ? 32 : 300,
             background: "lightgreen",
           }}
         />
@@ -92,7 +92,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             <div
               style={{
                 minWidth: pos === "row" ? 300 : 115,
-                height: pos === "row" ? 30 : 300,
+                height: pos === "row" ? 32 : 300,
                 background: "lightgreen",
               }}
             />
