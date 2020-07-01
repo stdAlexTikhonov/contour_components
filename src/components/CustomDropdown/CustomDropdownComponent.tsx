@@ -241,7 +241,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         filter_index
       );
     setExpanded(!expanded);
-    selectFilter(filter_index);
+    !expanded ? selectFilter(filter_index) : selectFilter(-1);
     expand_func(!expanded);
     setFilterItems(visibleItems);
   };
