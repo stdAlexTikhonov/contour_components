@@ -13,10 +13,12 @@ export interface Props {
   meta_index: number;
   filter_index: number;
   selected_filter: number;
+  f_checked: string[];
   expand_func: React.Dispatch<React.SetStateAction<boolean>>;
   selectFilter: React.Dispatch<React.SetStateAction<number>>;
   setFilterItems: React.Dispatch<React.SetStateAction<any[]>>;
   setMultyExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setExpandChecked: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export interface LinkStateToProps {

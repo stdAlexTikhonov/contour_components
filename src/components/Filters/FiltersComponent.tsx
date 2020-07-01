@@ -33,12 +33,18 @@ export const FiltersComponent: React.FC<IProps> = ({
   filterChange,
   meta_index,
 }) => {
+  console.log(visibleFacts);
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
   const [filterItems, setFilterItems] = useState<any[]>([]);
   const [selectedFilter, setSelectedFilter] = useState(-1);
   const [multyExpanded, setMultyExpanded] = useState(false);
+  const [checked, setExpandChecked] = useState<string[]>(
+    facts
+      .filter((item: any) => visibleFacts.includes(item.code))
+      .map((fact: any) => fact.Caption)
+  );
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -65,6 +71,8 @@ export const FiltersComponent: React.FC<IProps> = ({
         selected_filter={selectedFilter}
         setFilterItems={setFilterItems}
         setMultyExpanded={setMultyExpanded}
+        setExpandChecked={setExpandChecked}
+        f_checked={checked}
       />
       {expand && selectedFilter === 0 && (
         <div
@@ -87,9 +95,17 @@ export const FiltersComponent: React.FC<IProps> = ({
                 }}
               >
                 {multipleFacts ? (
-                  <CustomCheckboxPaddingRight />
+                  <CustomCheckboxPaddingRight
+                    checked={checked.indexOf(item.value) !== -1}
+                  />
                 ) : (
-                  <CustomRadioPaddingRight />
+                  <CustomRadioPaddingRight
+                    checked={
+                      checked.length === 1
+                        ? checked.indexOf(item.value) !== -1
+                        : checked[0] === item.value
+                    }
+                  />
                 )}
                 <div
                   style={{
@@ -125,6 +141,8 @@ export const FiltersComponent: React.FC<IProps> = ({
             selected_filter={selectedFilter}
             setFilterItems={setFilterItems}
             setMultyExpanded={setMultyExpanded}
+            f_checked={checked}
+            setExpandChecked={setExpandChecked}
           />
           {expand && selectedFilter === index + 1 && (
             <div
@@ -147,9 +165,17 @@ export const FiltersComponent: React.FC<IProps> = ({
                     }}
                   >
                     {multyExpanded ? (
-                      <CustomCheckboxPaddingRight />
+                      <CustomCheckboxPaddingRight
+                        checked={checked.indexOf(item.value) !== -1}
+                      />
                     ) : (
-                      <CustomRadioPaddingRight />
+                      <CustomRadioPaddingRight
+                        checked={
+                          checked.length === 1
+                            ? checked.indexOf(item.value) !== -1
+                            : checked[0] === item.value
+                        }
+                      />
                     )}
                     <div
                       style={{

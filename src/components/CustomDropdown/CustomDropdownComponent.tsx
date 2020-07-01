@@ -23,6 +23,7 @@ import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
 import ThemeProvider from "./ThemeProvider";
 import { ControlButtons } from "./ControlButtons";
+import { setExpandedFilter } from "../../actions/report";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -43,12 +44,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   meta_index,
   filter_index,
   selected_filter,
+  f_checked,
   settingCubeSession,
   settingExpandedFilter,
   expand_func,
   selectFilter,
   setFilterItems,
   setMultyExpanded,
+  setExpandChecked,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -56,7 +59,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const single = !multy;
   const classes = useStyles();
   const [isDate, setIsDate] = React.useState<boolean>(false);
-  const [checked, setChecked] = React.useState<string[]>(selected);
   const [dropDown, setDropDown] = React.useState(false);
   const [minDate, setMinDate] = React.useState(null);
   const [filters, setFilters] = React.useState(null);
@@ -96,21 +98,23 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const id = open ? "simple-popover" : undefined;
 
   const handleToggle = (value: string) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = f_checked.indexOf(value);
+    const newChecked = [...f_checked];
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
     }
     setSelectAll(newChecked.length === localItems.length);
-    setChecked(newChecked);
+
+    setExpandChecked(newChecked);
   };
 
   const handleInversion = () => {
     const data = localItems.map((item: any) => item.value);
-    const inverted = data.filter((item: string) => !checked.includes(item));
-    setChecked(inverted);
+    const inverted = data.filter((item: string) => !f_checked.includes(item));
+
+    setExpandChecked(inverted);
     setSelectAll(data.length === inverted.length);
   };
 
@@ -122,7 +126,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleRadio = (value: string) => () => {
     setSelected(value);
-    setChecked([value]);
+
+    setExpandChecked([value]);
   };
 
   const setFilterOnServer = (user_filters: string) => {
@@ -148,7 +153,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     if (_async) {
       //Filter
       const filters_for_server = localItems.reduce(
-        (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
+        (a, b) => (a += f_checked.includes(b.value) ? "0" : "1"),
         ""
       );
 
@@ -166,7 +171,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         cubeSession: cubes[cube_id],
       });
 
-      setSelectedFromServer(checked);
+      setSelectedFromServer(f_checked);
       console.log(data);
       cubeSession = data.cubeSession;
       settingCubeSession(cube_id, data.cubeSession);
@@ -174,11 +179,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     } else {
       //Fact
       let facts_for_server = localItems
-        .filter((item: any) => checked.includes(item.value))
+        .filter((item: any) => f_checked.includes(item.value))
         .map((item: any) => item.code);
 
       if (multiple) {
-        setFactsForServer(checked);
+        setFactsForServer(f_checked);
       } else {
         setFactsForServer([localSelected]);
         facts_for_server = [localSelected];
@@ -212,17 +217,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     if (_async) {
       //Filter
       if (multiple) {
-        setChecked(selectedFromServer);
+        setExpandChecked(selectedFromServer);
         setSelectAll(selectedFromServer.length === localItems.length);
       } else {
         setSelected(selectedFromServer[0]);
+        setExpandChecked([selectedFromServer[0]]);
       }
     } else {
       //Fact
       if (multiple) {
-        setChecked(factsForServer);
+        setExpandChecked(factsForServer);
         setSelectAll(localItems.length === factsForServer.length);
-      } else setSelected(factsForServer[0]);
+      } else {
+        setSelected(factsForServer[0]);
+        setExpandChecked(factsForServer[0]);
+      }
     }
 
     setDropDown(false);
@@ -272,7 +281,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
         setSelectedFromServer(selected_from_server);
         data.MultipleValues === false && setSelected(selected_from_server[0]);
-        setChecked(selected_from_server);
+
+        setExpandChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setMultyExpanded(data.MultipleValues);
         //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
@@ -325,19 +335,19 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setSelectAll(value);
     const disabled = localItems.filter((item: any) => item.disabled);
     const checked_disabled = disabled.filter((item) =>
-      checked.includes(item.value)
+      f_checked.includes(item.value)
     );
 
     const not_disabled = localItems.filter((item: any) => !item.disabled);
 
-    setChecked(
-      value
-        ? [
-            ...not_disabled.map((item) => item.value),
-            ...checked_disabled.map((item) => item.value),
-          ]
-        : checked_disabled.map((item) => item.value)
-    );
+    const newChecked = value
+      ? [
+          ...not_disabled.map((item) => item.value),
+          ...checked_disabled.map((item) => item.value),
+        ]
+      : checked_disabled.map((item) => item.value);
+
+    setExpandChecked(newChecked);
   };
 
   const word = localSelected ? localSelected : label;
@@ -377,7 +387,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         <ThemeProvider>
           {isDate ? (
             <DatePicker
-              serverDates={checked.map((item) => new Date(item))}
+              serverDates={f_checked.map((item) => new Date(item))}
               minDate={minDate}
               maxDate={maxDate}
               filters={filters}
@@ -459,7 +469,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                                 handleToggle={handleToggle}
                                 multiple={multiple}
                                 handleRadio={handleRadio}
-                                checked={checked}
+                                checked={f_checked}
                                 localSelected={localSelected}
                               />
                             )}
