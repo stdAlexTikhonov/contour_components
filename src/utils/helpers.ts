@@ -7,7 +7,7 @@ export const transform_languages_data = (langs: []) => {
 };
 
 export const sliceWord = (word: string) => {
-  return word.length > 11 ? word.substr(0, 7) + "..." : word;
+  return word.length > 11 ? word.substr(0, 8) + "..." : word;
 };
 
 export const isMobile = // will be true if running on a mobile device

@@ -118,12 +118,13 @@ export const FiltersComponent: React.FC<IProps> = ({
           style={{
             display: show ? "flex" : "none",
             flexDirection: pos,
+            height: pos === "row" ? 38 : "100%",
           }}
         >
           <SimpleBar
             style={{
               maxHeight: "100%",
-              width: pos === "row" ? "100%" : 105,
+              width: pos === "row" ? "100%" : 115,
             }}
           >
             {pos === "row" ? simpleWrapper() : renderItems()}
