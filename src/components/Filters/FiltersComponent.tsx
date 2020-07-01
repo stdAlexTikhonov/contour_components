@@ -38,6 +38,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   const [expand, setExpand] = useState(false);
   const [filterItems, setFilterItems] = useState<any[]>([]);
   const [selectedFilter, setSelectedFilter] = useState(-1);
+  const [multyExpanded, setMultyExpanded] = useState(false);
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -63,6 +64,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         selectFilter={setSelectedFilter}
         selected_filter={selectedFilter}
         setFilterItems={setFilterItems}
+        setMultyExpanded={setMultyExpanded}
       />
       {expand && selectedFilter === 0 && (
         <div
@@ -84,7 +86,11 @@ export const FiltersComponent: React.FC<IProps> = ({
                   fontWeight: "normal",
                 }}
               >
-                <CustomCheckboxPaddingRight />
+                {multipleFacts ? (
+                  <CustomCheckboxPaddingRight />
+                ) : (
+                  <CustomRadioPaddingRight />
+                )}
                 <div
                   style={{
                     textAlign: pos === "row" ? "center" : "left",
@@ -118,6 +124,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             selectFilter={setSelectedFilter}
             selected_filter={selectedFilter}
             setFilterItems={setFilterItems}
+            setMultyExpanded={setMultyExpanded}
           />
           {expand && selectedFilter === index + 1 && (
             <div
@@ -139,7 +146,11 @@ export const FiltersComponent: React.FC<IProps> = ({
                       fontWeight: "normal",
                     }}
                   >
-                    <CustomCheckboxPaddingRight />
+                    {multyExpanded ? (
+                      <CustomCheckboxPaddingRight />
+                    ) : (
+                      <CustomRadioPaddingRight />
+                    )}
                     <div
                       style={{
                         textAlign: pos === "row" ? "center" : "left",

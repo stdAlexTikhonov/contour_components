@@ -48,6 +48,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   expand_func,
   selectFilter,
   setFilterItems,
+  setMultyExpanded,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -277,7 +278,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         data.MultipleValues === false && setSelected(selected_from_server[0]);
         setChecked(selected_from_server);
         setMultiple(data.MultipleValues);
-
+        setMultyExpanded(data.MultipleValues);
         //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
         //const check_data = regex.test(data.Captions[0]);
         const check_date = data.type === "Date";

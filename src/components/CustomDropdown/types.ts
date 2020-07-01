@@ -16,6 +16,7 @@ export interface Props {
   expand_func: React.Dispatch<React.SetStateAction<boolean>>;
   selectFilter: React.Dispatch<React.SetStateAction<number>>;
   setFilterItems: React.Dispatch<React.SetStateAction<any[]>>;
+  setMultyExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface LinkStateToProps {
