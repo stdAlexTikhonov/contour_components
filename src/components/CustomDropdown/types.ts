@@ -12,6 +12,9 @@ export interface Props {
   filterChange: any;
   meta_index: number;
   filter_index: number;
+  selected_filter: number;
+  expand_func: React.Dispatch<React.SetStateAction<boolean>>;
+  selectFilter: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface LinkStateToProps {

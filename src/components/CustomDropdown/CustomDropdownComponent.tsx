@@ -42,8 +42,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   cubes,
   meta_index,
   filter_index,
+  selected_filter,
   settingCubeSession,
   settingExpandedFilter,
+  expand_func,
+  selectFilter,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -236,6 +239,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         filter_index
       );
     setExpanded(!expanded);
+    selectFilter(filter_index);
+    expand_func(!expanded);
   };
 
   const showHidden = () => {
@@ -314,6 +319,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       setDropDown(!dropDown);
     })();
+    setExpanded(filter_index === selected_filter);
   };
 
   const handleSelectAll = (value: boolean) => {
