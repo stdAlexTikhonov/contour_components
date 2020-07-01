@@ -58,7 +58,15 @@ export const FiltersComponent: React.FC<IProps> = ({
         selectFilter={setSelectedFilter}
         selected_filter={selectedFilter}
       />
-
+      {expand && selectedFilter === 0 && (
+        <div
+          style={{
+            minWidth: pos === "row" ? 300 : 115,
+            height: pos === "row" ? 30 : 300,
+            background: "lightgreen",
+          }}
+        />
+      )}
       {filters.map((item: any, index: number) => (
         <>
           <CustomDropdown
@@ -83,11 +91,11 @@ export const FiltersComponent: React.FC<IProps> = ({
           {expand && selectedFilter === index + 1 && (
             <div
               style={{
-                width: pos === "row" ? 300 : 115,
+                minWidth: pos === "row" ? 300 : 115,
                 height: pos === "row" ? 30 : 300,
                 background: "lightgreen",
               }}
-            ></div>
+            />
           )}
         </>
       ))}
