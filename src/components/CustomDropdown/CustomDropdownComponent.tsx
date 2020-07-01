@@ -478,6 +478,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                               handleOk={handleOk}
                               handleInversion={handleInversion}
                               showHidden={showHidden}
+                              enableExpand={localItems.length < 20}
                             />
                           </div>
                         </Collapse>

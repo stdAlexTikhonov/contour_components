@@ -12,6 +12,7 @@ type IProps = {
   sort: boolean;
   visible: boolean;
   expanded: boolean;
+  enableExpand: boolean;
   handleInversion: () => void;
   handleOk: () => void;
   handleCancel: () => void;
@@ -24,6 +25,7 @@ export const ControlButtons: React.FC<IProps> = ({
   visible,
   expanded,
   multiple,
+  enableExpand,
   handleInversion,
   handleOk,
   handleCancel,
@@ -39,15 +41,17 @@ export const ControlButtons: React.FC<IProps> = ({
         justifyContent: "flex-end",
       }}
     >
-      <Button
-        style={{
-          outline: "none",
-          minWidth: "unset",
-        }}
-        onClick={handleExpand}
-      >
-        {expanded ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-      </Button>
+      {enableExpand && (
+        <Button
+          style={{
+            outline: "none",
+            minWidth: "unset",
+          }}
+          onClick={handleExpand}
+        >
+          {expanded ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+        </Button>
+      )}
       <Button
         style={{
           outline: "none",
