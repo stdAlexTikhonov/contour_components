@@ -82,7 +82,11 @@ export const FiltersComponent: React.FC<IProps> = ({
           />
           {expand && selectedFilter === index + 1 && (
             <div
-              style={{ width: "100%", height: 35, background: "lightgreen" }}
+              style={{
+                width: pos === "row" ? 300 : 115,
+                height: pos === "row" ? 30 : 300,
+                background: "lightgreen",
+              }}
             ></div>
           )}
         </>
