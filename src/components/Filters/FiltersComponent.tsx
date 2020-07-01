@@ -33,7 +33,6 @@ export const FiltersComponent: React.FC<IProps> = ({
   filterChange,
   meta_index,
 }) => {
-  console.log(visibleFacts);
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -49,6 +48,18 @@ export const FiltersComponent: React.FC<IProps> = ({
   pos = pos === "row" ? "column" : "row";
 
   const onHandleDrag = () => console.log("drag end");
+
+  const handleToggle = (value: string) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setExpandChecked(newChecked);
+  };
 
   const renderItems = () => (
     <>
@@ -97,6 +108,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                 {multipleFacts ? (
                   <CustomCheckboxPaddingRight
                     checked={checked.indexOf(item.value) !== -1}
+                    onClick={handleToggle(item.value)}
                   />
                 ) : (
                   <CustomRadioPaddingRight
@@ -166,6 +178,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                   >
                     {multyExpanded ? (
                       <CustomCheckboxPaddingRight
+                        onClick={handleToggle(item.value)}
                         checked={checked.indexOf(item.value) !== -1}
                       />
                     ) : (
