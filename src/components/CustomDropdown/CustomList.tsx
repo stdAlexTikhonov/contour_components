@@ -62,7 +62,7 @@ export default class CustomList extends React.Component<IProps> {
             />
           ) : (
             <CustomRadio
-              checked={this.props.localSelected === item.value}
+              checked={this.props.checked[0] === item.value}
               onChange={this.props.handleRadio(item.value)}
               value={item.value}
               disabled={item.disabled}
