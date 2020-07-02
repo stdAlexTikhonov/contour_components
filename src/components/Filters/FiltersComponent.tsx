@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import { sliceWord } from "../../utils/helpers";
 import { CustomRadioPaddingRight } from "../CustomDropdown/CustomRadio";
 import { CustomCheckboxPaddingRight } from "../CustomDropdown/CustomCheckbox";
+import { useParams } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -28,11 +29,16 @@ export const FiltersComponent: React.FC<IProps> = ({
   visibleFacts,
   multipleFacts,
   language,
-  report,
+  report: report_code,
   chart,
   filterChange,
   meta_index,
+  cubes,
 }) => {
+  const { report } = useParams();
+  const cube_report = report_code || report;
+  const cube_id = slice + cube_report;
+
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -59,6 +65,48 @@ export const FiltersComponent: React.FC<IProps> = ({
     }
 
     setExpandChecked(newChecked);
+
+    //Filter
+    const filters_for_server = filterItems.reduce(
+      (a, b) => (a += newChecked.includes(b.value) ? "0" : "1"),
+      ""
+    );
+
+    console.log(filterItems);
+    //Fact
+    let facts_for_server = filterItems
+      .filter((item: any) => newChecked.includes(item.value))
+      .map((item: any) => item.code);
+
+    console.log(filters_for_server);
+    console.log(facts_for_server);
+
+    // const data = await getData({
+    //   method: SET_DIM_FILTER,
+    //   language,
+    //   session,
+    //   solution,
+    //   project,
+    //   report: report_code || report,
+    //   slice,
+    //   view,
+    //   code,
+    //   filter: filters_for_server,
+    //   cubeSession: cubes[cube_id],
+    // });
+
+    // const data = await getData({
+    //   method: SET_FACTS,
+    //   session,
+    //   language,
+    //   solution,
+    //   project,
+    //   report: report_code || report,
+    //   slice,
+    //   view,
+    //   visibleFacts: facts_for_server,
+    //   cubeSession: cubes[cube_id],
+    // });
   };
 
   const renderItems = () => (
@@ -109,6 +157,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                   <CustomCheckboxPaddingRight
                     checked={checked.indexOf(item.value) !== -1}
                     onClick={handleToggle(item.value)}
+                    disabled={item.disabled}
                   />
                 ) : (
                   <CustomRadioPaddingRight
@@ -117,6 +166,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                         ? checked.indexOf(item.value) !== -1
                         : checked[0] === item.value
                     }
+                    disabled={item.disabled}
                   />
                 )}
                 <div
@@ -143,7 +193,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             slice={slice}
             view={view}
             code={item.code}
-            report={report}
+            report={report_code}
             descending={item.Descending}
             filterChange={filterChange}
             meta_index={meta_index}
@@ -180,6 +230,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                       <CustomCheckboxPaddingRight
                         onClick={handleToggle(item.value)}
                         checked={checked.indexOf(item.value) !== -1}
+                        disabled={item.disabled}
                       />
                     ) : (
                       <CustomRadioPaddingRight
@@ -188,6 +239,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                             ? checked.indexOf(item.value) !== -1
                             : checked[0] === item.value
                         }
+                        disabled={item.disabled}
                       />
                     )}
                     <div

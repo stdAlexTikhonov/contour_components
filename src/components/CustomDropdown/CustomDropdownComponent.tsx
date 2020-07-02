@@ -23,7 +23,6 @@ import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
 import ThemeProvider from "./ThemeProvider";
 import { ControlButtons } from "./ControlButtons";
-import { setExpandedFilter } from "../../actions/report";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
   items,
@@ -248,7 +247,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setExpanded(!expanded);
     !expanded ? selectFilter(filter_index) : selectFilter(-1);
     expand_func(!expanded);
-    setFilterItems(visibleItems);
+    setFilterItems(localItems);
   };
 
   const showHidden = () => {
