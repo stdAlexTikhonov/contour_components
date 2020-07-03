@@ -39,6 +39,7 @@ export const ControlButtons: React.FC<IProps> = ({
       style={{
         display: "flex",
         justifyContent: "flex-end",
+        paddingTop: 5,
       }}
     >
       {enableExpand && (
@@ -66,10 +67,34 @@ export const ControlButtons: React.FC<IProps> = ({
           style={{
             outline: "none",
             minWidth: "unset",
+            display: "flex",
           }}
           onClick={handleInversion}
         >
-          <AutorenewIcon />
+          <div
+            style={{
+              margin: "auto",
+              width: 10,
+              height: 14,
+            }}
+          >
+            <ArrowRightAltIcon
+              style={{
+                transform: "rotate(90deg)",
+                position: "absolute",
+                top: 9,
+                left: 0,
+              }}
+            />
+            <ArrowRightAltIcon
+              style={{
+                transform: "rotate(-90deg)",
+                position: "absolute",
+                top: 8,
+                left: 5,
+              }}
+            />
+          </div>
         </Button>
       )}
       <Button

@@ -54,7 +54,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
   const cube_id = slice + cube_report; // cube identification
-  const single = !multy;
   const classes = useStyles();
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [dropDown, setDropDown] = React.useState(false);
