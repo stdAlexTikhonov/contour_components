@@ -220,7 +220,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setExpandChecked(factsForServer);
         setSelectAll(localItems.length === factsForServer.length);
       } else {
-        setExpandChecked(factsForServer[0]);
+        setExpandChecked([factsForServer[0]]);
       }
     }
 
