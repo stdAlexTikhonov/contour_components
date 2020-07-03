@@ -66,9 +66,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     selected.length === items.length
   );
   const [factsForServer, setFactsForServer] = React.useState(selected);
-  const [localSelected, setSelected] = React.useState(
-    single ? selected[0] : ""
-  );
   const [selectedFromServer, setSelectedFromServer] = React.useState<string[]>(
     []
   );
@@ -124,8 +121,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleRadio = (value: string) => () => {
-    setSelected(value);
-
     setExpandChecked([value]);
   };
 
@@ -184,8 +179,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       if (multiple) {
         setFactsForServer(f_checked);
       } else {
-        setFactsForServer([localSelected]);
-        facts_for_server = [localSelected];
+        setFactsForServer(f_checked);
+        facts_for_server = f_checked;
       }
 
       const data = await getData({
@@ -219,7 +214,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setExpandChecked(selectedFromServer);
         setSelectAll(selectedFromServer.length === localItems.length);
       } else {
-        setSelected(selectedFromServer[0]);
         setExpandChecked([selectedFromServer[0]]);
       }
     } else {
@@ -228,7 +222,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setExpandChecked(factsForServer);
         setSelectAll(localItems.length === factsForServer.length);
       } else {
-        setSelected(factsForServer[0]);
         setExpandChecked(factsForServer[0]);
       }
     }
@@ -279,9 +272,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           .filter((item: string | null) => item);
 
         setSelectedFromServer(selected_from_server);
-        data.MultipleValues === false && setSelected(selected_from_server[0]);
+        if (data.MultipleValues) setExpandChecked(selected_from_server);
+        else setExpandChecked([selected_from_server[0]]);
 
-        setExpandChecked(selected_from_server);
         setMultiple(data.MultipleValues);
         setMultyExpanded(data.MultipleValues);
         //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
@@ -349,7 +342,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setExpandChecked(newChecked);
   };
 
-  const word = localSelected ? localSelected : label;
+  const word = label;
 
   return (
     <div style={{ textAlign: "left" }}>
@@ -469,7 +462,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                                 multiple={multiple}
                                 handleRadio={handleRadio}
                                 checked={f_checked}
-                                localSelected={localSelected}
                               />
                             )}
                             <Divider />

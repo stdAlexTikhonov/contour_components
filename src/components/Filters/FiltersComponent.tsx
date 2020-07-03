@@ -109,6 +109,11 @@ export const FiltersComponent: React.FC<IProps> = ({
     // });
   };
 
+  const handleRadio = (value: string) => () => {
+    setExpandChecked([value]);
+    console.log(checked);
+  };
+
   const renderItems = () => (
     <>
       <CustomDropdown
@@ -166,6 +171,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                         ? checked.indexOf(item.value) !== -1
                         : checked[0] === item.value
                     }
+                    onChange={handleRadio(item.value)}
                     disabled={item.disabled}
                   />
                 )}
@@ -240,6 +246,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                             : checked[0] === item.value
                         }
                         disabled={item.disabled}
+                        onChange={handleRadio(item.value)}
                       />
                     )}
                     <div
