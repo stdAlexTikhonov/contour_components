@@ -75,8 +75,6 @@ export const FiltersComponent: React.FC<IProps> = ({
       ""
     );
 
-    console.log(filters[selectedFilter - 1]);
-    console.log(selectedFilter - 1);
     //Fact
     let facts_for_server = filterItems
       .filter((item: any) => newChecked.includes(item.value))
@@ -113,9 +111,30 @@ export const FiltersComponent: React.FC<IProps> = ({
     // });
   };
 
-  const handleRadio = (value: string) => () => {
+  const handleRadio = (value: string) => async () => {
     setExpandChecked([value]);
-    console.log(checked);
+
+    const filters_for_server = filterItems.reduce(
+      (a, b) => (a += value === b.value ? "0" : "1"),
+      ""
+    );
+
+    // const data = await getData({
+    //   method: SET_DIM_FILTER,
+    //   language,
+    //   session,
+    //   solution,
+    //   project,
+    //   report: report_code || report,
+    //   slice,
+    //   view,
+    //   code: filters[selectedFilter - 1].code,
+    //   filter: filters_for_server,
+    //   cubeSession: cubes[cube_id],
+    // });
+
+    // filterChange(cubes[cube_id]);
+    // settingCubeSession(cube_id, data.cubeSession);
   };
 
   const renderItems = () => (
