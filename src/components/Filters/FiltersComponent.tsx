@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IProps, POSITIONS_TYPE } from "./types";
+import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
 import { DragDropContext } from "react-beautiful-dnd";
 import Box from "@material-ui/core/Box";
@@ -10,7 +11,8 @@ import Button from "@material-ui/core/Button";
 import { sliceWord } from "../../utils/helpers";
 import { CustomRadioPaddingRight } from "../CustomDropdown/CustomRadio";
 import { CustomCheckboxPaddingRight } from "../CustomDropdown/CustomCheckbox";
-import { useParams } from "react-router-dom";
+import { SET_DIM_FILTER } from "../../utils/constants";
+import { getData } from "../../utils/api";
 
 declare global {
   interface Window {
@@ -34,11 +36,12 @@ export const FiltersComponent: React.FC<IProps> = ({
   filterChange,
   meta_index,
   cubes,
+  session,
+  settingCubeSession,
 }) => {
-  const { report } = useParams();
+  const { report, project, solution } = useParams();
   const cube_report = report_code || report;
   const cube_id = slice + cube_report;
-
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -55,7 +58,7 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const onHandleDrag = () => console.log("drag end");
 
-  const handleToggle = (value: string) => () => {
+  const handleToggle = (value: string) => async () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
     if (currentIndex === -1) {
@@ -72,28 +75,29 @@ export const FiltersComponent: React.FC<IProps> = ({
       ""
     );
 
-    console.log(filterItems);
+    console.log(filters[selectedFilter - 1]);
+    console.log(selectedFilter - 1);
     //Fact
     let facts_for_server = filterItems
       .filter((item: any) => newChecked.includes(item.value))
       .map((item: any) => item.code);
 
-    console.log(filters_for_server);
-    console.log(facts_for_server);
+    const data = await getData({
+      method: SET_DIM_FILTER,
+      language,
+      session,
+      solution,
+      project,
+      report: report_code || report,
+      slice,
+      view,
+      code: filters[selectedFilter - 1].code,
+      filter: filters_for_server,
+      cubeSession: cubes[cube_id],
+    });
 
-    // const data = await getData({
-    //   method: SET_DIM_FILTER,
-    //   language,
-    //   session,
-    //   solution,
-    //   project,
-    //   report: report_code || report,
-    //   slice,
-    //   view,
-    //   code,
-    //   filter: filters_for_server,
-    //   cubeSession: cubes[cube_id],
-    // });
+    filterChange(cubes[cube_id]);
+    settingCubeSession(cube_id, data.cubeSession);
 
     // const data = await getData({
     //   method: SET_FACTS,
@@ -137,6 +141,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         setMultyExpanded={setMultyExpanded}
         setExpandChecked={setExpandChecked}
         f_checked={checked}
+        cube_id={cube_id}
       />
       {expand && selectedFilter === 0 && (
         <div
@@ -188,7 +193,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         </div>
       )}
       {filters.map((item: any, index: number) => (
-        <div key={item.code}>
+        <>
           <CustomDropdown
             items={[]}
             label={item.Caption}
@@ -210,6 +215,7 @@ export const FiltersComponent: React.FC<IProps> = ({
             setMultyExpanded={setMultyExpanded}
             f_checked={checked}
             setExpandChecked={setExpandChecked}
+            cube_id={cube_id}
           />
           {expand && selectedFilter === index + 1 && (
             <div
@@ -260,7 +266,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                 ))}
             </div>
           )}
-        </div>
+        </>
       ))}
     </>
   );

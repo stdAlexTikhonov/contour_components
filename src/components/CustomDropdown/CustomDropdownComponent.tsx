@@ -50,10 +50,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   setFilterItems,
   setMultyExpanded,
   setExpandChecked,
+  cube_id,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
-  const cube_id = slice + cube_report; // cube identification
+
   const classes = useStyles();
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [dropDown, setDropDown] = React.useState(false);
@@ -254,8 +255,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           code,
           cubeSession: cubes[cube_id],
         });
-
-        console.log(data);
 
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>

@@ -14,6 +14,7 @@ export interface Props {
   filter_index: number;
   selected_filter: number;
   f_checked: string[];
+  cube_id: string;
   expand_func: React.Dispatch<React.SetStateAction<boolean>>;
   selectFilter: React.Dispatch<React.SetStateAction<number>>;
   setFilterItems: React.Dispatch<React.SetStateAction<any[]>>;

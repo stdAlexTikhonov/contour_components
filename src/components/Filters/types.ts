@@ -21,7 +21,7 @@ export type POSITIONS_TYPE =
   | "column-reverse"
   | "row-reverse";
 
-export type IProps = Props & LinkStateToProps;
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 export interface LinkStateToProps {
   session: string | undefined;
@@ -30,5 +30,5 @@ export interface LinkStateToProps {
 }
 
 export interface LinkDispatchToProps {
-  handleDataQuery: (data_for_query: DataForQuery) => void;
+  settingCubeSession: (cube_id: string, cube_session: string) => void;
 }
