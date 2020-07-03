@@ -54,7 +54,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
-
   const classes = useStyles();
   const [isDate, setIsDate] = React.useState<boolean>(false);
   const [dropDown, setDropDown] = React.useState(false);
@@ -307,6 +306,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       } else {
         await sleep(100);
         setLoading(false);
+
+        //Проверка: если нет фактов в выбранном фильтре
+        if (!selected.includes(f_checked[0])) setExpandChecked(selected);
       }
 
       setDropDown(!dropDown);

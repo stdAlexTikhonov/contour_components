@@ -82,22 +82,22 @@ export const FiltersComponent: React.FC<IProps> = ({
       .filter((item: any) => newChecked.includes(item.value))
       .map((item: any) => item.code);
 
-    const data = await getData({
-      method: SET_DIM_FILTER,
-      language,
-      session,
-      solution,
-      project,
-      report: report_code || report,
-      slice,
-      view,
-      code: filters[selectedFilter - 1].code,
-      filter: filters_for_server,
-      cubeSession: cubes[cube_id],
-    });
+    // const data = await getData({
+    //   method: SET_DIM_FILTER,
+    //   language,
+    //   session,
+    //   solution,
+    //   project,
+    //   report: report_code || report,
+    //   slice,
+    //   view,
+    //   code: filters[selectedFilter - 1].code,
+    //   filter: filters_for_server,
+    //   cubeSession: cubes[cube_id],
+    // });
 
-    filterChange(cubes[cube_id]);
-    settingCubeSession(cube_id, data.cubeSession);
+    // filterChange(cubes[cube_id]);
+    // settingCubeSession(cube_id, data.cubeSession);
 
     // const data = await getData({
     //   method: SET_FACTS,
