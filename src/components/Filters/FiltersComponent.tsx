@@ -69,72 +69,76 @@ export const FiltersComponent: React.FC<IProps> = ({
 
     setExpandChecked(newChecked);
 
-    //Filter
-    const filters_for_server = filterItems.reduce(
-      (a, b) => (a += newChecked.includes(b.value) ? "0" : "1"),
-      ""
-    );
-
     //Fact
     let facts_for_server = filterItems
       .filter((item: any) => newChecked.includes(item.value))
       .map((item: any) => item.code);
 
-    // const data = await getData({
-    //   method: SET_DIM_FILTER,
-    //   language,
-    //   session,
-    //   solution,
-    //   project,
-    //   report: report_code || report,
-    //   slice,
-    //   view,
-    //   code: filters[selectedFilter - 1].code,
-    //   filter: filters_for_server,
-    //   cubeSession: cubes[cube_id],
-    // });
-
-    // filterChange(cubes[cube_id]);
-    // settingCubeSession(cube_id, data.cubeSession);
-
-    // const data = await getData({
-    //   method: SET_FACTS,
-    //   session,
-    //   language,
-    //   solution,
-    //   project,
-    //   report: report_code || report,
-    //   slice,
-    //   view,
-    //   visibleFacts: facts_for_server,
-    //   cubeSession: cubes[cube_id],
-    // });
+    if (selectedFilter === 0) {
+      alert("это факт");
+      // const data = await getData({
+      //   method: SET_FACTS,
+      //   session,
+      //   language,
+      //   solution,
+      //   project,
+      //   report: report_code || report,
+      //   slice,
+      //   view,
+      //   visibleFacts: facts_for_server,
+      //   cubeSession: cubes[cube_id],
+      // });
+    } else {
+      //Filter
+      const filters_for_server = filterItems.reduce(
+        (a, b) => (a += newChecked.includes(b.value) ? "0" : "1"),
+        ""
+      );
+      const data = await getData({
+        method: SET_DIM_FILTER,
+        language,
+        session,
+        solution,
+        project,
+        report: report_code || report,
+        slice,
+        view,
+        code: filters[selectedFilter - 1].code,
+        filter: filters_for_server,
+        cubeSession: cubes[cube_id],
+      });
+      filterChange(cubes[cube_id]);
+      settingCubeSession(cube_id, data.cubeSession);
+    }
   };
 
   const handleRadio = (value: string) => async () => {
     setExpandChecked([value]);
 
-    const filters_for_server = filterItems.reduce(
-      (a, b) => (a += value === b.value ? "0" : "1"),
-      ""
-    );
+    if (selectedFilter === 0) {
+      alert("это факт");
+    } else {
+      const filters_for_server = filterItems.reduce(
+        (a, b) => (a += value === b.value ? "0" : "1"),
+        ""
+      );
 
-    // const data = await getData({
-    //   method: SET_DIM_FILTER,
-    //   language,
-    //   session,
-    //   solution,
-    //   project,
-    //   report: report_code || report,
-    //   slice,
-    //   view,
-    //   code: filters[selectedFilter - 1].code,
-    //   filter: filters_for_server,
-    //   cubeSession: cubes[cube_id],
-    // });
-
-    // filterChange(cubes[cube_id]);
-    // settingCubeSession(cube_id, data.cubeSession);
+      const data = await getData({
+        method: SET_DIM_FILTER,
+        language,
+        session,
+        solution,
+        project,
+        report: report_code || report,
+        slice,
+        view,
+        code: filters[selectedFilter - 1].code,
+        filter: filters_for_server,
+        cubeSession: cubes[cube_id],
+      });
+      filterChange(cubes[cube_id]);
+      settingCubeSession(cube_id, data.cubeSession);
+    }
   };
 
   const renderItems = () => (
