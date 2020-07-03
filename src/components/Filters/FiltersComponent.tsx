@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import { sliceWord } from "../../utils/helpers";
 import { CustomRadioPaddingRight } from "../CustomDropdown/CustomRadio";
 import { CustomCheckboxPaddingRight } from "../CustomDropdown/CustomCheckbox";
-import { SET_DIM_FILTER } from "../../utils/constants";
+import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
 import { getData } from "../../utils/api";
 
 declare global {
@@ -69,25 +69,27 @@ export const FiltersComponent: React.FC<IProps> = ({
 
     setExpandChecked(newChecked);
 
-    //Fact
-    let facts_for_server = filterItems
-      .filter((item: any) => newChecked.includes(item.value))
-      .map((item: any) => item.code);
-
     if (selectedFilter === 0) {
-      alert("это факт");
-      // const data = await getData({
-      //   method: SET_FACTS,
-      //   session,
-      //   language,
-      //   solution,
-      //   project,
-      //   report: report_code || report,
-      //   slice,
-      //   view,
-      //   visibleFacts: facts_for_server,
-      //   cubeSession: cubes[cube_id],
-      // });
+      //Fact
+      console.log("Hello");
+      let facts_for_server = filterItems
+        .filter((item: any) => newChecked.includes(item.value))
+        .map((item: any) => item.code);
+
+      const data = await getData({
+        method: SET_FACTS,
+        session,
+        language,
+        solution,
+        project,
+        report: report_code || report,
+        slice,
+        view,
+        visibleFacts: facts_for_server,
+        cubeSession: cubes[cube_id],
+      });
+      filterChange(cubes[cube_id]);
+      settingCubeSession(cube_id, data.cubeSession);
     } else {
       //Filter
       const filters_for_server = filterItems.reduce(
@@ -116,7 +118,25 @@ export const FiltersComponent: React.FC<IProps> = ({
     setExpandChecked([value]);
 
     if (selectedFilter === 0) {
-      alert("это факт");
+      //Fact
+      let facts_for_server = filterItems
+        .filter((item: any) => value === item.value)
+        .map((item: any) => item.code);
+
+      const data = await getData({
+        method: SET_FACTS,
+        session,
+        language,
+        solution,
+        project,
+        report: report_code || report,
+        slice,
+        view,
+        visibleFacts: facts_for_server,
+        cubeSession: cubes[cube_id],
+      });
+      filterChange(cubes[cube_id]);
+      settingCubeSession(cube_id, data.cubeSession);
     } else {
       const filters_for_server = filterItems.reduce(
         (a, b) => (a += value === b.value ? "0" : "1"),
