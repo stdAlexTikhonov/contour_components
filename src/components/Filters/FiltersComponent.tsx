@@ -71,7 +71,6 @@ export const FiltersComponent: React.FC<IProps> = ({
 
     if (selectedFilter === 0) {
       //Fact
-      console.log("Hello");
       let facts_for_server = filterItems
         .filter((item: any) => newChecked.includes(item.value))
         .map((item: any) => item.code);
@@ -88,6 +87,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         visibleFacts: facts_for_server,
         cubeSession: cubes[cube_id],
       });
+
       filterChange(cubes[cube_id]);
       settingCubeSession(cube_id, data.cubeSession);
     } else {

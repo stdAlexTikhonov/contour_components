@@ -308,7 +308,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setLoading(false);
 
         //Проверка: если нет фактов в выбранном фильтре
-        if (!selected.includes(f_checked[0])) setExpandChecked(selected);
+        if (f_checked.length !== 0 && !selected.includes(f_checked[0]))
+          setExpandChecked(selected);
       }
 
       setDropDown(!dropDown);
