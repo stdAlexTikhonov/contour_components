@@ -45,7 +45,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   selected_filter,
   f_checked,
   settingCubeSession,
-  settingExpandedFilter,
   expand_func,
   selectFilter,
   setFilterItems,
@@ -231,12 +230,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleExpand = () => {
-    Number.isInteger(meta_index) &&
-      settingExpandedFilter(
-        expanded ? null : localItems,
-        meta_index!,
-        filter_index
-      );
     setExpanded(!expanded);
     !expanded ? selectFilter(filter_index) : selectFilter(-1);
     expand_func(!expanded);
