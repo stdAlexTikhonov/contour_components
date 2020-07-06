@@ -135,6 +135,7 @@ const MultipleDatePicker = ({
     >
       {/* <DialogContent> */}
       <Calendar
+        initialDate={selectedDates[0]}
         selectedDates={selectedDates}
         onSelect={onSelect}
         onRemoveAtIndex={onRemoveAtIndex}
