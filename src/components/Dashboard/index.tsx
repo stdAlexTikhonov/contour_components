@@ -4,10 +4,12 @@ import { IProps } from "./types";
 import { useStyles } from "./styles";
 import { Loader } from "../Loader/Loader";
 import { View } from "../View";
+import { useMediaQuery } from "@material-ui/core";
 
 export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
   const classes = useStyles();
   const [dataForView, setDataForView] = useState<any[] | null>(null);
+  const isSlimScreen = useMediaQuery("(max-width: 600px");
 
   useEffect(() => {
     if (metadata && dashboard) {
@@ -27,7 +29,7 @@ export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
         <Box
           key={i}
           className={classes.block}
-          width={item.w}
+          width={isSlimScreen ? "100%" : item.w}
           height={item.h + item.hcu}
           style={{ float: item.float }}
         >
@@ -39,7 +41,7 @@ export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
           <Box
             key={i}
             className={classes.block}
-            width={item.w}
+            width={isSlimScreen ? "100%" : item.w}
             height={item.h + item.hcu}
             style={{ float: item.float }}
           >
