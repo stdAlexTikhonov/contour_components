@@ -229,7 +229,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                     width: "100%",
                   }}
                 >
-                  {sliceWord(item.value)}
+                  {item.value}
                 </div>
               </Button>
             ))}
@@ -303,7 +303,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                         width: "100%",
                       }}
                     >
-                      {sliceWord(item.value)}
+                      {item.value}
                     </div>
                   </Button>
                 ))}
