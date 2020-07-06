@@ -97,7 +97,6 @@ export const formatGeometry = (dashboard: any) => {
     for (let i = 0; i < w_.length; i++) w += w_[i];
 
     if (cols.cu === "%") {
-      console.log(w);
       elem.w = w + "%";
       const val = (w / 100) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;
