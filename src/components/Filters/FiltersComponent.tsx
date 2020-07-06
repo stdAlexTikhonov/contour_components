@@ -204,6 +204,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                   outline: "none",
                   textTransform: "capitalize",
                   fontWeight: "normal",
+                  display: item.disabled ? "none" : "flex",
                 }}
               >
                 {multipleFacts ? (
@@ -278,6 +279,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                       outline: "none",
                       textTransform: "capitalize",
                       fontWeight: "normal",
+                      display: item.disabled ? "none" : "flex",
                     }}
                   >
                     {multyExpanded ? (
