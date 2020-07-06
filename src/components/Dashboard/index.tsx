@@ -31,7 +31,7 @@ export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
           height={item.h + item.hcu}
           style={{ float: item.float }}
         >
-          <View metadata={item} />
+          <View metadata={item} index={i} />
         </Box>
       ))
     : dashboard &&

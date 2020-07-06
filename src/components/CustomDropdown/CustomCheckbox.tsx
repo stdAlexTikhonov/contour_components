@@ -18,3 +18,21 @@ export const CustomCheckbox = withStyles({
     },
   },
 })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
+
+export const CustomCheckboxPaddingRight = withStyles({
+  root: {
+    color: COLOR,
+    padding: 0,
+    paddingRight: 5,
+    "&$checked": {
+      color: COLOR,
+    },
+  },
+  checked: {},
+  disabled: {
+    color: "#757575",
+    "&$checked": {
+      color: "#757575",
+    },
+  },
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);

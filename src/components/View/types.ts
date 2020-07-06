@@ -2,6 +2,7 @@ import { Metadata } from "../../types/actions";
 
 export interface Props {
   metadata: Metadata;
+  index: number;
 }
 
 export interface LinkStateToProps {

@@ -12,6 +12,7 @@ export type Props = {
   multipleFacts: boolean;
   chart: any;
   filterChange: any;
+  meta_index: number;
 };
 
 export type POSITIONS_TYPE =
@@ -20,14 +21,14 @@ export type POSITIONS_TYPE =
   | "column-reverse"
   | "row-reverse";
 
-export type IProps = Props & LinkStateToProps;
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 export interface LinkStateToProps {
   session: string | undefined;
   language: string;
-  cube_session: string | undefined;
+  cubes: any;
 }
 
 export interface LinkDispatchToProps {
-  handleDataQuery: (data_for_query: DataForQuery) => void;
+  settingCubeSession: (cube_id: string, cube_session: string) => void;
 }
