@@ -255,6 +255,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           cubeSession: cubes[cube_id],
         });
 
+        console.log(data);
+
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
             item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
