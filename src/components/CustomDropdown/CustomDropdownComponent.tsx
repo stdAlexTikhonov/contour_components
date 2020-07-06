@@ -201,6 +201,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
 
     setDropDown(false);
+    setLoading(true);
     setAnchorEl(null);
     filterChange(cubeSession);
   };
@@ -226,6 +227,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
     setDropDown(false);
     setAnchorEl(null);
+    setLoading(true);
   };
 
   const handleExpand = () => {
@@ -392,7 +394,10 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                 setDropDown(true);
                 setVal(value);
               }}
-              onOuterClick={() => setDropDown(false)}
+              onOuterClick={() => {
+                setDropDown(false);
+                setLoading(true);
+              }}
               itemToString={(item) => (item ? item.value : "")}
               inputValue={val}
             >
