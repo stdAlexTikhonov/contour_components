@@ -386,6 +386,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               dates={localItems.map((item) => item.value)}
               onSubmit={setFilterOnServer}
               onCancel={() => setAnchorEl(null)}
+              multiple={multiple}
             />
           ) : (
             <Downshift

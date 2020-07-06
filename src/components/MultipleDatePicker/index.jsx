@@ -44,6 +44,7 @@ const MultipleDatePicker = ({
   cancelButtonText,
   submitButtonText = "OK",
   selectedDatesTitle = "Selected Dates",
+  multiple,
 }) => {
   if (cancelButtonText == null) {
     cancelButtonText = readOnly ? "Dismiss" : "Cancel";
@@ -68,10 +69,15 @@ const MultipleDatePicker = ({
             (date) => !DateUtilities.isSameDay(date, day)
           ),
         });
-      } else {
+      } else if (multiple) {
         dispatch({
           type: "setSelectedDates",
           payload: [...selectedDates, day],
+        });
+      } else {
+        dispatch({
+          type: "setSelectedDates",
+          payload: [day],
         });
       }
     },

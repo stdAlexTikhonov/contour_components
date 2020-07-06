@@ -12,6 +12,7 @@ export const DatePicker = ({
   dates: datesFromServer,
   onSubmit: setFiltersOnServer,
   onCancel: setPopoverNull,
+  multiple,
 }) => {
   const shouldShowComponent = minDate && maxDate;
   const classes = useStyles();
@@ -49,6 +50,7 @@ export const DatePicker = ({
           maxDate={maxDate.toString()}
           onCancel={onCancel}
           onSubmit={onSubmit}
+          multiple={multiple}
         />
       )}
     </ThemeProvider>
