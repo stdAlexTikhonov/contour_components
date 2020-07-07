@@ -15,6 +15,7 @@ export type Props = {
     | undefined;
   handleRadio: any;
   handleToggle: any;
+  button: boolean;
 };
 
 export type IProps = Props;

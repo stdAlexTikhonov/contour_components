@@ -12,6 +12,7 @@ export const ExpandedFilter: React.FC<IProps> = ({
   direction,
   handleToggle,
   handleRadio,
+  button,
 }) => {
   return (
     <div
@@ -27,30 +28,47 @@ export const ExpandedFilter: React.FC<IProps> = ({
             key={item.code}
             aria-describedby={item.code}
             size="small"
-            style={{
-              outline: "none",
-              textTransform: "capitalize",
-              fontWeight: "normal",
-              display: item.disabled ? "none" : "flex",
-            }}
+            variant={button ? "contained" : "text"}
+            color={
+              button
+                ? checked.indexOf(item.value) !== -1
+                  ? "primary"
+                  : "secondary"
+                : "default"
+            }
+            onClick={
+              multiple ? handleToggle(item.value) : handleRadio(item.value)
+            }
+            disabled={item.disabled}
+            style={
+              button
+                ? { marginRight: 3, outline: "none" }
+                : {
+                    outline: "none",
+                    textTransform: "capitalize",
+                    fontWeight: "normal",
+                    display: item.disabled ? "none" : "flex",
+                  }
+            }
           >
-            {multiple ? (
-              <CustomCheckboxPaddingRight
-                checked={checked.indexOf(item.value) !== -1}
-                onClick={handleToggle(item.value)}
-                disabled={item.disabled}
-              />
-            ) : (
-              <CustomRadioPaddingRight
-                checked={
-                  checked.length === 1
-                    ? checked.indexOf(item.value) !== -1
-                    : checked[0] === item.value
-                }
-                onChange={handleRadio(item.value)}
-                disabled={item.disabled}
-              />
-            )}
+            {!button &&
+              (multiple ? (
+                <CustomCheckboxPaddingRight
+                  checked={checked.indexOf(item.value) !== -1}
+                  onClick={handleToggle(item.value)}
+                  disabled={item.disabled}
+                />
+              ) : (
+                <CustomRadioPaddingRight
+                  checked={
+                    checked.length === 1
+                      ? checked.indexOf(item.value) !== -1
+                      : checked[0] === item.value
+                  }
+                  onChange={handleRadio(item.value)}
+                  disabled={item.disabled}
+                />
+              ))}
             <div
               style={{
                 textAlign: direction === "row" ? "center" : "left",
