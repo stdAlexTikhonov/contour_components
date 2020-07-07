@@ -7,12 +7,9 @@ import Box from "@material-ui/core/Box";
 import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { ChartPlaceholder } from "../ChartPlaceholder";
-import Button from "@material-ui/core/Button";
-import { sliceWord } from "../../utils/helpers";
-import { CustomRadioPaddingRight } from "../CustomDropdown/CustomRadio";
-import { CustomCheckboxPaddingRight } from "../CustomDropdown/CustomCheckbox";
 import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
 import { getData } from "../../utils/api";
+import { ExpandedFilter } from "../ExpandedFilter";
 
 declare global {
   interface Window {
@@ -187,54 +184,14 @@ export const FiltersComponent: React.FC<IProps> = ({
         cube_id={cube_id}
       />
       {expand && selectedFilter === 0 && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: pos,
-            alignItems: "flex-start",
-          }}
-        >
-          {filterItems.length > 0 &&
-            filterItems.map((item: any) => (
-              <Button
-                key={item.code}
-                aria-describedby={item.code}
-                size="small"
-                style={{
-                  outline: "none",
-                  textTransform: "capitalize",
-                  fontWeight: "normal",
-                  display: item.disabled ? "none" : "flex",
-                }}
-              >
-                {multipleFacts ? (
-                  <CustomCheckboxPaddingRight
-                    checked={checked.indexOf(item.value) !== -1}
-                    onClick={handleToggle(item.value)}
-                    disabled={item.disabled}
-                  />
-                ) : (
-                  <CustomRadioPaddingRight
-                    checked={
-                      checked.length === 1
-                        ? checked.indexOf(item.value) !== -1
-                        : checked[0] === item.value
-                    }
-                    onChange={handleRadio(item.value)}
-                    disabled={item.disabled}
-                  />
-                )}
-                <div
-                  style={{
-                    textAlign: pos === "row" ? "center" : "left",
-                    width: "100%",
-                  }}
-                >
-                  {item.value}
-                </div>
-              </Button>
-            ))}
-        </div>
+        <ExpandedFilter
+          direction={pos}
+          handleToggle={handleToggle}
+          handleRadio={handleRadio}
+          multiple={multipleFacts}
+          filter_items={filterItems}
+          checked={checked}
+        />
       )}
       {filters.map((item: any, index: number) => (
         <>
@@ -262,54 +219,14 @@ export const FiltersComponent: React.FC<IProps> = ({
             cube_id={cube_id}
           />
           {expand && selectedFilter === index + 1 && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: pos,
-                alignItems: "flex-start",
-              }}
-            >
-              {filterItems.length > 0 &&
-                filterItems.map((item: any) => (
-                  <Button
-                    key={item.code}
-                    aria-describedby={item.code}
-                    size="small"
-                    style={{
-                      outline: "none",
-                      textTransform: "capitalize",
-                      fontWeight: "normal",
-                      display: item.disabled ? "none" : "flex",
-                    }}
-                  >
-                    {multyExpanded ? (
-                      <CustomCheckboxPaddingRight
-                        onClick={handleToggle(item.value)}
-                        checked={checked.indexOf(item.value) !== -1}
-                        disabled={item.disabled}
-                      />
-                    ) : (
-                      <CustomRadioPaddingRight
-                        checked={
-                          checked.length === 1
-                            ? checked.indexOf(item.value) !== -1
-                            : checked[0] === item.value
-                        }
-                        disabled={item.disabled}
-                        onChange={handleRadio(item.value)}
-                      />
-                    )}
-                    <div
-                      style={{
-                        textAlign: pos === "row" ? "center" : "left",
-                        width: "100%",
-                      }}
-                    >
-                      {item.value}
-                    </div>
-                  </Button>
-                ))}
-            </div>
+            <ExpandedFilter
+              direction={pos}
+              handleToggle={handleToggle}
+              handleRadio={handleRadio}
+              multiple={multyExpanded}
+              filter_items={filterItems}
+              checked={checked}
+            />
           )}
         </>
       ))}
