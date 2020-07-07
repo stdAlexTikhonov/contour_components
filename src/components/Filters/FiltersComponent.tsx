@@ -185,6 +185,7 @@ export const FiltersComponent: React.FC<IProps> = ({
       />
       {expand && selectedFilter === 0 && (
         <ExpandedFilter
+          button={false}
           direction={pos}
           handleToggle={handleToggle}
           handleRadio={handleRadio}
@@ -220,6 +221,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           />
           {expand && selectedFilter === index + 1 && (
             <ExpandedFilter
+              button={false}
               direction={pos}
               handleToggle={handleToggle}
               handleRadio={handleRadio}

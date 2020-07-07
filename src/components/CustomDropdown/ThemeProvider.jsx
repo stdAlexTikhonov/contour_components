@@ -1,9 +1,7 @@
 import React, { createContext, useState, useCallback } from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 import MuiThemeProvider from "@material-ui/styles/ThemeProvider";
-import orange from "@material-ui/core/colors/orange";
 import purple from "@material-ui/core/colors/purple";
-import blue from "@material-ui/core/colors/blue";
 
 function createTheme(light) {
   const theme = {
