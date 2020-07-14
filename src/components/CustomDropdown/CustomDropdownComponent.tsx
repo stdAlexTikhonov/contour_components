@@ -320,6 +320,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
       setDropDown(!dropDown);
     })();
+    //Если уже есть один раскрытый фильтр то expanded будет установлен везде поэтому
+    //переделать
     setExpanded(filter_index === selected_filter);
   };
 
