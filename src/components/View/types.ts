@@ -10,7 +10,7 @@ export interface LinkStateToProps {
   language: string;
 }
 
-export type IProps = Props & LinkStateToProps;
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 // export interface LinkStateToProps {
 //   items: any;
@@ -23,6 +23,6 @@ export type IProps = Props & LinkStateToProps;
 //   metadata: Array<Metadata> | null;
 // }
 
-// export interface LinkDispatchToProps {
-//   handleDataQuery: (data_for_query: DataForQuery) => void;
-// }
+export interface LinkDispatchToProps {
+  setCurrentFilters: (filters: any) => void;
+}

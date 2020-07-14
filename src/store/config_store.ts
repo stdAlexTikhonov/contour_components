@@ -9,6 +9,7 @@ import {
   view,
   report,
   cubes,
+  filters,
 } from "../reducers";
 
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
@@ -22,6 +23,7 @@ export const rootReducer = combineReducers({
   view,
   report,
   cubes,
+  filters,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

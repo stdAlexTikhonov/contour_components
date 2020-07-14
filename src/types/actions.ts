@@ -266,6 +266,14 @@ export type reportActions =
   | setCubeSession
   | setExpandedFilter;
 
+//filters
+export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
+
+export interface setFiltersOfView {
+  type: typeof SET_FILTERS_OF_VIEW;
+  filters: any;
+}
+
 //Items
 export const SET_ITEMS = "SET_ITEMS";
 
@@ -305,4 +313,5 @@ export type AppActions =
   | setView
   | setDataToTab
   | setCubeSession
-  | setCubeSessionId;
+  | setCubeSessionId
+  | setFiltersOfView;
