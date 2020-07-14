@@ -226,15 +226,6 @@ export interface setDashboardMetadata {
   metadata: Array<Metadata> | null;
 }
 
-export const SET_EXPANDED_FILTER = "SET_EXPANDED_FILTER";
-
-export interface setExpandedFilter {
-  type: typeof SET_EXPANDED_FILTER;
-  expanded_filter: Array<any>;
-  index: number;
-  filter_index: number;
-}
-
 export const GET_DIMENSION_FILTER = "GET_DIMETION_FILTER";
 
 export type DimFilter = {
@@ -263,8 +254,7 @@ export type reportActions =
   | getDimFilter
   | setDashboardMetadata
   | setDataToTab
-  | setCubeSession
-  | setExpandedFilter;
+  | setCubeSession;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -317,7 +307,6 @@ export type AppActions =
   | setTabs
   | setDashboard
   | setDashboardMetadata
-  | setExpandedFilter
   | getDimFilter
   | setView
   | setDataToTab

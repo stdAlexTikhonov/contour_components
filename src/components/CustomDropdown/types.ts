@@ -30,11 +30,6 @@ export interface LinkStateToProps {
 
 export interface LinkDispatchToProps {
   settingCubeSession: (cube_id: string, cube_session: string) => void;
-  settingExpandedFilter: (
-    expanded_filter: any,
-    index: number,
-    filter_index: number
-  ) => void;
   settingSelectedFilter: (index: number) => void;
 }
 
