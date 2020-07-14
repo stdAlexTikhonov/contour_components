@@ -7,6 +7,7 @@ import {
   setSelectedFilter,
   setFilterState,
   setFilterItems,
+  setCheckedItems,
 } from "../../actions/filters";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
@@ -18,6 +19,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   cubes: state.cubes,
   selected_filter: state.filters.selected_filter,
   expanded: state.filters.expanded,
+  checked: state.filters.checked,
 });
 
 const mapDispatchToProps = (
@@ -34,6 +36,9 @@ const mapDispatchToProps = (
   },
   settingFilterItems: (items: any[]) => {
     dispatch(setFilterItems(items));
+  },
+  settingCheckedItems: (checked: any) => {
+    dispatch(setCheckedItems(checked));
   },
 });
 

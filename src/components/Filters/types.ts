@@ -30,8 +30,10 @@ export interface LinkStateToProps {
   selected_filter: number;
   expanded: boolean;
   filter_items: any[];
+  checked: any;
 }
 
 export interface LinkDispatchToProps {
   settingCubeSession: (cube_id: string, cube_session: string) => void;
+  settingCheckedItems: (checked: any) => void;
 }

@@ -35,6 +35,8 @@ export const FiltersComponent: React.FC<IProps> = ({
   cubes,
   session,
   settingCubeSession,
+  settingCheckedItems,
+  checked,
   selected_filter,
   expanded,
   filter_items,
@@ -45,11 +47,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [multyExpanded, setMultyExpanded] = useState(false);
-  const [checked, setExpandChecked] = useState<string[]>(
-    facts
-      .filter((item: any) => visibleFacts.includes(item.code))
-      .map((fact: any) => fact.Caption)
-  );
+
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
 
@@ -64,7 +62,7 @@ export const FiltersComponent: React.FC<IProps> = ({
       newChecked.splice(currentIndex, 1);
     }
 
-    setExpandChecked(newChecked);
+    settingCheckedItems(newChecked);
 
     if (selected_filter === 0) {
       //Fact
@@ -112,8 +110,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   };
 
   const handleRadio = (value: string) => async () => {
-    setExpandChecked([value]);
-
+    settingCheckedItems([value]);
     if (selected_filter === 0) {
       //Fact
       let facts_for_server = filter_items
@@ -175,8 +172,6 @@ export const FiltersComponent: React.FC<IProps> = ({
         meta_index={meta_index}
         filter_index={0}
         setMultyExpanded={setMultyExpanded}
-        setExpandChecked={setExpandChecked}
-        f_checked={checked}
         cube_id={cube_id}
       />
       {expanded && selected_filter === 0 && (
@@ -206,8 +201,6 @@ export const FiltersComponent: React.FC<IProps> = ({
             meta_index={meta_index}
             filter_index={index + 1}
             setMultyExpanded={setMultyExpanded}
-            f_checked={checked}
-            setExpandChecked={setExpandChecked}
             cube_id={cube_id}
           />
           {expanded && selected_filter === index + 1 && (
