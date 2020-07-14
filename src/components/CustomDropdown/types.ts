@@ -14,7 +14,6 @@ export interface Props {
   filter_index: number;
   f_checked: string[];
   cube_id: string;
-  expand_func: React.Dispatch<React.SetStateAction<boolean>>;
   setFilterItems: React.Dispatch<React.SetStateAction<any[]>>;
   setMultyExpanded: React.Dispatch<React.SetStateAction<boolean>>;
   setExpandChecked: React.Dispatch<React.SetStateAction<string[]>>;
@@ -26,11 +25,13 @@ export interface LinkStateToProps {
   cube_session: string | undefined;
   cubes: any;
   selected_filter: number;
+  expanded: boolean;
 }
 
 export interface LinkDispatchToProps {
   settingCubeSession: (cube_id: string, cube_session: string) => void;
   settingSelectedFilter: (index: number) => void;
+  settingFilterState: (expanded: boolean) => void;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;

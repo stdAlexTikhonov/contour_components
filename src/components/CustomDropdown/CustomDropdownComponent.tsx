@@ -44,13 +44,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   filter_index,
   selected_filter,
   f_checked,
+  expanded,
   settingCubeSession,
-  expand_func,
   setFilterItems,
   setMultyExpanded,
   setExpandChecked,
   cube_id,
   settingSelectedFilter,
+  settingFilterState,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -70,7 +71,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [localItems, setItems] = React.useState<any[]>(items);
   const [visibleItems, setVisibleItems] = React.useState<any[]>(items);
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [expanded, setExpanded] = React.useState<boolean>(false);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
@@ -231,9 +231,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleExpand = () => {
-    setExpanded(!expanded);
+    settingFilterState(!expanded);
     settingSelectedFilter(expanded ? -1 : filter_index);
-    expand_func(!expanded);
     setFilterItems(localItems);
   };
 
@@ -322,7 +321,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     })();
     //Если уже есть один раскрытый фильтр то expanded будет установлен везде поэтому
     //переделать
-    setExpanded(filter_index === selected_filter);
+    settingFilterState(filter_index === selected_filter);
   };
 
   const handleSelectAll = (value: boolean) => {

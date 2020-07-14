@@ -28,6 +28,7 @@ export interface LinkStateToProps {
   language: string;
   cubes: any;
   selected_filter: number;
+  expanded: boolean;
 }
 
 export interface LinkDispatchToProps {

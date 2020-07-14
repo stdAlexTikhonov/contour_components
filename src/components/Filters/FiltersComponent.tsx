@@ -36,6 +36,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   session,
   settingCubeSession,
   selected_filter,
+  expanded,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
@@ -174,14 +175,13 @@ export const FiltersComponent: React.FC<IProps> = ({
         filterChange={filterChange}
         meta_index={meta_index}
         filter_index={0}
-        expand_func={setExpand}
         setFilterItems={setFilterItems}
         setMultyExpanded={setMultyExpanded}
         setExpandChecked={setExpandChecked}
         f_checked={checked}
         cube_id={cube_id}
       />
-      {expand && selected_filter === 0 && (
+      {expanded && selected_filter === 0 && (
         <ExpandedFilter
           button={false}
           direction={pos}
@@ -208,14 +208,13 @@ export const FiltersComponent: React.FC<IProps> = ({
             filterChange={filterChange}
             meta_index={meta_index}
             filter_index={index + 1}
-            expand_func={setExpand}
             setFilterItems={setFilterItems}
             setMultyExpanded={setMultyExpanded}
             f_checked={checked}
             setExpandChecked={setExpandChecked}
             cube_id={cube_id}
           />
-          {expand && selected_filter === index + 1 && (
+          {expanded && selected_filter === index + 1 && (
             <ExpandedFilter
               button={false}
               direction={pos}
