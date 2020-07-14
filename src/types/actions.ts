@@ -278,10 +278,18 @@ export interface setFilterState {
   expanded: boolean;
 }
 
+export const SET_FILTER_ITEMS = "SET_FILTER_ITEMS";
+
+export interface setFilterItems {
+  type: typeof SET_FILTER_ITEMS;
+  items: any;
+}
+
 export type filterActions =
   | setFiltersOfView
   | setSelectedFilter
-  | setFilterState;
+  | setFilterState
+  | setFilterItems;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -324,4 +332,5 @@ export type AppActions =
   | setCubeSessionId
   | setFiltersOfView
   | setSelectedFilter
-  | setFilterState;
+  | setFilterState
+  | setFilterItems;

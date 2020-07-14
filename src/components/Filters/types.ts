@@ -29,6 +29,7 @@ export interface LinkStateToProps {
   cubes: any;
   selected_filter: number;
   expanded: boolean;
+  filter_items: any[];
 }
 
 export interface LinkDispatchToProps {
