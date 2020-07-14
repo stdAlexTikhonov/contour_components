@@ -1,5 +1,4 @@
 export type Props = {
-  filter_items: any;
   multiple: boolean;
   checked: string[];
   direction:
@@ -18,4 +17,8 @@ export type Props = {
   button: boolean;
 };
 
-export type IProps = Props;
+export type IProps = Props & LinkStateToProps;
+
+export interface LinkStateToProps {
+  filter_items: any[];
+}

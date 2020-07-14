@@ -186,7 +186,6 @@ export const FiltersComponent: React.FC<IProps> = ({
           handleToggle={handleToggle}
           handleRadio={handleRadio}
           multiple={multipleFacts}
-          filter_items={filter_items}
           checked={checked}
         />
       )}
@@ -218,7 +217,6 @@ export const FiltersComponent: React.FC<IProps> = ({
               handleToggle={handleToggle}
               handleRadio={handleRadio}
               multiple={multyExpanded}
-              filter_items={filter_items}
               checked={checked}
             />
           )}
