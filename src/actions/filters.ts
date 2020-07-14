@@ -4,6 +4,7 @@ import {
   SET_SELECTED_FILTER,
   SET_FILTER_STATE,
   SET_FILTER_ITEMS,
+  SET_CHECKED_ITEMS,
 } from "../types/actions";
 
 export const setFilterOfView = (filters: any): AppActions => ({
@@ -24,4 +25,9 @@ export const setFilterState = (expanded: boolean): AppActions => ({
 export const setFilterItems = (items: any): AppActions => ({
   type: SET_FILTER_ITEMS,
   items,
+});
+
+export const setCheckedItems = (checked: any): AppActions => ({
+  type: SET_CHECKED_ITEMS,
+  checked,
 });

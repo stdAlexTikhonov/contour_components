@@ -285,11 +285,19 @@ export interface setFilterItems {
   items: any;
 }
 
+export const SET_CHECKED_ITEMS = "SET_CHECKED_ITEMS";
+
+export interface setCheckedItems {
+  type: typeof SET_CHECKED_ITEMS;
+  checked: any;
+}
+
 export type filterActions =
   | setFiltersOfView
   | setSelectedFilter
   | setFilterState
-  | setFilterItems;
+  | setFilterItems
+  | setCheckedItems;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -333,4 +341,5 @@ export type AppActions =
   | setFiltersOfView
   | setSelectedFilter
   | setFilterState
-  | setFilterItems;
+  | setFilterItems
+  | setCheckedItems;
