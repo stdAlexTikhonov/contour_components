@@ -274,6 +274,15 @@ export interface setFiltersOfView {
   filters: any;
 }
 
+export const SET_SELECTED_FILTER = "SET_SELECTED_FILTER";
+
+export interface setSelectedFilter {
+  type: typeof SET_SELECTED_FILTER;
+  index: number;
+}
+
+export type filterActions = setFiltersOfView | setSelectedFilter;
+
 //Items
 export const SET_ITEMS = "SET_ITEMS";
 
@@ -314,4 +323,5 @@ export type AppActions =
   | setDataToTab
   | setCubeSession
   | setCubeSessionId
-  | setFiltersOfView;
+  | setFiltersOfView
+  | setSelectedFilter;

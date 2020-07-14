@@ -35,6 +35,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   cubes,
   session,
   settingCubeSession,
+  selected_filter,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
@@ -43,7 +44,6 @@ export const FiltersComponent: React.FC<IProps> = ({
   const [error, setError] = useState(false);
   const [expand, setExpand] = useState(false);
   const [filterItems, setFilterItems] = useState<any[]>([]);
-  const [selectedFilter, setSelectedFilter] = useState(-1);
   const [multyExpanded, setMultyExpanded] = useState(false);
   const [checked, setExpandChecked] = useState<string[]>(
     facts
@@ -66,7 +66,7 @@ export const FiltersComponent: React.FC<IProps> = ({
 
     setExpandChecked(newChecked);
 
-    if (selectedFilter === 0) {
+    if (selected_filter === 0) {
       //Fact
       let facts_for_server = filterItems
         .filter((item: any) => newChecked.includes(item.value))
@@ -102,7 +102,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         report: report_code || report,
         slice,
         view,
-        code: filters[selectedFilter - 1].code,
+        code: filters[selected_filter - 1].code,
         filter: filters_for_server,
         cubeSession: cubes[cube_id],
       });
@@ -114,7 +114,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   const handleRadio = (value: string) => async () => {
     setExpandChecked([value]);
 
-    if (selectedFilter === 0) {
+    if (selected_filter === 0) {
       //Fact
       let facts_for_server = filterItems
         .filter((item: any) => value === item.value)
@@ -149,7 +149,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         report: report_code || report,
         slice,
         view,
-        code: filters[selectedFilter - 1].code,
+        code: filters[selected_filter - 1].code,
         filter: filters_for_server,
         cubeSession: cubes[cube_id],
       });
@@ -175,15 +175,13 @@ export const FiltersComponent: React.FC<IProps> = ({
         meta_index={meta_index}
         filter_index={0}
         expand_func={setExpand}
-        selectFilter={setSelectedFilter}
-        selected_filter={selectedFilter}
         setFilterItems={setFilterItems}
         setMultyExpanded={setMultyExpanded}
         setExpandChecked={setExpandChecked}
         f_checked={checked}
         cube_id={cube_id}
       />
-      {expand && selectedFilter === 0 && (
+      {expand && selected_filter === 0 && (
         <ExpandedFilter
           button={false}
           direction={pos}
@@ -211,15 +209,13 @@ export const FiltersComponent: React.FC<IProps> = ({
             meta_index={meta_index}
             filter_index={index + 1}
             expand_func={setExpand}
-            selectFilter={setSelectedFilter}
-            selected_filter={selectedFilter}
             setFilterItems={setFilterItems}
             setMultyExpanded={setMultyExpanded}
             f_checked={checked}
             setExpandChecked={setExpandChecked}
             cube_id={cube_id}
           />
-          {expand && selectedFilter === index + 1 && (
+          {expand && selected_filter === index + 1 && (
             <ExpandedFilter
               button={false}
               direction={pos}

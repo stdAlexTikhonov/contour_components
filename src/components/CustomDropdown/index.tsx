@@ -4,6 +4,7 @@ import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { CustomDropdownComponent } from "./CustomDropdownComponent";
 import { setCubeSessionId } from "../../actions/cubes";
 import { setExpandedFilter } from "../../actions/report";
+import { setSelectedFilter } from "../../actions/filters";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 
@@ -12,6 +13,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   language: state.languages.current,
   cube_session: state.report.cube_session,
   cubes: state.cubes,
+  selected_filter: state.filters.selected_filter,
 });
 
 const mapDispatchToProps = (
@@ -26,6 +28,9 @@ const mapDispatchToProps = (
     filter_index: number
   ) => {
     dispatch(setExpandedFilter(expanded_filter, index, filter_index));
+  },
+  settingSelectedFilter: (index: number) => {
+    dispatch(setSelectedFilter(index));
   },
 });
 

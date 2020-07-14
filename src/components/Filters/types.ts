@@ -27,6 +27,7 @@ export interface LinkStateToProps {
   session: string | undefined;
   language: string;
   cubes: any;
+  selected_filter: number;
 }
 
 export interface LinkDispatchToProps {

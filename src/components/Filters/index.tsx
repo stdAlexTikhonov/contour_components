@@ -10,6 +10,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
   cubes: state.cubes,
+  selected_filter: state.filters.selected_filter,
 });
 
 const mapDispatchToProps = (
