@@ -225,6 +225,10 @@ export function _getFilters() {
   });
 }
 
+export function _setFilter(code, filters) {
+  filters2[code].Filters = filters;
+}
+
 export function _getFilterById(id) {
   return new Promise((res, rej) => {
     setTimeout(() => res(filters2[id]), 1000);

@@ -13,7 +13,7 @@ import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
 import { sleep, sliceWord } from "../../utils/helpers";
-import { getData, getFilterByCode } from "../../utils/api";
+import { getData, getFilterByCode, setFiltersOnServer } from "../../utils/api";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
@@ -149,24 +149,25 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         ""
       );
 
-      const data = await getData({
-        method: SET_DIM_FILTER,
-        language,
-        session,
-        solution,
-        project,
-        report: report_code || report,
-        slice,
-        view,
-        code,
-        filter: filters_for_server,
-        cubeSession: cubes[cube_id],
-      });
+      setFiltersOnServer(code!, filters_for_server);
+      // const data = await getData({
+      //   method: SET_DIM_FILTER,
+      //   language,
+      //   session,
+      //   solution,
+      //   project,
+      //   report: report_code || report,
+      //   slice,
+      //   view,
+      //   code,
+      //   filter: filters_for_server,
+      //   cubeSession: cubes[cube_id],
+      // });
 
       setSelectedFromServer(checked);
-      console.log(data);
-      cubeSession = data.cubeSession;
-      settingCubeSession(cube_id, data.cubeSession);
+      // console.log(data);
+      // cubeSession = data.cubeSession;
+      // settingCubeSession(cube_id, data.cubeSession);
       // console.log(filters_for_server);
     } else {
       //Fact

@@ -1,6 +1,6 @@
 import { DataForQuery, Login, Register, ApiTypes } from "./types";
 import { LOGIN, REGISTER_USER, LANGUAGES, BASE_URL } from "./constants";
-import { _getFilters, _getFilterById } from "./_DATA.js";
+import { _getFilters, _getFilterById, _setFilter } from "./_DATA.js";
 
 export const post = async (url: string = BASE_URL, data: ApiTypes) => {
   const response = await fetch(url, {
@@ -20,6 +20,9 @@ export const getFilters = async () => await _getFilters();
 
 export const getFilterByCode = async (code: string) =>
   await _getFilterById(code);
+
+export const setFiltersOnServer = (code: string, filters: string) =>
+  _setFilter(code, filters);
 
 //Working with session
 export const saveSession = (session: string) =>
