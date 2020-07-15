@@ -125,6 +125,9 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      class: [5, 5, 5, 6, 6, 6, 6, 6],
+    },
   },
   class: {
     Captions: [
@@ -144,6 +147,9 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      order: [3, 3, 3, 3, 3, 3, 3, 3],
+    },
   },
   order: {
     Captions: [
@@ -163,6 +169,9 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      family: [2, 2, 2, 3, 3, 3, 3],
+    },
   },
   family: {
     Captions: [
@@ -181,6 +190,9 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      genus: [0, 0, 4, 4],
+    },
   },
   genus: {
     Captions: ["Заяц", "Кролик", "Собака", "Лисица"],
@@ -191,6 +203,9 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      species: [0, 0, 2, 2, 2],
+    },
   },
   species: {
     Captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
@@ -226,7 +241,27 @@ export function _getFilters() {
 }
 
 export function _setFilter(code, filters) {
-  filters2[code].Filters = filters;
+  const dim = filters2[code];
+  dim.Filters = filters;
+  for (const k in dim.join) {
+    const child_visability = dim.join[k]
+      .map((item) => filters.charAt(item))
+      .join("");
+    _setHidden(k, child_visability);
+  }
+}
+
+export function _setHidden(code, hidden) {
+  const dim = filters2[code];
+
+  dim.Hidden = hidden;
+  for (const k in dim.join) {
+    const child_visability = dim.join[k]
+      .map((item) => hidden.charAt(item))
+      .join("");
+    _setHidden(k, child_visability);
+  }
+
 }
 
 export function _getFilterById(id) {
