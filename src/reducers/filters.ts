@@ -5,6 +5,7 @@ import {
   SET_FILTER_STATE,
   SET_FILTER_ITEMS,
   SET_CHECKED_ITEMS,
+  SET_MULTIPLE_VALUES,
 } from "../types/actions";
 
 export const filters = (
@@ -14,6 +15,7 @@ export const filters = (
     expanded: false,
     items: [],
     checked: [],
+    multiple: false,
   },
   action: filterActions
 ) => {
@@ -42,6 +44,11 @@ export const filters = (
       return {
         ...state,
         checked: action.checked,
+      };
+    case SET_MULTIPLE_VALUES:
+      return {
+        ...state,
+        multiple: action.multiple,
       };
     default:
       return state;

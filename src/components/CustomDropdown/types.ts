@@ -13,7 +13,6 @@ export interface Props {
   meta_index: number;
   filter_index: number;
   cube_id: string;
-  setMultyExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface LinkStateToProps {
@@ -32,6 +31,7 @@ export interface LinkDispatchToProps {
   settingFilterState: (expanded: boolean) => void;
   settingFilterItems: (items: any[]) => void;
   settingCheckedItems: (checked: any) => void;
+  settingMultipleValues: (multiple: boolean) => void;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;

@@ -5,6 +5,7 @@ import {
   SET_FILTER_STATE,
   SET_FILTER_ITEMS,
   SET_CHECKED_ITEMS,
+  SET_MULTIPLE_VALUES,
 } from "../types/actions";
 
 export const setFilterOfView = (filters: any): AppActions => ({
@@ -30,4 +31,9 @@ export const setFilterItems = (items: any): AppActions => ({
 export const setCheckedItems = (checked: any): AppActions => ({
   type: SET_CHECKED_ITEMS,
   checked,
+});
+
+export const setMultipleValues = (multiple: boolean): AppActions => ({
+  type: SET_MULTIPLE_VALUES,
+  multiple,
 });

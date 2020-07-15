@@ -292,12 +292,20 @@ export interface setCheckedItems {
   checked: any;
 }
 
+export const SET_MULTIPLE_VALUES = "SET_MULTIPLE_VALUES";
+
+export interface setMultipleValues {
+  type: typeof SET_MULTIPLE_VALUES;
+  multiple: boolean;
+}
+
 export type filterActions =
   | setFiltersOfView
   | setSelectedFilter
   | setFilterState
   | setFilterItems
-  | setCheckedItems;
+  | setCheckedItems
+  | setMultipleValues;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -342,4 +350,5 @@ export type AppActions =
   | setSelectedFilter
   | setFilterState
   | setFilterItems
-  | setCheckedItems;
+  | setCheckedItems
+  | setMultipleValues;

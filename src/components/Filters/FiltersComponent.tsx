@@ -40,13 +40,13 @@ export const FiltersComponent: React.FC<IProps> = ({
   selected_filter,
   expanded,
   filter_items,
+  multiple,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
   const cube_id = slice + cube_report;
   const classes = useStyles();
   const [error, setError] = useState(false);
-  const [multyExpanded, setMultyExpanded] = useState(false);
 
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
@@ -171,7 +171,6 @@ export const FiltersComponent: React.FC<IProps> = ({
         filterChange={filterChange}
         meta_index={meta_index}
         filter_index={0}
-        setMultyExpanded={setMultyExpanded}
         cube_id={cube_id}
       />
       {expanded && selected_filter === 0 && (
@@ -180,8 +179,8 @@ export const FiltersComponent: React.FC<IProps> = ({
           direction={pos}
           handleToggle={handleToggle}
           handleRadio={handleRadio}
-          multiple={multipleFacts}
           checked={checked}
+          multiple={multipleFacts}
         />
       )}
       {filters.map((item: any, index: number) => (
@@ -200,7 +199,6 @@ export const FiltersComponent: React.FC<IProps> = ({
             filterChange={filterChange}
             meta_index={meta_index}
             filter_index={index + 1}
-            setMultyExpanded={setMultyExpanded}
             cube_id={cube_id}
           />
           {expanded && selected_filter === index + 1 && (
@@ -209,8 +207,8 @@ export const FiltersComponent: React.FC<IProps> = ({
               direction={pos}
               handleToggle={handleToggle}
               handleRadio={handleRadio}
-              multiple={multyExpanded}
               checked={checked}
+              multiple={multiple}
             />
           )}
         </>

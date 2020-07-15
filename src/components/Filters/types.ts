@@ -31,6 +31,7 @@ export interface LinkStateToProps {
   expanded: boolean;
   filter_items: any[];
   checked: any;
+  multiple: boolean;
 }
 
 export interface LinkDispatchToProps {

@@ -8,6 +8,7 @@ import {
   setFilterState,
   setFilterItems,
   setCheckedItems,
+  setMultipleValues,
 } from "../../actions/filters";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
@@ -39,6 +40,9 @@ const mapDispatchToProps = (
   },
   settingCheckedItems: (checked: any) => {
     dispatch(setCheckedItems(checked));
+  },
+  settingMultipleValues: (multiple: boolean) => {
+    dispatch(setMultipleValues(multiple));
   },
 });
 
