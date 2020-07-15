@@ -1,5 +1,6 @@
 import { DataForQuery, Login, Register, ApiTypes } from "./types";
 import { LOGIN, REGISTER_USER, LANGUAGES, BASE_URL } from "./constants";
+import { _getFilters } from "./_DATA.js";
 
 export const post = async (url: string = BASE_URL, data: ApiTypes) => {
   const response = await fetch(url, {
@@ -14,6 +15,8 @@ export const getData = async (data: DataForQuery) => {
   if (data.p_folder) data.folder = data.p_folder;
   return await post(BASE_URL, data);
 };
+
+export const getFilters = async () => await _getFilters();
 
 //Working with session
 export const saveSession = (session: string) =>

@@ -109,7 +109,7 @@ let filters = [
 
 let filters2 = {
   type: {
-    captions: [
+    Captions: [
       "Простейшие",
       "Губки",
       "Кишечнополостные",
@@ -118,9 +118,16 @@ let filters2 = {
       "Членистоногие",
       "Хордовые",
     ],
+    Filters: "0000000",
+    Hidden: "0000000",
+    MultipleValues: true,
+    Values: [],
+    cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
+    success: true,
+    type: "Float",
   },
   class: {
-    captions: [
+    Captions: [
       "Ракообразные",
       "Паукообразные",
       "Насекомые",
@@ -130,9 +137,16 @@ let filters2 = {
       "Земноводные",
       "Рыбы",
     ],
+    Filters: "00000000",
+    Hidden: "00000000",
+    MultipleValues: true,
+    Values: [],
+    cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
+    success: true,
+    type: "Float",
   },
   order: {
-    captions: [
+    Captions: [
       "Насекомоядные",
       "Рукокрылые",
       "Грызуны",
@@ -142,6 +156,13 @@ let filters2 = {
       "Хоботные",
       "Приматы",
     ],
+    Filters: "00000000",
+    Hidden: "00000000",
+    MultipleValues: true,
+    Values: [],
+    cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
+    success: true,
+    type: "Float",
   },
   family: {
     captions: [
@@ -153,14 +174,44 @@ let filters2 = {
       "Медвежьи",
       "Куньи",
     ],
+    Filters: "0000000",
+    Hidden: "0000000",
+    MultipleValues: true,
+    Values: [],
+    cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
+    success: true,
+    type: "Float",
   },
   genus: {
     captions: ["Заяц", "Кролик", "Собака", "Лисица"],
+    Filters: "0000",
+    Hidden: "0000",
+    MultipleValues: true,
+    Values: [],
+    cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
+    success: true,
+    type: "Float",
   },
   species: {
     captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
+    Filters: "00000",
+    Hidden: "00000",
+    MultipleValues: true,
+    Values: [],
+    cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
+    success: true,
+    type: "Float",
   },
 };
+
+const filters3 = [
+  { Caption: "Тип", code: "type" },
+  { Caption: "Класс", code: "class" },
+  { Caption: "Отряд", code: "order" },
+  { Caption: "Семейство", code: "family" },
+  { Caption: "Род", code: "genus" },
+  { Caption: "Вид", code: "species" },
+];
 
 export function _getUsers() {
   return new Promise((res, rej) => {
@@ -170,7 +221,7 @@ export function _getUsers() {
 
 export function _getFilters() {
   return new Promise((res, rej) => {
-    setTimeout(() => res(filters), 1000);
+    setTimeout(() => res(filters3), 1000);
   });
 }
 

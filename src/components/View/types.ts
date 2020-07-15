@@ -8,6 +8,7 @@ export interface Props {
 export interface LinkStateToProps {
   session: string | undefined;
   language: string;
+  filters: any;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;

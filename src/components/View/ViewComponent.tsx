@@ -20,6 +20,7 @@ export const ViewComponent: React.FC<IProps> = ({
   language,
   index,
   setCurrentFilters,
+  filters: testFilters,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -131,7 +132,10 @@ export const ViewComponent: React.FC<IProps> = ({
             facts={facts.items}
             filters={filters}
           />
-        )} */}
+        )} 
+        
+        //{filterDimensions || filters}
+        */}
 
         <Filters
           show={fieldBar}
@@ -140,7 +144,7 @@ export const ViewComponent: React.FC<IProps> = ({
           slice={slice}
           view={view}
           report={report}
-          filters={filterDimensions || filters}
+          filters={testFilters}
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}

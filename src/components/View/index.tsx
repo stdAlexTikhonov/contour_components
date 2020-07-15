@@ -5,17 +5,19 @@ import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { AppActions } from "../../types/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { setFilterOfView } from "../../actions/filters";
+import { getFilters } from "../../utils/api";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
+  filters: state.filters.filters,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
   setCurrentFilters: (filters: any) => {
-    dispatch(setFilterOfView(filters));
+    getFilters().then((data) => dispatch(setFilterOfView(data)));
   },
 });
 
