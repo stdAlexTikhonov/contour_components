@@ -184,7 +184,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         />
       )}
       {filters.map((item: any, index: number) => (
-        <div key={item.code}>
+        <>
           <CustomDropdown
             items={[]}
             label={item.Caption}
@@ -211,7 +211,7 @@ export const FiltersComponent: React.FC<IProps> = ({
               multiple={multiple}
             />
           )}
-        </div>
+        </>
       ))}
     </>
   );
