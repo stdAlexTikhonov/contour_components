@@ -133,7 +133,7 @@ export const ViewComponent: React.FC<IProps> = ({
             filters={filters}
           />
         )} 
-        
+        {filterDimensions || filters}
         //{testFilters}
         */}
 
@@ -144,7 +144,7 @@ export const ViewComponent: React.FC<IProps> = ({
           slice={slice}
           view={view}
           report={report}
-          filters={filterDimensions || filters}
+          filters={testFilters}
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}

@@ -165,7 +165,7 @@ let filters2 = {
     type: "Float",
   },
   family: {
-    captions: [
+    Captions: [
       "Зайчьи",
       "Беличьи",
       "Мышиные",
@@ -183,7 +183,7 @@ let filters2 = {
     type: "Float",
   },
   genus: {
-    captions: ["Заяц", "Кролик", "Собака", "Лисица"],
+    Captions: ["Заяц", "Кролик", "Собака", "Лисица"],
     Filters: "0000",
     Hidden: "0000",
     MultipleValues: true,
@@ -193,7 +193,7 @@ let filters2 = {
     type: "Float",
   },
   species: {
-    captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
+    Captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
     Filters: "00000",
     Hidden: "00000",
     MultipleValues: true,
@@ -227,6 +227,6 @@ export function _getFilters() {
 
 export function _getFilterById(id) {
   return new Promise((res, rej) => {
-    setTimeout(() => res(filters[id]), 1000);
+    setTimeout(() => res(filters2[id]), 1000);
   });
 }

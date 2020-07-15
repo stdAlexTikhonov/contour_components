@@ -13,7 +13,7 @@ import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
 import { sleep, sliceWord } from "../../utils/helpers";
-import { getData } from "../../utils/api";
+import { getData, getFilterByCode } from "../../utils/api";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
@@ -242,19 +242,22 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     (async () => {
+      console.log(code);
       if (_async) {
-        const data = await getData({
-          method: GET_DIM_FILTER,
-          session,
-          solution,
-          language,
-          project,
-          report: report_code || report,
-          slice,
-          view,
-          code,
-          cubeSession: cubes[cube_id],
-        });
+        const data = await getFilterByCode(code!);
+
+        // const data = await getData({
+        //   method: GET_DIM_FILTER,
+        //   session,
+        //   solution,
+        //   language,
+        //   project,
+        //   report: report_code || report,
+        //   slice,
+        //   view,
+        //   code,
+        //   cubeSession: cubes[cube_id],
+        // });
 
         console.log(data);
 
