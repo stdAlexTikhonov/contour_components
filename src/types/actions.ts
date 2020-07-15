@@ -226,15 +226,6 @@ export interface setDashboardMetadata {
   metadata: Array<Metadata> | null;
 }
 
-export const SET_EXPANDED_FILTER = "SET_EXPANDED_FILTER";
-
-export interface setExpandedFilter {
-  type: typeof SET_EXPANDED_FILTER;
-  expanded_filter: Array<any>;
-  index: number;
-  filter_index: number;
-}
-
 export const GET_DIMENSION_FILTER = "GET_DIMETION_FILTER";
 
 export type DimFilter = {
@@ -263,8 +254,58 @@ export type reportActions =
   | getDimFilter
   | setDashboardMetadata
   | setDataToTab
-  | setCubeSession
-  | setExpandedFilter;
+  | setCubeSession;
+
+//filters
+export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
+
+export interface setFiltersOfView {
+  type: typeof SET_FILTERS_OF_VIEW;
+  filters: any;
+}
+
+export const SET_SELECTED_FILTER = "SET_SELECTED_FILTER";
+
+export interface setSelectedFilter {
+  type: typeof SET_SELECTED_FILTER;
+  index: number;
+}
+
+export const SET_FILTER_STATE = "SET_FILTER_STATE";
+
+export interface setFilterState {
+  type: typeof SET_FILTER_STATE;
+  expanded: boolean;
+}
+
+export const SET_FILTER_ITEMS = "SET_FILTER_ITEMS";
+
+export interface setFilterItems {
+  type: typeof SET_FILTER_ITEMS;
+  items: any;
+}
+
+export const SET_CHECKED_ITEMS = "SET_CHECKED_ITEMS";
+
+export interface setCheckedItems {
+  type: typeof SET_CHECKED_ITEMS;
+  checked: any;
+}
+
+export const SET_MULTIPLE_VALUES = "SET_MULTIPLE_VALUES";
+
+export interface setMultipleValues {
+  type: typeof SET_MULTIPLE_VALUES;
+  multiple: boolean;
+}
+
+export type filterActions =
+  | setFiltersOfView
+  | setSelectedFilter
+  | setFilterState
+  | setFilterItems
+  | setCheckedItems
+  | setMultipleValues;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -300,9 +341,14 @@ export type AppActions =
   | setTabs
   | setDashboard
   | setDashboardMetadata
-  | setExpandedFilter
   | getDimFilter
   | setView
   | setDataToTab
   | setCubeSession
-  | setCubeSessionId;
+  | setCubeSessionId
+  | setFiltersOfView
+  | setSelectedFilter
+  | setFilterState
+  | setFilterItems
+  | setCheckedItems
+  | setMultipleValues;

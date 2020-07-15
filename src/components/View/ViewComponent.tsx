@@ -19,6 +19,8 @@ export const ViewComponent: React.FC<IProps> = ({
   session,
   language,
   index,
+  setCurrentFilters,
+  filters: testFilters,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -83,7 +85,11 @@ export const ViewComponent: React.FC<IProps> = ({
   };
 
   return (
-    <Grid container className={classes.container}>
+    <Grid
+      container
+      className={classes.container}
+      onClick={() => setCurrentFilters(filterDimensions || filters)}
+    >
       <Grid item className={classes.item}>
         <Box justifyContent="flex-start" display="flex">
           <IconButton
@@ -126,7 +132,10 @@ export const ViewComponent: React.FC<IProps> = ({
             facts={facts.items}
             filters={filters}
           />
-        )} */}
+        )} 
+        
+        //{testFilters}
+        */}
 
         <Filters
           show={fieldBar}

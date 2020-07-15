@@ -1,6 +1,4 @@
 export type Props = {
-  filter_items: any;
-  multiple: boolean;
   checked: string[];
   direction:
     | "column"
@@ -16,6 +14,11 @@ export type Props = {
   handleRadio: any;
   handleToggle: any;
   button: boolean;
+  multiple: boolean;
 };
 
-export type IProps = Props;
+export type IProps = Props & LinkStateToProps;
+
+export interface LinkStateToProps {
+  filter_items: any[];
+}

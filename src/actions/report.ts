@@ -6,7 +6,6 @@ import {
   SET_TABS,
   SET_DASHBOARD,
   SET_DASHBOARD_METADATA,
-  SET_EXPANDED_FILTER,
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
@@ -46,17 +45,6 @@ export const setDashboardMetadata = (
 ): AppActions => ({
   type: SET_DASHBOARD_METADATA,
   metadata,
-});
-
-export const setExpandedFilter = (
-  expanded_filter: any,
-  index: number,
-  filter_index: number
-): AppActions => ({
-  type: SET_EXPANDED_FILTER,
-  expanded_filter,
-  index,
-  filter_index,
 });
 
 export const getDimFilter = (

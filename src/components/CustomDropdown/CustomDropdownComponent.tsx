@@ -43,14 +43,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   meta_index,
   filter_index,
   selected_filter,
-  f_checked,
+  expanded,
   settingCubeSession,
-  expand_func,
-  selectFilter,
-  setFilterItems,
-  setMultyExpanded,
-  setExpandChecked,
   cube_id,
+  settingSelectedFilter,
+  settingFilterState,
+  settingFilterItems,
+  settingCheckedItems,
+  settingMultipleValues,
+  checked,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -70,7 +71,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [localItems, setItems] = React.useState<any[]>(items);
   const [visibleItems, setVisibleItems] = React.useState<any[]>(items);
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [expanded, setExpanded] = React.useState<boolean>(false);
   const [val, setVal] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [multiple, setMultiple] = React.useState(multy);
@@ -92,8 +92,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const id = open ? "simple-popover" : undefined;
 
   const handleToggle = (value: string) => () => {
-    const currentIndex = f_checked.indexOf(value);
-    const newChecked = [...f_checked];
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -101,14 +101,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     }
     setSelectAll(newChecked.length === localItems.length);
 
-    setExpandChecked(newChecked);
+    settingCheckedItems(newChecked);
   };
 
   const handleInversion = () => {
     const data = localItems.map((item: any) => item.value);
-    const inverted = data.filter((item: string) => !f_checked.includes(item));
+    const inverted = data.filter((item: string) => !checked.includes(item));
 
-    setExpandChecked(inverted);
+    settingCheckedItems(inverted);
     setSelectAll(data.length === inverted.length);
   };
 
@@ -119,7 +119,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleRadio = (value: string) => () => {
-    setExpandChecked([value]);
+    settingCheckedItems([value]);
   };
 
   const setFilterOnServer = (user_filters: string) => {
@@ -145,7 +145,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     if (_async) {
       //Filter
       const filters_for_server = localItems.reduce(
-        (a, b) => (a += f_checked.includes(b.value) ? "0" : "1"),
+        (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
         ""
       );
 
@@ -163,7 +163,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         cubeSession: cubes[cube_id],
       });
 
-      setSelectedFromServer(f_checked);
+      setSelectedFromServer(checked);
       console.log(data);
       cubeSession = data.cubeSession;
       settingCubeSession(cube_id, data.cubeSession);
@@ -171,14 +171,14 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     } else {
       //Fact
       let facts_for_server = localItems
-        .filter((item: any) => f_checked.includes(item.value))
+        .filter((item: any) => checked.includes(item.value))
         .map((item: any) => item.code);
 
       if (multiple) {
-        setFactsForServer(f_checked);
+        setFactsForServer(checked);
       } else {
-        setFactsForServer(f_checked);
-        facts_for_server = f_checked;
+        setFactsForServer(checked);
+        facts_for_server = checked;
       }
 
       const data = await getData({
@@ -210,18 +210,18 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     if (_async) {
       //Filter
       if (multiple) {
-        setExpandChecked(selectedFromServer);
+        settingCheckedItems(selectedFromServer);
         setSelectAll(selectedFromServer.length === localItems.length);
       } else {
-        setExpandChecked([selectedFromServer[0]]);
+        settingCheckedItems([selectedFromServer[0]]);
       }
     } else {
       //Fact
       if (multiple) {
-        setExpandChecked(factsForServer);
+        settingCheckedItems(factsForServer);
         setSelectAll(localItems.length === factsForServer.length);
       } else {
-        setExpandChecked([factsForServer[0]]);
+        settingCheckedItems([factsForServer[0]]);
       }
     }
 
@@ -231,10 +231,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   };
 
   const handleExpand = () => {
-    setExpanded(!expanded);
-    !expanded ? selectFilter(filter_index) : selectFilter(-1);
-    expand_func(!expanded);
-    setFilterItems(localItems);
+    settingFilterState(!expanded);
+    settingSelectedFilter(expanded ? -1 : filter_index);
+    settingFilterItems(localItems);
   };
 
   const showHidden = () => {
@@ -266,11 +265,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           .filter((item: string | null) => item);
 
         setSelectedFromServer(selected_from_server);
-        if (data.MultipleValues) setExpandChecked(selected_from_server);
-        else setExpandChecked([selected_from_server[0]]);
+        if (data.MultipleValues) settingCheckedItems(selected_from_server);
+        else settingCheckedItems([selected_from_server[0]]);
 
         setMultiple(data.MultipleValues);
-        setMultyExpanded(data.MultipleValues);
+        settingMultipleValues(data.MultipleValues);
         //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
         //const check_data = regex.test(data.Captions[0]);
         const check_date = data.type === "Date";
@@ -312,22 +311,24 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         setLoading(false);
 
         //Проверка: если нет фактов в выбранном фильтре
-        if (f_checked.length !== 0 && !selected.includes(f_checked[0]))
-          setExpandChecked(selected);
+        if (checked.length !== 0 && !selected.includes(checked[0]))
+          settingCheckedItems(selected);
 
-        setSelectAll(f_checked.length === visibleItems.length);
+        setSelectAll(checked.length === visibleItems.length);
       }
 
       setDropDown(!dropDown);
     })();
-    setExpanded(filter_index === selected_filter);
+    //Если уже есть один раскрытый фильтр то expanded будет установлен везде поэтому
+    //переделать
+    settingFilterState(filter_index === selected_filter);
   };
 
   const handleSelectAll = (value: boolean) => {
     setSelectAll(value);
     const disabled = localItems.filter((item: any) => item.disabled);
     const checked_disabled = disabled.filter((item) =>
-      f_checked.includes(item.value)
+      checked.includes(item.value)
     );
 
     const not_disabled = localItems.filter((item: any) => !item.disabled);
@@ -339,7 +340,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         ]
       : checked_disabled.map((item) => item.value);
 
-    setExpandChecked(newChecked);
+    settingCheckedItems(newChecked);
   };
 
   const word = label;
@@ -379,7 +380,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         <ThemeProvider>
           {isDate ? (
             <DatePicker
-              serverDates={f_checked.map((item) => new Date(item))}
+              serverDates={checked.map((item: any) => new Date(item))}
               minDate={minDate}
               maxDate={maxDate}
               filters={filters}
@@ -465,7 +466,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                                 handleToggle={handleToggle}
                                 multiple={multiple}
                                 handleRadio={handleRadio}
-                                checked={f_checked}
+                                checked={checked}
                               />
                             )}
                             <Divider />
