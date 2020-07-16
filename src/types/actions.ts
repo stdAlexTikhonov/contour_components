@@ -299,13 +299,21 @@ export interface setMultipleValues {
   multiple: boolean;
 }
 
+export const SET_FULL_FILTER_HIERARCHY = "SET_FULL_FILTER_HIERARCHY";
+
+export interface setFullFilterHierarchy {
+  type: typeof SET_FULL_FILTER_HIERARCHY;
+  hierarchy: any;
+}
+
 export type filterActions =
   | setFiltersOfView
   | setSelectedFilter
   | setFilterState
   | setFilterItems
   | setCheckedItems
-  | setMultipleValues;
+  | setMultipleValues
+  | setFullFilterHierarchy;
 
 //Items
 export const SET_ITEMS = "SET_ITEMS";
@@ -351,4 +359,5 @@ export type AppActions =
   | setFilterState
   | setFilterItems
   | setCheckedItems
-  | setMultipleValues;
+  | setMultipleValues
+  | setFullFilterHierarchy;
