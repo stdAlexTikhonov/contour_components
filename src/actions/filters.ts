@@ -6,6 +6,7 @@ import {
   SET_FILTER_ITEMS,
   SET_CHECKED_ITEMS,
   SET_MULTIPLE_VALUES,
+  SET_FULL_FILTER_HIERARCHY,
 } from "../types/actions";
 
 export const setFilterOfView = (filters: any): AppActions => ({
@@ -36,4 +37,9 @@ export const setCheckedItems = (checked: any): AppActions => ({
 export const setMultipleValues = (multiple: boolean): AppActions => ({
   type: SET_MULTIPLE_VALUES,
   multiple,
+});
+
+export const setFullFilterHierarchy = (hierarchy: any): AppActions => ({
+  type: SET_FULL_FILTER_HIERARCHY,
+  hierarchy,
 });
