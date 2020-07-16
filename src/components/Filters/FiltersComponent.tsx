@@ -10,6 +10,7 @@ import { ChartPlaceholder } from "../ChartPlaceholder";
 import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
+import { SimplePopover } from "../Hierarchy";
 
 declare global {
   interface Window {
@@ -157,6 +158,7 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const renderItems = () => (
     <>
+      <SimplePopover />
       <CustomDropdown
         items={facts.map((fact: any) => ({
           value: fact.Caption,
