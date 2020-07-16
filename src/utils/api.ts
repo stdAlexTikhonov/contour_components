@@ -1,6 +1,11 @@
 import { DataForQuery, Login, Register, ApiTypes } from "./types";
 import { LOGIN, REGISTER_USER, LANGUAGES, BASE_URL } from "./constants";
-import { _getFilters, _getFilterById, _setFilter } from "./_DATA.js";
+import {
+  _getFilters,
+  _getFilterById,
+  _setFilter,
+  _getFullHierarchy,
+} from "./_DATA.js";
 
 export const post = async (url: string = BASE_URL, data: ApiTypes) => {
   const response = await fetch(url, {
@@ -17,6 +22,8 @@ export const getData = async (data: DataForQuery) => {
 };
 
 export const getFilters = async () => await _getFilters();
+
+export const getFullHierarchy = async () => await _getFullHierarchy();
 
 export const getFilterByCode = async (code: string) =>
   await _getFilterById(code);

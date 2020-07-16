@@ -240,6 +240,12 @@ export function _getFilters() {
   });
 }
 
+export function _getFullHierarchy() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(filters2), 1000);
+  });
+}
+
 export function _setFilter(code, filters) {
   const dim = filters2[code];
   dim.Filters = filters;
