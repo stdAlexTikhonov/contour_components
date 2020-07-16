@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { CustomizedTreeView } from "./HierarchyComponent.tsx";
+import { Hierarchy } from "./HierarchyContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,7 +60,7 @@ export const SimplePopover = () => {
           horizontal: "center",
         }}
       >
-        <CustomizedTreeView />
+        <Hierarchy />
       </Popover>
     </div>
   );
