@@ -36,9 +36,15 @@ export const SimplePopover = () => {
         aria-describedby={id}
         variant="contained"
         color="primary"
+        size="small"
+        style={{
+          outline: "none",
+          textTransform: "capitalize",
+          fontWeight: "normal",
+        }}
         onClick={handleClick}
       >
-        Open Popover
+        Hierarchy
       </Button>
       <Popover
         id={id}
