@@ -109,6 +109,7 @@ let filters = [
 
 let filters2 = {
   type: {
+    label: 'Тип',
     Captions: [
       "Простейшие",
       "Губки",
@@ -131,6 +132,7 @@ let filters2 = {
     next_level: "class",
   },
   class: {
+    label: "Класс",
     Captions: [
       "Ракообразные",
       "Паукообразные",
@@ -154,6 +156,7 @@ let filters2 = {
     next_level: "order",
   },
   order: {
+    label: "Отряд",
     Captions: [
       "Насекомоядные",
       "Рукокрылые",
@@ -177,6 +180,7 @@ let filters2 = {
     next_level: "family",
   },
   family: {
+    label: "Семейство",
     Captions: [
       "Зайчьи",
       "Беличьи",
@@ -199,6 +203,7 @@ let filters2 = {
     next_level: "genus",
   },
   genus: {
+    label: "Род",
     Captions: ["Заяц", "Кролик", "Собака", "Лисица"],
     Filters: "0000",
     Hidden: "0000",
@@ -213,6 +218,7 @@ let filters2 = {
     next_level: "species",
   },
   species: {
+    label: "Вид",
     Captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
     Filters: "00000",
     Hidden: "00000",

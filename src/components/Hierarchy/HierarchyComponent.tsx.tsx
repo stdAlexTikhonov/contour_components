@@ -7,12 +7,16 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
+import { List } from "react-virtualized";
+import { VirtualizedList } from "./VirtualizedList";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem, { TreeItemProps } from "@material-ui/lab/TreeItem";
 import Collapse from "@material-ui/core/Collapse";
-import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
+// import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
 import { TransitionProps } from "@material-ui/core/transitions";
 import { IProps } from "./type";
+import { getFilterByCode } from "../../utils/api";
+import "react-virtualized/styles.css";
 
 function MinusSquare(props: SvgIconProps) {
   return (
@@ -47,7 +51,7 @@ function CloseSquare(props: SvgIconProps) {
 }
 
 function TransitionComponent(props: TransitionProps) {
-  const style = useSpring({
+  const style = createStyles({
     from: { opacity: 0, transform: "translate3d(20px,0,0)" },
     to: {
       opacity: props.in ? 1 : 0,
@@ -55,11 +59,7 @@ function TransitionComponent(props: TransitionProps) {
     },
   });
 
-  return (
-    <animated.div style={style}>
-      <Collapse {...props} />
-    </animated.div>
-  );
+  return <Collapse {...props} />;
 }
 
 const StyledTreeItem = withStyles((theme: Theme) =>
@@ -90,42 +90,69 @@ const useStyles = makeStyles(
   })
 );
 
+const list = [
+  { name: "Brian Vaughn", description: "Software engineer" },
+  // And so on...
+];
+
 export const CustomizedTreeView: React.FC<IProps> = ({ hierarchy }) => {
   const classes = useStyles();
-
+  const root_data = getFilterByCode(hierarchy.root);
   const root = hierarchy[hierarchy.root];
+  const [list_of_filters, setFilters] = React.useState([hierarchy.root]);
 
-  const renderItems = (
-    parent_index: number,
-    next_level: any,
-    constraint: any
-  ) => {
-    const level = hierarchy[next_level];
-    return level.Captions.map((item: any, j: number) =>
-      level.next_level && constraint[next_level][j] === parent_index ? (
-        <StyledTreeItem nodeId={item} label={item} key={item}>
-          {renderItems(j, level.next_level, level.join)}
-        </StyledTreeItem>
-      ) : (
-        constraint[next_level][j] === parent_index && (
-          <StyledTreeItem nodeId={item} key={item} label={item} />
-        )
-      )
+  // const renderItems = (
+  //   parent_index: number,
+  //   next_level: any,
+  //   constraint: any
+  // ) => {
+  //   const level = hierarchy[next_level];
+  //   return level.Captions.map((item: any, j: number) =>
+  //     level.next_level && constraint[next_level][j] === parent_index ? (
+  //       <StyledTreeItem nodeId={item} label={item} key={item}>
+  //         {renderItems(j, level.next_level, level.join)}
+  //       </StyledTreeItem>
+  //     ) : (
+  //       constraint[next_level][j] === parent_index && (
+  //         <StyledTreeItem nodeId={item} key={item} label={item} />
+  //       )
+  //     )
+  //   );
+  // };
+
+  // return (
+  //   <TreeView
+  //     className={classes.root}
+  //     defaultCollapseIcon={<MinusSquare />}
+  //     defaultExpandIcon={<PlusSquare />}
+  //     defaultEndIcon={<CloseSquare />}
+  //   >
+  //     {root.Captions.map((item: any, i: number) => (
+  //       <StyledTreeItem nodeId={item} label={item} key={item}>
+  //         {renderItems(i, root.next_level, root.join)}
+  //       </StyledTreeItem>
+  //     ))}
+  //   </TreeView>
+  // );
+
+  const handleClick = (filter: string) => {
+    if (list_of_filters.indexOf(filter) === -1)
+      setFilters([...list_of_filters, filter]);
+  };
+
+  const renderColumn = (filter: string) => {
+    const data = hierarchy[filter];
+    return (
+      <div onClick={() => handleClick(data.next_level)}>
+        <h2 style={{ width: 260 }}>{data.label}</h2>
+        <VirtualizedList items={data.Captions} />
+      </div>
     );
   };
 
   return (
-    <TreeView
-      className={classes.root}
-      defaultCollapseIcon={<MinusSquare />}
-      defaultExpandIcon={<PlusSquare />}
-      defaultEndIcon={<CloseSquare />}
-    >
-      {root.Captions.map((item: any, i: number) => (
-        <StyledTreeItem nodeId={item} label={item} key={item}>
-          {renderItems(i, root.next_level, root.join)}
-        </StyledTreeItem>
-      ))}
-    </TreeView>
+    <div style={{ display: "flex", overflow: "auto" }}>
+      {list_of_filters.map((item) => renderColumn(item))}
+    </div>
   );
 };
