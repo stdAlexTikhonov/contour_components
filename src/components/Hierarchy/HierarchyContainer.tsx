@@ -5,7 +5,7 @@ import { LinkStateToProps } from "./type";
 import { AppState } from "../../store/config_store";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
-  filters: state.filters.filters,
+  hierarchy: state.filters.hierarchy,
 });
 
 export const Hierarchy = connect(mapStateToProps)(CustomizedTreeView);

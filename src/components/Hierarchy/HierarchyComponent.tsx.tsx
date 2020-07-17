@@ -90,21 +90,42 @@ const useStyles = makeStyles(
   })
 );
 
-export const CustomizedTreeView: React.FC<IProps> = ({ filters }) => {
-  console.log(filters);
+export const CustomizedTreeView: React.FC<IProps> = ({ hierarchy }) => {
   const classes = useStyles();
 
-  return filters[0] ? (
+  const root = hierarchy[hierarchy.root];
+
+  const renderItems = (
+    parent_index: number,
+    next_level: any,
+    constraint: any
+  ) => {
+    const level = hierarchy[next_level];
+    return level.Captions.map((item: any, j: number) =>
+      level.next_level && constraint[next_level][j] === parent_index ? (
+        <StyledTreeItem nodeId={item} label={item} key={item}>
+          {renderItems(j, level.next_level, level.join)}
+        </StyledTreeItem>
+      ) : (
+        constraint[next_level][j] === parent_index && (
+          <StyledTreeItem nodeId={item} key={item} label={item} />
+        )
+      )
+    );
+  };
+
+  return (
     <TreeView
       className={classes.root}
       defaultCollapseIcon={<MinusSquare />}
       defaultExpandIcon={<PlusSquare />}
       defaultEndIcon={<CloseSquare />}
     >
-      <StyledTreeItem
-        nodeId={filters[0].code}
-        label={filters[0].Caption}
-      ></StyledTreeItem>
+      {root.Captions.map((item: any, i: number) => (
+        <StyledTreeItem nodeId={item} label={item} key={item}>
+          {renderItems(i, root.next_level, root.join)}
+        </StyledTreeItem>
+      ))}
     </TreeView>
-  ) : null;
+  );
 };

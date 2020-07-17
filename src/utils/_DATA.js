@@ -128,6 +128,7 @@ let filters2 = {
     join: {
       class: [5, 5, 5, 6, 6, 6, 6, 6],
     },
+    next_level: "class",
   },
   class: {
     Captions: [
@@ -150,6 +151,7 @@ let filters2 = {
     join: {
       order: [3, 3, 3, 3, 3, 3, 3, 3],
     },
+    next_level: "order",
   },
   order: {
     Captions: [
@@ -172,6 +174,7 @@ let filters2 = {
     join: {
       family: [2, 2, 2, 3, 3, 3, 3],
     },
+    next_level: "family",
   },
   family: {
     Captions: [
@@ -193,6 +196,7 @@ let filters2 = {
     join: {
       genus: [0, 0, 4, 4],
     },
+    next_level: "genus",
   },
   genus: {
     Captions: ["Заяц", "Кролик", "Собака", "Лисица"],
@@ -206,6 +210,7 @@ let filters2 = {
     join: {
       species: [0, 0, 2, 2, 2],
     },
+    next_level: "species",
   },
   species: {
     Captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
@@ -217,6 +222,7 @@ let filters2 = {
     success: true,
     type: "Float",
   },
+  root: "type",
 };
 
 const filters3 = [
