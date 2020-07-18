@@ -7,7 +7,7 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
-import { List } from "react-virtualized";
+import { Column, Table, TableProps } from "react-virtualized";
 import { VirtualizedList } from "./VirtualizedList";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem, { TreeItemProps } from "@material-ui/lab/TreeItem";
@@ -17,6 +17,7 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import { IProps } from "./type";
 import { getFilterByCode } from "../../utils/api";
 import "react-virtualized/styles.css";
+import { items } from "../../reducers";
 
 function MinusSquare(props: SvgIconProps) {
   return (
@@ -101,6 +102,12 @@ export const CustomizedTreeView: React.FC<IProps> = ({ hierarchy }) => {
   const root = hierarchy[hierarchy.root];
   const [list_of_filters, setFilters] = React.useState([hierarchy.root]);
 
+  const [list, setList] = React.useState(
+    hierarchy[hierarchy.root].Captions.map((item: any) => {
+      return { [`${hierarchy.root}`]: item };
+    })
+  );
+
   // const renderItems = (
   //   parent_index: number,
   //   next_level: any,
@@ -143,16 +150,51 @@ export const CustomizedTreeView: React.FC<IProps> = ({ hierarchy }) => {
   const renderColumn = (filter: string) => {
     const data = hierarchy[filter];
     return (
-      <div onClick={() => handleClick(data.next_level)}>
-        <h2 style={{ width: 260 }}>{data.label}</h2>
-        <VirtualizedList items={data.Captions} />
-      </div>
+      <Column
+        label={data.label}
+        dataKey={filter}
+        width={200}
+        style={{ minWidth: 200 }}
+        key={filter}
+      />
     );
   };
 
+  const handleRowClick = (e: any) => {
+    const el = e.event.target as HTMLElement;
+    const value = el.innerText;
+
+    for (let k in e.rowData) {
+      if (e.rowData[k] === value) {
+        const filter = hierarchy[k].next_level;
+
+        if (filter && list_of_filters.indexOf(filter) === -1) {
+          const data = hierarchy[filter].Captions;
+          const new_list = list.map((item: any, i: number) => {
+            return {
+              ...item,
+              [`${filter}`]: data[i] || "",
+            };
+          });
+          setList(new_list);
+          setFilters([...list_of_filters, filter]);
+        }
+      }
+    }
+  };
+
   return (
-    <div style={{ display: "flex", overflow: "auto" }}>
-      {list_of_filters.map((item) => renderColumn(item))}
-    </div>
+    <Table
+      onRowClick={handleRowClick}
+      width={260}
+      height={200}
+      headerHeight={20}
+      rowHeight={30}
+      rowCount={list.length}
+      rowGetter={({ index }) => list[index]}
+      style={{ overflow: "auto" }}
+    >
+      {list_of_filters.map(renderColumn)}
+    </Table>
   );
 };
