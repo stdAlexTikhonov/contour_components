@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Resizable } from "react-resizable";
-import "./index.less";
+import "./index.scss";
 import ReactVirtualSizeTable from "../VirtualTable";
 const columnNames = [];
 const tableData = [];
