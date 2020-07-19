@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
-import Demo from "../DemoTable";
+import { Demo } from "../DemoTable";
 import Button from "@material-ui/core/Button";
 import { Hierarchy } from "./HierarchyContainer";
 
