@@ -29,6 +29,9 @@ export class DemoComponent extends Component {
     });
   };
   renderCell = ({ columnIndex, key, rowIndex, style }) => {
+    console.log(style);
+
+    style.paddingLeft = "15px";
     const { widths, columnNames, tableData } = this.state;
     const field = columnNames[columnIndex].label;
     const dataKey = columnNames[columnIndex].dataKey;
@@ -42,7 +45,7 @@ export class DemoComponent extends Component {
         {rowIndex === 0 ? (
           <Resizable
             width={widths[columnIndex] || 140}
-            height={36}
+            height={40}
             onResize={(e, value) => {
               this.onResize(columnIndex, value);
             }}
@@ -58,12 +61,14 @@ export class DemoComponent extends Component {
             onDoubleClick={() => this.onDoubleClick(tableData[rowIndex])}
           >
             <CustomCheckbox
+              size="small"
               edge="start"
               onClick={() => alert(1)}
               checked={false}
               tabIndex={-1}
               inputProps={{ "aria-labelledby": "labelId" }}
               disabled={false}
+              style={{ marginRight: 5 }}
             />
             {text}
           </div>
@@ -93,7 +98,7 @@ export class DemoComponent extends Component {
             widths={widthArray}
             height={250}
             rowCount={tableData.length}
-            rowHeight={36}
+            rowHeight={44}
             width={width}
             style={{ width: "100%", padding: "0 20px" }}
           />
