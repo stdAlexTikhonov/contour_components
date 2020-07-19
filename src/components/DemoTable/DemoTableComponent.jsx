@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Resizable } from "react-resizable";
 import "./index.scss";
 import ReactVirtualSizeTable from "../VirtualTable";
+import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
 
 export class DemoComponent extends Component {
   state = {
@@ -56,6 +57,14 @@ export class DemoComponent extends Component {
             className="table-content"
             onDoubleClick={() => this.onDoubleClick(tableData[rowIndex])}
           >
+            <CustomCheckbox
+              edge="start"
+              onClick={() => alert(1)}
+              checked={false}
+              tabIndex={-1}
+              inputProps={{ "aria-labelledby": "labelId" }}
+              disabled={false}
+            />
             {text}
           </div>
         )}
