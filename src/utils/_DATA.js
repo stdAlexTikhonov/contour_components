@@ -109,7 +109,7 @@ let filters = [
 
 let filters2 = {
   type: {
-    label: 'Тип',
+    label: "Тип",
     Captions: [
       "Простейшие",
       "Губки",
@@ -127,7 +127,10 @@ let filters2 = {
     success: true,
     type: "Float",
     join: {
-      class: [5, 5, 5, 6, 6, 6, 6, 6],
+      class: {
+        5: [0, 1, 2],
+        6: [3, 4, 5, 6, 7],
+      },
     },
     next_level: "class",
   },
@@ -151,7 +154,10 @@ let filters2 = {
     success: true,
     type: "Float",
     join: {
-      order: [3, 3, 3, 3, 3, 3, 3, 3],
+      type: [5, 5, 5, 6, 6, 6, 6, 6],
+      order: {
+        3: [0, 1, 2, 3, 4, 5, 6, 7],
+      },
     },
     next_level: "order",
   },
@@ -175,7 +181,11 @@ let filters2 = {
     success: true,
     type: "Float",
     join: {
-      family: [2, 2, 2, 3, 3, 3, 3],
+      class: [3, 3, 3, 3, 3, 3, 3, 3],
+      family: {
+        2: [0, 1, 2],
+        3: [3, 4, 5, 6],
+      },
     },
     next_level: "family",
   },
@@ -198,7 +208,11 @@ let filters2 = {
     success: true,
     type: "Float",
     join: {
-      genus: [0, 0, 4, 4],
+      order: [2, 2, 2, 3, 3, 3, 3],
+      genus: {
+        0: [0, 1],
+        4: [2, 3],
+      },
     },
     next_level: "genus",
   },
@@ -213,7 +227,11 @@ let filters2 = {
     success: true,
     type: "Float",
     join: {
-      species: [0, 0, 2, 2, 2],
+      family: [0, 0, 4, 4],
+      species: {
+        0: [0, 1],
+        2: [2, 3, 4],
+      },
     },
     next_level: "species",
   },
@@ -227,6 +245,9 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      genus: [0, 0, 2, 2, 2],
+    },
   },
   root: "type",
 };

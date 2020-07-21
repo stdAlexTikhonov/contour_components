@@ -33,6 +33,9 @@ export class DemoComponent extends Component {
       tableData: root.Captions.map((item) => ({
         [`${hierarchy.root}`]: item,
       })),
+      indexies: {
+        [`${root.next_level}`]: root.join[root.next_level],
+      },
     });
   }
   onResize = (index, value) => {
@@ -43,10 +46,9 @@ export class DemoComponent extends Component {
     });
   };
   renderCell = ({ columnIndex, key, rowIndex, style }) => {
-    console.log(style);
-
+    const { hierarchy } = this.props;
     style.paddingLeft = "15px";
-    const { widths, columnNames, tableData } = this.state;
+    const { widths, columnNames, tableData, indexies } = this.state;
     const field = columnNames[columnIndex].label;
     const dataKey = columnNames[columnIndex].dataKey;
     const text =
@@ -72,20 +74,48 @@ export class DemoComponent extends Component {
           <div
             style={style}
             className="table-content"
-            onDoubleClick={() => this.onDoubleClick(tableData[rowIndex])}
+            onClick={() => {
+              const currentKey = columnNames[columnIndex].dataKey;
+              const current = hierarchy[currentKey];
+              const next = current.next_level;
+              const data = hierarchy[next];
+
+              if (data) {
+                const new_data = data.Captions.map((item) => ({
+                  [`${next}`]: item,
+                }));
+
+                const isOpened = columnNames.some(
+                  (item) => item.dataKey === next
+                );
+                if (!isOpened) {
+                  this.setState({
+                    columnNames: [
+                      ...columnNames,
+                      { label: data.label, dataKey: next },
+                    ],
+                    tableData: [...tableData, ...new_data],
+                  });
+                }
+              }
+            }}
           >
-            <PlusSquare />
-            <CustomCheckbox
-              size="small"
-              edge="start"
-              onClick={() => alert(1)}
-              checked={false}
-              tabIndex={-1}
-              inputProps={{ "aria-labelledby": "labelId" }}
-              disabled={false}
-              style={{ marginRight: 3 }}
-            />
-            {text}
+            {text && (
+              <>
+                <PlusSquare />
+                <CustomCheckbox
+                  size="small"
+                  edge="start"
+                  onClick={() => alert(1)}
+                  checked={false}
+                  tabIndex={-1}
+                  inputProps={{ "aria-labelledby": "labelId" }}
+                  disabled={false}
+                  style={{ marginRight: 3 }}
+                />
+                {text}
+              </>
+            )}
           </div>
         )}
       </Fragment>
