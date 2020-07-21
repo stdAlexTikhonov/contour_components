@@ -115,6 +115,14 @@ export class DemoComponent extends Component {
               //     });
               //   }
               // }
+              const for_column = {
+                label: hierarchy[next].label,
+                dataKey: next,
+              };
+
+              const isOpened = columnNames.some(
+                (item) => item.dataKey === next
+              );
 
               if (
                 tableData[rowIndex].connected &&
@@ -127,6 +135,7 @@ export class DemoComponent extends Component {
                   expanded: false,
                 });
                 tableData.splice(rowIndex + 1, 0, ...arr);
+                !isOpened && columnNames.push(for_column);
               } else if (
                 tableData[rowIndex].connected &&
                 tableData[rowIndex].expanded
