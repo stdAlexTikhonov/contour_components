@@ -5,6 +5,19 @@ import ReactVirtualSizeTable from "../VirtualTable";
 import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
 import SvgIcon, { SvgIconProps } from "@material-ui/core/SvgIcon";
 
+function MinusSquare(props) {
+  return (
+    <SvgIcon
+      fontSize="inherit"
+      style={{ width: 13, height: 13, marginRight: 13 }}
+      {...props}
+    >
+      {/* tslint:disable-next-line: max-line-length */}
+      <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 11.023h-11.826q-.375 0-.669.281t-.294.682v0q0 .401.294 .682t.669.281h11.826q.375 0 .669-.281t.294-.682v0q0-.401-.294-.682t-.669-.281z" />
+    </SvgIcon>
+  );
+}
+
 function PlusSquare(props) {
   return (
     <SvgIcon
@@ -30,8 +43,10 @@ export class DemoComponent extends Component {
     const root = hierarchy[hierarchy.root];
     this.setState({
       columnNames: [{ label: root.label, dataKey: hierarchy.root }],
-      tableData: root.Captions.map((item) => ({
+      tableData: root.Captions.map((item, i) => ({
         [`${hierarchy.root}`]: item,
+        connected: root.join[root.next_level][i],
+        expanded: false,
       })),
       indexies: {
         [`${root.next_level}`]: root.join[root.next_level],
@@ -55,6 +70,7 @@ export class DemoComponent extends Component {
       rowIndex === 0
         ? field
         : tableData[rowIndex] && tableData[rowIndex][dataKey];
+    const expanded = tableData[rowIndex] && tableData[rowIndex].expanded;
 
     return (
       <Fragment key={key}>
@@ -80,29 +96,57 @@ export class DemoComponent extends Component {
               const next = current.next_level;
               const data = hierarchy[next];
 
-              if (data) {
-                const new_data = data.Captions.map((item) => ({
-                  [`${next}`]: item,
-                }));
+              // if (data) {
+              //   const new_data = data.Captions.map((item) => ({
+              //     [`${next}`]: item,
+              //     expanded: false,
+              //   }));
 
-                const isOpened = columnNames.some(
-                  (item) => item.dataKey === next
+              //   const isOpened = columnNames.some(
+              //     (item) => item.dataKey === next
+              //   );
+              //   if (!isOpened) {
+              //     this.setState({
+              //       columnNames: [
+              //         ...columnNames,
+              //         { label: data.label, dataKey: next },
+              //       ],
+              //       tableData: [...tableData, ...new_data],
+              //     });
+              //   }
+              // }
+
+              if (
+                tableData[rowIndex].connected &&
+                !tableData[rowIndex].expanded
+              ) {
+                const arr = new Array(
+                  tableData[rowIndex].connected.length
+                ).fill({
+                  [`${next}`]: "null",
+                  expanded: false,
+                });
+                tableData.splice(rowIndex + 1, 0, ...arr);
+              } else if (
+                tableData[rowIndex].connected &&
+                tableData[rowIndex].expanded
+              ) {
+                tableData.splice(
+                  rowIndex + 1,
+                  tableData[rowIndex].connected.length
                 );
-                if (!isOpened) {
-                  this.setState({
-                    columnNames: [
-                      ...columnNames,
-                      { label: data.label, dataKey: next },
-                    ],
-                    tableData: [...tableData, ...new_data],
-                  });
-                }
               }
+
+              tableData[rowIndex].expanded = !tableData[rowIndex].expanded;
+
+              this.setState({
+                tableData: tableData,
+              });
             }}
           >
             {text && (
               <>
-                <PlusSquare />
+                {expanded ? <MinusSquare /> : <PlusSquare />}
                 <CustomCheckbox
                   size="small"
                   edge="start"
