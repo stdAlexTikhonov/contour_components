@@ -42,15 +42,14 @@ export class DemoComponent extends Component {
     const { hierarchy } = this.props;
     const root = hierarchy[hierarchy.root];
     this.setState({
-      columnNames: [{ label: root.label, dataKey: hierarchy.root }],
+      columnNames: [
+        { label: root.label, dataKey: hierarchy.root, count_expanded: 0 },
+      ],
       tableData: root.Captions.map((item, i) => ({
         [`${hierarchy.root}`]: item,
         connected: root.join[root.next_level][i],
         expanded: false,
       })),
-      indexies: {
-        [`${root.next_level}`]: root.join[root.next_level],
-      },
     });
   }
   onResize = (index, value) => {
@@ -63,7 +62,7 @@ export class DemoComponent extends Component {
   renderCell = ({ columnIndex, key, rowIndex, style }) => {
     const { hierarchy } = this.props;
     style.paddingLeft = "15px";
-    const { widths, columnNames, tableData, indexies } = this.state;
+    const { widths, columnNames, tableData } = this.state;
     const field = columnNames[columnIndex].label;
     const dataKey = columnNames[columnIndex].dataKey;
     const text =
@@ -95,51 +94,42 @@ export class DemoComponent extends Component {
               const current = hierarchy[currentKey];
               const next = current.next_level;
               const data = hierarchy[next];
-
-              // if (data) {
-              //   const new_data = data.Captions.map((item) => ({
-              //     [`${next}`]: item,
-              //     expanded: false,
-              //   }));
-
-              //   const isOpened = columnNames.some(
-              //     (item) => item.dataKey === next
-              //   );
-              //   if (!isOpened) {
-              //     this.setState({
-              //       columnNames: [
-              //         ...columnNames,
-              //         { label: data.label, dataKey: next },
-              //       ],
-              //       tableData: [...tableData, ...new_data],
-              //     });
-              //   }
-              // }
-              const for_column = {
-                label: hierarchy[next].label,
-                dataKey: next,
-              };
-
-              const isOpened = columnNames.some(
-                (item) => item.dataKey === next
-              );
+              const isOpen = columnNames[columnIndex + 1];
 
               if (
                 tableData[rowIndex].connected &&
                 !tableData[rowIndex].expanded
               ) {
-                const arr = new Array(
-                  tableData[rowIndex].connected.length
-                ).fill({
-                  [`${next}`]: "null",
+                const arr = tableData[rowIndex].connected.map((item) => ({
+                  [`${next}`]: data.Captions[item],
                   expanded: false,
-                });
+                }));
+
                 tableData.splice(rowIndex + 1, 0, ...arr);
-                !isOpened && columnNames.push(for_column);
+
+                if (!isOpen)
+                  columnNames.push({
+                    label: hierarchy[next].label,
+                    dataKey: next,
+                    count_expanded: 1,
+                  });
+                else columnNames[columnIndex + 1].count_expanded += 1;
               } else if (
                 tableData[rowIndex].connected &&
                 tableData[rowIndex].expanded
               ) {
+                const shouldClose =
+                  columnNames[columnIndex + 1].count_expanded - 1 === 0;
+
+                columnNames[columnIndex + 1].count_expanded -= 1;
+                const new_cn = shouldClose
+                  ? columnNames.slice(0, columnIndex + 1)
+                  : columnNames.slice();
+
+                this.setState({
+                  columnNames: new_cn,
+                });
+
                 tableData.splice(
                   rowIndex + 1,
                   tableData[rowIndex].connected.length
