@@ -165,10 +165,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       });
 
       setSelectedFromServer(checked);
-      console.log(data);
+
       cubeSession = data.cubeSession;
       settingCubeSession(cube_id, data.cubeSession);
-      console.log(filters_for_server);
     } else {
       //Fact
       let facts_for_server = localItems
@@ -195,7 +194,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         cubeSession: cubes[cube_id],
       });
 
-      console.log(data);
       cubeSession = data.cubeSession;
       settingCubeSession(cube_id, data.cubeSession);
       //console.log(facts_for_server);
@@ -243,7 +241,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     (async () => {
-      console.log(code);
       if (_async) {
         // const data = await getFilterByCode(code!);
 

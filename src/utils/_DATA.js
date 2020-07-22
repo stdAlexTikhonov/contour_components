@@ -292,7 +292,6 @@ export function _setFilter(code, filters) {
 
 export function _setHidden(code, hidden) {
   const dim = filters2[code];
-  console.log("#####");
 
   const filters = dim.Filters.split("");
   if (!filters.some((item) => item === "1")) {
@@ -303,11 +302,11 @@ export function _setHidden(code, hidden) {
       _setHidden(k, child_visability);
     }
   }
-  console.log(dim.Hidden);
+ 
   dim.Hidden = hidden;
-  console.log(hidden);
 
-  console.log("#########");
+
+
 }
 
 export function _getFilterById(id) {

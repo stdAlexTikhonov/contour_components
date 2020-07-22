@@ -229,7 +229,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         window.contourChart(chart.id, chart, {});
         setError(false);
       } catch (e) {
-        console.log(e);
+     
         setError(true);
       }
     }

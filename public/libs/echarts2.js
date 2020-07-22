@@ -1455,7 +1455,7 @@ if (opt.timeline === undefined) {
     // масштабирование данных
     var dataZoomList = [] ;
     hor = firstType() === 'HorizontalBar' || firstType() === 'PairedBar' ;
-    console.log("dataZoom") ;
+  
     for (var i = 0; i < opt.rowCount; i++) {
         dataZoom(opt, firstType(), 'y', dataZoomList, i, -1, "slider") ;
         dataZoom(opt, firstType(), 'y', dataZoomList, i, -1, "inside") ;
@@ -1468,7 +1468,7 @@ if (opt.timeline === undefined) {
     if (dataZoomList.length > 0)
         option.dataZoom = dataZoomList ;
     // insert
-   // console.log(option) ;
+
     // insert
     chart.setOption(option, true) ;
 } else {

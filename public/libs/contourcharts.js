@@ -2526,7 +2526,7 @@ if (opt.timeline === undefined) {
     // масштабирование данных
     var dataZoomList = [] ;
     hor = firstType() === 'HorizontalBar' || firstType() === 'PairedBar' ;
-    console.log("dataZoom") ;
+   
     for (var i = 0; i < opt.rowCount; i++) {
         dataZoom(opt, firstType(), 'y', dataZoomList, i, -1, "slider") ;
         dataZoom(opt, firstType(), 'y', dataZoomList, i, -1, "inside") ;
@@ -2723,7 +2723,7 @@ return chart ;
 }
 
 function contourChart(div_name, opt, object) {
-    console.log(opt)
+
     if (opt.ChartType == "map") {
 	switch (opt.MapType) {
 	case "Russia":

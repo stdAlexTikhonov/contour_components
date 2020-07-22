@@ -22,11 +22,8 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery, index: number) => {
-    console.log(data_for_query);
     dispatch(setLoading());
     const reportData = await getData(data_for_query);
-
-    console.log(reportData);
 
     if (reportData.success) {
       reportData.type &&

@@ -18,9 +18,7 @@ export const DatePicker = ({
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [dates, setDates] = useState(serverDates);
-  console.log(dates);
-  console.log(minDate);
-  console.log(maxDate);
+
   const onCancel = useCallback(() => {
     setOpen(false);
     setPopoverNull();
