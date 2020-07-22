@@ -100,8 +100,10 @@ export class DemoComponent extends Component {
                 tableData[rowIndex].connected &&
                 !tableData[rowIndex].expanded
               ) {
-                const arr = tableData[rowIndex].connected.map((item) => ({
+                const arr = tableData[rowIndex].connected.map((item, i) => ({
                   [`${next}`]: data.Captions[item],
+                  connected:
+                    data.next_level && data.join[data.next_level][item],
                   expanded: false,
                 }));
 
