@@ -257,54 +257,58 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           cubeSession: cubes[cube_id],
         });
 
-        const selected_from_server = data.Filters.split("")
-          .map((item: string, i: number) =>
-            item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
-          )
-          .filter((item: string | null) => item);
+        try {
+          const selected_from_server = data.Filters.split("")
+            .map((item: string, i: number) =>
+              item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
+            )
+            .filter((item: string | null) => item);
 
-        setSelectedFromServer(selected_from_server);
-        if (data.MultipleValues) settingCheckedItems(selected_from_server);
-        else settingCheckedItems([selected_from_server[0]]);
+          setSelectedFromServer(selected_from_server);
+          if (data.MultipleValues) settingCheckedItems(selected_from_server);
+          else settingCheckedItems([selected_from_server[0]]);
 
-        setMultiple(data.MultipleValues);
-        settingMultipleValues(data.MultipleValues);
-        //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-        //const check_data = regex.test(data.Captions[0]);
-        const check_date = data.type === "Date";
-        setIsDate(check_date);
+          setMultiple(data.MultipleValues);
+          settingMultipleValues(data.MultipleValues);
+          //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+          //const check_data = regex.test(data.Captions[0]);
+          const check_date = data.type === "Date";
+          setIsDate(check_date);
 
-        if (check_date) {
-          setFilters(data.Filters);
-          const data_transfrom = data.Captions.map(
-            (item: string) => new Date(item)
+          if (check_date) {
+            setFilters(data.Filters);
+            const data_transfrom = data.Captions.map(
+              (item: string) => new Date(item)
+            );
+
+            data_transfrom.sort((a: any, b: any) => (a < b ? -1 : 1));
+
+            setMinDate(data_transfrom[0]);
+            setMaxDate(data_transfrom[data_transfrom.length - 1]);
+          }
+
+          const items = data.Captions.map((item: any, i: number) => ({
+            value: item.replace(/&nbsp;/g, " "),
+            disabled: data.Hidden[i] === "1",
+            index: i,
+            image: data.images && data.images[i],
+          }));
+
+          setItems(items);
+
+          const visible = items.filter((item: any) => !item.disabled);
+          setVisibleItems(visible);
+
+          const notAll = visible.some(
+            (item: any) => !selected_from_server.includes(item.value)
           );
 
-          data_transfrom.sort((a: any, b: any) => (a < b ? -1 : 1));
+          setSelectAll(!notAll);
 
-          setMinDate(data_transfrom[0]);
-          setMaxDate(data_transfrom[data_transfrom.length - 1]);
+          setLoading(false);
+        } catch (e) {
+          console.log(e);
         }
-
-        const items = data.Captions.map((item: any, i: number) => ({
-          value: item.replace(/&nbsp;/g, " "),
-          disabled: data.Hidden[i] === "1",
-          index: i,
-          image: data.images && data.images[i],
-        }));
-
-        setItems(items);
-
-        const visible = items.filter((item: any) => !item.disabled);
-        setVisibleItems(visible);
-
-        const notAll = visible.some(
-          (item: any) => !selected_from_server.includes(item.value)
-        );
-
-        setSelectAll(!notAll);
-
-        setLoading(false);
       } else {
         await sleep(100);
         setLoading(false);
