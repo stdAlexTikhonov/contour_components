@@ -150,25 +150,25 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
       );
 
       setFiltersOnServer(code!, filters_for_server);
-      // const data = await getData({
-      //   method: SET_DIM_FILTER,
-      //   language,
-      //   session,
-      //   solution,
-      //   project,
-      //   report: report_code || report,
-      //   slice,
-      //   view,
-      //   code,
-      //   filter: filters_for_server,
-      //   cubeSession: cubes[cube_id],
-      // });
+      const data = await getData({
+        method: SET_DIM_FILTER,
+        language,
+        session,
+        solution,
+        project,
+        report: report_code || report,
+        slice,
+        view,
+        code,
+        filter: filters_for_server,
+        cubeSession: cubes[cube_id],
+      });
 
       setSelectedFromServer(checked);
-      // console.log(data);
-      // cubeSession = data.cubeSession;
-      // settingCubeSession(cube_id, data.cubeSession);
-      // console.log(filters_for_server);
+      console.log(data);
+      cubeSession = data.cubeSession;
+      settingCubeSession(cube_id, data.cubeSession);
+      console.log(filters_for_server);
     } else {
       //Fact
       let facts_for_server = localItems
@@ -245,22 +245,20 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     (async () => {
       console.log(code);
       if (_async) {
-        const data = await getFilterByCode(code!);
+        // const data = await getFilterByCode(code!);
 
-        // const data = await getData({
-        //   method: GET_DIM_FILTER,
-        //   session,
-        //   solution,
-        //   language,
-        //   project,
-        //   report: report_code || report,
-        //   slice,
-        //   view,
-        //   code,
-        //   cubeSession: cubes[cube_id],
-        // });
-
-        console.log(data);
+        const data = await getData({
+          method: GET_DIM_FILTER,
+          session,
+          solution,
+          language,
+          project,
+          report: report_code || report,
+          slice,
+          view,
+          code,
+          cubeSession: cubes[cube_id],
+        });
 
         const selected_from_server = data.Filters.split("")
           .map((item: string, i: number) =>
