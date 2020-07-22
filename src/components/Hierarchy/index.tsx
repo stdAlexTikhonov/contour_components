@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import { Demo } from "../DemoTable";
 import Button from "@material-ui/core/Button";
 import { Hierarchy } from "./HierarchyContainer";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,8 +37,6 @@ export const SimplePopover = () => {
     <div>
       <Button
         aria-describedby={id}
-        variant="contained"
-        color="primary"
         size="small"
         style={{
           outline: "none",
@@ -44,6 +44,7 @@ export const SimplePopover = () => {
           fontWeight: "normal",
         }}
         onClick={handleClick}
+        endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       >
         Hierarchy
       </Button>
