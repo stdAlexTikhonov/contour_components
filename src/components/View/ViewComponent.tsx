@@ -42,6 +42,23 @@ export const ViewComponent: React.FC<IProps> = ({
     filterDimensions,
   } = metadata;
 
+  const checkFilters = () => {
+    switch (true) {
+      case filterDimensions && filterDimensions.length > 0:
+        return filterDimensions;
+      case filters && filters.length > 0:
+        return filters;
+      case rows && rows.length > 0:
+        return rows;
+      case columns && columns.length > 0:
+        return columns;
+      case attributes && attributes.length > 0:
+        return attributes;
+      default:
+        return [];
+    }
+  };
+
   useEffect(() => {
     (async () => {
       const data = await getData({
@@ -144,7 +161,7 @@ export const ViewComponent: React.FC<IProps> = ({
           slice={slice}
           view={view}
           report={report}
-          filters={filterDimensions || filters}
+          filters={checkFilters()}
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}
