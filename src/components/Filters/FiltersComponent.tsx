@@ -158,7 +158,6 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   const renderItems = () => (
     <>
-      <SimplePopover />
       <CustomDropdown
         items={facts.map((fact: any) => ({
           value: fact.Caption,
@@ -229,7 +228,6 @@ export const FiltersComponent: React.FC<IProps> = ({
         window.contourChart(chart.id, chart, {});
         setError(false);
       } catch (e) {
-     
         setError(true);
       }
     }

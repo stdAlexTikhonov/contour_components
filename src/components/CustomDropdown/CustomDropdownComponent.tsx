@@ -18,6 +18,7 @@ import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
   SET_FACTS,
+  GET_FILTER_HIERARCHY,
 } from "../../utils/constants";
 import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
@@ -51,6 +52,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   settingFilterItems,
   settingCheckedItems,
   settingMultipleValues,
+  settingFilterHierarchy,
   checked,
 }) => {
   const { solution, project, report } = useParams();
@@ -243,6 +245,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     (async () => {
       if (_async) {
         // const data = await getFilterByCode(code!);
+
+        const hierarchy = await getData({
+          method: GET_FILTER_HIERARCHY,
+          session,
+          solution,
+          language,
+          project,
+          report: report_code || report,
+          slice,
+          view,
+          code,
+          cubeSession: cubes[cube_id],
+        });
+
+        if (hierarchy.success) settingFilterHierarchy(hierarchy);
 
         const data = await getData({
           method: GET_DIM_FILTER,

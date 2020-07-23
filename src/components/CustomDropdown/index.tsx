@@ -3,6 +3,7 @@ import { AppState } from "../../store/config_store";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { CustomDropdownComponent } from "./CustomDropdownComponent";
 import { setCubeSessionId } from "../../actions/cubes";
+import { setFullFilterHierarchy } from "../../actions/filters";
 import {
   setSelectedFilter,
   setFilterState,
@@ -43,6 +44,9 @@ const mapDispatchToProps = (
   },
   settingMultipleValues: (multiple: boolean) => {
     dispatch(setMultipleValues(multiple));
+  },
+  settingFilterHierarchy: (data: any) => {
+    dispatch(setFullFilterHierarchy(data));
   },
 });
 

@@ -18,7 +18,7 @@ const mapDispatchToProps = (
 ): LinkDispatchToProps => ({
   setCurrentFilters: (filters: any) => {
     getFilters().then((data) => dispatch(setFilterOfView(data)));
-    getFullHierarchy().then((data) => dispatch(setFullFilterHierarchy(data)));
+    // getFullHierarchy().then((data) => dispatch(setFullFilterHierarchy(data)));
   },
 });
 
