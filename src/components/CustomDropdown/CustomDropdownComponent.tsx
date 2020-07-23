@@ -259,8 +259,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           cubeSession: cubes[cube_id],
         });
 
-        if (hierarchy.success) settingFilterHierarchy(hierarchy);
-
         const data = await getData({
           method: GET_DIM_FILTER,
           session,
@@ -273,6 +271,25 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           code,
           cubeSession: cubes[cube_id],
         });
+
+        if (hierarchy.success) {
+          settingFilterHierarchy({
+            [`${code}`]: {
+              ...hierarchy,
+              ...data,
+              label,
+              next_level: hierarchy.levels[1],
+              join: {
+                [`${hierarchy.levels[1]}`]: {
+                  ...hierarchy.nodes.map((item: any) =>
+                    item.nodes.map((elem: any) => elem.index)
+                  ),
+                },
+              },
+            },
+            root: code,
+          });
+        }
 
         try {
           const selected_from_server = data.Filters.split("")

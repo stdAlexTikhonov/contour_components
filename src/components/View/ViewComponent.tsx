@@ -44,22 +44,16 @@ export const ViewComponent: React.FC<IProps> = ({
   } = metadata;
 
   const checkFilters = () => {
-    switch (true) {
-      case filters_from_store && filters_from_store.length > 0:
-        return filters_from_store;
-      case filterDimensions && filterDimensions.length > 0:
-        return filterDimensions;
-      case filters && filters.length > 0:
-        return filters;
-      case rows && rows.length > 0:
-        return rows;
-      case columns && columns.length > 0:
-        return columns;
-      case attributes && attributes.length > 0:
-        return attributes;
-      default:
-        return [];
-    }
+    const arr = [filterDimensions, filters, rows, columns, attributes, []];
+
+    arr.sort((a: any, b: any) => b.length - a.length);
+
+    if (filters_from_store && filters_from_store.length > 0)
+      return filters_from_store;
+
+    const itog = arr.find((a: any) => a && a.length > 0);
+
+    return itog;
   };
 
   useEffect(() => {

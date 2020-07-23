@@ -54,7 +54,6 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           multipleFacts: item.multipleFacts,
           filterDimensions: item.FilterDimensions?.items,
         }));
-
         dispatch(setDashboardMetadata(metadata));
       }
       reportData.type && dispatch(setReportType(reportData.type));
