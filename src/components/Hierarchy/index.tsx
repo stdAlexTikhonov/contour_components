@@ -4,9 +4,9 @@ import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { Demo } from "../DemoTable";
 import Button from "@material-ui/core/Button";
-import { Hierarchy } from "./HierarchyContainer";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import { Props } from "./type";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SimplePopover = () => {
+export const SimplePopover: React.FC<Props> = ({ label }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -46,7 +46,7 @@ export const SimplePopover = () => {
         onClick={handleClick}
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       >
-        Hierarchy
+        {label}
       </Button>
       <Popover
         id={id}

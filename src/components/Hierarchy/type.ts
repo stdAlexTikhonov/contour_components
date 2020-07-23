@@ -1,4 +1,6 @@
-export interface Props {}
+export interface Props {
+  label: string;
+}
 
 export type IProps = Props & LinkStateToProps;
 
