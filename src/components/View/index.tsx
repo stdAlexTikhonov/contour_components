@@ -11,13 +11,19 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
   filters: state.filters.filters,
+  hierarchy: state.filters.hierarchy,
 });
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
-  setCurrentFilters: (filters: any) => {
-    getFilters().then((data) => dispatch(setFilterOfView(data)));
+  setCurrentFilters: (filters: any, hierarchy: any) => {
+    const hierarchy_filter = hierarchy.levels && hierarchy.levels[0];
+    const with_hierarchy = filters.map((item: any) => {
+      item.hierarchy = item.code === hierarchy_filter;
+      return item;
+    });
+    dispatch(setFilterOfView(with_hierarchy));
     // getFullHierarchy().then((data) => dispatch(setFullFilterHierarchy(data)));
   },
 });

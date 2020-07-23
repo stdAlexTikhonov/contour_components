@@ -20,7 +20,8 @@ export const ViewComponent: React.FC<IProps> = ({
   language,
   index,
   setCurrentFilters,
-  filters: testFilters,
+  filters: filters_from_store,
+  hierarchy,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -44,6 +45,8 @@ export const ViewComponent: React.FC<IProps> = ({
 
   const checkFilters = () => {
     switch (true) {
+      case filters_from_store && filters_from_store.length > 0:
+        return filters_from_store;
       case filterDimensions && filterDimensions.length > 0:
         return filterDimensions;
       case filters && filters.length > 0:
@@ -105,7 +108,7 @@ export const ViewComponent: React.FC<IProps> = ({
     <Grid
       container
       className={classes.container}
-      onClick={() => setCurrentFilters(filterDimensions || filters)}
+      onClick={() => setCurrentFilters(checkFilters(), hierarchy)}
     >
       <Grid item className={classes.item}>
         <Box justifyContent="flex-start" display="flex">

@@ -184,36 +184,40 @@ export const FiltersComponent: React.FC<IProps> = ({
           multiple={multipleFacts}
         />
       )}
-      {filters.map((item: any, index: number) => (
-        <>
-          <CustomDropdown
-            items={[]}
-            label={item.Caption}
-            multy={true}
-            selected={[]}
-            _async={true}
-            slice={slice}
-            view={view}
-            code={item.code}
-            report={report_code}
-            descending={item.Descending}
-            filterChange={filterChange}
-            meta_index={meta_index}
-            filter_index={index + 1}
-            cube_id={cube_id}
-          />
-          {expanded && selected_filter === index + 1 && (
-            <ExpandedFilter
-              button={false}
-              direction={pos}
-              handleToggle={handleToggle}
-              handleRadio={handleRadio}
-              checked={checked}
-              multiple={multiple}
+      {filters.map((item: any, index: number) =>
+        item.hierarchy ? (
+          <SimplePopover />
+        ) : (
+          <>
+            <CustomDropdown
+              items={[]}
+              label={item.Caption}
+              multy={true}
+              selected={[]}
+              _async={true}
+              slice={slice}
+              view={view}
+              code={item.code}
+              report={report_code}
+              descending={item.Descending}
+              filterChange={filterChange}
+              meta_index={meta_index}
+              filter_index={index + 1}
+              cube_id={cube_id}
             />
-          )}
-        </>
-      ))}
+            {expanded && selected_filter === index + 1 && (
+              <ExpandedFilter
+                button={false}
+                direction={pos}
+                handleToggle={handleToggle}
+                handleRadio={handleRadio}
+                checked={checked}
+                multiple={multiple}
+              />
+            )}
+          </>
+        )
+      )}
     </>
   );
 
