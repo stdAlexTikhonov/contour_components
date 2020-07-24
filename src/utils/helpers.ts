@@ -6,6 +6,14 @@ export const transform_languages_data = (langs: []) => {
   return hash;
 };
 
+export const build_hierarchy = (nodes: any, level: string) => {
+  return {
+    [`${level}`]: {
+      ...nodes.map((item: any) => item.nodes.map((elem: any) => elem.index)),
+    },
+  };
+};
+
 export const sliceWord = (word: string) => {
   return word.length > 11 ? word.substr(0, 8) + "..." : word;
 };

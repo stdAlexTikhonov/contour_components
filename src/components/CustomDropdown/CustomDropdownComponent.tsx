@@ -12,7 +12,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { sleep, sliceWord } from "../../utils/helpers";
+import { sleep, sliceWord, build_hierarchy } from "../../utils/helpers";
 import { getData, getFilterByCode, setFiltersOnServer } from "../../utils/api";
 import {
   GET_DIM_FILTER,
@@ -275,7 +275,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         if (hierarchy.success) {
           settingFilterHierarchy({
             [`${code}`]: {
-              ...hierarchy,
               ...data,
               label,
               next_level: hierarchy.levels[1],
@@ -288,6 +287,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               },
             },
             root: code,
+            levels: hierarchy.levels,
+            nodes: hierarchy.nodes,
           });
         }
 
