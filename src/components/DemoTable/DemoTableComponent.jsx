@@ -59,8 +59,56 @@ export class DemoComponent extends Component {
       widths: { ...widths },
     });
   };
-  renderCell = ({ columnIndex, key, rowIndex, style }) => {
+  clickOnRow = (columnIndex, rowIndex) => {
     const { hierarchy } = this.props;
+    const { columnNames, tableData } = this.state;
+    const currentKey = columnNames[columnIndex].dataKey;
+    const current = hierarchy[currentKey];
+    const next = current.next_level;
+    console.log(next);
+
+    console.log(hierarchy.nodes);
+    // const data = hierarchy[next];
+    // const isOpen = columnNames[columnIndex + 1];
+
+    // if (tableData[rowIndex].connected && !tableData[rowIndex].expanded) {
+    //   const arr = tableData[rowIndex].connected.map((item, i) => ({
+    //     [`${next}`]: data.Captions[item],
+    //     connected: data.next_level && data.join[data.next_level][item],
+    //     expanded: false,
+    //   }));
+
+    //   tableData.splice(rowIndex + 1, 0, ...arr);
+
+    //   if (!isOpen)
+    //     columnNames.push({
+    //       label: hierarchy[next].label,
+    //       dataKey: next,
+    //       count_expanded: 1,
+    //     });
+    //   else columnNames[columnIndex + 1].count_expanded += 1;
+    // } else if (tableData[rowIndex].connected && tableData[rowIndex].expanded) {
+    //   const shouldClose = columnNames[columnIndex + 1].count_expanded - 1 === 0;
+
+    //   columnNames[columnIndex + 1].count_expanded -= 1;
+    //   const new_cn = shouldClose
+    //     ? columnNames.slice(0, columnIndex + 1)
+    //     : columnNames.slice();
+
+    //   this.setState({
+    //     columnNames: new_cn,
+    //   });
+
+    //   tableData.splice(rowIndex + 1, tableData[rowIndex].connected.length);
+    // }
+
+    // tableData[rowIndex].expanded = !tableData[rowIndex].expanded;
+
+    // this.setState({
+    //   tableData: tableData,
+    // });
+  };
+  renderCell = ({ columnIndex, key, rowIndex, style }) => {
     style.paddingLeft = "15px";
     const { widths, columnNames, tableData } = this.state;
     const field = columnNames[columnIndex].label;
@@ -89,61 +137,7 @@ export class DemoComponent extends Component {
           <div
             style={style}
             className="table-content"
-            onClick={() => {
-              const currentKey = columnNames[columnIndex].dataKey;
-              const current = hierarchy[currentKey];
-              const next = current.next_level;
-              const data = hierarchy[next];
-              const isOpen = columnNames[columnIndex + 1];
-
-              if (
-                tableData[rowIndex].connected &&
-                !tableData[rowIndex].expanded
-              ) {
-                const arr = tableData[rowIndex].connected.map((item, i) => ({
-                  [`${next}`]: data.Captions[item],
-                  connected:
-                    data.next_level && data.join[data.next_level][item],
-                  expanded: false,
-                }));
-
-                tableData.splice(rowIndex + 1, 0, ...arr);
-
-                if (!isOpen)
-                  columnNames.push({
-                    label: hierarchy[next].label,
-                    dataKey: next,
-                    count_expanded: 1,
-                  });
-                else columnNames[columnIndex + 1].count_expanded += 1;
-              } else if (
-                tableData[rowIndex].connected &&
-                tableData[rowIndex].expanded
-              ) {
-                const shouldClose =
-                  columnNames[columnIndex + 1].count_expanded - 1 === 0;
-
-                columnNames[columnIndex + 1].count_expanded -= 1;
-                const new_cn = shouldClose
-                  ? columnNames.slice(0, columnIndex + 1)
-                  : columnNames.slice();
-
-                this.setState({
-                  columnNames: new_cn,
-                });
-
-                tableData.splice(
-                  rowIndex + 1,
-                  tableData[rowIndex].connected.length
-                );
-              }
-
-              tableData[rowIndex].expanded = !tableData[rowIndex].expanded;
-
-              this.setState({
-                tableData: tableData,
-              });
-            }}
+            onClick={() => this.clickOnRow(columnIndex, rowIndex)}
           >
             {text && (
               <>

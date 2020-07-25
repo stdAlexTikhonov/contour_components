@@ -11,7 +11,7 @@ import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
-import { IProps } from "./types";
+import { IProps, Hierarchy } from "./types";
 import { sleep, sliceWord, build_hierarchy } from "../../utils/helpers";
 import { getData, getFilterByCode, setFiltersOnServer } from "../../utils/api";
 import {
@@ -273,23 +273,54 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         });
 
         if (hierarchy.success) {
-          settingFilterHierarchy({
-            [`${code}`]: {
-              ...data,
-              label,
-              next_level: hierarchy.levels[1],
-              join: {
-                [`${hierarchy.levels[1]}`]: {
-                  ...hierarchy.nodes.map((item: any) =>
-                    item.nodes.map((elem: any) => elem.index)
-                  ),
+          let itog = {} as Hierarchy;
+          hierarchy.levels.forEach(async (item: string, i: number) => {
+            let datax = await getData({
+              method: GET_DIM_FILTER,
+              session,
+              solution,
+              language,
+              project,
+              report: report_code || report,
+              slice,
+              view,
+              code: item,
+              cubeSession: cubes[cube_id],
+            });
+
+            if (i === 0) {
+              datax = {
+                ...datax,
+                label,
+                next_level: hierarchy.levels[1],
+                join: {
+                  [`${hierarchy.levels[1]}`]: {
+                    ...hierarchy.nodes.map((item: any) =>
+                      item.nodes.map((elem: any) => elem.index)
+                    ),
+                  },
                 },
-              },
-            },
-            root: code,
-            levels: hierarchy.levels,
-            nodes: hierarchy.nodes,
+              };
+            }
+
+            itog[item] = datax;
+
+            itog = {
+              ...itog,
+              root: code,
+              levels: hierarchy.levels,
+              nodes: hierarchy.nodes,
+            };
+
+            settingFilterHierarchy(itog);
           });
+
+          // settingFilterHierarchy({
+          //   ...itog,
+          //   root: code,
+          //   levels: hierarchy.levels,
+          //   nodes: hierarchy.nodes,
+          // });
         }
 
         try {
