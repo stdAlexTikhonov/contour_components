@@ -23,6 +23,7 @@ export interface LinkStateToProps {
   selected_filter: number;
   expanded: boolean;
   checked: any;
+  filters: any;
 }
 
 export interface LinkDispatchToProps {

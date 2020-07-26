@@ -54,6 +54,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   settingMultipleValues,
   settingFilterHierarchy,
   checked,
+  filters: store_filters,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -287,6 +288,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               code: item,
               cubeSession: cubes[cube_id],
             });
+
+            const filter = store_filters.find((el: any) => el.code === item);
+            datax.label = filter.Caption;
 
             if (i === 0) {
               datax = {

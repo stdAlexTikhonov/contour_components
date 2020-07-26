@@ -22,6 +22,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   selected_filter: state.filters.selected_filter,
   expanded: state.filters.expanded,
   checked: state.filters.checked,
+  filters: state.filters.filters,
 });
 
 const mapDispatchToProps = (
