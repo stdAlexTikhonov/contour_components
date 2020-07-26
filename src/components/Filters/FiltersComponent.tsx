@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
@@ -188,7 +188,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         item.hierarchy ? (
           <SimplePopover label={item.Caption} />
         ) : (
-          <>
+          <Fragment key={item.code}>
             <CustomDropdown
               items={[]}
               label={item.Caption}
@@ -215,7 +215,7 @@ export const FiltersComponent: React.FC<IProps> = ({
                 multiple={multiple}
               />
             )}
-          </>
+          </Fragment>
         )
       )}
     </>
