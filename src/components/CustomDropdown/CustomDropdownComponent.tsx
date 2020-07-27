@@ -293,19 +293,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
             datax.label = filter.Caption;
             datax.next_level = hierarchy.levels[i + 1];
 
-            // if (i === 0) {
-            //   datax = {
-            //     ...datax,
-            //     join: {
-            //       [`${hierarchy.levels[1]}`]: {
-            //         ...hierarchy.nodes.map((item: any) =>
-            //           item.nodes.map((elem: any) => elem.index)
-            //         ),
-            //       },
-            //     },
-            //   };
-            // }
-
             itog[item] = datax;
 
             itog = {
@@ -317,13 +304,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
             settingFilterHierarchy(itog);
           });
-
-          // settingFilterHierarchy({
-          //   ...itog,
-          //   root: code,
-          //   levels: hierarchy.levels,
-          //   nodes: hierarchy.nodes,
-          // });
         }
 
         try {

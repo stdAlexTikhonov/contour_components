@@ -71,7 +71,7 @@ export class DemoComponent extends Component {
 
     if (tableData[rowIndex].connected && !tableData[rowIndex].expanded) {
       const arr = tableData[rowIndex].connected.nodes.map((item, i) => ({
-        [`${next}`]: data.Captions[item.index],
+        [`${next}`]: data.Captions[item.index].replace(/&nbsp;/g, " "),
         connected: data.next_level && item,
         expanded: false,
       }));
