@@ -47,7 +47,7 @@ export class DemoComponent extends Component {
       ],
       tableData: root.Captions.map((item, i) => ({
         [`${hierarchy.root}`]: item,
-        connected: root.join[root.next_level][i],
+        connected: hierarchy.nodes[i],
         expanded: false,
       })),
     });
@@ -65,17 +65,14 @@ export class DemoComponent extends Component {
     const currentKey = columnNames[columnIndex].dataKey;
     const current = hierarchy[currentKey];
     const next = current.next_level;
-    const index = current.Captions.indexOf(text);
-    console.log(current.Captions.length);
-    console.log(hierarchy.nodes.length);
 
     const data = hierarchy[next];
     const isOpen = columnNames[columnIndex + 1];
 
     if (tableData[rowIndex].connected && !tableData[rowIndex].expanded) {
-      const arr = tableData[rowIndex].connected.map((item, i) => ({
-        [`${next}`]: data.Captions[item],
-        connected: data.next_level && data.join[data.next_level][item],
+      const arr = tableData[rowIndex].connected.nodes.map((item, i) => ({
+        [`${next}`]: data.Captions[item.index],
+        connected: data.next_level && item,
         expanded: false,
       }));
 
@@ -100,7 +97,10 @@ export class DemoComponent extends Component {
         columnNames: new_cn,
       });
 
-      tableData.splice(rowIndex + 1, tableData[rowIndex].connected.length);
+      tableData.splice(
+        rowIndex + 1,
+        tableData[rowIndex].connected.nodes.length
+      );
     }
 
     tableData[rowIndex].expanded = !tableData[rowIndex].expanded;
