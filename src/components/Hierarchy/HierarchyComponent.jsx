@@ -49,6 +49,7 @@ export class DemoComponent extends Component {
         [`${hierarchy.root}`]: item,
         connected: hierarchy.nodes[i],
         expanded: false,
+        checked: root.Filters[i] === "0",
       })),
     });
   }
@@ -57,6 +58,15 @@ export class DemoComponent extends Component {
     widths[index] = value.size.width;
     this.setState({
       widths: { ...widths },
+    });
+  };
+  checkboxClick = (e, rowIndex) => {
+    const { tableData } = this.state;
+    e.stopPropagation();
+    tableData[rowIndex].checked = !tableData[rowIndex].checked;
+
+    this.setState({
+      tableData: tableData,
     });
   };
   clickOnRow = (columnIndex, rowIndex, text) => {
@@ -74,6 +84,7 @@ export class DemoComponent extends Component {
         [`${next}`]: data.Captions[item.index].replace(/&nbsp;/g, " "),
         connected: data.next_level && item,
         expanded: false,
+        checked: data.Filters[i] === "0",
       }));
 
       tableData.splice(rowIndex + 1, 0, ...arr);
@@ -146,8 +157,8 @@ export class DemoComponent extends Component {
                 <CustomCheckbox
                   size="small"
                   edge="start"
-                  onClick={() => alert(1)}
-                  checked={false}
+                  onClick={(e) => this.checkboxClick(e, rowIndex)}
+                  checked={tableData[rowIndex].checked}
                   tabIndex={-1}
                   inputProps={{ "aria-labelledby": "labelId" }}
                   disabled={false}
