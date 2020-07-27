@@ -41,6 +41,8 @@ export class DemoComponent extends Component {
   componentDidMount() {
     const { hierarchy } = this.props;
     const root = hierarchy[hierarchy.root];
+    console.log(hierarchy.nodes.length);
+    console.log(hierarchy.nodes[0]);
     this.setState({
       columnNames: [
         { label: root.label, dataKey: hierarchy.root, count_expanded: 0 },
@@ -60,10 +62,22 @@ export class DemoComponent extends Component {
       widths: { ...widths },
     });
   };
-  checkboxClick = (e, rowIndex) => {
-    const { tableData } = this.state;
+  checkboxClick = (e, rowIndex, columnIndex) => {
+    const { tableData, columnNames } = this.state;
+    const { hierarchy } = this.props;
     e.stopPropagation();
     tableData[rowIndex].checked = !tableData[rowIndex].checked;
+
+    const key = columnNames[columnIndex].dataKey;
+
+    const filters = hierarchy[key].Filters.split("");
+
+    const index = tableData[rowIndex].connected.index;
+
+    filters[index] = !tableData[rowIndex].checked ? "1" : "0";
+
+    const itog = filters.join("");
+    console.log(itog);
 
     this.setState({
       tableData: tableData,
@@ -82,7 +96,7 @@ export class DemoComponent extends Component {
     if (tableData[rowIndex].connected && !tableData[rowIndex].expanded) {
       const arr = tableData[rowIndex].connected.nodes.map((item, i) => ({
         [`${next}`]: data.Captions[item.index].replace(/&nbsp;/g, " "),
-        connected: data.next_level && item,
+        connected: data.next_level ? item : { index: item.index },
         expanded: false,
         checked: data.Filters[i] === "0",
       }));
@@ -157,7 +171,7 @@ export class DemoComponent extends Component {
                 <CustomCheckbox
                   size="small"
                   edge="start"
-                  onClick={(e) => this.checkboxClick(e, rowIndex)}
+                  onClick={(e) => this.checkboxClick(e, rowIndex, columnIndex)}
                   checked={tableData[rowIndex].checked}
                   tabIndex={-1}
                   inputProps={{ "aria-labelledby": "labelId" }}
