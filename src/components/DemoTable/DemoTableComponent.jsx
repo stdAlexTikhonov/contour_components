@@ -59,12 +59,15 @@ export class DemoComponent extends Component {
       widths: { ...widths },
     });
   };
-  clickOnRow = (columnIndex, rowIndex) => {
+  clickOnRow = (columnIndex, rowIndex, text) => {
     const { hierarchy } = this.props;
     const { columnNames, tableData } = this.state;
     const currentKey = columnNames[columnIndex].dataKey;
     const current = hierarchy[currentKey];
     const next = current.next_level;
+    const index = current.Captions.indexOf(text);
+    console.log(current.Captions.length);
+    console.log(hierarchy.nodes.length);
 
     const data = hierarchy[next];
     const isOpen = columnNames[columnIndex + 1];
@@ -135,7 +138,7 @@ export class DemoComponent extends Component {
           <div
             style={style}
             className="table-content"
-            onClick={() => this.clickOnRow(columnIndex, rowIndex)}
+            onClick={() => this.clickOnRow(columnIndex, rowIndex, text)}
           >
             {text && (
               <>

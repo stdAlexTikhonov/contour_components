@@ -291,12 +291,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
 
             const filter = store_filters.find((el: any) => el.code === item);
             datax.label = filter.Caption;
+            datax.next_level = hierarchy.levels[i + 1];
 
             if (i === 0) {
               datax = {
                 ...datax,
-                label,
-                next_level: hierarchy.levels[1],
                 join: {
                   [`${hierarchy.levels[1]}`]: {
                     ...hierarchy.nodes.map((item: any) =>
