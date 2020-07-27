@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
-import { Demo } from "../DemoTable";
+import { Hierarchy } from "./HierarchyContainer";
 import Button from "@material-ui/core/Button";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -62,7 +62,7 @@ export const SimplePopover: React.FC<Props> = ({ label }) => {
           horizontal: "center",
         }}
       >
-        <Demo />
+        <Hierarchy />
       </Popover>
     </div>
   );
