@@ -20,4 +20,4 @@ export const SET_FACT_POSISIOTNS: string = "SetFactPositions";
 export const SET_DIM_POSITIONS: string = "SetDimPositions";
 export const START_CUBE_SESSION: string = "StartCubeSession";
 export const COLOR: string = "#003366";
-export const BASE_URL: string = "http://204.145.90.67:8082/biportal/api.jsp";
+export const BASE_URL: string = "https://stat.world/biportal/api.jsp";
