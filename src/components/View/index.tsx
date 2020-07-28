@@ -18,12 +18,7 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchToProps => ({
   setCurrentFilters: (filters: any, hierarchy: any) => {
-    const hierarchy_filter = hierarchy.root;
-    const with_hierarchy = filters.map((item: any) => {
-      item.hierarchy = item.code === hierarchy_filter;
-      return item;
-    });
-    dispatch(setFilterOfView(with_hierarchy));
+    dispatch(setFilterOfView(filters));
     // getFullHierarchy().then((data) => dispatch(setFullFilterHierarchy(data)));
   },
 });

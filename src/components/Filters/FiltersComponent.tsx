@@ -184,40 +184,36 @@ export const FiltersComponent: React.FC<IProps> = ({
           multiple={multipleFacts}
         />
       )}
-      {filters.map((item: any, index: number) =>
-        item.hierarchy ? (
-          <SimplePopover key={item.code} label={item.Caption} />
-        ) : (
-          <Fragment key={item.code}>
-            <CustomDropdown
-              items={[]}
-              label={item.Caption}
-              multy={true}
-              selected={[]}
-              _async={true}
-              slice={slice}
-              view={view}
-              code={item.code}
-              report={report_code}
-              descending={item.Descending}
-              filterChange={filterChange}
-              meta_index={meta_index}
-              filter_index={index + 1}
-              cube_id={cube_id}
+      {filters.map((item: any, index: number) => (
+        <Fragment key={item.code}>
+          <CustomDropdown
+            items={[]}
+            label={item.Caption}
+            multy={true}
+            selected={[]}
+            _async={true}
+            slice={slice}
+            view={view}
+            code={item.code}
+            report={report_code}
+            descending={item.Descending}
+            filterChange={filterChange}
+            meta_index={meta_index}
+            filter_index={index + 1}
+            cube_id={cube_id}
+          />
+          {expanded && selected_filter === index + 1 && (
+            <ExpandedFilter
+              button={false}
+              direction={pos}
+              handleToggle={handleToggle}
+              handleRadio={handleRadio}
+              checked={checked}
+              multiple={multiple}
             />
-            {expanded && selected_filter === index + 1 && (
-              <ExpandedFilter
-                button={false}
-                direction={pos}
-                handleToggle={handleToggle}
-                handleRadio={handleRadio}
-                checked={checked}
-                multiple={multiple}
-              />
-            )}
-          </Fragment>
-        )
-      )}
+          )}
+        </Fragment>
+      ))}
     </>
   );
 
