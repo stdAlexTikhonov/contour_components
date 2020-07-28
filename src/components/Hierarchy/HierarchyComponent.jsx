@@ -189,7 +189,9 @@ export class DemoComponent extends Component {
         <div className={"res-table"}>
           <div style={{ display: "flex" }}>
             {columnNames.map((item) => (
-              <div className={"table-header"}>{item.label}</div>
+              <div key={item.label} className={"table-header"}>
+                {item.label}
+              </div>
             ))}
           </div>
           <ReactVirtualSizeTable

@@ -186,7 +186,7 @@ export const FiltersComponent: React.FC<IProps> = ({
       )}
       {filters.map((item: any, index: number) =>
         item.hierarchy ? (
-          <SimplePopover label={item.Caption} />
+          <SimplePopover key={item.code} label={item.Caption} />
         ) : (
           <Fragment key={item.code}>
             <CustomDropdown
