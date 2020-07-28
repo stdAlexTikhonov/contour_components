@@ -187,6 +187,11 @@ export class DemoComponent extends Component {
       }
       return (
         <div className={"res-table"}>
+          <div style={{ display: "flex" }}>
+            {columnNames.map((item) => (
+              <div className={"table-header"}>{item.label}</div>
+            ))}
+          </div>
           <ReactVirtualSizeTable
             onCell={(value) => this.renderCell(value, columnNames, tableData)}
             columnCount={columnNames.length}
