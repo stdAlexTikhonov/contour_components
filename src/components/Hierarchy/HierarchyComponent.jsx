@@ -41,14 +41,13 @@ export class DemoComponent extends Component {
   componentDidMount() {
     const { hierarchy } = this.props;
     const root = hierarchy[hierarchy.root];
-    console.log(hierarchy.nodes.length);
-    console.log(hierarchy.nodes[0]);
+
     this.setState({
       columnNames: [
         { label: root.label, dataKey: hierarchy.root, count_expanded: 0 },
       ],
       tableData: root.Captions.map((item, i) => ({
-        [`${hierarchy.root}`]: item,
+        [`${hierarchy.root}`]: item.replace(/&nbsp;/g, " "),
         connected: hierarchy.nodes[i],
         expanded: false,
         checked: root.Filters[i] === "0",
@@ -70,14 +69,17 @@ export class DemoComponent extends Component {
 
     const key = columnNames[columnIndex].dataKey;
 
-    const filters = hierarchy[key].Filters.split("");
+    const filters = tableData
+      .filter((item) => item[key])
+      .map((item) => (item.checked ? "0" : "1"));
 
-    const index = tableData[rowIndex].connected.index;
+    const index = hierarchy[key].Captions.indexOf(tableData[rowIndex][key]);
 
-    filters[index] = !tableData[rowIndex].checked ? "1" : "0";
+    console.log(filters.join(""));
+    // filters[index] = !tableData[rowIndex].checked ? "1" : "0";
 
-    const itog = filters.join("");
-    console.log(itog);
+    // const itog = filters.join("");
+    // console.log(itog);
 
     this.setState({
       tableData: tableData,
@@ -139,50 +141,33 @@ export class DemoComponent extends Component {
     const { widths, columnNames, tableData } = this.state;
     const field = columnNames[columnIndex].label;
     const dataKey = columnNames[columnIndex].dataKey;
-    const text =
-      rowIndex === 0
-        ? field
-        : tableData[rowIndex] && tableData[rowIndex][dataKey];
+    const text = tableData[rowIndex] && tableData[rowIndex][dataKey];
     const expanded = tableData[rowIndex] && tableData[rowIndex].expanded;
 
     return (
       <Fragment key={key}>
-        {rowIndex === 0 ? (
-          <Resizable
-            width={widths[columnIndex] || 200}
-            height={40}
-            onResize={(e, value) => {
-              this.onResize(columnIndex, value);
-            }}
-          >
-            <div style={style} className="table-header">
+        <div
+          style={style}
+          className="table-content"
+          onClick={() => this.clickOnRow(columnIndex, rowIndex, text)}
+        >
+          {text && (
+            <>
+              {expanded ? <MinusSquare /> : <PlusSquare />}
+              <CustomCheckbox
+                size="small"
+                edge="start"
+                onClick={(e) => this.checkboxClick(e, rowIndex, columnIndex)}
+                checked={tableData[rowIndex].checked}
+                tabIndex={-1}
+                inputProps={{ "aria-labelledby": "labelId" }}
+                disabled={false}
+                style={{ marginRight: 3 }}
+              />
               {text}
-            </div>
-          </Resizable>
-        ) : (
-          <div
-            style={style}
-            className="table-content"
-            onClick={() => this.clickOnRow(columnIndex, rowIndex, text)}
-          >
-            {text && (
-              <>
-                {expanded ? <MinusSquare /> : <PlusSquare />}
-                <CustomCheckbox
-                  size="small"
-                  edge="start"
-                  onClick={(e) => this.checkboxClick(e, rowIndex, columnIndex)}
-                  checked={tableData[rowIndex].checked}
-                  tabIndex={-1}
-                  inputProps={{ "aria-labelledby": "labelId" }}
-                  disabled={false}
-                  style={{ marginRight: 3 }}
-                />
-                {text}
-              </>
-            )}
-          </div>
-        )}
+            </>
+          )}
+        </div>
       </Fragment>
     );
   };
