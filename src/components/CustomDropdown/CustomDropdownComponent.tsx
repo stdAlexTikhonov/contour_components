@@ -307,6 +307,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
             };
 
             settingFilterHierarchy(itog);
+            setLoading(false);
           });
         }
 
@@ -357,8 +358,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           );
 
           setSelectAll(!notAll);
-
-          setLoading(false);
+          if (hierarchy.success === false) setLoading(false);
         } catch (e) {
           console.log(e);
         }
