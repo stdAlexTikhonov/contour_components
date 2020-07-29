@@ -11,9 +11,10 @@ import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
-import { IProps, Hierarchy } from "./types";
+import { IProps, HierarchyType } from "./types";
 import { sleep, sliceWord, build_hierarchy } from "../../utils/helpers";
 import { getData, getFilterByCode, setFiltersOnServer } from "../../utils/api";
+import { Hierarchy } from "../Hierarchy";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
@@ -81,6 +82,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
+  const [is_hierarchy, setHierarchy] = React.useState<boolean>(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -273,8 +275,10 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           cubeSession: cubes[cube_id],
         });
 
+        setHierarchy(hierarchy.success);
+
         if (hierarchy.success) {
-          let itog = {} as Hierarchy;
+          let itog = {} as HierarchyType;
           hierarchy.levels.forEach(async (item: string, i: number) => {
             let datax = await getData({
               method: GET_DIM_FILTER,
@@ -485,6 +489,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                   >
                     {loading ? (
                       <CircularProgress />
+                    ) : is_hierarchy ? (
+                      <Hierarchy />
                     ) : (
                       <>
                         <TextField

@@ -38,6 +38,6 @@ export interface LinkDispatchToProps {
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
-export type Hierarchy = {
+export type HierarchyType = {
   [index: string]: any;
 };

@@ -40,19 +40,20 @@ export class DemoComponent extends Component {
 
   componentDidMount() {
     const { hierarchy } = this.props;
-    const root = hierarchy[hierarchy.root];
-
-    this.setState({
-      columnNames: [
-        { label: root.label, dataKey: hierarchy.root, count_expanded: 0 },
-      ],
-      tableData: root.Captions.map((item, i) => ({
-        [`${hierarchy.root}`]: item.replace(/&nbsp;/g, " "),
-        connected: hierarchy.nodes[i],
-        expanded: false,
-        checked: root.Filters[i] === "0",
-      })),
-    });
+    if (hierarchy.root) {
+      const root = hierarchy[hierarchy.root];
+      this.setState({
+        columnNames: [
+          { label: root.label, dataKey: hierarchy.root, count_expanded: 0 },
+        ],
+        tableData: root.Captions.map((item, i) => ({
+          [`${hierarchy.root}`]: item.replace(/&nbsp;/g, " "),
+          connected: hierarchy.nodes[i],
+          expanded: false,
+          checked: root.Filters[i] === "0",
+        })),
+      });
+    }
   }
   onResize = (index, value) => {
     const { widths, columnNames } = this.state;
