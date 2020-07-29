@@ -484,7 +484,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     style={{
                       padding: 5,
                       position: "relative",
-                      minHeight: isOpen ? height : "auto",
+                      minHeight: isOpen && !is_hierarchy ? height : "auto",
                     }}
                   >
                     {loading ? (
