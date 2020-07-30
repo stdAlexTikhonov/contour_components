@@ -23,6 +23,7 @@ export interface LinkStateToProps {
   selected_filter: number;
   expanded: boolean;
   checked: any;
+  filters: any;
 }
 
 export interface LinkDispatchToProps {
@@ -32,6 +33,11 @@ export interface LinkDispatchToProps {
   settingFilterItems: (items: any[]) => void;
   settingCheckedItems: (checked: any) => void;
   settingMultipleValues: (multiple: boolean) => void;
+  settingFilterHierarchy: (data: any) => void;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
+
+export type HierarchyType = {
+  [index: string]: any;
+};

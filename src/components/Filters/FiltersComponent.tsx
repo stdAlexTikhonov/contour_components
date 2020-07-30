@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { IProps, POSITIONS_TYPE } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
@@ -184,7 +184,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         />
       )}
       {filters.map((item: any, index: number) => (
-        <>
+        <Fragment key={item.code}>
           <CustomDropdown
             items={[]}
             label={item.Caption}
@@ -211,7 +211,7 @@ export const FiltersComponent: React.FC<IProps> = ({
               multiple={multiple}
             />
           )}
-        </>
+        </Fragment>
       ))}
     </>
   );
@@ -227,7 +227,6 @@ export const FiltersComponent: React.FC<IProps> = ({
         window.contourChart(chart.id, chart, {});
         setError(false);
       } catch (e) {
-        console.log(e);
         setError(true);
       }
     }

@@ -13,8 +13,9 @@ type IProps = {
   visible: boolean;
   expanded: boolean;
   enableExpand: boolean;
+  is_hierarchy: boolean;
   handleInversion: () => void;
-  handleOk: () => void;
+  handleOk: any;
   handleCancel: () => void;
   handleSort: () => void;
   handleExpand: () => void;
@@ -26,6 +27,7 @@ export const ControlButtons: React.FC<IProps> = ({
   expanded,
   multiple,
   enableExpand,
+  is_hierarchy,
   handleInversion,
   handleOk,
   handleCancel,
@@ -42,71 +44,75 @@ export const ControlButtons: React.FC<IProps> = ({
         paddingTop: 5,
       }}
     >
-      {enableExpand && (
-        <Button
-          style={{
-            outline: "none",
-            minWidth: "unset",
-          }}
-          onClick={handleExpand}
-        >
-          {expanded ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-        </Button>
-      )}
-      <Button
-        style={{
-          outline: "none",
-          minWidth: "unset",
-        }}
-        onClick={showHidden}
-      >
-        {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
-      </Button>
-      {multiple && (
-        <Button
-          style={{
-            outline: "none",
-            minWidth: "unset",
-            display: "flex",
-          }}
-          onClick={handleInversion}
-        >
-          <div
+      {!is_hierarchy && (
+        <>
+          {enableExpand && (
+            <Button
+              style={{
+                outline: "none",
+                minWidth: "unset",
+              }}
+              onClick={handleExpand}
+            >
+              {expanded ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+            </Button>
+          )}
+          <Button
             style={{
-              margin: "auto",
-              width: 10,
-              height: 14,
+              outline: "none",
+              minWidth: "unset",
             }}
+            onClick={showHidden}
+          >
+            {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+          </Button>
+          {multiple && (
+            <Button
+              style={{
+                outline: "none",
+                minWidth: "unset",
+                display: "flex",
+              }}
+              onClick={handleInversion}
+            >
+              <div
+                style={{
+                  margin: "auto",
+                  width: 10,
+                  height: 14,
+                }}
+              >
+                <ArrowRightAltIcon
+                  style={{
+                    transform: "rotate(90deg)",
+                    position: "absolute",
+                    top: 9,
+                    left: 0,
+                  }}
+                />
+                <ArrowRightAltIcon
+                  style={{
+                    transform: "rotate(-90deg)",
+                    position: "absolute",
+                    top: 8,
+                    left: 5,
+                  }}
+                />
+              </div>
+            </Button>
+          )}
+          <Button
+            style={{ outline: "none", minWidth: "unset" }}
+            onClick={handleSort}
           >
             <ArrowRightAltIcon
               style={{
-                transform: "rotate(90deg)",
-                position: "absolute",
-                top: 9,
-                left: 0,
+                transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
               }}
             />
-            <ArrowRightAltIcon
-              style={{
-                transform: "rotate(-90deg)",
-                position: "absolute",
-                top: 8,
-                left: 5,
-              }}
-            />
-          </div>
-        </Button>
+          </Button>
+        </>
       )}
-      <Button
-        style={{ outline: "none", minWidth: "unset" }}
-        onClick={handleSort}
-      >
-        <ArrowRightAltIcon
-          style={{
-            transform: sort ? "rotate(-90deg)" : "rotate(90deg)",
-          }}
-        />
-      </Button>
       <Button
         style={{
           outline: "none",

@@ -22,8 +22,6 @@ const mapDispatchToProps = (
   handleDataQuery: async (data_for_query: DataForQuery) => {
     const data = await getData(data_for_query);
     if (data.success) dispatch(setCubeSession(data.cubeSession));
-
-    console.log(data);
   },
 });
 

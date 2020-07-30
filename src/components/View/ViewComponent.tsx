@@ -20,7 +20,8 @@ export const ViewComponent: React.FC<IProps> = ({
   language,
   index,
   setCurrentFilters,
-  filters: testFilters,
+  filters: filters_from_store,
+  hierarchy,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -41,6 +42,19 @@ export const ViewComponent: React.FC<IProps> = ({
     multipleFacts,
     filterDimensions,
   } = metadata;
+
+  const checkFilters = () => {
+    const arr = [filterDimensions, filters, rows, columns, attributes, []];
+
+    arr.sort((a: any, b: any) => b.length - a.length);
+
+    if (filters_from_store && filters_from_store.length > 0)
+      return filters_from_store;
+
+    const itog = arr.find((a: any) => a && a.length > 0);
+
+    return itog;
+  };
 
   useEffect(() => {
     (async () => {
@@ -88,7 +102,7 @@ export const ViewComponent: React.FC<IProps> = ({
     <Grid
       container
       className={classes.container}
-      onClick={() => setCurrentFilters(filterDimensions || filters)}
+      onClick={() => setCurrentFilters(checkFilters(), hierarchy)}
     >
       <Grid item className={classes.item}>
         <Box justifyContent="flex-start" display="flex">
@@ -133,7 +147,7 @@ export const ViewComponent: React.FC<IProps> = ({
             filters={filters}
           />
         )} 
-        
+        {filterDimensions || filters}
         //{testFilters}
         */}
 
@@ -144,7 +158,7 @@ export const ViewComponent: React.FC<IProps> = ({
           slice={slice}
           view={view}
           report={report}
-          filters={filterDimensions || filters}
+          filters={checkFilters()}
           visibleFacts={visibleFacts ? visibleFacts : []}
           multipleFacts={multipleFacts}
           chart={showChart ? chart : null}

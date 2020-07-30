@@ -11,13 +11,15 @@ import Collapse from "@material-ui/core/Collapse";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { SelectAll } from "./SelectAll";
 import { useStyles } from "./styles";
-import { IProps } from "./types";
-import { sleep, sliceWord } from "../../utils/helpers";
-import { getData } from "../../utils/api";
+import { IProps, HierarchyType } from "./types";
+import { sleep, sliceWord, build_hierarchy } from "../../utils/helpers";
+import { getData, getFilterByCode, setFiltersOnServer } from "../../utils/api";
+import { Hierarchy } from "../Hierarchy";
 import {
   GET_DIM_FILTER,
   SET_DIM_FILTER,
   SET_FACTS,
+  GET_FILTER_HIERARCHY,
 } from "../../utils/constants";
 import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
@@ -51,7 +53,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   settingFilterItems,
   settingCheckedItems,
   settingMultipleValues,
+  settingFilterHierarchy,
   checked,
+  filters: store_filters,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -78,6 +82,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
+  const [is_hierarchy, setHierarchy] = React.useState<boolean>(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -140,7 +145,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setAnchorEl(null);
   };
 
-  const handleOk = async () => {
+  const handleOk = async (filters: string, h_code: string) => {
     let cubeSession;
     if (_async) {
       //Filter
@@ -158,16 +163,15 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         report: report_code || report,
         slice,
         view,
-        code,
-        filter: filters_for_server,
+        code: h_code || code,
+        filter: filters || filters_for_server,
         cubeSession: cubes[cube_id],
       });
 
       setSelectedFromServer(checked);
-      console.log(data);
+
       cubeSession = data.cubeSession;
       settingCubeSession(cube_id, data.cubeSession);
-      // console.log(filters_for_server);
     } else {
       //Fact
       let facts_for_server = localItems
@@ -194,7 +198,6 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         cubeSession: cubes[cube_id],
       });
 
-      console.log(data);
       cubeSession = data.cubeSession;
       settingCubeSession(cube_id, data.cubeSession);
       //console.log(facts_for_server);
@@ -243,6 +246,21 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleDropDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     (async () => {
       if (_async) {
+        // const data = await getFilterByCode(code!);
+
+        const hierarchy = await getData({
+          method: GET_FILTER_HIERARCHY,
+          session,
+          solution,
+          language,
+          project,
+          report: report_code || report,
+          slice,
+          view,
+          code,
+          cubeSession: cubes[cube_id],
+        });
+
         const data = await getData({
           method: GET_DIM_FILTER,
           session,
@@ -256,56 +274,93 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           cubeSession: cubes[cube_id],
         });
 
-        console.log(data);
+        setHierarchy(hierarchy.success);
 
-        const selected_from_server = data.Filters.split("")
-          .map((item: string, i: number) =>
-            item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
-          )
-          .filter((item: string | null) => item);
+        if (hierarchy.success) {
+          let itog = {} as HierarchyType;
+          hierarchy.levels.forEach(async (item: string, i: number) => {
+            let datax = await getData({
+              method: GET_DIM_FILTER,
+              session,
+              solution,
+              language,
+              project,
+              report: report_code || report,
+              slice,
+              view,
+              code: item,
+              cubeSession: cubes[cube_id],
+            });
 
-        setSelectedFromServer(selected_from_server);
-        if (data.MultipleValues) settingCheckedItems(selected_from_server);
-        else settingCheckedItems([selected_from_server[0]]);
+            const filter = store_filters.find((el: any) => el.code === item);
+            datax.label = filter.Caption;
+            datax.next_level = hierarchy.levels[i + 1];
 
-        setMultiple(data.MultipleValues);
-        settingMultipleValues(data.MultipleValues);
-        //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-        //const check_data = regex.test(data.Captions[0]);
-        const check_date = data.type === "Date";
-        setIsDate(check_date);
+            itog[item] = datax;
 
-        if (check_date) {
-          setFilters(data.Filters);
-          const data_transfrom = data.Captions.map(
-            (item: string) => new Date(item)
-          );
+            itog = {
+              ...itog,
+              root: code,
+              levels: hierarchy.levels,
+              nodes: hierarchy.nodes,
+            };
 
-          data_transfrom.sort((a: any, b: any) => (a < b ? -1 : 1));
-
-          setMinDate(data_transfrom[0]);
-          setMaxDate(data_transfrom[data_transfrom.length - 1]);
+            settingFilterHierarchy(itog);
+            setLoading(false);
+          });
         }
 
-        const items = data.Captions.map((item: any, i: number) => ({
-          value: item.replace(/&nbsp;/g, " "),
-          disabled: data.Hidden[i] === "1",
-          index: i,
-          image: data.images && data.images[i],
-        }));
+        try {
+          const selected_from_server = data.Filters.split("")
+            .map((item: string, i: number) =>
+              item === "0" ? data.Captions[i].replace(/&nbsp;/g, " ") : null
+            )
+            .filter((item: string | null) => item);
 
-        setItems(items);
+          setSelectedFromServer(selected_from_server);
+          if (data.MultipleValues) settingCheckedItems(selected_from_server);
+          else settingCheckedItems([selected_from_server[0]]);
 
-        const visible = items.filter((item: any) => !item.disabled);
-        setVisibleItems(visible);
+          setMultiple(data.MultipleValues);
+          settingMultipleValues(data.MultipleValues);
+          //const regex = RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+          //const check_data = regex.test(data.Captions[0]);
+          const check_date = data.type === "Date";
+          setIsDate(check_date);
 
-        const notAll = visible.some(
-          (item: any) => !selected_from_server.includes(item.value)
-        );
+          if (check_date) {
+            setFilters(data.Filters);
+            const data_transfrom = data.Captions.map(
+              (item: string) => new Date(item)
+            );
 
-        setSelectAll(!notAll);
+            data_transfrom.sort((a: any, b: any) => (a < b ? -1 : 1));
 
-        setLoading(false);
+            setMinDate(data_transfrom[0]);
+            setMaxDate(data_transfrom[data_transfrom.length - 1]);
+          }
+
+          const items = data.Captions.map((item: any, i: number) => ({
+            value: item.replace(/&nbsp;/g, " "),
+            disabled: data.Hidden[i] === "1",
+            index: i,
+            image: data.images && data.images[i],
+          }));
+
+          setItems(items);
+
+          const visible = items.filter((item: any) => !item.disabled);
+          setVisibleItems(visible);
+
+          const notAll = visible.some(
+            (item: any) => !selected_from_server.includes(item.value)
+          );
+
+          setSelectAll(!notAll);
+          if (hierarchy.success === false) setLoading(false);
+        } catch (e) {
+          console.log(e);
+        }
       } else {
         await sleep(100);
         setLoading(false);
@@ -428,11 +483,13 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     style={{
                       padding: 5,
                       position: "relative",
-                      minHeight: isOpen ? height : "auto",
+                      minHeight: isOpen && !is_hierarchy ? height : "auto",
                     }}
                   >
                     {loading ? (
                       <CircularProgress />
+                    ) : is_hierarchy ? (
+                      <Hierarchy onCancel={handleCancel} onSubmit={handleOk} />
                     ) : (
                       <>
                         <TextField
@@ -474,6 +531,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                               expanded={expanded}
                               visible={visible}
                               multiple={multiple}
+                              is_hierarchy={is_hierarchy}
                               sort={sort}
                               handleSort={handleSort}
                               handleCancel={handleCancel}

@@ -109,6 +109,7 @@ let filters = [
 
 let filters2 = {
   type: {
+    label: "Тип",
     Captions: [
       "Простейшие",
       "Губки",
@@ -125,8 +126,16 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      class: {
+        5: [0, 1, 2],
+        6: [3, 4, 5, 6, 7],
+      },
+    },
+    next_level: "class",
   },
   class: {
+    label: "Класс",
     Captions: [
       "Ракообразные",
       "Паукообразные",
@@ -144,8 +153,16 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      type: [5, 5, 5, 6, 6, 6, 6, 6],
+      order: {
+        3: [0, 1, 2, 3, 4, 5, 6, 7],
+      },
+    },
+    next_level: "order",
   },
   order: {
+    label: "Отряд",
     Captions: [
       "Насекомоядные",
       "Рукокрылые",
@@ -163,9 +180,18 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      class: [3, 3, 3, 3, 3, 3, 3, 3],
+      family: {
+        2: [0, 1, 2],
+        3: [3, 4, 5, 6],
+      },
+    },
+    next_level: "family",
   },
   family: {
-    captions: [
+    label: "Семейство",
+    Captions: [
       "Зайчьи",
       "Беличьи",
       "Мышиные",
@@ -181,9 +207,18 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      order: [2, 2, 2, 3, 3, 3, 3],
+      genus: {
+        0: [0, 1],
+        4: [2, 3],
+      },
+    },
+    next_level: "genus",
   },
   genus: {
-    captions: ["Заяц", "Кролик", "Собака", "Лисица"],
+    label: "Род",
+    Captions: ["Заяц", "Кролик", "Собака", "Лисица"],
     Filters: "0000",
     Hidden: "0000",
     MultipleValues: true,
@@ -191,9 +226,18 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      family: [0, 0, 4, 4],
+      species: {
+        0: [0, 1],
+        2: [2, 3, 4],
+      },
+    },
+    next_level: "species",
   },
   species: {
-    captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
+    label: "Вид",
+    Captions: ["Заяц-Беляк", "Заяц-Русак", "Волк", "Шакал", "Песец"],
     Filters: "00000",
     Hidden: "00000",
     MultipleValues: true,
@@ -201,7 +245,11 @@ let filters2 = {
     cubeSession: "CD6AAA6613F0643F79862DC3BBB7A488",
     success: true,
     type: "Float",
+    join: {
+      genus: [0, 0, 2, 2, 2],
+    },
   },
+  root: "type",
 };
 
 const filters3 = [
@@ -225,8 +273,44 @@ export function _getFilters() {
   });
 }
 
+export function _getFullHierarchy() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(filters2), 1000);
+  });
+}
+
+export function _setFilter(code, filters) {
+  const dim = filters2[code];
+  dim.Filters = filters;
+  for (const k in dim.join) {
+    const child_visability = dim.join[k]
+      .map((item) => filters.charAt(item))
+      .join("");
+    _setHidden(k, child_visability);
+  }
+}
+
+export function _setHidden(code, hidden) {
+  const dim = filters2[code];
+
+  const filters = dim.Filters.split("");
+  if (!filters.some((item) => item === "1")) {
+    for (const k in dim.join) {
+      const child_visability = dim.join[k]
+        .map((item) => hidden.charAt(item))
+        .join("");
+      _setHidden(k, child_visability);
+    }
+  }
+ 
+  dim.Hidden = hidden;
+
+
+
+}
+
 export function _getFilterById(id) {
   return new Promise((res, rej) => {
-    setTimeout(() => res(filters[id]), 1000);
+    setTimeout(() => res(filters2[id]), 1000);
   });
 }

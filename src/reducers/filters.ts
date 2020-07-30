@@ -6,6 +6,7 @@ import {
   SET_FILTER_ITEMS,
   SET_CHECKED_ITEMS,
   SET_MULTIPLE_VALUES,
+  SET_FULL_FILTER_HIERARCHY,
 } from "../types/actions";
 
 export const filters = (
@@ -16,6 +17,7 @@ export const filters = (
     items: [],
     checked: [],
     multiple: false,
+    hierarchy: {},
   },
   action: filterActions
 ) => {
@@ -49,6 +51,11 @@ export const filters = (
       return {
         ...state,
         multiple: action.multiple,
+      };
+    case SET_FULL_FILTER_HIERARCHY:
+      return {
+        ...state,
+        hierarchy: action.hierarchy,
       };
     default:
       return state;
