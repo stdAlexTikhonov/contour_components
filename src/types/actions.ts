@@ -163,6 +163,13 @@ export interface setReportType {
   report_type: string | null;
 }
 
+export const SET_REPORT_CAPTION = "SET_REPORT_CAPTION";
+
+export interface setReportCaption {
+  type: typeof SET_REPORT_CAPTION;
+  report_caption: string;
+}
+
 export const SET_TAB_ITEM = "SET_TAB_ITEM";
 
 export interface setTabItem {
@@ -254,7 +261,8 @@ export type reportActions =
   | getDimFilter
   | setDashboardMetadata
   | setDataToTab
-  | setCubeSession;
+  | setCubeSession
+  | setReportCaption;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -360,4 +368,5 @@ export type AppActions =
   | setFilterItems
   | setCheckedItems
   | setMultipleValues
-  | setFullFilterHierarchy;
+  | setFullFilterHierarchy
+  | setReportCaption;

@@ -9,6 +9,7 @@ import {
   GET_DIMENSION_FILTER,
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
+  SET_REPORT_CAPTION,
   Dashboard,
   Metadata,
   DimFilter,
@@ -18,6 +19,11 @@ import {
 export const setReport = (report: string): AppActions => ({
   type: SET_REPORT,
   report,
+});
+
+export const setReportCaption = (report_caption: string): AppActions => ({
+  type: SET_REPORT_CAPTION,
+  report_caption,
 });
 
 export const setReportType = (type: string | null): AppActions => ({

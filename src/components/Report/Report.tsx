@@ -15,6 +15,7 @@ export const ReportComponent: React.FC<IProps> = ({
   tab_item,
   metadata,
   dashboard,
+  report_caption,
   handleDataQuery,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
@@ -46,6 +47,7 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return report ? (
     <>
+      {report_caption && <div>{report_caption}</div>}
       {tabs && report_type !== "dashboard" && (
         <Tabs tabs={tabs} session={session} language={language} />
       )}

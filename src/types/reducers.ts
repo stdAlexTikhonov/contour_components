@@ -19,6 +19,7 @@ export type reportType = {
   metadata: Array<Metadata> | null;
   selected_filter: DimFilter | null;
   cube_session: string | undefined;
+  report_caption: string;
 };
 
 export type AppReducers = authedUserType | languageType;
