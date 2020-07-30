@@ -15,7 +15,7 @@ type IProps = {
   enableExpand: boolean;
   is_hierarchy: boolean;
   handleInversion: () => void;
-  handleOk: () => void;
+  handleOk: any;
   handleCancel: () => void;
   handleSort: () => void;
   handleExpand: () => void;

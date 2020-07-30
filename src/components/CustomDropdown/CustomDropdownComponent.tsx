@@ -145,10 +145,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
     setAnchorEl(null);
   };
 
-  const handleOk = async () => {
+  const handleOk = async (filters: string, h_code: string) => {
     let cubeSession;
     if (_async) {
-      console.log(is_hierarchy);
       //Filter
       const filters_for_server = localItems.reduce(
         (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
@@ -164,8 +163,8 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         report: report_code || report,
         slice,
         view,
-        code,
-        filter: filters_for_server,
+        code: h_code || code,
+        filter: filters || filters_for_server,
         cubeSession: cubes[cube_id],
       });
 
@@ -490,7 +489,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     {loading ? (
                       <CircularProgress />
                     ) : is_hierarchy ? (
-                      <Hierarchy onCancel={handleCancel} />
+                      <Hierarchy onCancel={handleCancel} onSubmit={handleOk} />
                     ) : (
                       <>
                         <TextField

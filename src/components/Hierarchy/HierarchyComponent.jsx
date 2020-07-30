@@ -67,8 +67,8 @@ export class DemoComponent extends Component {
     const { tableData, columnNames } = this.state;
     const { hierarchy } = this.props;
     e.stopPropagation();
-    tableData[rowIndex].checked = !tableData[rowIndex].checked;
 
+    tableData[rowIndex].checked = !tableData[rowIndex].checked;
     const key = columnNames[columnIndex].dataKey;
 
     const filters = tableData
@@ -77,7 +77,6 @@ export class DemoComponent extends Component {
 
     const index = hierarchy[key].Captions.indexOf(tableData[rowIndex][key]);
 
-    console.log(filters.join(""));
     // filters[index] = !tableData[rowIndex].checked ? "1" : "0";
 
     // const itog = filters.join("");
@@ -102,7 +101,7 @@ export class DemoComponent extends Component {
         [`${next}`]: data.Captions[item.index].replace(/&nbsp;/g, " "),
         connected: data.next_level ? item : { index: item.index },
         expanded: false,
-        checked: data.Filters[i] === "0",
+        checked: data.Filters[item.index] === "0",
       }));
 
       tableData.splice(rowIndex + 1, 0, ...arr);
@@ -174,6 +173,24 @@ export class DemoComponent extends Component {
     );
   };
   onCancel = () => this.props.onCancel();
+  onSubmit = () => {
+    const { tableData } = this.state;
+    const { hierarchy, onSubmit } = this.props;
+    const { levels } = hierarchy;
+
+    for (let key of levels) {
+      const server_filters = hierarchy[key].Filters.split("");
+
+      tableData
+        .filter((item) => item[key])
+        .forEach((item) => {
+          if (item.connected)
+            server_filters[item.connected.index] = item.checked ? "0" : "1";
+        });
+
+      onSubmit(server_filters.join(""), key);
+    }
+  };
   render() {
     const { widths, columnNames, tableData } = this.state;
 
@@ -219,7 +236,7 @@ export class DemoComponent extends Component {
                 outline: "none",
                 minWidth: "unset",
               }}
-              onClick={this.onCancel}
+              onClick={this.onSubmit}
             >
               Ok
             </Button>
