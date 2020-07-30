@@ -490,7 +490,23 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     {loading ? (
                       <CircularProgress />
                     ) : is_hierarchy ? (
-                      <Hierarchy />
+                      <>
+                        <Hierarchy />
+                        <ControlButtons
+                          expanded={expanded}
+                          visible={visible}
+                          multiple={multiple}
+                          sort={sort}
+                          is_hierarchy={is_hierarchy}
+                          handleSort={handleSort}
+                          handleCancel={handleCancel}
+                          handleExpand={handleExpand}
+                          handleOk={handleOk}
+                          handleInversion={handleInversion}
+                          showHidden={showHidden}
+                          enableExpand={localItems.length < 20}
+                        />
+                      </>
                     ) : (
                       <>
                         <TextField
@@ -532,6 +548,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                               expanded={expanded}
                               visible={visible}
                               multiple={multiple}
+                              is_hierarchy={is_hierarchy}
                               sort={sort}
                               handleSort={handleSort}
                               handleCancel={handleCancel}
