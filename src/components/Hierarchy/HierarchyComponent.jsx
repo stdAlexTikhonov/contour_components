@@ -4,6 +4,7 @@ import "./index.scss";
 import ReactVirtualSizeTable from "../VirtualTable";
 import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
 import SvgIcon, { SvgIconProps } from "@material-ui/core/SvgIcon";
+import Button from "@material-ui/core/Button";
 
 function MinusSquare(props) {
   return (
@@ -172,6 +173,7 @@ export class DemoComponent extends Component {
       </Fragment>
     );
   };
+  onCancel = () => this.props.onCancel();
   render() {
     const { widths, columnNames, tableData } = this.state;
 
@@ -205,6 +207,26 @@ export class DemoComponent extends Component {
             width={width}
             style={{ width: "100%", padding: "0 20px" }}
           />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              paddingTop: 5,
+            }}
+          >
+            <Button
+              style={{
+                outline: "none",
+                minWidth: "unset",
+              }}
+              onClick={this.onCancel}
+            >
+              Ok
+            </Button>
+            <Button style={{ outline: "none" }} onClick={this.onCancel}>
+              Cancel
+            </Button>
+          </div>
         </div>
       );
     }

@@ -148,13 +148,13 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   const handleOk = async () => {
     let cubeSession;
     if (_async) {
+      console.log(is_hierarchy);
       //Filter
       const filters_for_server = localItems.reduce(
         (a, b) => (a += checked.includes(b.value) ? "0" : "1"),
         ""
       );
 
-      setFiltersOnServer(code!, filters_for_server);
       const data = await getData({
         method: SET_DIM_FILTER,
         language,
@@ -490,23 +490,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
                     {loading ? (
                       <CircularProgress />
                     ) : is_hierarchy ? (
-                      <>
-                        <Hierarchy />
-                        <ControlButtons
-                          expanded={expanded}
-                          visible={visible}
-                          multiple={multiple}
-                          sort={sort}
-                          is_hierarchy={is_hierarchy}
-                          handleSort={handleSort}
-                          handleCancel={handleCancel}
-                          handleExpand={handleExpand}
-                          handleOk={handleOk}
-                          handleInversion={handleInversion}
-                          showHidden={showHidden}
-                          enableExpand={localItems.length < 20}
-                        />
-                      </>
+                      <Hierarchy onCancel={handleCancel} />
                     ) : (
                       <>
                         <TextField
