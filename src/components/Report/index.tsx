@@ -11,6 +11,7 @@ import {
   setDashboard,
   setDashboardMetadata,
   setReportCaption,
+  setReportStyle,
 } from "../../actions/report";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
@@ -28,6 +29,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   metadata: state.report.metadata,
   dashboard: state.report.dashboard,
   report_caption: state.report.report_caption,
+  stylesheet: state.report.stylesheet,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
@@ -75,6 +77,9 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
 
       //caption
       reportData.caption && dispatch(setReportCaption(reportData.caption));
+
+      //style
+      reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
     }
     dispatch(resetLoading());
   },

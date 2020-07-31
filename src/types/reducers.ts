@@ -20,6 +20,7 @@ export type reportType = {
   selected_filter: DimFilter | null;
   cube_session: string | undefined;
   report_caption: string;
+  stylesheet: any;
 };
 
 export type AppReducers = authedUserType | languageType;

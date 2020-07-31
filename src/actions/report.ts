@@ -10,6 +10,7 @@ import {
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
   SET_REPORT_CAPTION,
+  SET_REPORT_STYLE,
   Dashboard,
   Metadata,
   DimFilter,
@@ -19,6 +20,11 @@ import {
 export const setReport = (report: string): AppActions => ({
   type: SET_REPORT,
   report,
+});
+
+export const setReportStyle = (style: any): AppActions => ({
+  type: SET_REPORT_STYLE,
+  style,
 });
 
 export const setReportCaption = (report_caption: string): AppActions => ({

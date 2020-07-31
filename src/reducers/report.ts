@@ -9,6 +9,7 @@ import {
   SET_DATA_TO_TAB,
   SET_CUBE_SESSION,
   SET_REPORT_CAPTION,
+  SET_REPORT_STYLE,
   reportActions,
   Tab,
 } from "../types/actions";
@@ -24,6 +25,7 @@ const reportDefaultState: reportType = {
   selected_filter: null,
   cube_session: undefined,
   report_caption: "",
+  stylesheet: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -83,6 +85,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         report_caption: action.report_caption,
+      };
+    case SET_REPORT_STYLE:
+      return {
+        ...state,
+        stylesheet: action.style,
       };
     default:
       return state;
