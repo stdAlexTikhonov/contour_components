@@ -47,7 +47,9 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return report ? (
     <>
-      {report_caption && <div>{report_caption}</div>}
+      {report_caption && (
+        <div className={classes.caption}>{report_caption}</div>
+      )}
       {tabs && report_type !== "dashboard" && (
         <Tabs tabs={tabs} session={session} language={language} />
       )}
