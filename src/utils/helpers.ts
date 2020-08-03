@@ -14,6 +14,13 @@ export const build_hierarchy = (nodes: any, level: string) => {
   };
 };
 
+export const combineStylesheets = (stylesheet_a: any, stylesheet_b: any) => {
+  return {
+    ...stylesheet_a,
+    ...stylesheet_b,
+  };
+};
+
 export const sliceWord = (word: string) => {
   return word.length > 11 ? word.substr(0, 8) + "..." : word;
 };

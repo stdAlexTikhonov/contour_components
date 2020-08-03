@@ -29,7 +29,8 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   metadata: state.report.metadata,
   dashboard: state.report.dashboard,
   report_caption: state.report.report_caption,
-  stylesheet: state.report.stylesheet,
+  report_stylesheet: state.report.stylesheet,
+  project_stylesheet: state.project.stylesheet,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({

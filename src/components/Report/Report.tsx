@@ -16,7 +16,8 @@ export const ReportComponent: React.FC<IProps> = ({
   metadata,
   dashboard,
   report_caption,
-  stylesheet,
+  report_stylesheet,
+  project_stylesheet,
   handleDataQuery,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
@@ -24,7 +25,7 @@ export const ReportComponent: React.FC<IProps> = ({
   let method =
     report_type === null
       ? REPORT
-      : stylesheet === null
+      : report_stylesheet === null
       ? STYLE
       : report_type === "dashboard" && metadata === null
       ? DASH_VIEW_META
