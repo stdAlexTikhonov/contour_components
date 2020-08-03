@@ -148,6 +148,14 @@ export interface setCubeSessionId {
   cube_session: string;
 }
 
+//project
+export const SET_PROJECT_STYLESHEET = "SET_PROJECT_STYLESHEET";
+
+export interface setProjectStylesheet {
+  type: typeof SET_PROJECT_STYLESHEET;
+  stylesheet: any;
+}
+
 //report
 export const SET_REPORT = "SET_REPORT";
 
@@ -378,4 +386,5 @@ export type AppActions =
   | setMultipleValues
   | setFullFilterHierarchy
   | setReportCaption
-  | setReportStyle;
+  | setReportStyle
+  | setProjectStylesheet;
