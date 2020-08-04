@@ -23,4 +23,18 @@ export type reportType = {
   stylesheet: any;
 };
 
+export type pringPage = {
+  BreakHeader: boolean;
+  CaptionOnEachPage: boolean;
+  FitToPage: number;
+  FooterOnEachPage: boolean;
+  GrayScale: boolean;
+  HeaderFooterVisible: boolean;
+  HeaderOnEachPage: boolean;
+  HorizontalScaleVisible: boolean;
+  Margins: number[];
+  Portrait: boolean;
+  VerticalScaleVisible: boolean;
+};
+
 export type AppReducers = authedUserType | languageType;
