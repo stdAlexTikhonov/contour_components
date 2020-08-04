@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
 import PrintIcon from "@material-ui/icons/Print";
+import { Tabs } from "../Tabs";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
@@ -30,6 +31,11 @@ export interface SimpleDialogProps {
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
+  const tabs = [
+    { caption: "Common", type: "print_settings" },
+    { caption: "Margins/Orientation", type: "print_settings" },
+    { caption: "Headers/Footers", type: "print_settings" },
+  ];
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
@@ -47,35 +53,8 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-      <List>
-        {emails.map((email) => (
-          <ListItem
-            button
-            onClick={() => handleListItemClick(email)}
-            key={email}
-          >
-            <ListItemAvatar>
-              <Avatar className={classes.avatar}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={email} />
-          </ListItem>
-        ))}
-        <ListItem
-          autoFocus
-          button
-          onClick={() => handleListItemClick("addAccount")}
-        >
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Add account" />
-        </ListItem>
-      </List>
+      <DialogTitle id="simple-dialog-title">Print settings</DialogTitle>
+      <Tabs tabs={tabs} />
     </Dialog>
   );
 }

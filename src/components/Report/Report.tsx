@@ -89,9 +89,7 @@ export const ReportComponent: React.FC<IProps> = ({
           <ExportPDF />
         </div>
       )}
-      {tabs && report_type !== "dashboard" && (
-        <Tabs tabs={tabs} session={session} language={language} />
-      )}
+      {tabs && report_type !== "dashboard" && <Tabs tabs={tabs} />}
       {report_type === "dashboard" && (
         <Dashboard dashboard={dashboard} metadata={metadata} />
       )}
