@@ -17,7 +17,7 @@ import {
 } from "../../utils/helpers";
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
-import { ExportPDF } from "../ExportPDF";
+import { Export } from "../ExportPDF";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -86,7 +86,7 @@ export const ReportComponent: React.FC<IProps> = ({
           <div className={classes.caption} style={localStylesheet}>
             {report_caption}
           </div>
-          <ExportPDF />
+          <Export />
         </div>
       )}
       {tabs && report_type !== "dashboard" && <Tabs tabs={tabs} />}
