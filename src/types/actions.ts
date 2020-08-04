@@ -395,4 +395,5 @@ export type AppActions =
   | setFullFilterHierarchy
   | setReportCaption
   | setReportStyle
-  | setProjectStylesheet;
+  | setProjectStylesheet
+  | setPrintPageProps;

@@ -11,6 +11,7 @@ import {
   cubes,
   filters,
   project,
+  print_page,
 } from "../reducers";
 
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
@@ -26,6 +27,7 @@ export const rootReducer = combineReducers({
   cubes,
   filters,
   project,
+  print_page,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

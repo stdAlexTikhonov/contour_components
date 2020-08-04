@@ -8,3 +8,4 @@ export * from "./report";
 export * from "./cubes";
 export * from "./filters";
 export * from "./project";
+export * from "./printPage";
