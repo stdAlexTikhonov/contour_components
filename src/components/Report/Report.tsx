@@ -10,14 +10,14 @@ import {
   PRINT_PAGE_SETUP,
   EXPORT,
 } from "../../utils/constants";
-import IconButton from "@material-ui/core/IconButton";
-import PrintIcon from "@material-ui/icons/Print";
+
 import {
   combineStylesheets,
   convertCaptionStylesheetRules,
 } from "../../utils/helpers";
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
+import { ExportPDF } from "../ExportPDF";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -79,18 +79,14 @@ export const ReportComponent: React.FC<IProps> = ({
   return report ? (
     <>
       {report_caption && (
-        <div className={classes.reportHeader}>
+        <div
+          className={classes.reportHeader}
+          style={{ background: localStylesheet && localStylesheet.background }}
+        >
           <div className={classes.caption} style={localStylesheet}>
             {report_caption}
           </div>
-          <IconButton
-            size="small"
-            style={{ outline: "none" }}
-            aria-label="delete"
-            onClick={() => alert("print")}
-          >
-            <PrintIcon fontSize="small" />
-          </IconButton>
+          <ExportPDF />
         </div>
       )}
       {tabs && report_type !== "dashboard" && (
