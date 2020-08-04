@@ -10,6 +10,8 @@ import {
   PRINT_PAGE_SETUP,
   EXPORT,
 } from "../../utils/constants";
+import IconButton from "@material-ui/core/IconButton";
+import PrintIcon from "@material-ui/icons/Print";
 import {
   combineStylesheets,
   convertCaptionStylesheetRules,
@@ -76,7 +78,21 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return report ? (
     <>
-      {report_caption && <div style={localStylesheet}>{report_caption}</div>}
+      {report_caption && (
+        <div className={classes.reportHeader}>
+          <div className={classes.caption} style={localStylesheet}>
+            {report_caption}
+          </div>
+          <IconButton
+            size="small"
+            style={{ outline: "none" }}
+            aria-label="delete"
+            onClick={() => alert("print")}
+          >
+            <PrintIcon fontSize="small" />
+          </IconButton>
+        </div>
+      )}
       {tabs && report_type !== "dashboard" && (
         <Tabs tabs={tabs} session={session} language={language} />
       )}
