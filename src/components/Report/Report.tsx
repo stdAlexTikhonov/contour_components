@@ -2,7 +2,14 @@ import React, { useEffect } from "react";
 import { IProps } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
-import { REPORT, ITEMS, DASH_VIEW_META, STYLE } from "../../utils/constants";
+import {
+  REPORT,
+  ITEMS,
+  DASH_VIEW_META,
+  STYLE,
+  PRINT_PAGE_SETUP,
+  EXPORT,
+} from "../../utils/constants";
 import {
   combineStylesheets,
   convertCaptionStylesheetRules,
