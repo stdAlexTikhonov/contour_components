@@ -1,4 +1,4 @@
-import { SpawnSyncOptionsWithStringEncoding } from "child_process";
+import { pringPage } from "./reducers";
 
 //User actions
 export const SET_AUTHED_USER = "SET_AUTHED_USER";
@@ -154,6 +154,14 @@ export const SET_PROJECT_STYLESHEET = "SET_PROJECT_STYLESHEET";
 export interface setProjectStylesheet {
   type: typeof SET_PROJECT_STYLESHEET;
   stylesheet: any;
+}
+
+//printPage
+export const SET_PRINT_PAGE_PROPS = "SET_PRINT_PAGE_PROPS";
+
+export interface setPrintPageProps {
+  type: typeof SET_PRINT_PAGE_PROPS;
+  print_page: pringPage;
 }
 
 //report
