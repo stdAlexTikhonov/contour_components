@@ -1,11 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import { blue } from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
 import PrintIcon from "@material-ui/icons/Print";
 import { Tabs } from "../Tabs";
+import { IProps } from "./types";
+import { PRINT_PAGE_SETUP, EXPORT } from "../../utils/constants";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
@@ -46,12 +49,26 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const ExportPDF = () => {
+export const ExportPDF: React.FC<IProps> = ({
+  handleDataQuery,
+  session,
+  language,
+  report: report_from_store,
+}) => {
+  const { solution, project, report: report_from_params } = useParams();
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
   const handleClickOpen = () => {
     setOpen(true);
+    handleDataQuery({
+      method: PRINT_PAGE_SETUP,
+      session,
+      solution,
+      project,
+      language,
+      report: report_from_store || report_from_params,
+    });
   };
 
   const handleClose = (value: string) => {
