@@ -7,6 +7,7 @@ import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setItems } from "../../actions/items";
 import { setView } from "../../actions/view";
+import { setProjectStylesheet } from "../../actions/project";
 import {
   setReportType,
   setTabItem,
@@ -31,8 +32,12 @@ const mapDispatchToProps = (
     const data = await getData(data_for_query);
     if (data.success) {
       data.path && dispatch(setBreadcrumbs(data.path));
-      dispatch(setItems(data.items));
-      dispatch(setView(data.appearance.view));
+      if (data.stylesheet) {
+        dispatch(setProjectStylesheet(data.stylesheet));
+      } else {
+        dispatch(setItems(data.items));
+        dispatch(setView(data.appearance.view));
+      }
     }
     dispatch(resetLoading());
   },

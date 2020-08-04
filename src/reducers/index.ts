@@ -7,3 +7,4 @@ export * from "./view";
 export * from "./report";
 export * from "./cubes";
 export * from "./filters";
+export * from "./project";

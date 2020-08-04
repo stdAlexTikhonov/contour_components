@@ -14,6 +14,9 @@ export interface LinkStateToProps {
   tabs: Tab[] | null;
   metadata: Array<Metadata> | null;
   dashboard: Dashboard | null;
+  report_caption: string;
+  report_stylesheet: any;
+  project_stylesheet: any;
 }
 
 export interface LinkDispatchToProps {

@@ -10,6 +10,8 @@ import {
   setTabs,
   setDashboard,
   setDashboardMetadata,
+  setReportCaption,
+  setReportStyle,
 } from "../../actions/report";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
@@ -26,6 +28,9 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   tabs: state.report.tabs,
   metadata: state.report.metadata,
   dashboard: state.report.dashboard,
+  report_caption: state.report.report_caption,
+  report_stylesheet: state.report.stylesheet,
+  project_stylesheet: state.project.stylesheet,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
@@ -70,6 +75,12 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
 
       //if report_type !== dashboard in query then setTab
       reportData.items && dispatch(setTabs(reportData.items));
+
+      //caption
+      reportData.caption && dispatch(setReportCaption(reportData.caption));
+
+      //style
+      reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
     }
     dispatch(resetLoading());
   },

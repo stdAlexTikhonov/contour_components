@@ -148,6 +148,14 @@ export interface setCubeSessionId {
   cube_session: string;
 }
 
+//project
+export const SET_PROJECT_STYLESHEET = "SET_PROJECT_STYLESHEET";
+
+export interface setProjectStylesheet {
+  type: typeof SET_PROJECT_STYLESHEET;
+  stylesheet: any;
+}
+
 //report
 export const SET_REPORT = "SET_REPORT";
 
@@ -161,6 +169,20 @@ export const SET_REPORT_TYPE = "SET_REPORT_TYPE";
 export interface setReportType {
   type: typeof SET_REPORT_TYPE;
   report_type: string | null;
+}
+
+export const SET_REPORT_CAPTION = "SET_REPORT_CAPTION";
+
+export interface setReportCaption {
+  type: typeof SET_REPORT_CAPTION;
+  report_caption: string;
+}
+
+export const SET_REPORT_STYLE = "SET_REPORT_STYLE";
+
+export interface setReportStyle {
+  type: typeof SET_REPORT_STYLE;
+  style: any;
 }
 
 export const SET_TAB_ITEM = "SET_TAB_ITEM";
@@ -254,7 +276,9 @@ export type reportActions =
   | getDimFilter
   | setDashboardMetadata
   | setDataToTab
-  | setCubeSession;
+  | setCubeSession
+  | setReportCaption
+  | setReportStyle;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -360,4 +384,7 @@ export type AppActions =
   | setFilterItems
   | setCheckedItems
   | setMultipleValues
-  | setFullFilterHierarchy;
+  | setFullFilterHierarchy
+  | setReportCaption
+  | setReportStyle
+  | setProjectStylesheet;

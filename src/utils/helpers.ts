@@ -14,6 +14,37 @@ export const build_hierarchy = (nodes: any, level: string) => {
   };
 };
 
+export const combineStylesheets = (stylesheet_a: any, stylesheet_b: any) => {
+  for (let k in stylesheet_b) {
+    stylesheet_a[k] = {
+      ...stylesheet_a[k],
+      ...stylesheet_b[k],
+    };
+  }
+  return {
+    ...stylesheet_a,
+  };
+};
+
+export const convertCaptionStylesheetRules = (gridCaptionStyle: any) => {
+  return {
+    color: gridCaptionStyle.FontColor && gridCaptionStyle.FontColor,
+    textAlign:
+      gridCaptionStyle.FontAlignment &&
+      gridCaptionStyle.FontAlignment.toLowerCase(),
+    fontFamily: gridCaptionStyle.FontName && gridCaptionStyle.FontName,
+    background: gridCaptionStyle.Background && gridCaptionStyle.Background,
+    fontSize: gridCaptionStyle.FontSize && gridCaptionStyle.FontSize,
+    fontWeight:
+      gridCaptionStyle.FontStyles &&
+      gridCaptionStyle.FontStyles.includes("Bold")
+        ? "bold"
+        : "normal",
+    display:
+      gridCaptionStyle.Visible && gridCaptionStyle.Visible ? "block" : "none",
+  };
+};
+
 export const sliceWord = (word: string) => {
   return word.length > 11 ? word.substr(0, 8) + "..." : word;
 };

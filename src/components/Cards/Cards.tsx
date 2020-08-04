@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Typography from "@material-ui/core/Typography";
-import { ITEMS } from "../../utils/constants";
+import { ITEMS, STYLE } from "../../utils/constants";
 import { isMobile } from "../../utils/helpers";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import FolderIcon from "@material-ui/icons/Folder";
@@ -38,6 +38,17 @@ export const CardsComponent: React.FC<IProps> = ({
       p_folder,
       language,
     });
+
+    project &&
+      handleDataQuery({
+        method: STYLE,
+        session,
+        solution,
+        folder,
+        project,
+        p_folder,
+        language,
+      });
   }, [session, solution, folder, project, p_folder, language, handleDataQuery]);
 
   return (
