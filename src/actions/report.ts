@@ -11,15 +11,22 @@ import {
   SET_CUBE_SESSION,
   SET_REPORT_CAPTION,
   SET_REPORT_STYLE,
+  SET_PRINT_PAGE_PROPS,
   Dashboard,
   Metadata,
   DimFilter,
   Tab,
 } from "../types/actions";
+import { pringPage } from "../types/reducers";
 
 export const setReport = (report: string): AppActions => ({
   type: SET_REPORT,
   report,
+});
+
+export const setPrintPage = (print_page: pringPage): AppActions => ({
+  type: SET_PRINT_PAGE_PROPS,
+  print_page,
 });
 
 export const setReportStyle = (style: any): AppActions => ({

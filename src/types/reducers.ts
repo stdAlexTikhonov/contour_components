@@ -21,6 +21,7 @@ export type reportType = {
   cube_session: string | undefined;
   report_caption: string;
   stylesheet: any;
+  print_page: pringPage | null;
 };
 
 export type pringPage = {

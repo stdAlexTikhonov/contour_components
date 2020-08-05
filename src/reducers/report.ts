@@ -10,10 +10,11 @@ import {
   SET_CUBE_SESSION,
   SET_REPORT_CAPTION,
   SET_REPORT_STYLE,
+  SET_PRINT_PAGE_PROPS,
   reportActions,
   Tab,
 } from "../types/actions";
-import { reportType } from "../types/reducers";
+import { reportType, pringPage } from "../types/reducers";
 
 const reportDefaultState: reportType = {
   code: null,
@@ -26,6 +27,7 @@ const reportDefaultState: reportType = {
   cube_session: undefined,
   report_caption: "",
   stylesheet: null,
+  print_page: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -90,6 +92,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         stylesheet: action.style,
+      };
+    case SET_PRINT_PAGE_PROPS:
+      return {
+        ...state,
+        print_page: action.print_page,
       };
     default:
       return state;

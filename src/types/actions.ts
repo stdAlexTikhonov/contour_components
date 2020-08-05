@@ -286,7 +286,8 @@ export type reportActions =
   | setDataToTab
   | setCubeSession
   | setReportCaption
-  | setReportStyle;
+  | setReportStyle
+  | setPrintPageProps;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
