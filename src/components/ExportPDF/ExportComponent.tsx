@@ -9,6 +9,9 @@ import PrintIcon from "@material-ui/icons/Print";
 import { Tabs } from "../Tabs";
 import { IProps } from "./types";
 import { PRINT_PAGE_SETUP, EXPORT } from "../../utils/constants";
+import { MarginsOrientation } from "./MarginsOrientation";
+import { Common } from "./Common";
+import { HeadersFooters } from "./HeadersFooters";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 const useStyles = makeStyles({
@@ -26,9 +29,17 @@ export interface SimpleDialogProps {
 
 function SimpleDialog(props: SimpleDialogProps) {
   const tabs = [
-    { caption: "Common", type: "print_settings" },
-    { caption: "Margins/Orientation", type: "print_settings" },
-    { caption: "Headers/Footers", type: "print_settings" },
+    { caption: "Common", type: "print_settings", component: Common },
+    {
+      caption: "Margins/Orientation",
+      type: "print_settings",
+      component: MarginsOrientation,
+    },
+    {
+      caption: "Headers/Footers",
+      type: "print_settings",
+      component: HeadersFooters,
+    },
   ];
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;

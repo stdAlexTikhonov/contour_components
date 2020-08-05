@@ -138,6 +138,7 @@ export const TabsComponent: React.FC<IProps> = ({
                 metadata={item.data.metadata}
               />
             )}
+            {item.component && <item.component />}
           </TabPanel>
         );
       })}
