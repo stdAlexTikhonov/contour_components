@@ -57,7 +57,7 @@ export const CommonComponent = () => {
   const { fullWidth, grayScale } = group;
 
   return (
-    <>
+    <div style={{ width: 600, height: 400, overflow: "auto" }}>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Scale</FormLabel>
         <RadioGroup
@@ -162,6 +162,6 @@ export const CommonComponent = () => {
           label="Gray scale mode"
         />
       </FormControl>
-    </>
+    </div>
   );
 };

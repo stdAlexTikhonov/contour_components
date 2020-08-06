@@ -31,7 +31,7 @@ export const MarginsOrientationComponent = () => {
   };
 
   return (
-    <>
+    <div style={{ width: 600, height: 400, overflow: "auto" }}>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Orientation</FormLabel>
         <RadioGroup
@@ -89,6 +89,6 @@ export const MarginsOrientationComponent = () => {
           }}
         />
       </FormControl>
-    </>
+    </div>
   );
 };

@@ -60,7 +60,7 @@ export const HeadersFootersComponent = () => {
   const { colontitules, changeScale } = group;
 
   return (
-    <>
+    <div style={{ width: 600, height: 400, overflow: "auto" }}>
       <FormControl className={classes.formControl}>
         <FormControlLabel
           control={
@@ -177,6 +177,6 @@ export const HeadersFootersComponent = () => {
           label="Change scale along with the document"
         />
       </FormControl>
-    </>
+    </div>
   );
 };
