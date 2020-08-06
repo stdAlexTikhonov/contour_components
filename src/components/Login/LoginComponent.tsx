@@ -32,6 +32,7 @@ export const LoginComponent: React.FC<IProps> = ({
 
         <Button
           variant="contained"
+          style={{ backgroundColor: "#003366" }}
           color="primary"
           disabled={logged_in}
           onClick={() => handleLogin(refLogin.current, refPassword.current)}

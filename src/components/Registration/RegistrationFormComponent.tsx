@@ -50,6 +50,7 @@ export const RegistrationFormComponent: React.FC<IProps> = (props) => {
         <Button
           variant="contained"
           color="primary"
+          style={{ backgroundColor: "#003366" }}
           onClick={() =>
             props.handleRegister(
               refLogin.current,
