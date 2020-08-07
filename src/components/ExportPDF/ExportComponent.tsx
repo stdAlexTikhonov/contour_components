@@ -12,22 +12,14 @@ import { PRINT_PAGE_SETUP, EXPORT } from "../../utils/constants";
 import { MarginsOrientation } from "./MarginsOrientation";
 import { Common } from "./Common";
 import { HeadersFooters } from "./HeadersFooters";
+import Button from "@material-ui/core/Button";
+import { DialogProps } from "./types";
+import ThemeProvider from "../CustomDropdown/ThemeProvider";
+import { pringPage } from "../../types/reducers";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
 
-export interface SimpleDialogProps {
-  open: boolean;
-  selectedValue: string;
-  onClose: (value: string) => void;
-}
-
-function SimpleDialog(props: SimpleDialogProps) {
+function SimpleDialog(props: DialogProps) {
   const tabs = [
     { caption: "Common", type: "print_settings", component: Common },
     {
@@ -41,22 +33,32 @@ function SimpleDialog(props: SimpleDialogProps) {
       component: HeadersFooters,
     },
   ];
-  const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
+
+  const { onClose, selectedValue, open, onExport } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
   return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Print settings</DialogTitle>
-      <Tabs tabs={tabs} />
-    </Dialog>
+    <ThemeProvider>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="simple-dialog-title"
+        open={open}
+      >
+        <DialogTitle id="simple-dialog-title">Print settings</DialogTitle>
+        <Tabs tabs={tabs} />
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ outline: "none" }}
+          onClick={() => onExport()}
+        >
+          Print
+        </Button>
+      </Dialog>
+    </ThemeProvider>
   );
 }
 
@@ -65,6 +67,7 @@ export const ExportPDF: React.FC<IProps> = ({
   session,
   language,
   report: report_from_store,
+  print_page,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const [open, setOpen] = React.useState(false);
@@ -80,6 +83,22 @@ export const ExportPDF: React.FC<IProps> = ({
       language,
       report: report_from_store || report_from_params,
     });
+  };
+
+  const export_pdf = async () => {
+    console.log(print_page);
+    const result = await handleDataQuery({
+      method: EXPORT,
+      session,
+      solution,
+      project,
+      language,
+      report: report_from_store || report_from_params,
+      pageSetup: JSON.stringify(print_page),
+      format: "pdf",
+    });
+
+    console.log(result);
   };
 
   const handleClose = (value: string) => {
@@ -98,6 +117,7 @@ export const ExportPDF: React.FC<IProps> = ({
         <PrintIcon fontSize="small" />
       </IconButton>
       <SimpleDialog
+        onExport={export_pdf}
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}

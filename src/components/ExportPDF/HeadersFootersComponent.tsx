@@ -1,27 +1,12 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Radio";
 import Checkbox from "@material-ui/core/Checkbox";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-    },
-    formControl: {
-      margin: theme.spacing(3),
-    },
-  })
-);
+import { useStyles } from "./styles";
 
 export const HeadersFootersComponent = () => {
   const classes = useStyles();
@@ -60,7 +45,7 @@ export const HeadersFootersComponent = () => {
   const { colontitules, changeScale } = group;
 
   return (
-    <div style={{ width: 600, height: 400, overflow: "auto" }}>
+    <div className={classes.container}>
       <FormControl className={classes.formControl}>
         <FormControlLabel
           control={

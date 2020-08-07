@@ -1,26 +1,11 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(3),
-    },
-    formControl2: {
-      margin: theme.spacing(3),
-      "& .MuiTextField-root": {
-        margin: theme.spacing(1),
-        width: "8ch",
-      },
-    },
-  })
-);
+import { useStyles } from "./styles";
 
 export const MarginsOrientationComponent = () => {
   const classes = useStyles();
@@ -31,7 +16,7 @@ export const MarginsOrientationComponent = () => {
   };
 
   return (
-    <div style={{ width: 600, height: 400, overflow: "auto" }}>
+    <div className={classes.container}>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Orientation</FormLabel>
         <RadioGroup

@@ -36,6 +36,8 @@ export interface DataForQuery extends Common {
   attributes?: Array<string>;
   cubeSession?: string;
   full?: boolean;
+  format?: string;
+  pageSetup?: string;
 }
 
 export type ApiTypes = DataForQuery | Login | Register | Common;

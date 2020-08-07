@@ -8,6 +8,7 @@ export interface LinkStateToProps {
   session: string | undefined;
   language: string;
   report: string | null;
+  print_page: pringPage | null;
 }
 
 export interface LinkDispatchToProps {
@@ -16,4 +17,11 @@ export interface LinkDispatchToProps {
 
 export interface LinkStateToPropsTabs {
   print_page: pringPage | null;
+}
+
+export interface DialogProps {
+  onExport: () => void;
+  open: boolean;
+  selectedValue: string;
+  onClose: (value: string) => void;
 }

@@ -10,6 +10,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,
+  print_page: state.report.print_page,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
