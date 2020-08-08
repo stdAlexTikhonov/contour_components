@@ -97,7 +97,7 @@ export const ExportPDF: React.FC<IProps> = ({
       pageSetup: JSON.stringify(print_page),
       format: "pdf",
     });
-
+    console.log(print_page);
     console.log(result);
   };
 

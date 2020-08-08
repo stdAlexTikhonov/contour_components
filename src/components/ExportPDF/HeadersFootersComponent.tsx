@@ -44,6 +44,23 @@ export const HeadersFootersComponent = () => {
   const { columns, rows, title, header, footer } = state;
   const { colontitules, changeScale } = group;
 
+  const CustomSelect: React.FC<{ title: string }> = ({ title }) => (
+    <FormControl className={classes.formControl}>
+      <InputLabel id="demo-simple-select-label">{title}</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={age}
+        onChange={handleChange}
+      >
+        <MenuItem value={10}>Заголовок</MenuItem>
+        <MenuItem value={20}>Дата/Время</MenuItem>
+        <MenuItem value={30}>Страница #</MenuItem>
+        <MenuItem value={30}>Страница # из #</MenuItem>
+      </Select>
+    </FormControl>
+  );
+
   return (
     <div className={classes.container}>
       <FormControl className={classes.formControl}>
@@ -64,45 +81,9 @@ export const HeadersFootersComponent = () => {
             justifyContent: "space-around",
           }}
         >
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Left</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Left</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Left</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+          <CustomSelect title={"Left"} />
+          <CustomSelect title={"Center"} />
+          <CustomSelect title={"Right"} />
         </FormGroup>
         <FormGroup
           style={{
@@ -111,45 +92,9 @@ export const HeadersFootersComponent = () => {
             justifyContent: "space-around",
           }}
         >
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Left</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Left</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Left</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+          <CustomSelect title={"Left"} />
+          <CustomSelect title={"Center"} />
+          <CustomSelect title={"Right"} />
         </FormGroup>
         <FormControlLabel
           control={
