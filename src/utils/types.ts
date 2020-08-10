@@ -10,7 +10,9 @@ export interface Login {
   password: string;
 }
 
-export interface Register extends Login {
+export interface Register {
+  login: string;
+  password: string;
   firstName: string;
   surName: string;
   email: string;

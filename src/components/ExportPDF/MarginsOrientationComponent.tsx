@@ -12,7 +12,9 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
   print_page,
 }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("portrait");
+  const [value, setValue] = React.useState(
+    print_page?.Portrait ? "portrait" : "landscape"
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
