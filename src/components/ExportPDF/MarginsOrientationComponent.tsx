@@ -15,6 +15,10 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
   const [value, setValue] = React.useState(
     print_page?.Portrait ? "portrait" : "landscape"
   );
+  const [top, setTop] = React.useState(print_page?.Margins[0]);
+  const [right, setRight] = React.useState(print_page?.Margins[1]);
+  const [bottom, setBottom] = React.useState(print_page?.Margins[2]);
+  const [left, setLeft] = React.useState(print_page?.Margins[3]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -51,6 +55,8 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={(e) => setTop(+e.target.value)}
+          value={top}
         />
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <TextField
@@ -60,6 +66,8 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
             InputLabelProps={{
               shrink: true,
             }}
+            value={right}
+            onChange={(e) => setRight(+e.target.value)}
           />
           <TextField
             id="standard-number"
@@ -68,6 +76,8 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
             InputLabelProps={{
               shrink: true,
             }}
+            value={bottom}
+            onChange={(e) => setBottom(+e.target.value)}
           />
         </div>
         <TextField
@@ -77,6 +87,8 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
           InputLabelProps={{
             shrink: true,
           }}
+          value={left}
+          onChange={(e) => setLeft(+e.target.value)}
         />
       </FormControl>
     </div>
