@@ -7,8 +7,11 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { useStyles } from "./styles";
+import { LinkStateToPropsTabs } from "./types";
 
-export const HeadersFootersComponent = () => {
+export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
+  print_page,
+}) => {
   const classes = useStyles();
   const [age, setAge] = React.useState("");
 

@@ -8,8 +8,11 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { useStyles } from "./styles";
+import { LinkStateToPropsTabs } from "./types";
 
-export const CommonComponent = () => {
+export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
+  print_page,
+}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("female");
 

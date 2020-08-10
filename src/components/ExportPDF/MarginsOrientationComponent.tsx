@@ -6,8 +6,11 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import { useStyles } from "./styles";
+import { LinkStateToPropsTabs } from "./types";
 
-export const MarginsOrientationComponent = () => {
+export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
+  print_page,
+}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("portrait");
 
