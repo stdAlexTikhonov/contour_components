@@ -21,7 +21,7 @@ const mapDispatchToProps = (
       password: password?.value!,
       firstName: firstname?.value!,
       surName: surname?.value!,
-      email: surname?.value!,
+      email: email?.value!,
     });
 
     if (data.success) props.history.push("/login");
