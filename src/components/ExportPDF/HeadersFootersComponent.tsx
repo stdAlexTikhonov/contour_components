@@ -1,5 +1,5 @@
 import React from "react";
-import Checkbox from "@material-ui/core/Checkbox";
+import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -78,7 +78,7 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
       <FormControl className={classes.formControl}>
         <FormControlLabel
           control={
-            <Checkbox
+            <CustomCheckbox
               checked={visible}
               onChange={handleVisability}
               name="visability"
@@ -115,7 +115,7 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
 
         <FormControlLabel
           control={
-            <Checkbox
+            <CustomCheckbox
               checked={changeScale}
               onChange={handleChangeCheckboxes2}
               name="changeScale"

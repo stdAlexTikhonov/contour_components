@@ -1,14 +1,13 @@
 import React from "react";
-import Radio from "@material-ui/core/Radio";
-import Checkbox from "@material-ui/core/Checkbox";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import { useStyles } from "./styles";
 import { LinkStateToPropsTabs } from "./types";
+import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
+import { CustomRadio } from "../CustomDropdown/CustomRadio";
 
 export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
   print_page,
@@ -56,7 +55,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
       >
         <FormControlLabel
           control={
-            <Checkbox
+            <CustomCheckbox
               checked={fullWidth}
               onChange={handleChangeCheckboxes2}
               name="fullWidth"
@@ -66,7 +65,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
         />
         <FormControlLabel
           control={
-            <Checkbox
+            <CustomCheckbox
               checked={grayScale}
               onChange={handleChangeCheckboxes2}
               name="grayScale"
@@ -87,22 +86,22 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
           >
             <FormControlLabel
               value="1"
-              control={<Radio />}
+              control={<CustomRadio />}
               label="Actual size"
             />
             <FormControlLabel
               value="2"
-              control={<Radio />}
+              control={<CustomRadio />}
               label="Insert table on the one page"
             />
             <FormControlLabel
               value="3"
-              control={<Radio />}
+              control={<CustomRadio />}
               label="Insert columns on the one page"
             />
             <FormControlLabel
               value="4"
-              control={<Radio />}
+              control={<CustomRadio />}
               label="Insert rows on the one page"
             />
           </RadioGroup>
@@ -112,7 +111,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
           <FormGroup>
             <FormControlLabel
               control={
-                <Checkbox
+                <CustomCheckbox
                   checked={columns}
                   onChange={handleChangeCheckboxes}
                   name="columns"
@@ -122,7 +121,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
             />
             <FormControlLabel
               control={
-                <Checkbox
+                <CustomCheckbox
                   checked={rows}
                   onChange={handleChangeCheckboxes}
                   name="rows"
@@ -132,7 +131,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
             />
             <FormControlLabel
               control={
-                <Checkbox
+                <CustomCheckbox
                   checked={title}
                   onChange={handleChangeCheckboxes}
                   name="title"
@@ -142,7 +141,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
             />
             <FormControlLabel
               control={
-                <Checkbox
+                <CustomCheckbox
                   checked={header}
                   onChange={handleChangeCheckboxes}
                   name="header"
@@ -152,7 +151,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
             />
             <FormControlLabel
               control={
-                <Checkbox
+                <CustomCheckbox
                   checked={footer}
                   onChange={handleChangeCheckboxes}
                   name="footer"

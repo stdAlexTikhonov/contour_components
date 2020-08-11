@@ -1,12 +1,12 @@
 import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import { useStyles } from "./styles";
 import { LinkStateToPropsTabs } from "./types";
+import { CustomRadio } from "../CustomDropdown/CustomRadio";
 
 export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
   print_page,
@@ -36,12 +36,12 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
         >
           <FormControlLabel
             value="portrait"
-            control={<Radio />}
+            control={<CustomRadio />}
             label="Portrait"
           />
           <FormControlLabel
             value="landscape"
-            control={<Radio />}
+            control={<CustomRadio />}
             label="Landscape"
           />
         </RadioGroup>
