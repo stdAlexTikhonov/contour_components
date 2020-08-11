@@ -13,6 +13,12 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
   print_page,
 }) => {
   const classes = useStyles();
+  const [visible, setVisible] = React.useState(print_page?.HeaderFooterVisible);
+
+  const handleVisability = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVisible(event.target.checked);
+  };
+
   const [age, setAge] = React.useState("");
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -59,7 +65,7 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
         <MenuItem value={10}>Заголовок</MenuItem>
         <MenuItem value={20}>Дата/Время</MenuItem>
         <MenuItem value={30}>Страница #</MenuItem>
-        <MenuItem value={30}>Страница # из #</MenuItem>
+        <MenuItem value={40}>Страница # из #</MenuItem>
       </Select>
     </FormControl>
   );
@@ -70,9 +76,9 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
         <FormControlLabel
           control={
             <Checkbox
-              checked={colontitules}
-              onChange={handleChangeCheckboxes2}
-              name="colontitules"
+              checked={visible}
+              onChange={handleVisability}
+              name="visability"
             />
           }
           label="Headers/Footers"
