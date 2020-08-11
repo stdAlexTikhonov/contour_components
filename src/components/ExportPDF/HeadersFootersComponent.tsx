@@ -19,12 +19,6 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
     setVisible(event.target.checked);
   };
 
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
-  };
-
   const [state, setState] = React.useState({
     columns: true,
     rows: false,
@@ -53,22 +47,31 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
   const { columns, rows, title, header, footer } = state;
   const { colontitules, changeScale } = group;
 
-  const CustomSelect: React.FC<{ title: string }> = ({ title }) => (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">{title}</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>Заголовок</MenuItem>
-        <MenuItem value={20}>Дата/Время</MenuItem>
-        <MenuItem value={30}>Страница #</MenuItem>
-        <MenuItem value={40}>Страница # из #</MenuItem>
-      </Select>
-    </FormControl>
-  );
+  const CustomSelect: React.FC<{ title: string }> = ({ title }) => {
+    const [age, setAge] = React.useState("");
+
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+      setAge(event.target.value as string);
+    };
+
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">{title}</InputLabel>
+        <Select
+          labelId={"demo-simple-select-label" + title}
+          id={"demo-simple-select" + title}
+          value={age}
+          onChange={handleChange}
+          style={{ minWidth: 120 }}
+        >
+          <MenuItem value={10}>Title</MenuItem>
+          <MenuItem value={20}>Date/Time</MenuItem>
+          <MenuItem value={30}>Page #</MenuItem>
+          <MenuItem value={40}>Page # of #</MenuItem>
+        </Select>
+      </FormControl>
+    );
+  };
 
   return (
     <div className={classes.container}>
@@ -83,28 +86,33 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
           }
           label="Headers/Footers"
         />
-        <FormGroup
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-        >
-          <CustomSelect title={"Left"} />
-          <CustomSelect title={"Center"} />
-          <CustomSelect title={"Right"} />
-        </FormGroup>
-        <FormGroup
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-        >
-          <CustomSelect title={"Left"} />
-          <CustomSelect title={"Center"} />
-          <CustomSelect title={"Right"} />
-        </FormGroup>
+        {visible && (
+          <>
+            <FormGroup
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <CustomSelect title={"Top/Left"} />
+              <CustomSelect title={"Top/Center"} />
+              <CustomSelect title={"Top/Right"} />
+            </FormGroup>
+            <FormGroup
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <CustomSelect title={"Bottom/Left"} />
+              <CustomSelect title={"Bottom/Center"} />
+              <CustomSelect title={"Bottom/Right"} />
+            </FormGroup>
+          </>
+        )}
+
         <FormControlLabel
           control={
             <Checkbox
