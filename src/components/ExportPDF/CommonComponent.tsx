@@ -23,14 +23,14 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
   const [state, setState] = React.useState({
     columns: true,
     rows: false,
-    title: false,
-    header: false,
-    footer: false,
+    title: print_page?.CaptionOnEachPage,
+    header: print_page?.HeaderOnEachPage,
+    footer: print_page?.FooterOnEachPage,
   });
 
   const [group, setGroup] = React.useState({
     fullWidth: false,
-    grayScale: false,
+    grayScale: print_page?.GrayScale,
   });
 
   const handleChangeCheckboxes = (
@@ -50,89 +50,10 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
 
   return (
     <div className={classes.container}>
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Scale</FormLabel>
-        <RadioGroup
-          aria-label="scale"
-          name="scale1"
-          value={value}
-          onChange={handleChange}
-        >
-          <FormControlLabel value="1" control={<Radio />} label="Actual size" />
-          <FormControlLabel
-            value="2"
-            control={<Radio />}
-            label="Insert table on the one page"
-          />
-          <FormControlLabel
-            value="3"
-            control={<Radio />}
-            label="Insert columns on the one page"
-          />
-          <FormControlLabel
-            value="4"
-            control={<Radio />}
-            label="Insert rows on the one page"
-          />
-        </RadioGroup>
-      </FormControl>
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Show on each page</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={columns}
-                onChange={handleChangeCheckboxes}
-                name="columns"
-              />
-            }
-            label="Columns"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={rows}
-                onChange={handleChangeCheckboxes}
-                name="rows"
-              />
-            }
-            label="Rows"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={title}
-                onChange={handleChangeCheckboxes}
-                name="title"
-              />
-            }
-            label="Title"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={header}
-                onChange={handleChangeCheckboxes}
-                name="header"
-              />
-            }
-            label="Header"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={footer}
-                onChange={handleChangeCheckboxes}
-                name="footer"
-              />
-            }
-            label="Footer"
-          />
-        </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl}>
+      <FormControl
+        className={classes.formControl}
+        style={{ display: "flex", flexDirection: "row" }}
+      >
         <FormControlLabel
           control={
             <Checkbox
@@ -152,8 +73,96 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
             />
           }
           label="Gray scale mode"
+          style={{ marginLeft: 60 }}
         />
       </FormControl>
+      <div>
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Scale</FormLabel>
+          <RadioGroup
+            aria-label="scale"
+            name="scale1"
+            value={value}
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label="Actual size"
+            />
+            <FormControlLabel
+              value="2"
+              control={<Radio />}
+              label="Insert table on the one page"
+            />
+            <FormControlLabel
+              value="3"
+              control={<Radio />}
+              label="Insert columns on the one page"
+            />
+            <FormControlLabel
+              value="4"
+              control={<Radio />}
+              label="Insert rows on the one page"
+            />
+          </RadioGroup>
+        </FormControl>
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Show on each page</FormLabel>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={columns}
+                  onChange={handleChangeCheckboxes}
+                  name="columns"
+                />
+              }
+              label="Columns"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={rows}
+                  onChange={handleChangeCheckboxes}
+                  name="rows"
+                />
+              }
+              label="Rows"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={title}
+                  onChange={handleChangeCheckboxes}
+                  name="title"
+                />
+              }
+              label="Title"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={header}
+                  onChange={handleChangeCheckboxes}
+                  name="header"
+                />
+              }
+              label="Header"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={footer}
+                  onChange={handleChangeCheckboxes}
+                  name="footer"
+                />
+              }
+              label="Footer"
+            />
+          </FormGroup>
+        </FormControl>
+      </div>
     </div>
   );
 };
