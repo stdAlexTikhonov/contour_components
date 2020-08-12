@@ -6,6 +6,7 @@ import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
 import { setPrintPage } from "../../actions/report";
 import { EXPORT, PRINT_PAGE_SETUP } from "../../utils/constants";
+import { setLoading, resetLoading } from "../../actions/loading";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -16,14 +17,19 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
     const printSettingsData = await getData(data_for_query);
     //if success and response have type property then we can save type
     if (printSettingsData.success) {
       data_for_query.method === PRINT_PAGE_SETUP &&
         dispatch(setPrintPage(printSettingsData.pageSetup));
 
-      if (data_for_query.method === EXPORT) return printSettingsData.export;
+      if (data_for_query.method === EXPORT) {
+        dispatch(resetLoading());
+        return printSettingsData.export;
+      }
     }
+    dispatch(resetLoading());
   },
 });
 
