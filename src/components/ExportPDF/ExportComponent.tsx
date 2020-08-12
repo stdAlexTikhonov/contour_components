@@ -86,7 +86,6 @@ export const ExportPDF: React.FC<IProps> = ({
   };
 
   const export_pdf = async () => {
-    console.log(print_page);
     const result = await handleDataQuery({
       method: EXPORT,
       session,
@@ -97,8 +96,8 @@ export const ExportPDF: React.FC<IProps> = ({
       pageSetup: JSON.stringify(print_page),
       format: "pdf",
     });
-    console.log(print_page);
-    console.log(result);
+
+    window.open("https://stat.world/biportal/" + result, "_blank");
   };
 
   const handleClose = (value: string) => {
