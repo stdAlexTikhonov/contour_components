@@ -15,7 +15,6 @@ import { HeadersFooters } from "./HeadersFooters";
 import Button from "@material-ui/core/Button";
 import { DialogProps } from "./types";
 import ThemeProvider from "../CustomDropdown/ThemeProvider";
-import { pringPage } from "../../types/reducers";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
@@ -73,9 +72,8 @@ export const ExportPDF: React.FC<IProps> = ({
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-    handleDataQuery({
+  const handleClickOpen = async () => {
+    await handleDataQuery({
       method: PRINT_PAGE_SETUP,
       session,
       solution,
@@ -83,6 +81,8 @@ export const ExportPDF: React.FC<IProps> = ({
       language,
       report: report_from_store || report_from_params,
     });
+
+    setOpen(true);
   };
 
   const export_pdf = async () => {
