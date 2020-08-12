@@ -31,12 +31,16 @@ export const HeadersFootersComponent: React.FC<TabProps> = ({
 
   const handleVisability = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVisible(event.target.checked);
+    print_page.HeaderFooterVisible = event.target.checked;
+    settingPrintPage(print_page);
   };
 
   const handleScaleHeaderFooter = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setScaleHeaderFooter(event.target.checked);
+    print_page.ScaleHeaderFooter = event.target.checked;
+    settingPrintPage(print_page);
   };
 
   const CustomSelect: React.FC<{ title: string; type: number }> = ({
