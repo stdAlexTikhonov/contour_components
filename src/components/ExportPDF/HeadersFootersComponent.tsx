@@ -17,6 +17,16 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
   const [scaleHederFooter, setScaleHeaderFooter] = React.useState(
     print_page?.ScaleHeaderFooter || false
   );
+  const [headersFooters, setHeadersFooters] = React.useState(
+    print_page?.HeaderFooter || [
+      { Type: 5, Text: "" },
+      { Type: 1, Text: "" },
+      { Type: 2, Text: "" },
+      { Type: 3, Text: "" },
+      { Type: 4, Text: "" },
+      { Type: 0, Text: "" },
+    ]
+  );
 
   const handleVisability = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVisible(event.target.checked);
@@ -28,11 +38,17 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
     setScaleHeaderFooter(event.target.checked);
   };
 
-  const CustomSelect: React.FC<{ title: string }> = ({ title }) => {
-    const [age, setAge] = React.useState("");
+  const CustomSelect: React.FC<{ title: string; type: number }> = ({
+    title,
+    type,
+  }) => {
+    const headerFooter = headersFooters.find((item) => item.Type === type);
+    const values = ["Title", "Date/Time", "Page #", "Page # of #"];
+
+    const [selected, setSelected] = React.useState(headerFooter?.Text);
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-      setAge(event.target.value as string);
+      setSelected(event.target.value as string);
     };
 
     return (
@@ -41,14 +57,15 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
         <Select
           labelId={"demo-simple-select-label" + title}
           id={"demo-simple-select" + title}
-          value={age}
+          value={selected}
           onChange={handleChange}
           style={{ minWidth: 120 }}
         >
-          <MenuItem value={10}>Title</MenuItem>
-          <MenuItem value={20}>Date/Time</MenuItem>
-          <MenuItem value={30}>Page #</MenuItem>
-          <MenuItem value={40}>Page # of #</MenuItem>
+          {values.map((item, i) => (
+            <MenuItem key={i} value={item}>
+              {item}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     );
@@ -76,9 +93,9 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
                 justifyContent: "space-around",
               }}
             >
-              <CustomSelect title={"Top/Left"} />
-              <CustomSelect title={"Top/Center"} />
-              <CustomSelect title={"Top/Right"} />
+              <CustomSelect title={"Top/Left"} type={5} />
+              <CustomSelect title={"Top/Center"} type={1} />
+              <CustomSelect title={"Top/Right"} type={2} />
             </FormGroup>
             <FormGroup
               style={{
@@ -87,9 +104,9 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
                 justifyContent: "space-around",
               }}
             >
-              <CustomSelect title={"Bottom/Left"} />
-              <CustomSelect title={"Bottom/Center"} />
-              <CustomSelect title={"Bottom/Right"} />
+              <CustomSelect title={"Bottom/Left"} type={3} />
+              <CustomSelect title={"Bottom/Center"} type={4} />
+              <CustomSelect title={"Bottom/Right"} type={0} />
             </FormGroup>
           </>
         )}
