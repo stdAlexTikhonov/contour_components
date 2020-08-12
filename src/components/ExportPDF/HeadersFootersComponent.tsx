@@ -14,38 +14,19 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
 }) => {
   const classes = useStyles();
   const [visible, setVisible] = React.useState(print_page?.HeaderFooterVisible);
+  const [scaleHederFooter, setScaleHeaderFooter] = React.useState(
+    print_page?.ScaleHeaderFooter || false
+  );
 
   const handleVisability = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVisible(event.target.checked);
   };
 
-  const [state, setState] = React.useState({
-    columns: true,
-    rows: false,
-    title: false,
-    header: false,
-    footer: false,
-  });
-
-  const [group, setGroup] = React.useState({
-    colontitules: false,
-    changeScale: false,
-  });
-
-  const handleChangeCheckboxes = (
+  const handleScaleHeaderFooter = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setScaleHeaderFooter(event.target.checked);
   };
-
-  const handleChangeCheckboxes2 = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setGroup({ ...group, [event.target.name]: event.target.checked });
-  };
-
-  const { columns, rows, title, header, footer } = state;
-  const { colontitules, changeScale } = group;
 
   const CustomSelect: React.FC<{ title: string }> = ({ title }) => {
     const [age, setAge] = React.useState("");
@@ -116,8 +97,8 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
         <FormControlLabel
           control={
             <CustomCheckbox
-              checked={changeScale}
-              onChange={handleChangeCheckboxes2}
+              checked={scaleHederFooter}
+              onChange={handleScaleHeaderFooter}
               name="changeScale"
             />
           }

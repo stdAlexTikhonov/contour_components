@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -13,22 +13,22 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
   print_page,
 }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("female");
+  const [value, setValue] = React.useState(print_page?.FitToPage);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    setValue(+(event.target as HTMLInputElement).value);
   };
 
   const [state, setState] = React.useState({
-    columns: true,
-    rows: false,
+    columns: print_page?.HorizontalScaleVisible,
+    rows: print_page?.VerticalScaleVisible,
     title: print_page?.CaptionOnEachPage,
     header: print_page?.HeaderOnEachPage,
     footer: print_page?.FooterOnEachPage,
   });
 
   const [group, setGroup] = React.useState({
-    fullWidth: false,
+    fullWidth: print_page?.BreakHeader,
     grayScale: print_page?.GrayScale,
   });
 
@@ -61,7 +61,7 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
               name="fullWidth"
             />
           }
-          label="Stretch the title to full width"
+          label="Break header width"
         />
         <FormControlLabel
           control={
@@ -85,22 +85,22 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
             onChange={handleChange}
           >
             <FormControlLabel
-              value="1"
+              value={0}
               control={<CustomRadio />}
               label="Actual size"
             />
             <FormControlLabel
-              value="2"
+              value={1}
               control={<CustomRadio />}
               label="Insert table on the one page"
             />
             <FormControlLabel
-              value="3"
+              value={2}
               control={<CustomRadio />}
               label="Insert columns on the one page"
             />
             <FormControlLabel
-              value="4"
+              value={3}
               control={<CustomRadio />}
               label="Insert rows on the one page"
             />

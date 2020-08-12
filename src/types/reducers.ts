@@ -36,6 +36,7 @@ export type pringPage = {
   Margins: number[];
   Portrait: boolean;
   VerticalScaleVisible: boolean;
+  ScaleHeaderFooter?: boolean;
 };
 
 export type AppReducers = authedUserType | languageType;
