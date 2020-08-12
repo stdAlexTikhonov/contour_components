@@ -24,6 +24,11 @@ export type reportType = {
   print_page: pringPage | null;
 };
 
+type ItemHeaderFooter = {
+  Text: string;
+  Type: number;
+};
+
 export type pringPage = {
   BreakHeader: boolean;
   CaptionOnEachPage: boolean;
@@ -37,6 +42,7 @@ export type pringPage = {
   Portrait: boolean;
   VerticalScaleVisible: boolean;
   ScaleHeaderFooter?: boolean;
+  HeaderFooter?: ItemHeaderFooter[];
 };
 
 export type AppReducers = authedUserType | languageType;
