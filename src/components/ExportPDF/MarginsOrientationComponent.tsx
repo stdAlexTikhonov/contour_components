@@ -5,11 +5,12 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import { useStyles } from "./styles";
-import { LinkStateToPropsTabs } from "./types";
+import { TabProps } from "./types";
 import { CustomRadio } from "../CustomDropdown/CustomRadio";
 
-export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
+export const MarginsOrientationComponent: React.FC<TabProps> = ({
   print_page,
+  settingPrintPage,
 }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(
@@ -21,7 +22,11 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
   const [left, setLeft] = React.useState(print_page?.Margins[3]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    const val = (event.target as HTMLInputElement).value;
+    setValue(val);
+    const isPortrait = val === "portrait";
+    print_page.Portrait = isPortrait;
+    settingPrintPage(print_page);
   };
 
   return (
@@ -55,7 +60,11 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e) => setTop(+e.target.value)}
+          onChange={(e) => {
+            setTop(+e.target.value);
+            print_page.Margins[0] = +e.target.value;
+            settingPrintPage(print_page);
+          }}
           value={top}
         />
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -66,8 +75,12 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
             InputLabelProps={{
               shrink: true,
             }}
-            value={right}
-            onChange={(e) => setRight(+e.target.value)}
+            value={left}
+            onChange={(e) => {
+              setLeft(+e.target.value);
+              print_page.Margins[3] = +e.target.value;
+              settingPrintPage(print_page);
+            }}
           />
           <TextField
             id="standard-number"
@@ -76,8 +89,12 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
             InputLabelProps={{
               shrink: true,
             }}
-            value={bottom}
-            onChange={(e) => setBottom(+e.target.value)}
+            value={right}
+            onChange={(e) => {
+              setRight(+e.target.value);
+              print_page.Margins[1] = +e.target.value;
+              settingPrintPage(print_page);
+            }}
           />
         </div>
         <TextField
@@ -87,8 +104,12 @@ export const MarginsOrientationComponent: React.FC<LinkStateToPropsTabs> = ({
           InputLabelProps={{
             shrink: true,
           }}
-          value={left}
-          onChange={(e) => setLeft(+e.target.value)}
+          value={bottom}
+          onChange={(e) => {
+            setBottom(+e.target.value);
+            print_page.Margins[2] = +e.target.value;
+            settingPrintPage(print_page);
+          }}
         />
       </FormControl>
     </div>
