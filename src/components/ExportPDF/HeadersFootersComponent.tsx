@@ -19,7 +19,7 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
   );
   const [headersFooters, setHeadersFooters] = React.useState(
     print_page?.HeaderFooter || [
-      { Type: 5, Text: "" },
+      { Type: 5, Text: "Title" },
       { Type: 1, Text: "" },
       { Type: 2, Text: "" },
       { Type: 3, Text: "" },
@@ -49,6 +49,14 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
       setSelected(event.target.value as string);
+      const changed = headersFooters.map((item) => {
+        if (item.Type === type) {
+          item.Text = event.target.value as string;
+        }
+        return item;
+      });
+
+      setHeadersFooters(changed);
     };
 
     return (
