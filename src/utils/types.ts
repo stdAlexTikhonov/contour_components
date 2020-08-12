@@ -10,7 +10,9 @@ export interface Login {
   password: string;
 }
 
-export interface Register extends Login {
+export interface Register {
+  login: string;
+  password: string;
   firstName: string;
   surName: string;
   email: string;
@@ -36,6 +38,8 @@ export interface DataForQuery extends Common {
   attributes?: Array<string>;
   cubeSession?: string;
   full?: boolean;
+  format?: string;
+  pageSetup?: string;
 }
 
 export type ApiTypes = DataForQuery | Login | Register | Common;

@@ -1,4 +1,4 @@
-import { SpawnSyncOptionsWithStringEncoding } from "child_process";
+import { pringPage } from "./reducers";
 
 //User actions
 export const SET_AUTHED_USER = "SET_AUTHED_USER";
@@ -156,6 +156,14 @@ export interface setProjectStylesheet {
   stylesheet: any;
 }
 
+//printPage
+export const SET_PRINT_PAGE_PROPS = "SET_PRINT_PAGE_PROPS";
+
+export interface setPrintPageProps {
+  type: typeof SET_PRINT_PAGE_PROPS;
+  print_page: pringPage;
+}
+
 //report
 export const SET_REPORT = "SET_REPORT";
 
@@ -267,6 +275,20 @@ export interface setCubeSession {
   cube_session: string | undefined;
 }
 
+// BreakHeader: boolean;
+// CaptionOnEachPage: boolean;
+// FitToPage: number;
+// FooterOnEachPage: boolean;
+// GrayScale: boolean;
+// HeaderFooterVisible: boolean;
+// HeaderOnEachPage: boolean;
+// HorizontalScaleVisible: boolean;
+// Margins: number[];
+// Portrait: boolean;
+// VerticalScaleVisible: boolean;
+// ScaleHeaderFooter?: boolean;
+// HeaderFooter?: ItemHeaderFooter[];
+
 export type reportActions =
   | setReport
   | setReportType
@@ -278,7 +300,8 @@ export type reportActions =
   | setDataToTab
   | setCubeSession
   | setReportCaption
-  | setReportStyle;
+  | setReportStyle
+  | setPrintPageProps;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -387,4 +410,5 @@ export type AppActions =
   | setFullFilterHierarchy
   | setReportCaption
   | setReportStyle
-  | setProjectStylesheet;
+  | setProjectStylesheet
+  | setPrintPageProps;

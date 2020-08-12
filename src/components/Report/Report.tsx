@@ -2,13 +2,22 @@ import React, { useEffect } from "react";
 import { IProps } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
-import { REPORT, ITEMS, DASH_VIEW_META, STYLE } from "../../utils/constants";
+import {
+  REPORT,
+  ITEMS,
+  DASH_VIEW_META,
+  STYLE,
+  PRINT_PAGE_SETUP,
+  EXPORT,
+} from "../../utils/constants";
+
 import {
   combineStylesheets,
   convertCaptionStylesheetRules,
 } from "../../utils/helpers";
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
+import { Export } from "../ExportPDF";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -69,10 +78,18 @@ export const ReportComponent: React.FC<IProps> = ({
 
   return report ? (
     <>
-      {report_caption && <div style={localStylesheet}>{report_caption}</div>}
-      {tabs && report_type !== "dashboard" && (
-        <Tabs tabs={tabs} session={session} language={language} />
+      {report_caption && (
+        <div
+          className={classes.reportHeader}
+          style={{ background: localStylesheet && localStylesheet.background }}
+        >
+          <div className={classes.caption} style={localStylesheet}>
+            {report_caption}
+          </div>
+          <Export />
+        </div>
       )}
+      {tabs && report_type !== "dashboard" && <Tabs tabs={tabs} />}
       {report_type === "dashboard" && (
         <Dashboard dashboard={dashboard} metadata={metadata} />
       )}

@@ -3,14 +3,11 @@ import { Tab } from "../../types/actions";
 
 export interface Props {
   tabs: Tab[] | null;
-  session: string | undefined;
-  language: string;
 }
 
-export type IProps = Props & LinkDispatchToProps;
+export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 export interface LinkStateToProps {
-  tabs: Tab[] | null;
   session: string | undefined;
   language: string;
 }

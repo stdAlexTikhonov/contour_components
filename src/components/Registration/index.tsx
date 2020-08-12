@@ -17,11 +17,11 @@ const mapDispatchToProps = (
     email: HTMLInputElement | undefined
   ) => {
     const data = await userRegister({
-      user: login?.value!,
+      login: login?.value!,
       password: password?.value!,
       firstName: firstname?.value!,
       surName: surname?.value!,
-      email: surname?.value!,
+      email: email?.value!,
     });
 
     if (data.success) props.history.push("/login");

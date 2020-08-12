@@ -100,7 +100,7 @@ export const TabsComponent: React.FC<IProps> = ({
           alert("This is view");
           break;
         default:
-          alert("Data type:" + data.type);
+          console.log("Data type:" + data.type);
       }
     }
   };
@@ -118,7 +118,12 @@ export const TabsComponent: React.FC<IProps> = ({
             aria-label="scrollable auto tabs example"
           >
             {tabs?.map((item: any, i) => (
-              <Tab key={i} label={item.caption} {...a11yProps(i)} />
+              <Tab
+                key={i}
+                label={item.caption}
+                style={{ outline: "none" }}
+                {...a11yProps(i)}
+              />
             ))}
           </Tabs>
         </AppBar>
@@ -126,19 +131,14 @@ export const TabsComponent: React.FC<IProps> = ({
       {tabs?.map((item: any, i) => {
         return (
           <TabPanel value={value} index={i} key={i}>
-            {item.data && item.data.tabs && (
-              <MyTabs
-                tabs={item.data.tabs}
-                session={session}
-                language={language}
-              />
-            )}
+            {item.data && item.data.tabs && <MyTabs tabs={item.data.tabs} />}
             {item.data && item.data.dashboard && (
               <Dashboard
                 dashboard={item.data.dashboard}
                 metadata={item.data.metadata}
               />
             )}
+            {item.component && <item.component />}
           </TabPanel>
         );
       })}

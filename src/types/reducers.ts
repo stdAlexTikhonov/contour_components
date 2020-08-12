@@ -21,6 +21,28 @@ export type reportType = {
   cube_session: string | undefined;
   report_caption: string;
   stylesheet: any;
+  print_page: pringPage | null;
+};
+
+type ItemHeaderFooter = {
+  Text: string;
+  Type: number;
+};
+
+export type pringPage = {
+  BreakHeader: boolean;
+  CaptionOnEachPage: boolean;
+  FitToPage: number;
+  FooterOnEachPage: boolean;
+  GrayScale: boolean;
+  HeaderFooterVisible: boolean;
+  HeaderOnEachPage: boolean;
+  HorizontalScaleVisible: boolean;
+  Margins: number[];
+  Portrait: boolean;
+  VerticalScaleVisible: boolean;
+  ScaleHeaderFooter?: boolean;
+  HeaderFooter: ItemHeaderFooter[];
 };
 
 export type AppReducers = authedUserType | languageType;

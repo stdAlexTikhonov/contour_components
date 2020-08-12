@@ -13,7 +13,6 @@ import { DASH_VIEW_META } from "../../utils/constants";
 import { REPORT } from "../../utils/constants";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
-  tabs: state.report?.tabs,
   session: state.auth.session || undefined,
   language: state.languages.current,
 });
@@ -74,4 +73,4 @@ const mapDispatchToProps = (
   },
 });
 
-export const Tabs = connect(null, mapDispatchToProps)(TabsComponent);
+export const Tabs = connect(mapStateToProps, mapDispatchToProps)(TabsComponent);

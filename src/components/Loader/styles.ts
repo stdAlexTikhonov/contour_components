@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: "rgba(0,0,0,0.5)",
       height: "100vh",
       width: "100%",
-      zIndex: 333,
+      zIndex: 1333,
       display: "flex",
     },
     loader: {
