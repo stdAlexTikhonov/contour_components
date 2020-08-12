@@ -7,10 +7,11 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { useStyles } from "./styles";
-import { LinkStateToPropsTabs } from "./types";
+import { TabProps } from "./types";
 
-export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
+export const HeadersFootersComponent: React.FC<TabProps> = ({
   print_page,
+  settingPrintPage,
 }) => {
   const classes = useStyles();
   const [visible, setVisible] = React.useState(print_page?.HeaderFooterVisible);
@@ -42,14 +43,14 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
     title,
     type,
   }) => {
-    const headerFooter = headersFooters.find((item) => item.Type === type);
+    const headerFooter = headersFooters.find((item: any) => item.Type === type);
     const values = ["Title", "Date/Time", "Page #", "Page # of #"];
 
     const [selected, setSelected] = React.useState(headerFooter?.Text);
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
       setSelected(event.target.value as string);
-      const changed = headersFooters.map((item) => {
+      const changed = headersFooters.map((item: any) => {
         if (item.Type === type) {
           item.Text = event.target.value as string;
         }
@@ -57,6 +58,8 @@ export const HeadersFootersComponent: React.FC<LinkStateToPropsTabs> = ({
       });
 
       setHeadersFooters(changed);
+      print_page.HeaderFooter = changed;
+      settingPrintPage(print_page);
     };
 
     return (

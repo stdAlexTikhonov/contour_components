@@ -5,19 +5,29 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import { useStyles } from "./styles";
-import { LinkStateToPropsTabs } from "./types";
+import { TabProps } from "./types";
 import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
 import { CustomRadio } from "../CustomDropdown/CustomRadio";
 
-export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
+export const CommonComponent: React.FC<TabProps> = ({
   print_page,
+  settingPrintPage,
 }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(print_page?.FitToPage);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(+(event.target as HTMLInputElement).value);
+    print_page!.FitToPage = +(event.target as HTMLInputElement).value;
+    settingPrintPage(print_page!);
   };
+
+  const mapping = new Map();
+  mapping.set("columns", "HorizontalScaleVisible");
+  mapping.set("rows", "VerticalScaleVisible");
+  mapping.set("title", "CaptionOnEachPage");
+  mapping.set("header", "HeaderOnEachPage");
+  mapping.set("footer", "FooterOnEachPage");
 
   const [state, setState] = React.useState({
     columns: print_page?.HorizontalScaleVisible,
@@ -36,6 +46,9 @@ export const CommonComponent: React.FC<LinkStateToPropsTabs> = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setState({ ...state, [event.target.name]: event.target.checked });
+    const prop = mapping.get(event.target.name) as string;
+    print_page[prop] = event.target.checked;
+    settingPrintPage(print_page!);
   };
 
   const handleChangeCheckboxes2 = (

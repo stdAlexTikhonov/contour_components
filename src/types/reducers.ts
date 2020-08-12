@@ -42,7 +42,7 @@ export type pringPage = {
   Portrait: boolean;
   VerticalScaleVisible: boolean;
   ScaleHeaderFooter?: boolean;
-  HeaderFooter?: ItemHeaderFooter[];
+  HeaderFooter: ItemHeaderFooter[];
 };
 
 export type AppReducers = authedUserType | languageType;

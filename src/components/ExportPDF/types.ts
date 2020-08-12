@@ -16,7 +16,7 @@ export interface LinkDispatchToProps {
 }
 
 export interface LinkStateToPropsTabs {
-  print_page: pringPage | null;
+  print_page: any;
 }
 
 export interface DialogProps {
@@ -25,3 +25,9 @@ export interface DialogProps {
   selectedValue: string;
   onClose: (value: string) => void;
 }
+
+export interface LinkDispatchToPropsTabs {
+  settingPrintPage: (props: pringPage) => void;
+}
+
+export type TabProps = LinkStateToPropsTabs & LinkDispatchToPropsTabs;

@@ -275,6 +275,20 @@ export interface setCubeSession {
   cube_session: string | undefined;
 }
 
+// BreakHeader: boolean;
+// CaptionOnEachPage: boolean;
+// FitToPage: number;
+// FooterOnEachPage: boolean;
+// GrayScale: boolean;
+// HeaderFooterVisible: boolean;
+// HeaderOnEachPage: boolean;
+// HorizontalScaleVisible: boolean;
+// Margins: number[];
+// Portrait: boolean;
+// VerticalScaleVisible: boolean;
+// ScaleHeaderFooter?: boolean;
+// HeaderFooter?: ItemHeaderFooter[];
+
 export type reportActions =
   | setReport
   | setReportType
