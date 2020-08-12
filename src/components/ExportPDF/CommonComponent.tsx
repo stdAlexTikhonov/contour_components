@@ -37,6 +37,10 @@ export const CommonComponent: React.FC<TabProps> = ({
     footer: print_page?.FooterOnEachPage,
   });
 
+  const mapping2 = new Map();
+  mapping2.set("fullWidth", "BreakHeader");
+  mapping2.set("grayScale", "GrayScale");
+
   const [group, setGroup] = React.useState({
     fullWidth: print_page?.BreakHeader,
     grayScale: print_page?.GrayScale,
@@ -55,6 +59,9 @@ export const CommonComponent: React.FC<TabProps> = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setGroup({ ...group, [event.target.name]: event.target.checked });
+    const prop = mapping2.get(event.target.name) as string;
+    print_page[prop] = event.target.checked;
+    settingPrintPage(print_page!);
   };
 
   const { columns, rows, title, header, footer } = state;
