@@ -2,14 +2,7 @@ import React, { useEffect } from "react";
 import { IProps } from "./types";
 import { useParams } from "react-router-dom";
 import { useStyles } from "./styles";
-import {
-  REPORT,
-  ITEMS,
-  DASH_VIEW_META,
-  STYLE,
-  PRINT_PAGE_SETUP,
-  EXPORT,
-} from "../../utils/constants";
+import { REPORT, ITEMS, DASH_VIEW_META, STYLE } from "../../utils/constants";
 
 import {
   combineStylesheets,
@@ -18,6 +11,7 @@ import {
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
 import { Export } from "../ExportPDF";
+import { UserLayouts } from "../UserLayouts";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -86,6 +80,7 @@ export const ReportComponent: React.FC<IProps> = ({
           <div className={classes.caption} style={localStylesheet}>
             {report_caption}
           </div>
+          <UserLayouts />
           <Export />
         </div>
       )}
