@@ -12,6 +12,7 @@ import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
 import { Export } from "../ExportPDF";
 import { UserLayouts } from "../UserLayouts";
+import { Layouts } from "../UserLayouts/Layouts";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -77,8 +78,17 @@ export const ReportComponent: React.FC<IProps> = ({
           className={classes.reportHeader}
           style={{ background: localStylesheet && localStylesheet.background }}
         >
-          <div className={classes.caption} style={localStylesheet}>
+          <div
+            className={classes.caption}
+            style={{
+              ...localStylesheet,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             {report_caption}
+            <Layouts />
           </div>
           <UserLayouts />
           <Export />

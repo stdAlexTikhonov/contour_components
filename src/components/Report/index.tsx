@@ -13,7 +13,6 @@ import {
   setReportCaption,
   setReportStyle,
 } from "../../actions/report";
-import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
 
@@ -34,7 +33,6 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
-    dispatch(setLoading());
     const reportData = await getData(data_for_query);
     //if success and response have type property then we can save type
     if (reportData.success) {
@@ -81,7 +79,6 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       //style
       reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
     }
-    dispatch(resetLoading());
   },
 });
 
