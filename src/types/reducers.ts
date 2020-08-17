@@ -22,6 +22,7 @@ export type reportType = {
   report_caption: string;
   stylesheet: any;
   print_page: pringPage | null;
+  layouts: any;
 };
 
 type ItemHeaderFooter = {

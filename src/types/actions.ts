@@ -275,6 +275,13 @@ export interface setCubeSession {
   cube_session: string | undefined;
 }
 
+export const GET_REPORT_LAYOUTS = "GET_REPORT_LAYOUTS";
+
+export interface getReportLayouts {
+  type: typeof GET_REPORT_LAYOUTS;
+  layouts: any;
+}
+
 // BreakHeader: boolean;
 // CaptionOnEachPage: boolean;
 // FitToPage: number;
@@ -301,7 +308,8 @@ export type reportActions =
   | setCubeSession
   | setReportCaption
   | setReportStyle
-  | setPrintPageProps;
+  | setPrintPageProps
+  | getReportLayouts;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -411,4 +419,5 @@ export type AppActions =
   | setReportCaption
   | setReportStyle
   | setProjectStylesheet
-  | setPrintPageProps;
+  | setPrintPageProps
+  | getReportLayouts;
