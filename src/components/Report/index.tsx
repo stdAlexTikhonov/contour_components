@@ -18,6 +18,7 @@ import { formatGeometry } from "../../utils/helpers";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
+  logged_in: state.auth.logged_in,
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,

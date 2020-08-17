@@ -17,6 +17,7 @@ export interface LinkStateToProps {
   report_caption: string;
   report_stylesheet: any;
   project_stylesheet: any;
+  logged_in: boolean;
 }
 
 export interface LinkDispatchToProps {

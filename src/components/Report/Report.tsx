@@ -26,6 +26,7 @@ export const ReportComponent: React.FC<IProps> = ({
   report_caption,
   report_stylesheet,
   project_stylesheet,
+  logged_in,
   handleDataQuery,
 }) => {
   const [localStylesheet, setLocalStylesheet] = React.useState<any>(null);
@@ -88,9 +89,9 @@ export const ReportComponent: React.FC<IProps> = ({
             }}
           >
             {report_caption}
-            <Layouts />
+            {logged_in && <Layouts />}
           </div>
-          <UserLayouts />
+          {logged_in && <UserLayouts />}
           <Export />
         </div>
       )}
