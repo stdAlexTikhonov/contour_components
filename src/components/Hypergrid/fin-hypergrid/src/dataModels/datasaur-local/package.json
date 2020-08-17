@@ -1,0 +1,48 @@
+{
+  "_from": "datasaur-local@^3.0.0",
+  "_id": "datasaur-local@3.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-d69iqyMM8DmzsnwuDQy1M36YfwmQTi9ibQeQ7Bwc1NdqX9XsCiI0zPfy4zb8efRt7P01U+buNRNBYhSFQ5410w==",
+  "_location": "/datasaur-local",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "datasaur-local@^3.0.0",
+    "name": "datasaur-local",
+    "escapedName": "datasaur-local",
+    "rawSpec": "^3.0.0",
+    "saveSpec": null,
+    "fetchSpec": "^3.0.0"
+  },
+  "_requiredBy": [
+    "/",
+    "/fin-hypergrid"
+  ],
+  "_resolved": "https://registry.npmjs.org/datasaur-local/-/datasaur-local-3.0.0.tgz",
+  "_shasum": "ffc21fd687e77ab74b028782365e0835f577f0eb",
+  "_spec": "datasaur-local@^3.0.0",
+  "_where": "G:\\FIN\\fin-hypergrid",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/fin-hypergrid/datasaur-local/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "datasaur-base": "^3.0.0"
+  },
+  "deprecated": false,
+  "description": "Hypergrid in-memory data source",
+  "homepage": "https://github.com/fin-hypergrid/datasaur-local#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "datasaur-local",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fin-hypergrid/datasaur-local.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "3.0.0"
+}
