@@ -12,6 +12,7 @@ import {
   setDashboardMetadata,
   setReportCaption,
   setReportStyle,
+  getReportLayouts,
 } from "../../actions/report";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
@@ -30,11 +31,13 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report_caption: state.report.report_caption,
   report_stylesheet: state.report.stylesheet,
   project_stylesheet: state.project.stylesheet,
+  layouts: state.report.layouts,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
     const reportData = await getData(data_for_query);
+    console.log(reportData);
     //if success and response have type property then we can save type
     if (reportData.success) {
       if (reportData.metadata) {
@@ -79,6 +82,9 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
 
       //style
       reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
+
+      //layouts
+      reportData.layouts && dispatch(getReportLayouts(reportData.layouts));
     }
   },
 });
