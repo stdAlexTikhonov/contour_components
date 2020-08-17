@@ -11,6 +11,7 @@ import {
   SET_REPORT_CAPTION,
   SET_REPORT_STYLE,
   SET_PRINT_PAGE_PROPS,
+  GET_REPORT_LAYOUTS,
   reportActions,
   Tab,
 } from "../types/actions";
@@ -28,6 +29,7 @@ const reportDefaultState: reportType = {
   report_caption: "",
   stylesheet: null,
   print_page: null,
+  layouts: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -97,6 +99,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         print_page: action.print_page,
+      };
+    case GET_REPORT_LAYOUTS:
+      return {
+        ...state,
+        layouts: action.layouts,
       };
     default:
       return state;
