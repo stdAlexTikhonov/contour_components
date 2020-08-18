@@ -23,18 +23,23 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSave = () => {
+    console.log("hello");
     const data_for_query = {
-      method: SET_LAYOUT,
+      method: SAVE_USER_LAYOUT,
+      caption: "test",
       solution,
       session,
       language,
       project,
       report: report_from_state || report_from_params,
-      isUser: false,
-      //layout:
+      isDefault: false,
+      layout: "1",
     };
-    // setLayout(data_for_query);
-    setAnchorEl(null);
+    setLayout(data_for_query);
   };
 
   const handleSaveAs = (name: string) => {
@@ -50,7 +55,6 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       //layout: layout,
     };
     setLayout(data_for_query, layouts);
-    setAnchorEl(null);
   };
 
   return (
@@ -70,7 +74,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Save</MenuItem>
+        <MenuItem onClick={handleSave}>Save</MenuItem>
         <MenuItem>
           <SaveAs onSaveAs={handleSaveAs} />
         </MenuItem>

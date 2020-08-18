@@ -20,6 +20,7 @@ export interface Register {
 
 //Working with data
 export interface DataForQuery extends Common {
+  layout?: string;
   caption?: string;
   solution?: string;
   project?: string;

@@ -16,20 +16,24 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
-  setLayout: async (data_for_query: DataForQuery, layouts: any) => {
-    const printSettingsData = await getData(data_for_query);
-    if (
-      printSettingsData.success &&
-      data_for_query.method === SAVE_USER_LAYOUT
-    ) {
-      const newLayout = {
-        caption: data_for_query.caption,
-        code: printSettingsData.layout,
-        default: false,
-        user: true,
-      };
-      layouts.push(newLayout);
-      dispatch(getReportLayouts(layouts));
+  setLayout: async (data_for_query: DataForQuery, layouts?: any) => {
+    const layoutData = await getData(data_for_query);
+    console.log(layoutData);
+    if (layoutData.success) {
+      if (data_for_query.layout && data_for_query.method === SAVE_USER_LAYOUT) {
+        //SAVE
+        alert("Layout was saved!");
+      } else if (data_for_query.method === SAVE_USER_LAYOUT) {
+        //SAVE AS
+        const newLayout = {
+          caption: data_for_query.caption,
+          code: layoutData.layout,
+          default: false,
+          user: true,
+        };
+        layouts.push(newLayout);
+        dispatch(getReportLayouts(layouts));
+      }
     }
   },
 });
