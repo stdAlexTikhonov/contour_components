@@ -4,7 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import LineStyleIcon from "@material-ui/icons/LineStyle";
 import IconButton from "@material-ui/core/IconButton";
 import { IProps } from "./types";
-import { SET_LAYOUT } from "../../utils/constants";
+import { SET_LAYOUT, SAVE_USER_LAYOUT } from "../../utils/constants";
 import { useParams } from "react-router-dom";
 import { SaveAs } from "./Dialog";
 
@@ -37,8 +37,19 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
   };
 
   const handleSaveAs = (name: string) => {
+    const data_for_query = {
+      method: SAVE_USER_LAYOUT,
+      caption: name,
+      solution,
+      session,
+      language,
+      project,
+      report: report_from_state || report_from_params,
+      isDefault: false,
+      //layout: layout,
+    };
+    setLayout(data_for_query);
     setAnchorEl(null);
-    alert(name);
   };
 
   return (
@@ -59,7 +70,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>Save</MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <SaveAs onSaveAs={handleSaveAs} />
         </MenuItem>
         <MenuItem onClick={handleClose}>Reset</MenuItem>
