@@ -13,6 +13,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
   session,
   language,
   report: report_from_state,
+  layouts,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -32,7 +33,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       isUser: false,
       //layout:
     };
-    setLayout(data_for_query);
+    // setLayout(data_for_query);
     setAnchorEl(null);
   };
 
@@ -48,7 +49,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       isDefault: false,
       //layout: layout,
     };
-    setLayout(data_for_query);
+    setLayout(data_for_query, layouts);
     setAnchorEl(null);
   };
 

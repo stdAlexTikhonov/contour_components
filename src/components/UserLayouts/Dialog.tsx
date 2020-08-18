@@ -26,7 +26,9 @@ function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
   const { onClose, open, saveAs } = props;
 
-  const handleClose = () => {};
+  const handleClose = () => {
+    onClose();
+  };
 
   const handleListItemClick = (value: string) => {
     saveAs(value);
