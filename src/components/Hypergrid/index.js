@@ -164,7 +164,7 @@ class ReactHypergrid extends React.Component {
   }
 
   setData = (Result) => {
-    Result = window['result'];
+//    Result = window['result'];
 
     const model = this.grid.behavior.dataModel;
 
