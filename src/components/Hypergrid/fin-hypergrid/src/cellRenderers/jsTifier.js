@@ -18,42 +18,46 @@ var fontHeightCache = {};
 
 var getTextHeight = function (font) {
     var result = {};
-    result.ascent  = 13;
-    result.height  = 18;
-    result.descent =  5;
-    return result;
-/*
+
     var r = fontHeightCache[font];
     if (r)
         return r;
 
-    var text  = $('<span>Hg</span>').css({ font: font });
-    var block = $('<div style="display: inline-block; width: 1px; height: 0px;"></div>');
-    var div   = $('<div></div>');
-    div.append(text, block);
+    var text = document.createElement('span') ;
+    text.textContent = 'Hg' ;
+    text.style.font  = font ;
 
-    var body = $('body');
-    body.append(div);
+    var block = document.createElement('div') ;
+    block.style.display = 'inline-block' ;
+    block.style.width   = '1px' ;
+    block.style.height  = '0px' ;
+
+    var div = document.createElement('div') ;
+    div.append(text, block) ;
+    document.body.append(div) ;
 
     try {
-
         var result = {};
+        if (document.fonts.check(font) === true) {
+          block.style.verticalAlign = 'baseline' ;
+          result.ascent = block.offsetTop - text.offsetTop;
 
-        block.css({ verticalAlign: 'baseline' });
-        result.ascent = block.offset().top - text.offset().top;
+          block.style.verticalAlign = 'bottom' ;
+          result.height = block.offsetTop - text.offsetTop;
 
-        block.css({ verticalAlign: 'bottom' });
-        result.height = block.offset().top - text.offset().top;
+          result.descent = result.height - result.ascent;
 
-        result.descent = result.height - result.ascent;
-
+          fontHeightCache[font] = result;
+        } else {
+          result.ascent  = 13;
+          result.height  = 18;
+          result.descent =  5;
+        }
     } finally {
         div.remove();
     }
 
-    fontHeightCache[font] = result;
     return result;
-*/
 };
 
 function mlFunction(text, x, y, w, h, hAlign, vAlign, fn) {
