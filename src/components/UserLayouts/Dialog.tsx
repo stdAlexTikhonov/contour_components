@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -17,16 +17,19 @@ const useStyles = makeStyles({
 
 export interface SimpleDialogProps {
   open: boolean;
+  saveAs: (name: string) => void;
   onClose: () => void;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
+  const refName = useRef<HTMLInputElement | undefined>();
   const classes = useStyles();
-  const { onClose, open } = props;
+  const { onClose, open, saveAs } = props;
 
   const handleClose = () => {};
 
   const handleListItemClick = (value: string) => {
+    saveAs(value);
     onClose();
   };
 
@@ -42,12 +45,15 @@ function SimpleDialog(props: SimpleDialogProps) {
         label="Layout name"
         variant="outlined"
         style={{ margin: 20, width: 300, marginTop: 0 }}
+        inputRef={refName}
       />
       <Button
         variant="contained"
         color="primary"
         style={{ margin: 20, marginTop: 0 }}
-        onClick={() => handleListItemClick("1")}
+        onClick={() =>
+          handleListItemClick(refName.current ? refName.current.value : "")
+        }
       >
         Save
       </Button>
@@ -55,7 +61,9 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const SaveAs = () => {
+export const SaveAs: React.FC<{ onSaveAs: (name: string) => void }> = ({
+  onSaveAs,
+}) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -72,7 +80,7 @@ export const SaveAs = () => {
         Save as...
       </Typography>
 
-      <SimpleDialog open={open} onClose={handleClose} />
+      <SimpleDialog open={open} onClose={handleClose} saveAs={onSaveAs} />
     </ThemeProvider>
   );
 };

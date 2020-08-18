@@ -36,6 +36,11 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
     setAnchorEl(null);
   };
 
+  const handleSaveAs = (name: string) => {
+    setAnchorEl(null);
+    alert(name);
+  };
+
   return (
     <div>
       <IconButton
@@ -55,7 +60,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       >
         <MenuItem onClick={handleClose}>Save</MenuItem>
         <MenuItem onClick={handleClose}>
-          <SaveAs />
+          <SaveAs onSaveAs={handleSaveAs} />
         </MenuItem>
         <MenuItem onClick={handleClose}>Reset</MenuItem>
         <MenuItem onClick={handleClose}>Delete</MenuItem>
