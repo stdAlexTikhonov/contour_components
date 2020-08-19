@@ -14,6 +14,7 @@ import { SaveAs } from "./Dialog";
 
 export const UserLayoutsComponent: React.FC<IProps> = ({
   setLayout,
+  resetReport,
   session,
   language,
   report: report_from_state,
@@ -74,6 +75,10 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
     setLayout(data_for_query, filtered);
   };
 
+  const handleReset = () => {
+    resetReport();
+  };
+
   return (
     <div>
       <IconButton
@@ -95,7 +100,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
         <MenuItem>
           <SaveAs onSaveAs={handleSaveAs} />
         </MenuItem>
-        <MenuItem onClick={handleClose}>Reset</MenuItem>
+        <MenuItem onClick={handleReset}>Reset</MenuItem>
         <MenuItem onClick={handleDelete}>Delete</MenuItem>
         <MenuItem onClick={handleClose}>Default Layout</MenuItem>
       </Menu>

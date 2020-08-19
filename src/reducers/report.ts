@@ -12,6 +12,7 @@ import {
   SET_REPORT_STYLE,
   SET_PRINT_PAGE_PROPS,
   GET_REPORT_LAYOUTS,
+  RESET_REPORT,
   reportActions,
   Tab,
 } from "../types/actions";
@@ -104,6 +105,10 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         layouts: action.layouts,
+      };
+    case RESET_REPORT:
+      return {
+        ...reportDefaultState,
       };
     default:
       return state;

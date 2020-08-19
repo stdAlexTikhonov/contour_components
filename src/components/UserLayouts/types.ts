@@ -13,4 +13,5 @@ export interface LinkStateToProps {
 
 export interface LinkDispatchToProps {
   setLayout: (data_for_query: DataForQuery, layouts?: any) => void;
+  resetReport: () => void;
 }

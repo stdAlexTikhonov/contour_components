@@ -282,6 +282,12 @@ export interface getReportLayouts {
   layouts: any;
 }
 
+export const RESET_REPORT = "RESET_REPORT";
+
+export interface resetReport {
+  type: typeof RESET_REPORT;
+}
+
 // BreakHeader: boolean;
 // CaptionOnEachPage: boolean;
 // FitToPage: number;
@@ -309,7 +315,8 @@ export type reportActions =
   | setReportCaption
   | setReportStyle
   | setPrintPageProps
-  | getReportLayouts;
+  | getReportLayouts
+  | resetReport;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -420,4 +427,5 @@ export type AppActions =
   | setReportStyle
   | setProjectStylesheet
   | setPrintPageProps
-  | getReportLayouts;
+  | getReportLayouts
+  | resetReport;

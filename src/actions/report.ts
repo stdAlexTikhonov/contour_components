@@ -13,6 +13,7 @@ import {
   SET_REPORT_STYLE,
   SET_PRINT_PAGE_PROPS,
   GET_REPORT_LAYOUTS,
+  RESET_REPORT,
   Dashboard,
   Metadata,
   DimFilter,
@@ -90,4 +91,8 @@ export const setCubeSession = (
 export const getReportLayouts = (layouts: any): AppActions => ({
   type: GET_REPORT_LAYOUTS,
   layouts,
+});
+
+export const resetReport = (): AppActions => ({
+  type: RESET_REPORT,
 });

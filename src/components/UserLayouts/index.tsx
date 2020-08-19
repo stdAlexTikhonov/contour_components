@@ -6,7 +6,7 @@ import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { SAVE_USER_LAYOUT, DELETE_USER_LAYOUT } from "../../utils/constants";
-import { getReportLayouts } from "../../actions/report";
+import { getReportLayouts, resetReport } from "../../actions/report";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -38,6 +38,9 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
         alert("Layout was deleted!");
       }
     }
+  },
+  resetReport: () => {
+    dispatch(resetReport());
   },
 });
 
