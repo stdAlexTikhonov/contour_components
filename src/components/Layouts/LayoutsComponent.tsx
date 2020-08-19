@@ -21,40 +21,52 @@ export const LayoutsComponent: React.FC<IProps> = ({
     setAnchorEl(null);
   };
 
-  return (
-    <div>
-      {label ? (
-        <Button
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          color="primary"
-          style={{ color: "white", minWidth: "unset", outline: "none" }}
-          onClick={handleClick}
-        >
-          {label}
-          <ExpandMoreIcon />
-        </Button>
-      ) : (
-        <IconButton
-          size="small"
-          style={{ outline: "none" }}
-          aria-label="delete"
-          onClick={handleClick}
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      )}
+  const handleSetLayout = (code: string) => {
+    alert(code);
+  };
 
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Cold summer of 1953</MenuItem>
-        <MenuItem onClick={handleClose}>Winter in 2nd World War</MenuItem>
-      </Menu>
-    </div>
+  return (
+    layouts && (
+      <div>
+        {label ? (
+          <Button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            color="primary"
+            style={{ color: "white", minWidth: "unset", outline: "none" }}
+            onClick={handleClick}
+          >
+            {label}
+            <ExpandMoreIcon />
+          </Button>
+        ) : (
+          <IconButton
+            size="small"
+            style={{ outline: "none" }}
+            aria-label="delete"
+            onClick={handleClick}
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        )}
+
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {layouts.map((item: any) => (
+            <MenuItem
+              key={item.code}
+              onClick={() => handleSetLayout(item.code)}
+            >
+              {item.caption}
+            </MenuItem>
+          ))}
+        </Menu>
+      </div>
+    )
   );
 };
