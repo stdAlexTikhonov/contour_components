@@ -15,6 +15,7 @@ import { SaveAs } from "./Dialog";
 export const UserLayoutsComponent: React.FC<IProps> = ({
   setLayout,
   resetReport,
+  setDefault,
   session,
   language,
   report: report_from_state,
@@ -79,6 +80,16 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
     resetReport();
   };
 
+  const setDefaultLayout = () => {
+    const changed = layouts.map((item: any) => {
+      if (item.code === "1") item.default = true;
+      else item.default = false;
+      return item;
+    });
+
+    setDefault(changed);
+  };
+
   return (
     <div>
       <IconButton
@@ -102,7 +113,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
         </MenuItem>
         <MenuItem onClick={handleReset}>Reset</MenuItem>
         <MenuItem onClick={handleDelete}>Delete</MenuItem>
-        <MenuItem onClick={handleClose}>Default Layout</MenuItem>
+        <MenuItem onClick={setDefaultLayout}>Default Layout</MenuItem>
       </Menu>
     </div>
   );

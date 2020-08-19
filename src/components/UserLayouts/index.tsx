@@ -42,6 +42,10 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   resetReport: () => {
     dispatch(resetReport());
   },
+  setDefault: (layouts: any) => {
+    dispatch(getReportLayouts(layouts));
+    alert("Default layout was changed!");
+  },
 });
 
 export const UserLayouts = connect(
