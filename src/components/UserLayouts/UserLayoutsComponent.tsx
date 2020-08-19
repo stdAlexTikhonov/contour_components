@@ -4,7 +4,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import LineStyleIcon from "@material-ui/icons/LineStyle";
 import IconButton from "@material-ui/core/IconButton";
 import { IProps } from "./types";
-import { SET_LAYOUT, SAVE_USER_LAYOUT } from "../../utils/constants";
+import {
+  SET_LAYOUT,
+  SAVE_USER_LAYOUT,
+  DELETE_USER_LAYOUT,
+} from "../../utils/constants";
 import { useParams } from "react-router-dom";
 import { SaveAs } from "./Dialog";
 
@@ -27,7 +31,6 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
   };
 
   const handleSave = () => {
-    console.log("hello");
     const data_for_query = {
       method: SAVE_USER_LAYOUT,
       caption: "test",
@@ -57,6 +60,20 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
     setLayout(data_for_query, layouts);
   };
 
+  const handleDelete = () => {
+    const data_for_query = {
+      method: DELETE_USER_LAYOUT,
+      solution,
+      session,
+      language,
+      project,
+      report: report_from_state || report_from_params,
+      layout: "1",
+    };
+    const filtered = layouts.filter((item: any) => item.code !== "1");
+    setLayout(data_for_query, filtered);
+  };
+
   return (
     <div>
       <IconButton
@@ -79,7 +96,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
           <SaveAs onSaveAs={handleSaveAs} />
         </MenuItem>
         <MenuItem onClick={handleClose}>Reset</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem onClick={handleDelete}>Delete</MenuItem>
         <MenuItem onClick={handleClose}>Default Layout</MenuItem>
       </Menu>
     </div>

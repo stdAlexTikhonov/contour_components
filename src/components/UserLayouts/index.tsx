@@ -5,7 +5,7 @@ import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
 import { setLoading, resetLoading } from "../../actions/loading";
-import { SAVE_USER_LAYOUT } from "../../utils/constants";
+import { SAVE_USER_LAYOUT, DELETE_USER_LAYOUT } from "../../utils/constants";
 import { getReportLayouts } from "../../actions/report";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
@@ -18,7 +18,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   setLayout: async (data_for_query: DataForQuery, layouts?: any) => {
     const layoutData = await getData(data_for_query);
-    console.log(layoutData);
+
     if (layoutData.success) {
       if (data_for_query.layout && data_for_query.method === SAVE_USER_LAYOUT) {
         //SAVE
@@ -33,6 +33,9 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
         };
         layouts.push(newLayout);
         dispatch(getReportLayouts(layouts));
+      } else if (data_for_query.method === DELETE_USER_LAYOUT) {
+        dispatch(getReportLayouts(layouts));
+        alert("Layout was deleted!");
       }
     }
   },
