@@ -18,7 +18,7 @@ import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
 import { Export } from "../ExportPDF";
 import { UserLayouts } from "../UserLayouts";
-import { Layouts } from "../UserLayouts/Layouts";
+import { Layouts } from "../Layouts";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,

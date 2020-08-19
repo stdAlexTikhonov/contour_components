@@ -12,7 +12,7 @@ import { isMobile } from "../../utils/helpers";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { useMediaQuery } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import { Layouts } from "../UserLayouts/Layouts";
+import { Layouts } from "../Layouts";
 import {
   StyledMenu,
   StyledMenuItem,
