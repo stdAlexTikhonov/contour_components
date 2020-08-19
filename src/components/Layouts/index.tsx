@@ -13,9 +13,9 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
-  setLayout: async (data_for_query: DataForQuery, layouts?: any) => {
+  setLayout: async (data_for_query: DataForQuery) => {
     const layoutData = await getData(data_for_query);
-
+    console.log(layoutData);
     if (layoutData.success) {
       console.log(layoutData);
     }

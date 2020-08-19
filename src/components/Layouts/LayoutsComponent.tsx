@@ -5,12 +5,18 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import { IProps } from "./types";
+import { SET_LAYOUT } from "../../utils/constants";
+import { useParams } from "react-router-dom";
 
 export const LayoutsComponent: React.FC<IProps> = ({
   label,
   layouts,
+  session,
+  language,
+  report: report_from_state,
   setLayout,
 }) => {
+  const { solution, project, report: report_from_params } = useParams();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,7 +28,18 @@ export const LayoutsComponent: React.FC<IProps> = ({
   };
 
   const handleSetLayout = (code: string) => {
-    alert(code);
+    const data_for_query = {
+      method: SET_LAYOUT,
+      solution,
+      session,
+      language,
+      project,
+      report: report_from_state || report_from_params,
+      layout: code,
+      isUser: true,
+    };
+    setLayout(data_for_query);
+    setAnchorEl(null);
   };
 
   return (
