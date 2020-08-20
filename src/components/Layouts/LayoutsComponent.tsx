@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { IProps } from "./types";
 import { SET_LAYOUT } from "../../utils/constants";
 import { useParams } from "react-router-dom";
+import CheckIcon from "@material-ui/icons/Check";
 
 export const LayoutsComponent: React.FC<IProps> = ({
   label,
@@ -80,6 +81,7 @@ export const LayoutsComponent: React.FC<IProps> = ({
               key={item.code}
               onClick={() => handleSetLayout(item.code)}
             >
+              {current_layout === item.code && <CheckIcon />}
               {item.caption}
             </MenuItem>
           ))}
