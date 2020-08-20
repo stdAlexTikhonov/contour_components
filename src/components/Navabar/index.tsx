@@ -49,7 +49,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             </a>
             <SimpleBreadcrumbs />
           </div>
-          {logged_in && <Layouts label={"User Layout"} />}
+          {/* {logged_in && <Layouts label={"User Layout"} />} */}
           <LanguageSelector
             items={items.slice(1, items.length)}
             languages={languages}
