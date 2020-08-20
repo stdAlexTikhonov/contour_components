@@ -13,6 +13,7 @@ import {
   setReportCaption,
   setReportStyle,
   getReportLayouts,
+  setCurrentLayout,
 } from "../../actions/report";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
@@ -83,7 +84,14 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
 
       //layouts
-      reportData.layouts && dispatch(getReportLayouts(reportData.layouts));
+      if (reportData.layouts) {
+        dispatch(getReportLayouts(reportData.layouts));
+        reportData.layouts.forEach((item: any) => {
+          if (item.default) {
+            dispatch(setCurrentLayout(item.code));
+          }
+        });
+      }
     }
   },
 });

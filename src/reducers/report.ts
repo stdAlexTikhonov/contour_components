@@ -14,9 +14,9 @@ import {
   GET_REPORT_LAYOUTS,
   RESET_REPORT,
   reportActions,
-  Tab,
+  SET_CURRENT_LAYOUT,
 } from "../types/actions";
-import { reportType, pringPage } from "../types/reducers";
+import { reportType } from "../types/reducers";
 
 const reportDefaultState: reportType = {
   code: null,
@@ -31,6 +31,7 @@ const reportDefaultState: reportType = {
   stylesheet: null,
   print_page: null,
   layouts: null,
+  current_layout: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -105,6 +106,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         layouts: action.layouts,
+      };
+    case SET_CURRENT_LAYOUT:
+      return {
+        ...state,
+        current_layout: action.code,
       };
     case RESET_REPORT:
       return {

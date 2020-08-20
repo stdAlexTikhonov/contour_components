@@ -288,6 +288,13 @@ export interface resetReport {
   type: typeof RESET_REPORT;
 }
 
+export const SET_CURRENT_LAYOUT = "SET_CURRENT_LAYOUT";
+
+export interface setCurrentLayout {
+  type: typeof SET_CURRENT_LAYOUT;
+  code: string;
+}
+
 // BreakHeader: boolean;
 // CaptionOnEachPage: boolean;
 // FitToPage: number;
@@ -316,7 +323,8 @@ export type reportActions =
   | setReportStyle
   | setPrintPageProps
   | getReportLayouts
-  | resetReport;
+  | resetReport
+  | setCurrentLayout;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -428,4 +436,5 @@ export type AppActions =
   | setProjectStylesheet
   | setPrintPageProps
   | getReportLayouts
-  | resetReport;
+  | resetReport
+  | setCurrentLayout;

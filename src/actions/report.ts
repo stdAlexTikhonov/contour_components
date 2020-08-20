@@ -14,6 +14,7 @@ import {
   SET_PRINT_PAGE_PROPS,
   GET_REPORT_LAYOUTS,
   RESET_REPORT,
+  SET_CURRENT_LAYOUT,
   Dashboard,
   Metadata,
   DimFilter,
@@ -95,4 +96,9 @@ export const getReportLayouts = (layouts: any): AppActions => ({
 
 export const resetReport = (): AppActions => ({
   type: RESET_REPORT,
+});
+
+export const setCurrentLayout = (code: string): AppActions => ({
+  type: SET_CURRENT_LAYOUT,
+  code: code,
 });
