@@ -5,7 +5,11 @@ import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
 import { SAVE_USER_LAYOUT, DELETE_USER_LAYOUT } from "../../utils/constants";
-import { getReportLayouts, resetReport } from "../../actions/report";
+import {
+  getReportLayouts,
+  resetReport,
+  setCurrentLayout,
+} from "../../actions/report";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -32,6 +36,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
         };
         layouts.push(newLayout);
         dispatch(getReportLayouts(layouts));
+        dispatch(setCurrentLayout(layoutData.layout));
       } else if (data_for_query.method === DELETE_USER_LAYOUT) {
         dispatch(getReportLayouts(layouts));
         alert("Layout was deleted!");

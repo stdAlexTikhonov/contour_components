@@ -83,7 +83,22 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       return item;
     });
 
+    const layout = changed.find((item: any) => item.code === "1");
+
     setDefault(changed);
+
+    const data_for_query = {
+      method: SAVE_USER_LAYOUT,
+      caption: layout.caption,
+      solution,
+      session,
+      language,
+      project,
+      report: report_from_state || report_from_params,
+      isDefault: true,
+      layout: layout.code,
+    };
+    setLayout(data_for_query);
   };
 
   return (
