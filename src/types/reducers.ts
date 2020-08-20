@@ -24,6 +24,7 @@ export type reportType = {
   print_page: pringPage | null;
   layouts: any;
   current_layout: string | null;
+  layout_cube_session: string | null;
 };
 
 type ItemHeaderFooter = {

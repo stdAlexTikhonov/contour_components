@@ -32,6 +32,7 @@ const reportDefaultState: reportType = {
   print_page: null,
   layouts: null,
   current_layout: null,
+  layout_cube_session: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {

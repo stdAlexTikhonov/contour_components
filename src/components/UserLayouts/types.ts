@@ -10,6 +10,7 @@ export interface LinkStateToProps {
   report: string | null;
   layouts: any;
   current_layout: string | null;
+  layout_cube_session: string | null;
 }
 
 export interface LinkDispatchToProps {

@@ -17,6 +17,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report: state.report.code,
   layouts: state.report.layouts,
   current_layout: state.report.current_layout,
+  layout_cube_session: state.report.layout_cube_session,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({

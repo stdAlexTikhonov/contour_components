@@ -17,6 +17,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
   report: report_from_state,
   layouts,
   current_layout,
+  layout_cube_session,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

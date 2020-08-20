@@ -15,6 +15,7 @@ import {
   GET_REPORT_LAYOUTS,
   RESET_REPORT,
   SET_CURRENT_LAYOUT,
+  SET_LAYOUT_CUBE_SESSION,
   Dashboard,
   Metadata,
   DimFilter,
@@ -101,4 +102,9 @@ export const resetReport = (): AppActions => ({
 export const setCurrentLayout = (code: string): AppActions => ({
   type: SET_CURRENT_LAYOUT,
   code: code,
+});
+
+export const setLayoutCubeSession = (cubeSession: string): AppActions => ({
+  type: SET_LAYOUT_CUBE_SESSION,
+  cubeSession,
 });

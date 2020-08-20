@@ -4,7 +4,7 @@ import { LayoutsComponent } from "./LayoutsComponent";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
-import { setCurrentLayout } from "../../actions/report";
+import { setCurrentLayout, setLayoutCubeSession } from "../../actions/report";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
     const layoutData = await getData(data_for_query);
     if (layoutData.success) {
       dispatch(setCurrentLayout(data_for_query.layout!));
+      dispatch(setLayoutCubeSession(layoutData.cubeSession));
       console.log(layoutData);
     }
   },

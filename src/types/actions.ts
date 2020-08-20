@@ -295,6 +295,13 @@ export interface setCurrentLayout {
   code: string;
 }
 
+export const SET_LAYOUT_CUBE_SESSION = "SET_LAYOUT_CUBE_SESSION";
+
+export interface setLayoutCubeSession {
+  type: typeof SET_LAYOUT_CUBE_SESSION;
+  cubeSession: string;
+}
+
 // BreakHeader: boolean;
 // CaptionOnEachPage: boolean;
 // FitToPage: number;
@@ -324,7 +331,8 @@ export type reportActions =
   | setPrintPageProps
   | getReportLayouts
   | resetReport
-  | setCurrentLayout;
+  | setCurrentLayout
+  | setLayoutCubeSession;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -437,4 +445,5 @@ export type AppActions =
   | setPrintPageProps
   | getReportLayouts
   | resetReport
-  | setCurrentLayout;
+  | setCurrentLayout
+  | setLayoutCubeSession;
