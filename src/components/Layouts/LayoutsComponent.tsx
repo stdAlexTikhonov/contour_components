@@ -14,6 +14,7 @@ export const LayoutsComponent: React.FC<IProps> = ({
   session,
   language,
   report: report_from_state,
+  current_layout,
   setLayout,
 }) => {
   const { solution, project, report: report_from_params } = useParams();

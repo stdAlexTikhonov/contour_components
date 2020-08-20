@@ -9,6 +9,7 @@ export interface LinkStateToProps {
   language: string;
   report: string | null;
   layouts: any;
+  current_layout: string | null;
 }
 
 export interface LinkDispatchToProps {

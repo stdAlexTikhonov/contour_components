@@ -16,6 +16,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   language: state.languages.current,
   report: state.report.code,
   layouts: state.report.layouts,
+  current_layout: state.report.current_layout,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({

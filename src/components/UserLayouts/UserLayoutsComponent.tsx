@@ -16,6 +16,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
   language,
   report: report_from_state,
   layouts,
+  current_layout,
 }) => {
   const { solution, project, report: report_from_params } = useParams();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -38,7 +39,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       project,
       report: report_from_state || report_from_params,
       isDefault: false,
-      layout: "1",
+      layout: current_layout!,
     };
     setLayout(data_for_query);
   };
@@ -53,7 +54,6 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       project,
       report: report_from_state || report_from_params,
       isDefault: false,
-      //layout: layout,
     };
     setLayout(data_for_query, layouts);
   };
@@ -66,7 +66,7 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       language,
       project,
       report: report_from_state || report_from_params,
-      layout: "1",
+      layout: current_layout!,
     };
     const filtered = layouts.filter((item: any) => item.code !== "1");
     setLayout(data_for_query, filtered);
@@ -78,12 +78,12 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
 
   const setDefaultLayout = () => {
     const changed = layouts.map((item: any) => {
-      if (item.code === "1") item.default = true;
+      if (item.code === current_layout!) item.default = true;
       else item.default = false;
       return item;
     });
 
-    const layout = changed.find((item: any) => item.code === "1");
+    const layout = changed.find((item: any) => item.code === current_layout!);
 
     setDefault(changed);
 
