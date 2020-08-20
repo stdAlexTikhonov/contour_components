@@ -4,7 +4,6 @@ import { UserLayoutsComponent } from "./UserLayoutsComponent";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
 import { getData } from "../../utils/api";
-import { setLoading, resetLoading } from "../../actions/loading";
 import { SAVE_USER_LAYOUT, DELETE_USER_LAYOUT } from "../../utils/constants";
 import { getReportLayouts, resetReport } from "../../actions/report";
 

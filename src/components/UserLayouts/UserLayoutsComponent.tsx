@@ -4,11 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import LineStyleIcon from "@material-ui/icons/LineStyle";
 import IconButton from "@material-ui/core/IconButton";
 import { IProps } from "./types";
-import {
-  SET_LAYOUT,
-  SAVE_USER_LAYOUT,
-  DELETE_USER_LAYOUT,
-} from "../../utils/constants";
+import { SAVE_USER_LAYOUT, DELETE_USER_LAYOUT } from "../../utils/constants";
 import { useParams } from "react-router-dom";
 import { SaveAs } from "./Dialog";
 
@@ -103,7 +99,6 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
-        keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
