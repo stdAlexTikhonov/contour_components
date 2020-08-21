@@ -71,6 +71,7 @@ export const ViewComponent: React.FC<IProps> = ({
 
       if (data.success) {
         data.chart.id = generateUID();
+        // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
         setChart(data.chart);
         setShowChart(true);
       }
@@ -151,20 +152,22 @@ export const ViewComponent: React.FC<IProps> = ({
         //{testFilters}
         */}
 
-        <Filters
-          show={fieldBar}
-          position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
-          facts={facts ? facts.items : []}
-          slice={slice}
-          view={view}
-          report={report}
-          filters={checkFilters()}
-          visibleFacts={visibleFacts ? visibleFacts : []}
-          multipleFacts={multipleFacts}
-          chart={showChart ? chart : null}
-          filterChange={handleFilterChange}
-          meta_index={index}
-        />
+        {chart && (
+          <Filters
+            show={fieldBar}
+            position={POSITIONS[fieldBarPosition] as POSITIONS_TYPE}
+            facts={facts ? facts.items : []}
+            slice={slice}
+            view={view}
+            report={report}
+            filters={checkFilters()}
+            visibleFacts={visibleFacts ? visibleFacts : []}
+            multipleFacts={multipleFacts}
+            chart={showChart ? chart : null}
+            filterChange={handleFilterChange}
+            meta_index={index}
+          />
+        )}
       </Grid>
     </Grid>
   );

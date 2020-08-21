@@ -386,7 +386,8 @@ class ReactHypergrid extends React.Component {
       }.bind(this);
 
       // Data
-      this.setData();
+      console.log(this.props.gridData);
+      this.setData(this.props.gridData);
     }
     return this.grid ;
   };
