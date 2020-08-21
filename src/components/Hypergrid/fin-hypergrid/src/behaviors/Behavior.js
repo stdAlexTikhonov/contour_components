@@ -193,36 +193,30 @@ var Behavior = Base.extend('Behavior', {
       if (!axisH)
         return ;
 
-//      const renderer = this.grid.cellRenderers.get('HAxisCell') ;
-//      if (!renderer)
-//        return ;
+      const isFactHeading = this.grid.behavior.dataModel._values.length > 1 ;
 
       var levels = axisH._maxlevel + 1 ; // start from 0, -1 - no h-axis
       var headerDataModel = this.grid.behavior.subgrids.lookup.header;
 
       var headerRowHeight = this.grid.properties.defaultRowHeight * levels ;
-
-//      renderer.levels = levels ;
-//      renderer.model  = headerDataModel ;
-//      renderer.axisH  = axisH ;
-//      renderer.visibleColumns = this.grid.renderer.visibleColumns ;
-
-      var factsHeight = this.grid.properties.defaultRowHeight ;
+      var factsHeight     = this.grid.properties.defaultRowHeight ;
 
       var h1 = this.grid.behavior.vDimHeaderHeight || 0 ;
       var h2 = this.grid.behavior.hDimHeaderHeight || 0 ;
-      var hAxisHeight = headerRowHeight + factsHeight ;
+      var hAxisHeight = headerRowHeight + (isFactHeading ? factsHeight : 0);
       var expander    = Math.max(1, Math.max(h2, h1 - hAxisHeight)) ;
 
-      headerDataModel.setRowCount(1 + levels + 1) ; // expander + levels + facts
+      headerDataModel.setRowCount(1 + levels + (isFactHeading === true ? 1 : 0)) ; // expander + levels + facts
       headerDataModel.cols = axisH.size() ;
+      headerDataModel.isFactHeading = isFactHeading ;
     
       this.grid.setRowHeight(0, expander, headerDataModel) ;
       for (var i = 0; i < levels; ++i) {
           var levelHeight = this.grid.properties.defaultRowHeight ;
           this.grid.setRowHeight(i + 1, levelHeight, headerDataModel) ;
       }
-      this.grid.setRowHeight(levels + 1, factsHeight, headerDataModel) ;
+      if (isFactHeading)
+          this.grid.setRowHeight(levels + 1, factsHeight, headerDataModel) ;
     },
 
     setHeaders: function(headers) {

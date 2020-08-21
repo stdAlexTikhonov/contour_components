@@ -43,8 +43,8 @@ class Permutation {
     size() { return this._permutation.length; }
 
     // level -  dimension level (-1..size()-1)
-    dimension(level) { return this._dimensions[level + 1]; }
-    dimension_num(level) { return this._permutation[level]; }
+    dimension(level)     { return this._dimensions[level + 1]; }
+//    dimension_num(level) { return this._permutation[level]; }
 
     group(g) { return new Group(this, g.l, g.i); }
     weight(g) { return this.dimension(g.l).weight(g.i); }
@@ -111,8 +111,9 @@ class Axis {
             this.childValuesForGroup(childGroup, positionY, r, isCol) ;
           else {
             var p = { l: childGroup.level, i: childGroup.index() } ;
-            var num   =  isCol ? this.permutation._values[positionY][this.position_level_index(p.l, p.i)] :
-                                 this.permutation._values[this.position_level_index(p.l, p.i)][positionY] ;
+// FACT HERE
+            var num   =  isCol ? this.permutation._values[0].data[positionY][this.position_level_index(p.l, p.i)] :
+                                 this.permutation._values[0].data[this.position_level_index(p.l, p.i)][positionY] ;
             r.v.push(num) ;
             var label = this.permutation.dimension_value(p);
             r.l.push(label) ;
@@ -191,7 +192,7 @@ class Axis {
 
     setCollapsed(level, index, is) {
         if (!this._collapse_status[level + 1]) {
-            this._collapse_status[level + 1] = new Array(this.isFilters ? Object.keys(this.permutation.dims_names).length + 1 : this.permutation.dimension(level).size()).fill(true);;
+            this._collapse_status[level + 1] = new Array(this.permutation.dimension(level).size()).fill(true);
         }
         this._collapse_status[level + 1][index] = is;
     }
@@ -231,20 +232,16 @@ class Axis {
         var collapsed = this.isCollapsed(level, group.index()) ;
         
         var totalPos ;
-        var isFiltered ;
         
         if (!(level === -1 && this.isShowGrandTotal === false)) {
             var isLeaf = width === 0;
             const g = { 'l': level, 'i': group.index(), 'isLeaf': isLeaf } ;
 
-            isFiltered = this._filterText && this.permutation.dimension_value(g).indexOf(this._filterText) === -1 ;
             if (!isLeaf)
                 totalPos = last ;
 
-            if (!isLeaf || !isFiltered) {
-                this._axis[last++] = g;
-                this._maxlevel = Math.max(this._maxlevel, level);
-            }
+            this._axis[last++] = g;
+            this._maxlevel = Math.max(this._maxlevel, level);
         }
         
         if (width > 0 && !collapsed) {
@@ -263,11 +260,7 @@ class Axis {
             }
             
             if (totalPos === last - 1 ) {
-                if (isFiltered === true) { // empty group
-                    this._axis.splice(totalPos, 1) ;
-                    --last ;
-                } else
-                    this._axis[totalPos].isEmpty = true ;
+                this._axis[totalPos].isEmpty = true ;
             }
         }
         

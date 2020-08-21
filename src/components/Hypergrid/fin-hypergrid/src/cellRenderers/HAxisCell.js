@@ -8,15 +8,18 @@ var HAxisCell = CellRenderer.extend('HAxisCell', {
     const z   = config.fixedColumnCount ;
     const col = config.dataCell.x - z ;
     
-    var rect = config.bounds;
-    var value = 'Fact';
+    var rect  = config.bounds;
+
+    const model   = config.grid.behavior.dataModel ;
+    const factNdx = col % model._values.length ;
+    const factNo  = model._values[factNdx].no ;
+    const value   = model.facts[factNo].text || '\n' ;
+
     var dim_config = (config.facts[0] || config.defaultFact).p;
 
     var bgColor = dim_config.background;
     var fgColor = dim_config.color;
     var font = dim_config.font.replace('XXpx', dim_config.fontSize + 'px');
-
-    value = value || '\n';
 
     gc.fillStyle = bgColor;
     gc.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -48,7 +51,7 @@ var HAxisCell = CellRenderer.extend('HAxisCell', {
     const axis           = config.grid.behavior.dataModel._axisH ;
     const grid           = config.grid ;
 
-    if (row == model.getRowCount() - 1) {
+    if (model.isFactHeading === true && row == model.getRowCount() - 1) {
       this.paintHeaderFacts(gc, config) ;
       return;
     }

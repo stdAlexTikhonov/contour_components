@@ -1,5 +1,3 @@
-'use strict';
-
 var CellRenderer = require('./CellRenderer');
 var VAxisCell    = require('./VAxisCell');
 var pSBC         = require('./pSBC');
@@ -42,6 +40,7 @@ var GridCell = CellRenderer.extend('GridCell', {
                 config.grid.chartOptionSet = false;
             }
         }
+
 /*
         {   // Up/Down icon
             gc.font = 'normal normal XXpx Material Design Icons'.replace('XXpx', config.fontSize + 5 + 'px');
@@ -86,9 +85,6 @@ var GridCell = CellRenderer.extend('GridCell', {
         gc.mlFillText(metrics.string, x + p + contentLeft, y + p - smallBarHeight, textWidth, h - p - p, 'center', config.halign);
 
         config.minWidth = p + contentLeft + metrics.m.width + contentRight + p + 1;
-
-
-
     }
 });
 

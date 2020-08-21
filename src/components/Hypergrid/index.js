@@ -163,17 +163,51 @@ class ReactHypergrid extends React.Component {
     this.putDimension(model, true);
   }
 
+  getImage = (model, dim_num, val_ndx) => {
+    const images = model.dimension[dim_num].images ;
+    if (val_ndx == null || !images?.images)
+      return ;
+    console.log('GET IMAGE dim=' + dim_num + ' value=' + val_ndx) ;
+    if (!model.images)
+      model.images = [] ;
+    if (!model.images[dim_num])
+      model.images[dim_num] = [] ;
+    model.images[dim_num][val_ndx] = true ;
+
+    const path = images.images[val_ndx] ;
+    if (path && path != '') {
+
+      const image = document.createElement("img") ;
+      image.onload = (function () {
+        const ctx = document.createElement("canvas").getContext("2d");
+        const r = 28 - 3 - 3;
+        ctx.canvas.height = ctx.canvas.width = r ;
+//ctx.fillStyle = "#f00";
+//ctx.fillRect(0, 0, r, r) ;
+//ctx.globalCompositeOperation = 'destination-in' ;
+        const k = Math.min(r / image.naturalWidth, r / image.naturalHeight) ;
+        ctx.drawImage(image, (r - image.naturalWidth * k) / 2, (r - image.naturalHeight * k) / 2, image.naturalWidth * k, image.naturalHeight * k) ;
+        model.images[dim_num][val_ndx] = ctx.canvas ;
+        this.grid.repaint() ;
+      }).bind(this) ;
+      image.src = 'https://stat.world/biportal/' + path;
+//      image.src = 'https://www.svgrepo.com/show/25420/thermometer.svg'
+    }
+  }
+
   setData = (Result) => {
 //    Result = window['result'];
 
     const model = this.grid.behavior.dataModel;
+    model.getImage = this.getImage.bind(this, model) ;
 
-    model.isShowChart = { on: true, type: 'spline', axis: 'row' };
+    model.isShowChart = { on: false, type: 'spline', axis: 'row' };
     model.isDataBar = false;
     model.isDataBar2 = true;
 
     // Set dimension on axis's
-    model.dims = Result.dim;
+    model.dims  = Result.dim;
+    model.facts = Result.fact;
     model.dimension = Result.dimension;
 
     const permV = new Permutation(Result.axis.v);

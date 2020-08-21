@@ -138,7 +138,9 @@ var VAxisCell = async function paint(gc, config) {
     var g = config._axisV._axis[config.dataCell.y];
     var is_collapsed = config._axisV.isCollapsed(g.l, g.i);
     
-    var dim_num    = config._axisV.dim_number(Math.max(0, g.l)) ;
+    var dim_num   = config._axisV.dim_number(Math.max(0, g.l)) ;
+    var val_ndx   = config._axisV.permutation.weight(g) ;
+
     var dim_config = (config.dims[dim_num] || config.defaultDim).p ;
 
     var value     = g.l == -1 ? "Total" : (config._axisV.permutation.dimension_value(g) || '');
@@ -182,6 +184,19 @@ var VAxisCell = async function paint(gc, config) {
 
     var textOffset = xOffset + metrics.m.width + metrics.m.width / 3 ;
     // **********************************************************  expand/collaps symbol
+    const model = config.grid.behavior.dataModel ;
+    const image = model.images?.[dim_num]?.[val_ndx] ;
+    if (image) {
+        if (image !== true) {
+            const iconX = textOffset ;
+            gc.drawImage(image, iconX, y + config.cellPadding) ;
+        }
+    } else {
+       model.getImage(dim_num, val_ndx) ;
+    }
+    textOffset += 28 + config.cellPadding ;
+    // **********************************************************  expand/collaps symbol
+
     gc.fillStyle    = fgColor;
     gc.textBaseline = "alphabetic";
     gc.font         = font;

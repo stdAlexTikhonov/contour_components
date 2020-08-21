@@ -282,8 +282,8 @@ var d1 = new Date ;
                     for (var i = rect.left; i < right; ++i) {
                         var col = cols[i - rect.left];
                         var value = {}
-
-                        value.num = self._values[self._axisV.position(row)][self._axisH.position(col)] ;
+// FACT HERE
+                        value.num = self._values[0].data[self._axisV.position(row)][self._axisH.position(col)] ;
                         value.isGrandTotal  = row.l === -1 && col.l === -1 ;
                         value.isTotalRow    = row.l === -1 ;
                         value.isTotalCol    = col.l === -1 ;
@@ -299,12 +299,12 @@ var d1 = new Date ;
                             var q1 = self._axisH.childPositions(col);
                             var q2 = self._axisV.childPositions(row);
 
-                            var min = self._axisV.permutation._values[q2[0]]?.[q1[0]] ;
+                            var min = self._axisV.permutation._values[0].data[q2[0]]?.[q1[0]] ;
                             var max = min ;
 
                             q1.forEach(function (q1x) {
                                 q2.forEach(function (q2x) {
-                                    var v = self._axisV.permutation._values[q2x][q1x];
+                                    var v = self._axisV.permutation._values[0].data[q2x][q1x];
                                     if (v) {
                                         min = min < v ? min : v ; // Math.min is slow
                                         max = max > v ? max : v ; // Math.max is slow
@@ -318,12 +318,12 @@ var d1 = new Date ;
                             var q1 = self._axisH.childPositions(col);
                             var q2 = self._axisV.childPositions(row);
 
-                            var min = self._axisV.permutation._values[q2[0]]?.[q1[0]] ;
+                            var min = self._axisV.permutation._values[0].data[q2[0]]?.[q1[0]] ;
                             var max = min ;
 
                             q1.forEach(function (q1x) {
                                 q2.forEach(function (q2x) {
-                                    var v = self._axisV.permutation._values[q2x][q1x];
+                                    var v = self._axisV.permutation._values[0].data[q2x][q1x];
                                     if (v) {
                                         min = min < v ? min : v ; // Math.min is slow
                                         max = max > v ? max : v ; // Math.max is slow
