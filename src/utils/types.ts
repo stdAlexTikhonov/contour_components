@@ -20,6 +20,8 @@ export interface Register {
 
 //Working with data
 export interface DataForQuery extends Common {
+  layout?: string;
+  caption?: string;
   solution?: string;
   project?: string;
   folder?: string;
@@ -40,6 +42,7 @@ export interface DataForQuery extends Common {
   full?: boolean;
   format?: string;
   pageSetup?: string;
+  isUser?: boolean;
 }
 
 export type ApiTypes = DataForQuery | Login | Register | Common;

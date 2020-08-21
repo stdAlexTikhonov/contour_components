@@ -12,13 +12,15 @@ import {
   setDashboardMetadata,
   setReportCaption,
   setReportStyle,
+  getReportLayouts,
+  setCurrentLayout,
 } from "../../actions/report";
-import { setLoading, resetLoading } from "../../actions/loading";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   items: state.items,
+  logged_in: state.auth.logged_in,
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,
@@ -30,11 +32,11 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report_caption: state.report.report_caption,
   report_stylesheet: state.report.stylesheet,
   project_stylesheet: state.project.stylesheet,
+  layouts: state.report.layouts,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
   handleDataQuery: async (data_for_query: DataForQuery) => {
-    dispatch(setLoading());
     const reportData = await getData(data_for_query);
     //if success and response have type property then we can save type
     if (reportData.success) {
@@ -80,8 +82,17 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
 
       //style
       reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
+
+      //layouts
+      if (reportData.layouts) {
+        dispatch(getReportLayouts(reportData.layouts));
+        reportData.layouts.forEach((item: any) => {
+          if (item.default) {
+            dispatch(setCurrentLayout(item.code));
+          }
+        });
+      }
     }
-    dispatch(resetLoading());
   },
 });
 

@@ -12,7 +12,7 @@ import { isMobile } from "../../utils/helpers";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { useMediaQuery } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import ListItemText from "@material-ui/core/ListItemText";
+import { Layouts } from "../Layouts";
 import {
   StyledMenu,
   StyledMenuItem,
@@ -49,7 +49,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             </a>
             <SimpleBreadcrumbs />
           </div>
-
+          {/* {logged_in && <Layouts label={"User Layout"} />} */}
           <LanguageSelector
             items={items.slice(1, items.length)}
             languages={languages}

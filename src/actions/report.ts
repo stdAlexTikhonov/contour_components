@@ -12,6 +12,10 @@ import {
   SET_REPORT_CAPTION,
   SET_REPORT_STYLE,
   SET_PRINT_PAGE_PROPS,
+  GET_REPORT_LAYOUTS,
+  RESET_REPORT,
+  SET_CURRENT_LAYOUT,
+  SET_LAYOUT_CUBE_SESSION,
   Dashboard,
   Metadata,
   DimFilter,
@@ -84,4 +88,23 @@ export const setCubeSession = (
 ): AppActions => ({
   type: SET_CUBE_SESSION,
   cube_session,
+});
+
+export const getReportLayouts = (layouts: any): AppActions => ({
+  type: GET_REPORT_LAYOUTS,
+  layouts,
+});
+
+export const resetReport = (): AppActions => ({
+  type: RESET_REPORT,
+});
+
+export const setCurrentLayout = (code: string): AppActions => ({
+  type: SET_CURRENT_LAYOUT,
+  code: code,
+});
+
+export const setLayoutCubeSession = (cubeSession: string): AppActions => ({
+  type: SET_LAYOUT_CUBE_SESSION,
+  cubeSession,
 });

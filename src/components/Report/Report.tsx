@@ -7,8 +7,7 @@ import {
   ITEMS,
   DASH_VIEW_META,
   STYLE,
-  PRINT_PAGE_SETUP,
-  EXPORT,
+  LAYOUTS,
 } from "../../utils/constants";
 
 import {
@@ -18,6 +17,8 @@ import {
 import { Tabs } from "../Tabs";
 import { Dashboard } from "../Dashboard";
 import { Export } from "../ExportPDF";
+import { UserLayouts } from "../UserLayouts";
+import { Layouts } from "../Layouts";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -31,6 +32,8 @@ export const ReportComponent: React.FC<IProps> = ({
   report_caption,
   report_stylesheet,
   project_stylesheet,
+  logged_in,
+  layouts,
   handleDataQuery,
 }) => {
   const [localStylesheet, setLocalStylesheet] = React.useState<any>(null);
@@ -41,6 +44,8 @@ export const ReportComponent: React.FC<IProps> = ({
       ? REPORT
       : report_stylesheet === null
       ? STYLE
+      : layouts === null
+      ? LAYOUTS
       : report_type === "dashboard" && metadata === null
       ? DASH_VIEW_META
       : ITEMS;
@@ -83,9 +88,19 @@ export const ReportComponent: React.FC<IProps> = ({
           className={classes.reportHeader}
           style={{ background: localStylesheet && localStylesheet.background }}
         >
-          <div className={classes.caption} style={localStylesheet}>
+          <div
+            className={classes.caption}
+            style={{
+              ...localStylesheet,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             {report_caption}
+            {logged_in && <Layouts />}
           </div>
+          {logged_in && <UserLayouts />}
           <Export />
         </div>
       )}

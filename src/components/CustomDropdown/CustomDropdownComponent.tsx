@@ -154,6 +154,9 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         ""
       );
 
+      const which_filters =
+        typeof filters === "string" ? filters : filters_for_server;
+
       const data = await getData({
         method: SET_DIM_FILTER,
         language,
@@ -164,7 +167,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
         slice,
         view,
         code: h_code || code,
-        filter: filters || filters_for_server,
+        filter: which_filters,
         cubeSession: cubes[cube_id],
       });
 
