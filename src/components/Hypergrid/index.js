@@ -21,6 +21,7 @@ import ExpandIcon   from '@material-ui/icons/ExpandMore'
 import CollapseIcon from '@material-ui/icons/ChevronRight'
 
 import Button from "@material-ui/core/Button";
+import { sleep } from "../../utils/helpers";
 
 const CustomComponent = React.forwardRef((props, ref) => {
   return (
@@ -386,6 +387,14 @@ class ReactHypergrid extends React.Component {
 
   getInstance = () => {
     if (!this.grid) {
+        const elem = document.getElementById(this.props.gridData.id);
+        this.element.style.height = '500px';
+        document.body.appendChild(this.element);
+        sleep(10000).then(result => {
+          elem.innerHTML = '';
+          elem.appendChild(document.getElementById('hypergrid'));
+          document.querySelector("#hypergrid canvas").style.left = 0;
+        })
         this.grid = new Hypergrid(this.element, { DataModel: PerspectiveDataModel });
         this.grid.installPlugins([OLAP_Plugin]);
         this.grid.addProperties(grid_properties);
@@ -420,10 +429,9 @@ class ReactHypergrid extends React.Component {
       }.bind(this);
 
       // Data
-      console.log(this.props.gridData);
       this.setData(this.props.gridData);
     }
-    return this.grid ;
+    return this.grid;
   };
 
   rerender = () => {
