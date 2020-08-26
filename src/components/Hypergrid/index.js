@@ -483,14 +483,6 @@ class ReactHypergrid extends React.Component {
           {this.state.hDims.map((value, ndx) => { return <DimensionCard axis='h' minWidth={true} data={value} key={value.key} dim={value.key} ndx={ndx} uuid={this.uuid}/> })}
           </ReactSortable>
         </Grid>
-
-//      <Button variant="contained" color="primary" onClick={() => {
-//    this.grid.chart.setOption(this.grid.chartOption, true) ;
-//let state = this.state ;
-//state.vAxisTree = !state.vAxisTree ;
-//this.setState(state);
-//}}>Switch Tree</Button>
-
       </Grid>
     );
   }
