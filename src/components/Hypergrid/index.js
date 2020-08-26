@@ -387,14 +387,14 @@ class ReactHypergrid extends React.Component {
 
   getInstance = () => {
     if (!this.grid) {
-        const elem = document.getElementById(this.props.gridData.id);
-        this.element.style.height = '500px';
-        document.body.appendChild(this.element);
-        sleep(10000).then(result => {
-          elem.innerHTML = '';
-          elem.appendChild(document.getElementById('hypergrid'));
-          document.querySelector("#hypergrid canvas").style.left = 0;
-        })
+//        const elem = document.getElementById(this.props.gridData.id);
+//        this.element.style.height = '500px';
+//        document.body.appendChild(this.element);
+//        sleep(10000).then(result => {
+//          elem.innerHTML = '';
+//          elem.appendChild(document.getElementById('hypergrid'));
+//          document.querySelector("#hypergrid canvas").style.left = 0;
+//        })
         this.grid = new Hypergrid(this.element, { DataModel: PerspectiveDataModel });
         this.grid.installPlugins([OLAP_Plugin]);
         this.grid.addProperties(grid_properties);
@@ -484,12 +484,12 @@ class ReactHypergrid extends React.Component {
           </ReactSortable>
         </Grid>
 
-      <Button variant="contained" color="primary" onClick={() => {
-    this.grid.chart.setOption(this.grid.chartOption, true) ;
+//      <Button variant="contained" color="primary" onClick={() => {
+//    this.grid.chart.setOption(this.grid.chartOption, true) ;
 //let state = this.state ;
 //state.vAxisTree = !state.vAxisTree ;
 //this.setState(state);
-}}>Switch Tree</Button>
+//}}>Switch Tree</Button>
 
       </Grid>
     );

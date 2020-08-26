@@ -45,6 +45,8 @@ function Canvas(div, component, contextAttributes) {
 
     this.div.appendChild(this.canvas);
 
+    this.canvas.x = 0 ;
+    this.canvas.y = 0 ;
     this.canvas.style.outline  = 'none';
     this.canvas.style.position = 'absolute';
 
