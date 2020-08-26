@@ -257,7 +257,7 @@ export const FiltersComponent: React.FC<IProps> = ({
           </SimpleBar>
         </Box>
 
-        <Box className={classes.main} id={chart && chart.id}>
+        <Box className={classes.main} id={chart && chart.id} style={{ display: 'flex'}} >
           <ChartPlaceholder
             title={error ? "Chart is not avalible." : "No chart data."}
           />
