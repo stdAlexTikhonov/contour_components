@@ -44,7 +44,7 @@ class DimensionCard extends React.Component {
     }
     return (
             <Paper elevation={1} style={style} id={this.props.uuid + this.props.axis + this.props.ndx} style={style} index={this.props.dim}>
-              <img width={32} height={32} src="./images/earth-globe-icon.png" style={styles.cover}/>
+              <img width={32} height={32} src="https://c7.hotpng.com/preview/655/284/923/earth-apple-icon-image-format-icon-blue-earth-thumbnail.jpg" style={styles.cover}/>
               <div style={styles.details} >
                 <span style={{ fontSize: '12px', color: 'rgba(0, 0, 0, 0.9)', width: this.props.minWidth === true ? 'min-content':'auto' }}>{this.props.data.text}</span>
               </div>
