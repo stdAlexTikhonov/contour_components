@@ -204,7 +204,7 @@ class ReactHypergrid extends React.Component {
 
     model.isShowChart = { on: false, type: 'spline', axis: 'row' };
     model.isDataBar = false;
-    model.isDataBar2 = true;
+    model.isDataBar2 = false;
 
     // Set dimension on axis's
     model.dims  = Result.dim;
