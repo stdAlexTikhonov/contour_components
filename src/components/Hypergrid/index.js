@@ -454,7 +454,7 @@ class ReactHypergrid extends React.Component {
 
   render() {
     return (
-      <Grid container direction="column" alignItems="flex-start" style={{ height: '100%', padding: '0.25em 0px 0px 0.25em', overflow: 'hidden' }} >
+      <Grid container direction="column" alignItems="flex-start" style={{ padding: '0.25em 0px 0px 0.25em', overflow: 'hidden' }} >
         {/* Filter dimensions */}
         <ReactSortable
           {... this.dnd() }
