@@ -257,12 +257,17 @@ export const FiltersComponent: React.FC<IProps> = ({
           </SimpleBar>
         </Box>
 
-        <Box className={classes.main} id={chart && chart.id} style={{ display: 'flex'}} >
-          <ChartPlaceholder
-            title={error ? "Chart is not avalible." : "No chart data."}
-          />
-          {chart && chart.ChartType === "grid" && (
+        <Box
+          className={classes.main}
+          id={chart && chart.id}
+          style={{ display: "flex" }}
+        >
+          {chart && chart.ChartType === "grid" ? (
             <ReactHypergrid gridData={chart} />
+          ) : (
+            <ChartPlaceholder
+              title={error ? "Chart is not avalible." : "No chart data."}
+            />
           )}
         </Box>
       </Box>
