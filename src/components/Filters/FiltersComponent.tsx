@@ -10,6 +10,7 @@ import { ChartPlaceholder } from "../ChartPlaceholder";
 import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
+import ReactHypergrid from "../Hypergrid";
 
 declare global {
   interface Window {
@@ -222,9 +223,10 @@ export const FiltersComponent: React.FC<IProps> = ({
 
   useEffect(() => {
     if (chart) {
-      // contourChart(chart.id, chart, {});
       try {
-        window.contourChart(chart.id, chart, {});
+        if (chart.ChartType !== "grid")
+          window.contourChart(chart.id, chart, {});
+
         setError(false);
       } catch (e) {
         setError(true);
@@ -255,15 +257,20 @@ export const FiltersComponent: React.FC<IProps> = ({
             {pos === "row" ? simpleWrapper() : renderItems()}
           </SimpleBar>
         </Box>
-        {chart ? (
-          error ? (
-            <ChartPlaceholder title={"Chart is not avalible."} />
+
+        <Box
+          className={classes.main}
+          id={chart && chart.id}
+          style={{ display: "flex" }}
+        >
+          {chart && chart.ChartType === "grid" ? (
+            <ReactHypergrid gridData={chart} />
           ) : (
-            <Box className={classes.main} id={chart.id} />
-          )
-        ) : (
-          <ChartPlaceholder title={"No chart data."} />
-        )}
+            <ChartPlaceholder
+              title={error ? "Chart is not avalible." : "No chart data."}
+            />
+          )}
+        </Box>
       </Box>
     </DragDropContext>
   );

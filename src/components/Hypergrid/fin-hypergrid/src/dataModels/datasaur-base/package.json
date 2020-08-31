@@ -1,0 +1,50 @@
+{
+  "_from": "datasaur-base@^3.0.0",
+  "_id": "datasaur-base@3.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-dJuvCUeba280L1wFbjpxcLx422b55363M/r2KrjwqF5pEAQ7zO1sNWHF5NW3+7z6e/r2fVvRj0g1+nX19IuIRA==",
+  "_location": "/datasaur-base",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "datasaur-base@^3.0.0",
+    "name": "datasaur-base",
+    "escapedName": "datasaur-base",
+    "rawSpec": "^3.0.0",
+    "saveSpec": null,
+    "fetchSpec": "^3.0.0"
+  },
+  "_requiredBy": [
+    "/datasaur-local",
+    "/fin-hypergrid"
+  ],
+  "_resolved": "https://registry.npmjs.org/datasaur-base/-/datasaur-base-3.0.0.tgz",
+  "_shasum": "f11ec31debb67d734903bac3bdeb0bc275e0654a",
+  "_spec": "datasaur-base@^3.0.0",
+  "_where": "G:\\FIN\\fin-hypergrid\\node_modules\\datasaur-local",
+  "author": {
+    "name": "Jonathan Eiten"
+  },
+  "bugs": {
+    "url": "https://github.com/fin-hypergrid/datasaur-base/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "extend-me": "^2.7.0"
+  },
+  "deprecated": false,
+  "description": "Abstract base class for Hypergrid data model modules",
+  "homepage": "https://github.com/fin-hypergrid/datasaur-base#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "datasaur-base",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fin-hypergrid/datasaur-base.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "3.0.0"
+}
