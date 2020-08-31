@@ -3,6 +3,7 @@ import { AppState } from "../../store/config_store";
 import { ReportComponent } from "./Report";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
+import { LAYOUTS, REPORT } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import {
   setReportType,
@@ -91,6 +92,13 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
             dispatch(setCurrentLayout(item.code));
           }
         });
+      }
+    } else {
+      console.log(`It was ${data_for_query.method}`);
+      switch (data_for_query.method) {
+        case LAYOUTS:
+          dispatch(getReportLayouts([]));
+          return;
       }
     }
   },

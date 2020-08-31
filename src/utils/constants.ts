@@ -25,5 +25,6 @@ export const PRINT_PAGE_SETUP: string = "PrintPageSetup";
 export const SET_LAYOUT: string = "SetLayout";
 export const SAVE_USER_LAYOUT: string = "SaveUserLayout";
 export const DELETE_USER_LAYOUT: string = "DeleteUserLayout";
+export const CONTOUR_MAP: string = "ContourMap";
 export const COLOR: string = "#003366";
 export const BASE_URL: string = "https://stat.world/biportal/api.jsp";
