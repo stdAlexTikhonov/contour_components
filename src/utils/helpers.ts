@@ -136,12 +136,14 @@ export const formatGeometry = (dashboard: any) => {
     for (let i = 0; i < w_.length; i++) w += w_[i];
 
     if (cols.cu === "%") {
+      elem.w_px = window.innerWidth * (w / 100);
       elem.w = w + "%";
       const val = (w / 100) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;
       elem.col_w = parseInt(val.toString()) + frac;
       elem.float = elem.col > mid ? "right" : "left";
     } else {
+      elem.w_px = w;
       elem.w = (w / window.innerWidth) * 100 + "%";
       const val = (w / window.innerWidth) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;

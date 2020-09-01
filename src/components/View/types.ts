@@ -3,6 +3,8 @@ import { Metadata } from "../../types/actions";
 export interface Props {
   metadata: Metadata;
   index: number;
+  width: number;
+  height: number;
 }
 
 export interface LinkStateToProps {
