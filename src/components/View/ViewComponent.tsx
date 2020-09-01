@@ -11,7 +11,7 @@ import KeyboardIcon from "@material-ui/icons/Keyboard";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import { POSITIONS, CHART, CONTOUR_MAP } from "../../utils/constants";
 import { getData } from "../../utils/api";
-import { generateUID, sleep } from "../../utils/helpers";
+import { generateUID, sleep, showMap } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
 
 export const ViewComponent: React.FC<IProps> = ({
@@ -92,6 +92,11 @@ export const ViewComponent: React.FC<IProps> = ({
         // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
         setChart(data.chart);
         setShowChart(true);
+
+        if (data.chart.ChartType === "map") {
+          // console.log(data.chart);
+          showMap(width, height, data.chart.id, data.chart.images);
+        }
       }
     })();
   }, []);

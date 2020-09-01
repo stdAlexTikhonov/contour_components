@@ -75,6 +75,22 @@ export const sleep = (delay = 0) => {
 export const replaceAt = (str: string, index: number, replacement: string) =>
   str.substr(0, index) + replacement + str.substr(index + replacement.length);
 
+export const showMap = (
+  width: number,
+  height: number,
+  id: string,
+  images: string[]
+) => {
+  const div = document.getElementById(id);
+  var img = document.createElement("img");
+  img.style.top = 15 + "px";
+  img.style.left = 15 + "px";
+  img.style.width = 15 + "px";
+  img.style.height = 15 + "px";
+  img.src = "https://stat.world/biportal/" + images[0];
+  div?.appendChild(img);
+};
+
 export const formatGeometry = (dashboard: any) => {
   const {
     grid: {
