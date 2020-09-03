@@ -88,14 +88,21 @@ export const ViewComponent: React.FC<IProps> = ({
       );
 
       if (data.success) {
-        data.chart.id = generateUID();
-        // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
-        setChart(data.chart);
         setShowChart(true);
 
-        if (data.chart.ChartType === "map") {
-          // console.log(data.chart);
-          showMap(width, height, data.chart.id, data.chart.images);
+        if (data.mapImage) {
+          data.chart = { id: generateUID() };
+          setChart(data.chart);
+          showMap(
+            width,
+            height,
+            data.chart.id,
+            "https://stat.world/biportal/" + data.mapImage
+          );
+        } else {
+          data.chart.id = generateUID();
+          // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
+          setChart(data.chart);
         }
       }
     })();

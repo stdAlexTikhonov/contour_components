@@ -79,16 +79,36 @@ export const showMap = (
   width: number,
   height: number,
   id: string,
-  images: string[]
+  map: string
 ) => {
-  const div = document.getElementById(id);
-  var img = document.createElement("img");
-  img.style.top = 15 + "px";
-  img.style.left = 15 + "px";
-  img.style.width = 15 + "px";
-  img.style.height = 15 + "px";
-  img.src = "https://stat.world/biportal/" + images[0];
-  div?.appendChild(img);
+  let div = document.getElementById(id);
+  div!.innerHTML = "";
+  div!.style.width = width + "px";
+  div!.style.height = height + "px";
+  div!.style.flexWrap = "wrap";
+  var cols = width / 256;
+  if (cols * 256 < width) cols++;
+  var rows = height / 256;
+  if (rows * 256 < height) rows++;
+  var y = 0;
+  var ih = 256;
+  for (var i = 0; i < rows; i++) {
+    var x = 0;
+    var iw = 256;
+    for (var j = 0; j < cols; j++) {
+      var img = document.createElement("img");
+      img.style.top = y + "px";
+      img.style.left = x + "px";
+      img.style.width = iw + "px";
+      img.style.height = ih + "px";
+      img.src = map.replace(".png", "_" + j + "_" + i + ".png");
+      div!.appendChild(img);
+      x += iw;
+      iw = Math.min(width - x, iw);
+    }
+    y += ih;
+    ih = Math.min(height - y, ih);
+  }
 };
 
 export const formatGeometry = (dashboard: any) => {
