@@ -43,6 +43,9 @@ export interface DataForQuery extends Common {
   format?: string;
   pageSetup?: string;
   isUser?: boolean;
+  extent?: Array<number>;
+  width?: number;
+  height?: number;
 }
 
 export type ApiTypes = DataForQuery | Login | Register | Common;

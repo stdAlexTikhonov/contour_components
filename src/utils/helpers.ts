@@ -75,6 +75,42 @@ export const sleep = (delay = 0) => {
 export const replaceAt = (str: string, index: number, replacement: string) =>
   str.substr(0, index) + replacement + str.substr(index + replacement.length);
 
+export const showMap = (
+  width: number,
+  height: number,
+  id: string,
+  map: string
+) => {
+  let div = document.getElementById(id);
+  div!.innerHTML = "";
+  div!.style.width = width + "px";
+  div!.style.height = height + "px";
+  div!.style.flexWrap = "wrap";
+  var cols = width / 256;
+  if (cols * 256 < width) cols++;
+  var rows = height / 256;
+  if (rows * 256 < height) rows++;
+  var y = 0;
+  var ih = 256;
+  for (var i = 0; i < rows; i++) {
+    var x = 0;
+    var iw = 256;
+    for (var j = 0; j < cols; j++) {
+      var img = document.createElement("img");
+      img.style.top = y + "px";
+      img.style.left = x + "px";
+      img.style.width = iw + "px";
+      img.style.height = ih + "px";
+      img.src = map.replace(".png", "_" + j + "_" + i + ".png");
+      div!.appendChild(img);
+      x += iw;
+      iw = Math.min(width - x, iw);
+    }
+    y += ih;
+    ih = Math.min(height - y, ih);
+  }
+};
+
 export const formatGeometry = (dashboard: any) => {
   const {
     grid: {
@@ -136,12 +172,14 @@ export const formatGeometry = (dashboard: any) => {
     for (let i = 0; i < w_.length; i++) w += w_[i];
 
     if (cols.cu === "%") {
+      elem.w_px = window.innerWidth * (w / 100);
       elem.w = w + "%";
       const val = (w / 100) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;
       elem.col_w = parseInt(val.toString()) + frac;
       elem.float = elem.col > mid ? "right" : "left";
     } else {
+      elem.w_px = w;
       elem.w = (w / window.innerWidth) * 100 + "%";
       const val = (w / window.innerWidth) * 12;
       const frac = val - parseInt(val.toString()) > 0.5 ? 1 : 0;

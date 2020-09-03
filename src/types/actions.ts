@@ -249,6 +249,7 @@ export type Metadata = {
   filterDimensions: any;
   expandedFilter: any;
   filterIndex: number;
+  viewType: string;
 };
 
 export interface setDashboardMetadata {

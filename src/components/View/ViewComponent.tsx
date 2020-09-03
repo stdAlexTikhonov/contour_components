@@ -9,9 +9,9 @@ import { Filters } from "../Filters";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
-import { POSITIONS, CHART } from "../../utils/constants";
+import { POSITIONS, CHART, CONTOUR_MAP } from "../../utils/constants";
 import { getData } from "../../utils/api";
-import { generateUID, sleep } from "../../utils/helpers";
+import { generateUID, sleep, showMap } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
 
 export const ViewComponent: React.FC<IProps> = ({
@@ -22,6 +22,8 @@ export const ViewComponent: React.FC<IProps> = ({
   setCurrentFilters,
   filters: filters_from_store,
   hierarchy,
+  width,
+  height,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -41,6 +43,7 @@ export const ViewComponent: React.FC<IProps> = ({
     report,
     multipleFacts,
     filterDimensions,
+    viewType,
   } = metadata;
 
   const checkFilters = () => {
@@ -58,22 +61,49 @@ export const ViewComponent: React.FC<IProps> = ({
 
   useEffect(() => {
     (async () => {
-      const data = await getData({
-        method: CHART,
-        solution,
-        project,
-        session,
-        language,
-        view,
-        slice,
-        report,
-      });
+      const data = await getData(
+        viewType === "map"
+          ? {
+              method: CONTOUR_MAP,
+              solution,
+              project,
+              session,
+              language,
+              view,
+              slice,
+              report,
+              height: height,
+              width: width,
+            }
+          : {
+              method: CHART,
+              solution,
+              project,
+              session,
+              language,
+              view,
+              slice,
+              report,
+            }
+      );
 
       if (data.success) {
-        data.chart.id = generateUID();
-        // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
-        setChart(data.chart);
         setShowChart(true);
+
+        if (data.mapImage) {
+          data.chart = { id: generateUID() };
+          setChart(data.chart);
+          showMap(
+            width,
+            height,
+            data.chart.id,
+            "https://stat.world/biportal/" + data.mapImage
+          );
+        } else {
+          data.chart.id = generateUID();
+          // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
+          setChart(data.chart);
+        }
       }
     })();
   }, []);
