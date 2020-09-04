@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  Theme,
+  withStyles,
+  createStyles,
+} from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Tab, { TabProps } from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { REPORT, ITEMS } from "../../utils/constants";
@@ -16,6 +21,11 @@ interface TabPanelProps {
   index: any;
   value: any;
 }
+
+interface StyledTabProps1 {
+  label: string;
+}
+type StyledTabProps = StyledTabProps1 & TabProps;
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -32,6 +42,26 @@ function TabPanel(props: TabPanelProps) {
     </div>
   );
 }
+
+const StyledTab = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      lineHeight: 0,
+      whiteSpace: "nowrap",
+      textTransform: "none",
+      fontWeight: theme.typography.fontWeightRegular,
+      fontSize: theme.typography.pxToRem(15),
+      marginRight: theme.spacing(1),
+      "&:focus": {
+        opacity: 1,
+      },
+    },
+    wrapper: {
+      flexDirection: "unset",
+      justifyContent: "unset",
+    },
+  })
+)((props: StyledTabProps) => <Tab disableRipple {...props} />);
 
 function a11yProps(index: any) {
   return {
@@ -118,7 +148,7 @@ export const TabsComponent: React.FC<IProps> = ({
             aria-label="scrollable auto tabs example"
           >
             {tabs?.map((item: any, i) => (
-              <Tab
+              <StyledTab
                 key={i}
                 label={item.caption}
                 style={{ outline: "none" }}
