@@ -69,6 +69,30 @@ const mapDispatchToProps = (
         dispatch(setDataToTab({ metadata: metadata }, index));
       }
     }
+
+    if (reportData.view) {
+      const item = reportData.view;
+
+      const result = {
+        caption: item.Caption,
+        facts: item.Facts,
+        filters: item.Dimensions.items.filter(
+          (item: any) => item.Axis === "Filter"
+        ),
+        columns: item.Dimensions.items.filter(
+          (item: any) => item.Axis === "Columns"
+        ),
+        rows: item.Dimensions.items.filter((item: any) => item.Axis === "Rows"),
+        attributes: item.Dimensions.items.filter(
+          (item: any) => item.Axis === "Attributes"
+        ),
+        visibleFacts: item.visibleFacts,
+        multipleFacts: item.multipleFacts,
+        filterDimensions: item.FilterDimensions?.items,
+      };
+      dispatch(setDataToTab({ metadata: result }, index));
+    }
+
     dispatch(resetLoading());
   },
 });

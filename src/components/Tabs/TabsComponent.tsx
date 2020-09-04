@@ -11,7 +11,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab, { TabProps } from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
-import { REPORT, ITEMS } from "../../utils/constants";
+import { REPORT, ITEMS, CHART, VIEW_META } from "../../utils/constants";
 import { Dashboard } from "../Dashboard";
 import { sleep } from "../../utils/helpers";
 import { Tabs as MyTabs } from ".";
@@ -127,7 +127,20 @@ export const TabsComponent: React.FC<IProps> = ({
           );
           break;
         case "view":
-          alert("This is view");
+          handleDataQuery(
+            {
+              method: VIEW_META,
+              session,
+              language,
+              solution,
+              project,
+              report: report,
+              view: data.code,
+              slice: data.slice,
+            },
+            newValue
+          );
+
           break;
         default:
           console.log("Data type:" + data.type);
