@@ -90,7 +90,7 @@ const mapDispatchToProps = (
         multipleFacts: item.multipleFacts,
         filterDimensions: item.FilterDimensions?.items,
       };
-      dispatch(setDataToTab({ metadata: result }, index));
+      dispatch(setDataToTab({ view: result }, index));
     }
 
     dispatch(resetLoading());
