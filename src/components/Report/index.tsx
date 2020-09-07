@@ -3,7 +3,7 @@ import { AppState } from "../../store/config_store";
 import { ReportComponent } from "./Report";
 import { LinkStateToProps, LinkDispatchToProps } from "./types";
 import { DataForQuery } from "../../utils/types";
-import { LAYOUTS, REPORT } from "../../utils/constants";
+import { LAYOUTS, REPORT, STYLE } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import {
   setReportType,
@@ -82,7 +82,8 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       reportData.caption && dispatch(setReportCaption(reportData.caption));
 
       //style
-      reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
+      data_for_query.method === STYLE &&
+        dispatch(setReportStyle(reportData.stylesheet || {}));
 
       //layouts
       if (reportData.layouts) {
