@@ -27,4 +27,4 @@ export const SAVE_USER_LAYOUT: string = "SaveUserLayout";
 export const DELETE_USER_LAYOUT: string = "DeleteUserLayout";
 export const CONTOUR_MAP: string = "ContourMap";
 export const COLOR: string = "#003366";
-export const BASE_URL: string = "https://stat.world/biportal/api.jsp";
+export const BASE_URL: string = "http://204.145.90.67:8082/biportal/api.jsp";
