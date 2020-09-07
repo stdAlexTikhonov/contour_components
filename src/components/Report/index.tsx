@@ -82,7 +82,8 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
       reportData.caption && dispatch(setReportCaption(reportData.caption));
 
       //style
-      reportData.stylesheet && dispatch(setReportStyle(reportData.stylesheet));
+      reportData.stylesheet &&
+        dispatch(setReportStyle(reportData.stylesheet || {}));
 
       //layouts
       if (reportData.layouts) {
