@@ -29,15 +29,16 @@ export const CardsComponent: React.FC<IProps> = ({
   const isSlimScreen = useMediaQuery("(max-width: 500px");
 
   useEffect(() => {
-    handleDataQuery({
-      method: ITEMS,
-      session,
-      solution,
-      folder,
-      project,
-      p_folder,
-      language,
-    });
+    session &&
+      handleDataQuery({
+        method: ITEMS,
+        session,
+        solution,
+        folder,
+        project,
+        p_folder,
+        language,
+      });
 
     project &&
       handleDataQuery({
