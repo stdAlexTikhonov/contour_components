@@ -91,7 +91,7 @@ export const ViewComponent: React.FC<IProps> = ({
         setShowChart(true);
 
         if (data.mapImage) {
-          data.chart = { id: generateUID() };
+          data.chart = { id: generateUID(), ChartType: "map" };
           setChart(data.chart);
           showMap(
             width,

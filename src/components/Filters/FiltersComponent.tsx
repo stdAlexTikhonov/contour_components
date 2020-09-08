@@ -224,8 +224,9 @@ export const FiltersComponent: React.FC<IProps> = ({
   useEffect(() => {
     if (chart) {
       try {
-        if (chart.ChartType !== "grid")
+        if (chart.ChartType !== "grid" && chart.ChartType !== "map") {
           window.contourChart(chart.id, chart, {});
+        }
 
         setError(false);
       } catch (e) {
