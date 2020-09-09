@@ -208,7 +208,7 @@ export const formatGeometry = (dashboard: any) => {
 
     let max_value = Math.max(...filtered_by_row);
 
-    const len_of_row = filtered_by_row.reduce((a: any, b: any) => a + b);
+    const len_of_row = filtered_by_row.reduce((a: any, b: any) => a + b, 0);
 
     if (len_of_row > 12) {
       const clip = len_of_row - 12; //на сколько уменьшить
