@@ -226,3 +226,10 @@ export const formatGeometry = (dashboard: any) => {
     cells: data,
   };
 };
+
+export const importScript = (resourceUrl: string) => {
+  const script = document.createElement("script");
+  script.src = resourceUrl;
+  script.async = true;
+  document.body.appendChild(script);
+};
