@@ -192,7 +192,7 @@ export const formatGeometry = (dashboard: any) => {
     for (let i = 0; i < h_.length; i++) h += h_[i];
 
     elem.h = h;
-    elem.h_px = window.innerHeight * (h / 100);
+    elem.h_px = rows.cu === "%" ? window.innerHeight * (h / 100) : h;
 
     return {
       ...elem,
