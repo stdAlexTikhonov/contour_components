@@ -10,7 +10,7 @@ import { ChartPlaceholder } from "../ChartPlaceholder";
 import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
-import ReactHypergrid from "../Hypergrid";
+import ReactHypergrid from "../../lib/OLAP/Hypergrid";
 
 declare global {
   interface Window {
