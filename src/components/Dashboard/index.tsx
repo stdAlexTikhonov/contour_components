@@ -30,10 +30,15 @@ export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
           key={i}
           className={classes.block}
           width={isSlimScreen ? "100%" : item.w}
-          height={item.h + item.hcu}
+          height={item.h_px}
           style={{ float: item.float }}
         >
-          <View metadata={item} index={i} width={item.w_px} height={item.h} />
+          <View
+            metadata={item}
+            index={i}
+            width={item.w_px}
+            height={item.h_px}
+          />
         </Box>
       ))
     : dashboard &&
