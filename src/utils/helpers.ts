@@ -226,3 +226,15 @@ export const formatGeometry = (dashboard: any) => {
     cells: data,
   };
 };
+
+export const importScript = async (resourceUrl: string) => {
+  await sleep(200);
+  const script = document.createElement("script");
+  script.src = window.location.origin + resourceUrl;
+  script.async = true;
+  document.body.appendChild(script);
+};
+
+export const importScripts = (urls: string[]) => {
+  urls.forEach(async (url) => await importScript(url));
+};

@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import Slide from "@material-ui/core/Slide";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import { importScript } from "../../utils/helpers";
 
 export const AppComponent: React.FC<IProps> = ({
   loading,
@@ -24,6 +25,19 @@ export const AppComponent: React.FC<IProps> = ({
   handleLogout,
 }) => {
   useEffect(() => {
+    (async () => {
+      await importScript("/libs/colorbrewer.v1.min.js");
+      await importScript("/libs/d3.v5.min.js");
+      await importScript("/libs/echarts.min.js");
+      await importScript("/libs/echarts-functions.js");
+      await importScript("/libs/echarts-wordcloud.min.js");
+      await importScript("/libs/ecStat.min.js");
+      await importScript("/libs/russia_1e-7sr.js");
+      await importScript("/libs/topojson.v1.min.js");
+      await importScript("/libs/world-110m.v1.js");
+      await importScript("/libs/contourcharts.js");
+    })();
+
     getInitialData();
   }, []);
 
