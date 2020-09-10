@@ -234,14 +234,14 @@ export const FiltersComponent: React.FC<IProps> = ({
         setError(true);
       }
       if (chart.header)
-        document
-          .getElementById(chart.id + "_header")
-          ?.appendChild(getElement(chart.header));
+        document.getElementById(chart.id + "_header")!.innerHTML = getElement(
+          chart.header
+        );
 
       if (chart.footer)
-        document
-          .getElementById(chart.id + "_footer")
-          ?.appendChild(getElement(chart.footer));
+        document.getElementById(chart.id + "_footer")!.innerHTML = getElement(
+          chart.footer
+        );
     }
   }, [chart]);
 

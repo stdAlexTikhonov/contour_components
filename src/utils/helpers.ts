@@ -243,8 +243,6 @@ export const importScripts = (urls: string[]) => {
 export const getElement = (html: string) => {
   const parser = new DOMParser();
   var doc = parser.parseFromString(html, "text/html");
-  const elem = document.createElement("div");
   const style = doc.body.getAttribute("style");
-  elem.innerHTML = `<div style="${style}">${doc.body.innerHTML}</div>`;
-  return elem;
+  return `<div style="${style}">${doc.body.innerHTML}</div>`;
 };
