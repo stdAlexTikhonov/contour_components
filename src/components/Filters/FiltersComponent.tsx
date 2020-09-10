@@ -8,6 +8,7 @@ import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { ChartPlaceholder } from "../ChartPlaceholder";
 import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
+import { getElement } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
 import ReactHypergrid from "../../lib/OLAP/Hypergrid";
@@ -232,6 +233,15 @@ export const FiltersComponent: React.FC<IProps> = ({
       } catch (e) {
         setError(true);
       }
+      if (chart.header)
+        document
+          .getElementById(chart.id + "_header")
+          ?.appendChild(getElement(chart.header));
+
+      if (chart.footer)
+        document
+          .getElementById(chart.id + "_footer")
+          ?.appendChild(getElement(chart.footer));
     }
   }, [chart]);
 

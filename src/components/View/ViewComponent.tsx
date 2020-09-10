@@ -11,7 +11,7 @@ import KeyboardIcon from "@material-ui/icons/Keyboard";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import { POSITIONS, CHART, CONTOUR_MAP } from "../../utils/constants";
 import { getData } from "../../utils/api";
-import { generateUID, sleep, showMap } from "../../utils/helpers";
+import { generateUID, sleep, showMap, getElement } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
 
 export const ViewComponent: React.FC<IProps> = ({
@@ -93,7 +93,12 @@ export const ViewComponent: React.FC<IProps> = ({
         setShowChart(true);
 
         if (data.mapImage) {
-          data.chart = { id: generateUID(), ChartType: "map" };
+          data.chart = {
+            id: generateUID(),
+            ChartType: "map",
+            header: header,
+            footer: footer,
+          };
           setChart(data.chart);
           showMap(
             width,
@@ -103,6 +108,8 @@ export const ViewComponent: React.FC<IProps> = ({
           );
         } else {
           data.chart.id = generateUID();
+          data.chart.header = header;
+          data.chart.footer = footer;
           // console.log(metadata.caption, data.chart.id, data.chart.ChartType);
           setChart(data.chart);
         }
@@ -171,7 +178,7 @@ export const ViewComponent: React.FC<IProps> = ({
           )}
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
-        {header && header}
+        {chart && <div id={chart.id + "_header"} />}
         {/* {fieldBar && (
           <Filters
             slice={slice}
@@ -200,7 +207,7 @@ export const ViewComponent: React.FC<IProps> = ({
             meta_index={index}
           />
         )}
-        {footer && footer}
+        {chart && <div id={chart.id + "_footer"} />}
       </Grid>
     </Grid>
   );

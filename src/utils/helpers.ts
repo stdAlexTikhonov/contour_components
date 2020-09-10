@@ -239,3 +239,12 @@ export const importScript = async (resourceUrl: string) => {
 export const importScripts = (urls: string[]) => {
   urls.forEach(async (url) => await importScript(url));
 };
+
+export const getElement = (html: string) => {
+  const parser = new DOMParser();
+  var doc = parser.parseFromString(html, "text/html");
+  const elem = document.createElement("div");
+  const style = doc.body.getAttribute("style");
+  elem.innerHTML = `<div style="${style}">${doc.body.innerHTML}</div>`;
+  return elem;
+};
