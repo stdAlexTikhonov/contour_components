@@ -44,6 +44,8 @@ export const ViewComponent: React.FC<IProps> = ({
     multipleFacts,
     filterDimensions,
     viewType,
+    footer,
+    header,
   } = metadata;
 
   const checkFilters = () => {
@@ -169,7 +171,7 @@ export const ViewComponent: React.FC<IProps> = ({
           )}
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
-
+        {header && header}
         {/* {fieldBar && (
           <Filters
             slice={slice}
@@ -198,6 +200,7 @@ export const ViewComponent: React.FC<IProps> = ({
             meta_index={index}
           />
         )}
+        {footer && footer}
       </Grid>
     </Grid>
   );

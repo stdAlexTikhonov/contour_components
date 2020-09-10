@@ -250,6 +250,8 @@ export type Metadata = {
   expandedFilter: any;
   filterIndex: number;
   viewType: string;
+  footer: null | string;
+  header: null | string;
 };
 
 export interface setDashboardMetadata {
