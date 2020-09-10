@@ -60,8 +60,8 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           visibleFacts: item.visibleFacts,
           multipleFacts: item.multipleFacts,
           filterDimensions: item.FilterDimensions?.items,
-          header: item.Header.html,
-          footer: item.Footer.html,
+          header: item.Header.html || null,
+          footer: item.Footer.html || null,
         }));
         dispatch(setDashboardMetadata(metadata));
       }
