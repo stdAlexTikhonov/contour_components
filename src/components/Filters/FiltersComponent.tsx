@@ -12,6 +12,7 @@ import { getElement } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
 import ReactHypergrid from "../../lib/OLAP/Hypergrid";
+import DimButton from "../../lib/OLAP/DimensionCard";
 
 declare global {
   interface Window {
@@ -222,6 +223,10 @@ export const FiltersComponent: React.FC<IProps> = ({
     <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
   );
 
+  const getDimensionButton = (props: any) => {
+    return DimButton(props);
+  };
+
   useEffect(() => {
     if (chart) {
       try {
@@ -275,7 +280,10 @@ export const FiltersComponent: React.FC<IProps> = ({
           style={{ display: "flex" }}
         >
           {chart && chart.ChartType === "grid" ? (
-            <ReactHypergrid gridData={chart} />
+            <ReactHypergrid
+              gridData={chart}
+              dimComponent={getDimensionButton}
+            />
           ) : (
             <ChartPlaceholder
               title={error ? "Chart is not avalible." : "No chart data."}
