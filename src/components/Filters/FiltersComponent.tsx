@@ -224,7 +224,31 @@ export const FiltersComponent: React.FC<IProps> = ({
   );
 
   const getDimensionButton = (props: any) => {
-    return DimButton(props);
+    const filter = filters.find((item: any) => item.code === props.data.code);
+    const index = filters
+      .map((item: any) => item.code)
+      .indexOf(props.data.code);
+
+    return filter ? (
+      <CustomDropdown
+        items={[]}
+        label={filter.Caption}
+        multy={true}
+        selected={[]}
+        _async={true}
+        slice={slice}
+        view={view}
+        code={filter.code}
+        report={report_code}
+        descending={filter.Descending}
+        filterChange={filterChange}
+        meta_index={meta_index}
+        filter_index={index + 1}
+        cube_id={cube_id}
+      />
+    ) : (
+      <div></div>
+    );
   };
 
   useEffect(() => {
