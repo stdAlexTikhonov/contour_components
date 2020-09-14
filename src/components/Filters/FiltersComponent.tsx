@@ -301,7 +301,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         <Box
           className={classes.main}
           id={chart && chart.id}
-          style={{ display: "flex" }}
+          style={{ display: "flex", overflow: "hidden" }}
         >
           {chart && chart.ChartType === "grid" ? (
             <ReactHypergrid
