@@ -5,6 +5,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { CustomCheckbox } from "./CustomCheckbox";
 import { CustomRadio } from "./CustomRadio";
+import { IMAGES_AND_OTHER_STUFF } from "../../utils/constants";
 
 export type row = {
   key: any;
@@ -75,7 +76,7 @@ export default class CustomList extends React.Component<IProps> {
             width={20}
             style={{ marginRight: 10 }}
             alt={"Flag"}
-            src={"https://stat.world/biportal/" + item.image}
+            src={IMAGES_AND_OTHER_STUFF + item.image}
           />
         )}
         <ListItemText id={labelId} primary={item.value} />

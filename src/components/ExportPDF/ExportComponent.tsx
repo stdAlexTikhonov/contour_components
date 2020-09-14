@@ -8,7 +8,11 @@ import IconButton from "@material-ui/core/IconButton";
 import PrintIcon from "@material-ui/icons/Print";
 import { Tabs } from "../Tabs";
 import { IProps } from "./types";
-import { PRINT_PAGE_SETUP, EXPORT } from "../../utils/constants";
+import {
+  PRINT_PAGE_SETUP,
+  EXPORT,
+  IMAGES_AND_OTHER_STUFF,
+} from "../../utils/constants";
 import { MarginsOrientation } from "./MarginsOrientation";
 import { Common } from "./Common";
 import { HeadersFooters } from "./HeadersFooters";
@@ -97,7 +101,7 @@ export const ExportPDF: React.FC<IProps> = ({
       format: "pdf",
     });
 
-    window.open("https://stat.world/biportal/" + result, "_blank");
+    window.open(IMAGES_AND_OTHER_STUFF + result, "_blank");
   };
 
   const handleClose = (value: string) => {
