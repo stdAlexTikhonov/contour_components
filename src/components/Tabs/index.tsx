@@ -49,6 +49,7 @@ const mapDispatchToProps = (
       data_for_query.method = DASH_VIEW_META;
       const dash_meta = await getData(data_for_query);
       if (dash_meta.success) {
+        console.log(dash_meta);
         const metadata = dash_meta.metadata.map((item: any) => ({
           caption: item.Caption,
           facts: item.Facts,
@@ -65,6 +66,8 @@ const mapDispatchToProps = (
             (item: any) => item.Axis === "Attributes"
           ),
           visibleFacts: item.visibleFacts,
+          header: item.Header.html || null,
+          footer: item.Footer.html || null,
         }));
         dispatch(setDataToTab({ metadata: metadata }, index));
       }
@@ -89,6 +92,8 @@ const mapDispatchToProps = (
         visibleFacts: item.visibleFacts,
         multipleFacts: item.multipleFacts,
         filterDimensions: item.FilterDimensions?.items,
+        header: item.Header.html || null,
+        footer: item.Footer.html || null,
       };
       dispatch(setDataToTab({ view: result }, index));
     }

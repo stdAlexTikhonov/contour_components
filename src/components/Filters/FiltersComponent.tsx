@@ -8,9 +8,11 @@ import { CustomDropdown } from "../CustomDropdown";
 import SimpleBar from "simplebar-react";
 import { ChartPlaceholder } from "../ChartPlaceholder";
 import { SET_DIM_FILTER, SET_FACTS } from "../../utils/constants";
+import { getElement } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
 import ReactHypergrid from "../../lib/OLAP/Hypergrid";
+import DimButton from "../../lib/OLAP/DimensionCard";
 
 declare global {
   interface Window {
@@ -221,6 +223,34 @@ export const FiltersComponent: React.FC<IProps> = ({
     <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
   );
 
+  const getDimensionButton = (props: any) => {
+    const filter = filters.find((item: any) => item.code === props.data.code);
+    const index = filters
+      .map((item: any) => item.code)
+      .indexOf(props.data.code);
+
+    return filter ? (
+      <CustomDropdown
+        items={[]}
+        label={filter.Caption}
+        multy={true}
+        selected={[]}
+        _async={true}
+        slice={slice}
+        view={view}
+        code={filter.code}
+        report={report_code}
+        descending={filter.Descending}
+        filterChange={filterChange}
+        meta_index={meta_index}
+        filter_index={index + 1}
+        cube_id={cube_id}
+      />
+    ) : (
+      <div></div>
+    );
+  };
+
   useEffect(() => {
     if (chart) {
       try {
@@ -232,6 +262,15 @@ export const FiltersComponent: React.FC<IProps> = ({
       } catch (e) {
         setError(true);
       }
+      if (chart.header)
+        document.getElementById(chart.id + "_header")!.innerHTML = getElement(
+          chart.header
+        );
+
+      if (chart.footer)
+        document.getElementById(chart.id + "_footer")!.innerHTML = getElement(
+          chart.footer
+        );
     }
   }, [chart]);
 
@@ -265,7 +304,10 @@ export const FiltersComponent: React.FC<IProps> = ({
           style={{ display: "flex" }}
         >
           {chart && chart.ChartType === "grid" ? (
-            <ReactHypergrid gridData={chart} />
+            <ReactHypergrid
+              gridData={chart}
+              dimComponent={getDimensionButton}
+            />
           ) : (
             <ChartPlaceholder
               title={error ? "Chart is not avalible." : "No chart data."}
