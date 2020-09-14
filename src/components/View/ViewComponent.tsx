@@ -9,7 +9,12 @@ import { Filters } from "../Filters";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
-import { POSITIONS, CHART, CONTOUR_MAP } from "../../utils/constants";
+import {
+  POSITIONS,
+  CHART,
+  CONTOUR_MAP,
+  IMAGES_AND_OTHER_STUFF,
+} from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { generateUID, sleep, showMap, getElement } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
@@ -104,7 +109,7 @@ export const ViewComponent: React.FC<IProps> = ({
             width,
             height,
             data.chart.id,
-            "https://stat.world/biportal/" + data.mapImage
+            IMAGES_AND_OTHER_STUFF + data.mapImage
           );
         } else {
           data.chart.id = generateUID();
