@@ -18,6 +18,7 @@ import {
 import { getData } from "../../utils/api";
 import { generateUID, sleep, showMap, getElement } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
+import { red } from "@material-ui/core/colors";
 
 export const ViewComponent: React.FC<IProps> = ({
   metadata,
@@ -36,6 +37,7 @@ export const ViewComponent: React.FC<IProps> = ({
   const { solution, project } = useParams();
   const [chart, setChart] = useState<any>(null);
   const [showChart, setShowChart] = useState<boolean>(false);
+  const [redraw, setRedraw] = useState<boolean>(false);
   const {
     facts,
     rows,
@@ -68,6 +70,7 @@ export const ViewComponent: React.FC<IProps> = ({
 
   useEffect(() => {
     (async () => {
+      console.log("Hello");
       const data = await getData(
         viewType === "map"
           ? {
@@ -79,8 +82,8 @@ export const ViewComponent: React.FC<IProps> = ({
               view,
               slice,
               report,
-              height: height,
-              width: width,
+              width: [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+              height: [0, 2].includes(fieldBarPosition) ? height - 38 : height,
             }
           : {
               method: CHART,
@@ -106,8 +109,8 @@ export const ViewComponent: React.FC<IProps> = ({
           };
           setChart(data.chart);
           showMap(
-            width,
-            height,
+            [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+            [0, 2].includes(fieldBarPosition) ? height - 38 : height,
             data.chart.id,
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
@@ -120,7 +123,7 @@ export const ViewComponent: React.FC<IProps> = ({
         }
       }
     })();
-  }, []);
+  }, [redraw, fieldBarPosition]);
 
   const handleFilterChange = async (cubeSession: string) => {
     setShowChart(false);
@@ -160,6 +163,7 @@ export const ViewComponent: React.FC<IProps> = ({
               setShowChart(false);
               await sleep(200);
               setShowChart(true);
+              setRedraw(!redraw);
             }}
           >
             <KeyboardIcon fontSize="small" />
@@ -176,6 +180,7 @@ export const ViewComponent: React.FC<IProps> = ({
                 setShowChart(false);
                 await sleep(200);
                 setShowChart(true);
+                setRedraw(!redraw);
               }}
             >
               <AutorenewIcon fontSize="small" />
@@ -210,6 +215,7 @@ export const ViewComponent: React.FC<IProps> = ({
             chart={showChart ? chart : null}
             filterChange={handleFilterChange}
             meta_index={index}
+            setRedraw={redraw}
           />
         )}
         {chart && <div id={chart.id + "_footer"} />}

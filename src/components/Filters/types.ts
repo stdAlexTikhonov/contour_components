@@ -13,6 +13,7 @@ export type Props = {
   chart: any;
   filterChange: any;
   meta_index: number;
+  setRedraw: boolean;
 };
 
 export type POSITIONS_TYPE =

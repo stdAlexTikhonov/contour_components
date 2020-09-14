@@ -44,6 +44,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   expanded,
   filter_items,
   multiple,
+  setRedraw,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
