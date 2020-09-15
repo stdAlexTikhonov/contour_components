@@ -12,7 +12,7 @@ import { getElement } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
 import ReactHypergrid from "../../lib/OLAP/Hypergrid";
-import DimButton from "../../lib/OLAP/DimensionCard";
+import { MapControl } from "../MapControl";
 
 declare global {
   interface Window {
@@ -44,7 +44,10 @@ export const FiltersComponent: React.FC<IProps> = ({
   expanded,
   filter_items,
   multiple,
-  setRedraw,
+  setMapControl,
+  width,
+  height,
+  coords,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
@@ -313,6 +316,9 @@ export const FiltersComponent: React.FC<IProps> = ({
             <ChartPlaceholder
               title={error ? "Chart is not avalible." : "No chart data."}
             />
+          )}
+          {setMapControl && (
+            <MapControl width={width} height={height} coords={coords} />
           )}
         </Box>
       </Box>

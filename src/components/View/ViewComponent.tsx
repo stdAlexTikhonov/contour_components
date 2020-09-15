@@ -38,6 +38,8 @@ export const ViewComponent: React.FC<IProps> = ({
   const [chart, setChart] = useState<any>(null);
   const [showChart, setShowChart] = useState<boolean>(false);
   const [redraw, setRedraw] = useState<boolean>(false);
+  const [showMapControl, setMapControl] = useState<boolean>(false);
+  const [coords, setCoords] = useState<number[]>([]);
   const {
     facts,
     rows,
@@ -70,7 +72,6 @@ export const ViewComponent: React.FC<IProps> = ({
 
   useEffect(() => {
     (async () => {
-      console.log("Hello");
       const data = await getData(
         viewType === "map"
           ? {
@@ -108,12 +109,15 @@ export const ViewComponent: React.FC<IProps> = ({
             footer: footer,
           };
           setChart(data.chart);
+          setCoords(data.extent);
+          setMapControl(false);
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
             data.chart.id,
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
+          setMapControl(true);
         } else {
           data.chart.id = generateUID();
           data.chart.header = header;
@@ -215,7 +219,10 @@ export const ViewComponent: React.FC<IProps> = ({
             chart={showChart ? chart : null}
             filterChange={handleFilterChange}
             meta_index={index}
-            setRedraw={redraw}
+            setMapControl={showMapControl}
+            width={[1, 3].includes(fieldBarPosition) ? width - 135 : width}
+            height={[0, 2].includes(fieldBarPosition) ? height - 38 : height}
+            coords={coords}
           />
         )}
         {chart && <div id={chart.id + "_footer"} />}

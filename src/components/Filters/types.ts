@@ -13,7 +13,10 @@ export type Props = {
   chart: any;
   filterChange: any;
   meta_index: number;
-  setRedraw: boolean;
+  setMapControl: boolean;
+  width: number;
+  height: number;
+  coords: number[];
 };
 
 export type POSITIONS_TYPE =
