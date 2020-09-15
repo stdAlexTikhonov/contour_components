@@ -48,6 +48,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   width,
   height,
   coords,
+  setCoords,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
@@ -318,7 +319,12 @@ export const FiltersComponent: React.FC<IProps> = ({
             />
           )}
           {setMapControl && (
-            <MapControl width={width} height={height} coords={coords} />
+            <MapControl
+              width={width}
+              height={height}
+              coords={coords}
+              setCoords={setCoords}
+            />
           )}
         </Box>
       </Box>

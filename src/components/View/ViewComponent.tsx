@@ -16,9 +16,8 @@ import {
   IMAGES_AND_OTHER_STUFF,
 } from "../../utils/constants";
 import { getData } from "../../utils/api";
-import { generateUID, sleep, showMap, getElement } from "../../utils/helpers";
+import { generateUID, sleep, showMap } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
-import { red } from "@material-ui/core/colors";
 
 export const ViewComponent: React.FC<IProps> = ({
   metadata,
@@ -40,6 +39,7 @@ export const ViewComponent: React.FC<IProps> = ({
   const [redraw, setRedraw] = useState<boolean>(false);
   const [showMapControl, setMapControl] = useState<boolean>(false);
   const [coords, setCoords] = useState<number[]>([]);
+  const [coords2, setCoords2] = useState<number[]>([]);
   const {
     facts,
     rows,
@@ -109,7 +109,7 @@ export const ViewComponent: React.FC<IProps> = ({
             footer: footer,
           };
           setChart(data.chart);
-          setCoords(data.extent);
+          data.extent && setCoords2(data.extent);
           setMapControl(false);
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
@@ -128,6 +128,45 @@ export const ViewComponent: React.FC<IProps> = ({
       }
     })();
   }, [redraw, fieldBarPosition]);
+
+  useEffect(() => {
+    (async () => {
+      if (coords.length > 0) {
+        const data = await getData({
+          method: CONTOUR_MAP,
+          solution,
+          project,
+          session,
+          language,
+          view,
+          slice,
+          report,
+          width: [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+          height: [0, 2].includes(fieldBarPosition) ? height - 38 : height,
+          extent: coords,
+        });
+
+        if (data.success) {
+          data.chart = {
+            id: generateUID(),
+            ChartType: "map",
+            header: header,
+            footer: footer,
+          };
+          setChart(data.chart);
+          data.extent && setCoords2(data.extent);
+          setMapControl(false);
+          showMap(
+            [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+            [0, 2].includes(fieldBarPosition) ? height - 38 : height,
+            data.chart.id,
+            IMAGES_AND_OTHER_STUFF + data.mapImage
+          );
+          setMapControl(true);
+        }
+      }
+    })();
+  }, [coords]);
 
   const handleFilterChange = async (cubeSession: string) => {
     setShowChart(false);
@@ -222,7 +261,8 @@ export const ViewComponent: React.FC<IProps> = ({
             setMapControl={showMapControl}
             width={[1, 3].includes(fieldBarPosition) ? width - 135 : width}
             height={[0, 2].includes(fieldBarPosition) ? height - 38 : height}
-            coords={coords}
+            coords={coords2}
+            setCoords={setCoords}
           />
         )}
         {chart && <div id={chart.id + "_footer"} />}
