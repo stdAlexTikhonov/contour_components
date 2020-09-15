@@ -5,11 +5,9 @@ export const useStyles = makeStyles({
     position: "absolute",
     top: 0,
     left: 0,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
   },
   btn: {
     outline: "none",
+    position: "absolute",
   },
 });
