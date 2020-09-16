@@ -57,6 +57,8 @@ export const FiltersComponent: React.FC<IProps> = ({
   const [error, setError] = useState(false);
   const [mapX, setMapX] = useState(0);
   const [mapY, setMapY] = useState(0);
+  const [scale, setScale] = useState(1);
+  const [transformOrigin, setTransformOrigin] = useState("0px 0pz");
 
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
@@ -324,6 +326,8 @@ export const FiltersComponent: React.FC<IProps> = ({
                 height: height,
                 top: mapY,
                 left: mapX,
+                transform: `scale(${scale})`,
+                transformOrigin: transformOrigin,
               }}
             />
           ) : (
@@ -340,6 +344,8 @@ export const FiltersComponent: React.FC<IProps> = ({
               setCoords={setCoords}
               setMapX={setMapX}
               setMapY={setMapY}
+              setScale={setScale}
+              setTransformOrigin={setTransformOrigin}
             />
           )}
         </Box>

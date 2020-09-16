@@ -12,6 +12,8 @@ export const MapControl: React.FC<Props> = ({
   setCoords,
   setMapX,
   setMapY,
+  setScale,
+  setTransformOrigin,
 }) => {
   const [area, setArea] = useState(false);
   const [areaWidth, setAreaWidth] = useState(0);
@@ -25,6 +27,7 @@ export const MapControl: React.FC<Props> = ({
   useEffect(() => {
     setMapX(0);
     setMapY(0);
+    setScale(1);
   }, [coords]);
 
   const mouseDownHandler = (e: any) => {
@@ -50,12 +53,22 @@ export const MapControl: React.FC<Props> = ({
       setMousePressed(false);
 
       //Расчёты
-      const diffX = width - (startPositionX + areaWidth);
-      const diffY = height - (startPositionY + areaHeight);
-      const new_left_position = coords[0] + startPositionX * coeffX;
-      const new_top_position = coords[1] - startPositionY * coeffY;
-      const new_right_position = coords[2] + startPositionX * coeffX; //+ diffX * coeffX;
-      const new_bottom_position = coords[3] - startPositionY * coeffY; //+ diffY * coeffY;
+      let coeff =
+        areaWidth > areaHeight ? width / areaWidth : height / areaHeight;
+      setTransformOrigin(
+        `${startPositionX + areaWidth / 2}px ${
+          startPositionY + areaHeight / 2
+        }px`
+      );
+      setScale(coeff);
+
+      const coeff2 = areaWidth > areaHeight ? coeffX : coeffY;
+      const diffX = startPositionX + areaWidth;
+      const diffY = startPositionY + areaHeight;
+      const new_left_position = coords[0] + startPositionX * coeff2;
+      const new_top_position = coords[1] + startPositionY * coeff2;
+      const new_right_position = coords[2] - diffX * coeff2;
+      const new_bottom_position = coords[3] - diffY * coeff2;
 
       setCoords([
         new_left_position,

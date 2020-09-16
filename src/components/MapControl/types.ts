@@ -5,4 +5,6 @@ export type Props = {
   setCoords: any;
   setMapX: any;
   setMapY: any;
+  setScale: any;
+  setTransformOrigin: any;
 };
