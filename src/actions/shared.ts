@@ -2,7 +2,7 @@ import { getSession, getLanguages, getLanguage } from "../utils/api";
 import { Dispatch } from "redux";
 import { AppActions } from "../types/actions";
 import { AppState } from "../store/config_store";
-import { setAuthedUser, setLoggedIn } from "./authedUser";
+import { setAuthedUser, setLoggedIn, setUserName } from "./authedUser";
 import { setLoading, resetLoading } from "./loading";
 import { setLanguages, setLanguage } from "./languages";
 import { transform_languages_data } from "../utils/helpers";

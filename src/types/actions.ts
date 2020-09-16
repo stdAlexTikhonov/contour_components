@@ -4,6 +4,7 @@ import { pringPage } from "./reducers";
 export const SET_AUTHED_USER = "SET_AUTHED_USER";
 export const SET_LOGGED_IN = "SET_LOGGED_IN";
 export const SET_LOGGED_OUT = "SET_LOGGED_OUT";
+export const SET_USER_NAME = "SET_USER_NAME";
 
 export interface setAuthedUser {
   type: typeof SET_AUTHED_USER;
@@ -18,7 +19,16 @@ export interface setLoggedOut {
   type: typeof SET_LOGGED_OUT;
 }
 
-export type authedUserActionTypes = setAuthedUser | setLoggedIn | setLoggedOut;
+export interface setUserName {
+  type: typeof SET_USER_NAME;
+  name: string;
+}
+
+export type authedUserActionTypes =
+  | setAuthedUser
+  | setLoggedIn
+  | setLoggedOut
+  | setUserName;
 
 //Breadcrumbs actions
 export const SET_BREADCRUMBS = "SET_BREADCRUMBS";
@@ -449,4 +459,5 @@ export type AppActions =
   | getReportLayouts
   | resetReport
   | setCurrentLayout
-  | setLayoutCubeSession;
+  | setLayoutCubeSession
+  | setUserName;

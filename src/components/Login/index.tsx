@@ -13,8 +13,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 });
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  props: IProps
+  dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchProps => ({
   handleLogin: async (
     login: HTMLInputElement | undefined,
@@ -30,7 +29,6 @@ const mapDispatchToProps = (
       dispatch(setAuthedUser(data.session));
       saveSession(data.session);
       dispatch(handleInitialData());
-      props.history.push("/");
     }
   },
 });

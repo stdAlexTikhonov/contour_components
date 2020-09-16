@@ -5,8 +5,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
-import { NewLogin } from "../newLogin";
-import { NewRegistration } from "../newRegistration";
+import { NewLogin } from "../LoginWrapper";
+import { NewRegistration } from "../RegistartionWrapper";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 import { SimpleBreadcrumbs } from "../Breadcrumbs";
@@ -57,8 +57,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             language={currentLanguage}
           />
-          <NewLogin logged_in={false} />
-          <NewRegistration logged_in={false} />
+
           {isMobile || isSlimScreen ? (
             <>
               <IconButton
@@ -102,21 +101,18 @@ export const ButtonAppBar: React.FC<IProps> = ({
             </>
           ) : (
             <>
-              <Button
-                color="inherit"
-                onClick={() => logged_in && handleLogout()}
-              >
-                <Link to="/login" className={classes.linkStyle}>
-                  {logged_in ? "Logout" : "Login"}
-                </Link>
-              </Button>
-              {!logged_in && (
-                <Button color="inherit">
-                  <Link to="/register" className={classes.linkStyle}>
-                    Register
-                  </Link>
+              {logged_in ? (
+                <Button
+                  color="inherit"
+                  onClick={() => logged_in && handleLogout()}
+                >
+                  Logout
                 </Button>
+              ) : (
+                <NewLogin logged_in={logged_in} />
               )}
+
+              {!logged_in && <NewRegistration logged_in={logged_in} />}
             </>
           )}
         </Toolbar>

@@ -3,6 +3,7 @@ import {
   SET_AUTHED_USER,
   SET_LOGGED_IN,
   SET_LOGGED_OUT,
+  SET_USER_NAME,
 } from "../types/actions";
 
 export const setAuthedUser = (id: string): AppActions => ({
@@ -16,6 +17,11 @@ export const setLoggedIn = (): AppActions => ({
 
 export const setLoggedOut = (): AppActions => ({
   type: SET_LOGGED_OUT,
+});
+
+export const setUserName = (name: string): AppActions => ({
+  type: SET_USER_NAME,
+  name,
 });
 
 // export function handleLogin(login, password) {
