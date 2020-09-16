@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ButtonAppBar } from "../Navabar";
-import { Login } from "../Login";
 import { Cards } from "../Cards";
 import { Report } from "../Report";
-import { RegistrationForm } from "../Registration";
 import { LoaderComponent } from "../Loader/index";
 import { IProps } from "./types";
 import { Project } from "../Project";
@@ -61,8 +59,6 @@ export const AppComponent: React.FC<IProps> = ({
       <Box>
         <Switch>
           <Route path="/" exact component={Cards} />
-          <Route path={"/login"} component={Login} />
-          <Route path={"/register"} component={RegistrationForm} />
           <Route path={"/:solution/"} exact component={Cards} />
           <Route path={"/:solution/:folder"} exact component={Cards} />
           <Route
