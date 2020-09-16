@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
-import { NewLogin } from "../LoginWrapper";
+import { LoginPopup } from "../LoginPopup";
 import { NewRegistration } from "../RegistartionWrapper";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
@@ -109,7 +109,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
                   Logout
                 </Button>
               ) : (
-                <NewLogin logged_in={logged_in} />
+                <LoginPopup />
               )}
 
               {!logged_in && <NewRegistration logged_in={logged_in} />}

@@ -1,17 +1,16 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { IProps } from "./types";
 import { StyledMenu } from "./StyledComponents";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
-import { useStyles } from "./styles";
 import { Login } from "../Login";
 
-export const NewLogin: React.FC<IProps> = ({ logged_in }) => {
+type IProps = {};
+
+export const LoginPopup: React.FC<IProps> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
-  const classes = useStyles();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setOpened(true);
