@@ -313,11 +313,25 @@ export const FiltersComponent: React.FC<IProps> = ({
               gridData={chart}
               dimComponent={getDimensionButton}
             />
+          ) : chart && chart.ChartType === "map" ? (
+            <div
+              id={chart && chart.id + "map"}
+              style={{
+                width: width,
+                height: height,
+                position: "absolute",
+                top: 0,
+                left: 0,
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            />
           ) : (
             <ChartPlaceholder
               title={error ? "Chart is not avalible." : "No chart data."}
             />
           )}
+
           {setMapControl && (
             <MapControl
               width={width}

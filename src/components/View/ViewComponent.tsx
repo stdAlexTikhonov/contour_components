@@ -114,7 +114,7 @@ export const ViewComponent: React.FC<IProps> = ({
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
-            data.chart.id,
+            data.chart.id + "map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
           setMapControl(true);
@@ -159,7 +159,7 @@ export const ViewComponent: React.FC<IProps> = ({
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
-            data.chart.id,
+            data.chart.id + "map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
           setMapControl(true);
