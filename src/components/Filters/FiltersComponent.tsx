@@ -12,7 +12,7 @@ import { getElement } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { ExpandedFilter } from "../ExpandedFilter";
 import ReactHypergrid from "../../lib/OLAP/Hypergrid";
-import DimButton from "../../lib/OLAP/DimensionCard";
+import { MapControl } from "../MapControl";
 
 declare global {
   interface Window {
@@ -44,12 +44,21 @@ export const FiltersComponent: React.FC<IProps> = ({
   expanded,
   filter_items,
   multiple,
+  setMapControl,
+  width,
+  height,
+  coords,
+  setCoords,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
   const cube_id = slice + cube_report;
   const classes = useStyles();
   const [error, setError] = useState(false);
+  const [mapX, setMapX] = useState(0);
+  const [mapY, setMapY] = useState(0);
+  const [scale, setScale] = useState(1);
+  const [transformOrigin, setTransformOrigin] = useState("0px 0pz");
 
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
@@ -301,16 +310,42 @@ export const FiltersComponent: React.FC<IProps> = ({
         <Box
           className={classes.main}
           id={chart && chart.id}
-          style={{ display: "flex" }}
+          style={{ display: "flex", overflow: "hidden" }}
         >
           {chart && chart.ChartType === "grid" ? (
             <ReactHypergrid
               gridData={chart}
               dimComponent={getDimensionButton}
             />
+          ) : chart && chart.ChartType === "map" ? (
+            <div
+              id={chart && chart.id + "map"}
+              className={classes.map}
+              style={{
+                width: width,
+                height: height,
+                top: mapY,
+                left: mapX,
+                transform: `scale(${scale})`,
+                transformOrigin: transformOrigin,
+              }}
+            />
           ) : (
             <ChartPlaceholder
               title={error ? "Chart is not avalible." : "No chart data."}
+            />
+          )}
+
+          {setMapControl && (
+            <MapControl
+              width={width}
+              height={height}
+              coords={coords}
+              setCoords={setCoords}
+              setMapX={setMapX}
+              setMapY={setMapY}
+              setScale={setScale}
+              setTransformOrigin={setTransformOrigin}
             />
           )}
         </Box>

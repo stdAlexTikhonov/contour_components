@@ -13,6 +13,11 @@ export type Props = {
   chart: any;
   filterChange: any;
   meta_index: number;
+  setMapControl: boolean;
+  width: number;
+  height: number;
+  coords: number[];
+  setCoords: any;
 };
 
 export type POSITIONS_TYPE =

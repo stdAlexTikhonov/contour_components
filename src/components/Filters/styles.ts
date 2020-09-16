@@ -14,4 +14,11 @@ export const useStyles = makeStyles({
     flexGrow: 1,
     position: "relative",
   },
+  map: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    display: "flex",
+    flexWrap: "wrap",
+  },
 });

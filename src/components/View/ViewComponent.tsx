@@ -16,7 +16,7 @@ import {
   IMAGES_AND_OTHER_STUFF,
 } from "../../utils/constants";
 import { getData } from "../../utils/api";
-import { generateUID, sleep, showMap, getElement } from "../../utils/helpers";
+import { generateUID, sleep, showMap } from "../../utils/helpers";
 import { POSITIONS_TYPE } from "../FieldBar/types";
 
 export const ViewComponent: React.FC<IProps> = ({
@@ -36,6 +36,10 @@ export const ViewComponent: React.FC<IProps> = ({
   const { solution, project } = useParams();
   const [chart, setChart] = useState<any>(null);
   const [showChart, setShowChart] = useState<boolean>(false);
+  const [redraw, setRedraw] = useState<boolean>(false);
+  const [showMapControl, setMapControl] = useState<boolean>(false);
+  const [coords, setCoords] = useState<number[]>([]);
+  const [coords2, setCoords2] = useState<number[]>([]);
   const {
     facts,
     rows,
@@ -79,8 +83,8 @@ export const ViewComponent: React.FC<IProps> = ({
               view,
               slice,
               report,
-              height: height,
-              width: width,
+              width: [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+              height: [0, 2].includes(fieldBarPosition) ? height - 38 : height,
             }
           : {
               method: CHART,
@@ -105,12 +109,15 @@ export const ViewComponent: React.FC<IProps> = ({
             footer: footer,
           };
           setChart(data.chart);
+          data.extent && setCoords2(data.extent);
+          setMapControl(false);
           showMap(
-            width,
-            height,
-            data.chart.id,
+            [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+            [0, 2].includes(fieldBarPosition) ? height - 38 : height,
+            data.chart.id + "map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
+          setMapControl(true);
         } else {
           data.chart.id = generateUID();
           data.chart.header = header;
@@ -120,7 +127,48 @@ export const ViewComponent: React.FC<IProps> = ({
         }
       }
     })();
-  }, []);
+  }, [redraw, fieldBarPosition]);
+
+  useEffect(() => {
+    (async () => {
+      if (coords.length > 0) {
+        const data = await getData({
+          method: CONTOUR_MAP,
+          solution,
+          project,
+          session,
+          language,
+          view,
+          slice,
+          report,
+          width: [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+          height: [0, 2].includes(fieldBarPosition) ? height - 38 : height,
+          extent: coords,
+        });
+
+        if (data.success) {
+          data.chart = {
+            id: generateUID(),
+            ChartType: "map",
+            header: header,
+            footer: footer,
+          };
+          setChart(data.chart);
+          data.extent && setCoords2(data.extent);
+          setMapControl(false);
+          showMap(
+            [1, 3].includes(fieldBarPosition) ? width - 135 : width,
+            [0, 2].includes(fieldBarPosition) ? height - 38 : height,
+            data.chart.id + "map",
+            IMAGES_AND_OTHER_STUFF + data.mapImage
+          );
+          setMapControl(true);
+        }
+      } else {
+        setRedraw(!redraw);
+      }
+    })();
+  }, [coords]);
 
   const handleFilterChange = async (cubeSession: string) => {
     setShowChart(false);
@@ -160,6 +208,7 @@ export const ViewComponent: React.FC<IProps> = ({
               setShowChart(false);
               await sleep(200);
               setShowChart(true);
+              setRedraw(!redraw);
             }}
           >
             <KeyboardIcon fontSize="small" />
@@ -176,6 +225,7 @@ export const ViewComponent: React.FC<IProps> = ({
                 setShowChart(false);
                 await sleep(200);
                 setShowChart(true);
+                setRedraw(!redraw);
               }}
             >
               <AutorenewIcon fontSize="small" />
@@ -210,6 +260,11 @@ export const ViewComponent: React.FC<IProps> = ({
             chart={showChart ? chart : null}
             filterChange={handleFilterChange}
             meta_index={index}
+            setMapControl={showMapControl}
+            width={[1, 3].includes(fieldBarPosition) ? width - 135 : width}
+            height={[0, 2].includes(fieldBarPosition) ? height - 38 : height}
+            coords={coords2}
+            setCoords={setCoords}
           />
         )}
         {chart && <div id={chart.id + "_footer"} />}
