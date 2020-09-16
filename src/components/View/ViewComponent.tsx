@@ -164,6 +164,8 @@ export const ViewComponent: React.FC<IProps> = ({
           );
           setMapControl(true);
         }
+      } else {
+        setRedraw(!redraw);
       }
     })();
   }, [coords]);

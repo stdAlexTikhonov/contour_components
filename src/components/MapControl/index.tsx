@@ -4,6 +4,7 @@ import { useStyles } from "./styles";
 import IconButton from "@material-ui/core/IconButton";
 import OpenWithIcon from "@material-ui/icons/OpenWith";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
+import CachedIcon from "@material-ui/icons/Cached";
 
 export const MapControl: React.FC<Props> = ({
   width,
@@ -140,6 +141,16 @@ export const MapControl: React.FC<Props> = ({
         }}
       >
         <ZoomInIcon fontSize="small" />
+      </IconButton>
+      <IconButton
+        aria-label="delete"
+        className={classes.btn}
+        style={{ left: 0, top: 70 }}
+        onClick={(e) => {
+          setCoords([]);
+        }}
+      >
+        <CachedIcon fontSize="small" />
       </IconButton>
       {area && (
         <div
