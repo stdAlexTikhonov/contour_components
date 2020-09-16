@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
 import { NewLogin } from "../newLogin";
+import { NewRegistration } from "../newRegistration";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 import { SimpleBreadcrumbs } from "../Breadcrumbs";
@@ -57,6 +58,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             language={currentLanguage}
           />
           <NewLogin logged_in={false} />
+          <NewRegistration logged_in={false} />
           {isMobile || isSlimScreen ? (
             <>
               <IconButton
