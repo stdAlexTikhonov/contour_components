@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
+import { NewLogin } from "../newLogin";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 import { SimpleBreadcrumbs } from "../Breadcrumbs";
@@ -12,7 +13,6 @@ import { isMobile } from "../../utils/helpers";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { useMediaQuery } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import { Layouts } from "../Layouts";
 import {
   StyledMenu,
   StyledMenuItem,
@@ -56,6 +56,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             language={currentLanguage}
           />
+          <NewLogin logged_in={false} />
           {isMobile || isSlimScreen ? (
             <>
               <IconButton
