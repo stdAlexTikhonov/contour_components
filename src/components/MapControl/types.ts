@@ -3,4 +3,6 @@ export type Props = {
   height: number;
   coords: number[];
   setCoords: any;
+  setMapX: any;
+  setMapY: any;
 };

@@ -55,6 +55,8 @@ export const FiltersComponent: React.FC<IProps> = ({
   const cube_id = slice + cube_report;
   const classes = useStyles();
   const [error, setError] = useState(false);
+  const [mapX, setMapX] = useState(0);
+  const [mapY, setMapY] = useState(0);
 
   let pos = position.split("-")[0] as POSITIONS_TYPE;
   pos = pos === "row" ? "column" : "row";
@@ -316,14 +318,12 @@ export const FiltersComponent: React.FC<IProps> = ({
           ) : chart && chart.ChartType === "map" ? (
             <div
               id={chart && chart.id + "map"}
+              className={classes.map}
               style={{
                 width: width,
                 height: height,
-                position: "absolute",
-                top: 0,
-                left: 0,
-                display: "flex",
-                flexWrap: "wrap",
+                top: mapY,
+                left: mapX,
               }}
             />
           ) : (
@@ -338,6 +338,8 @@ export const FiltersComponent: React.FC<IProps> = ({
               height={height}
               coords={coords}
               setCoords={setCoords}
+              setMapX={setMapX}
+              setMapY={setMapY}
             />
           )}
         </Box>

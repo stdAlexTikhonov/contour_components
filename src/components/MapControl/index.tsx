@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Props } from "./types";
 import { useStyles } from "./styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,6 +10,8 @@ export const MapControl: React.FC<Props> = ({
   height,
   coords,
   setCoords,
+  setMapX,
+  setMapY,
 }) => {
   const [area, setArea] = useState(false);
   const [areaWidth, setAreaWidth] = useState(0);
@@ -20,10 +22,16 @@ export const MapControl: React.FC<Props> = ({
   const [startPositionX, setStartPositionX] = useState(0);
   const [startPositionY, setStartPositionY] = useState(0);
 
+  useEffect(() => {
+    setMapX(0);
+    setMapY(0);
+  }, [coords]);
+
   const mouseDownHandler = (e: any) => {
+    setMousePressed(true);
     if (area) {
       let rect = e.target.getBoundingClientRect();
-      setMousePressed(true);
+
       setStartPositionX(e.clientX - rect.left);
       setStartPositionY(e.clientY - rect.top);
       setAreaWidth(0);
@@ -77,10 +85,15 @@ export const MapControl: React.FC<Props> = ({
   };
 
   const mouseMoveHandler = (e: any) => {
-    if (area && mousePressed) {
-      let rect = e.target.getBoundingClientRect();
-      setAreaWidth(e.clientX - rect.left - startPositionX);
-      setAreaHeight(e.clientY - rect.top - startPositionY);
+    if (mousePressed) {
+      if (area) {
+        let rect = e.target.getBoundingClientRect();
+        setAreaWidth(e.clientX - rect.left - startPositionX);
+        setAreaHeight(e.clientY - rect.top - startPositionY);
+      } else {
+        setMapX(e.clientX - startPositionX);
+        setMapY(e.clientY - startPositionY);
+      }
     }
   };
   return (
