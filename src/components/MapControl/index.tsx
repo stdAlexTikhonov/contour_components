@@ -64,11 +64,12 @@ export const MapControl: React.FC<Props> = ({
       const mapDiff = areaWidth > areaHeight ? mapDiffX : mapDiffY;
       const diffX = startPositionX + areaWidth;
       const diffY = startPositionY + areaHeight;
-      const new_left_position = coords[0] + mapDiff * (startPositionX / width);
-      const new_top_position = coords[1] + mapDiff * (startPositionY / height);
-      const new_right_position = coords[2] - mapDiff * (startPositionX / width);
+      const new_left_position = coords[0] + mapDiffX * (startPositionX / width);
+      const new_top_position = coords[1] + mapDiffY * (startPositionY / height);
+      const new_right_position =
+        coords[2] - mapDiffX * (1 - (startPositionX + areaWidth) / width);
       const new_bottom_position =
-        coords[3] - mapDiff * (startPositionY / height);
+        coords[3] - mapDiffY * (1 - (startPositionY + areaHeight) / height);
 
       setCoords([
         new_left_position,
