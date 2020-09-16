@@ -47,9 +47,6 @@ export const MapControl: React.FC<Props> = ({
   };
 
   const mouseUpHandler = (e: any) => {
-    const coeffX = (coords[2] - coords[0]) / width;
-    const coeffY = (coords[3] - coords[1]) / height;
-
     if (area) {
       setMousePressed(false);
 
@@ -62,14 +59,16 @@ export const MapControl: React.FC<Props> = ({
         }px`
       );
       setScale(coeff);
-
-      const coeff2 = areaWidth > areaHeight ? coeffX : coeffY;
+      const mapDiffX = coords[2] - coords[0];
+      const mapDiffY = coords[3] - coords[1];
+      const mapDiff = areaWidth > areaHeight ? mapDiffX : mapDiffY;
       const diffX = startPositionX + areaWidth;
       const diffY = startPositionY + areaHeight;
-      const new_left_position = coords[0] + startPositionX * coeff2;
-      const new_top_position = coords[1] + startPositionY * coeff2;
-      const new_right_position = coords[2] - diffX * coeff2;
-      const new_bottom_position = coords[3] - diffY * coeff2;
+      const new_left_position = coords[0] + mapDiff * (startPositionX / width);
+      const new_top_position = coords[1] + mapDiff * (startPositionY / height);
+      const new_right_position = coords[2] - mapDiff * (startPositionX / width);
+      const new_bottom_position =
+        coords[3] - mapDiff * (startPositionY / height);
 
       setCoords([
         new_left_position,
@@ -83,7 +82,8 @@ export const MapControl: React.FC<Props> = ({
     } else {
       const diffX = e.clientX - startPositionX;
       const diffY = e.clientY - startPositionY;
-
+      const coeffX = (coords[2] - coords[0]) / width;
+      const coeffY = (coords[3] - coords[1]) / height;
       const new_left_position = coords[0] - diffX * coeffX;
       const new_top_position = coords[1] + diffY * coeffY;
       const new_right_position = coords[2] - diffX * coeffX;
