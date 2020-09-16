@@ -1,15 +1,14 @@
-import React, { useRef } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { IProps } from "./types";
-import { StyledMenu, StyledMenuItem } from "./StyledComponents";
+import { StyledMenu } from "./StyledComponents";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
-import { useStyles } from "./styles";
 import { RegistrationForm } from "../Registration";
 
-export const NewRegistration: React.FC<IProps> = ({ logged_in }) => {
+type IProps = {};
+
+export const RegistrationPopup: React.FC<IProps> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
 
@@ -33,8 +32,6 @@ export const NewRegistration: React.FC<IProps> = ({ logged_in }) => {
         style={{ color: "white", minWidth: "unset", outline: "none" }}
         onClick={handleClick}
       >
-        {/* <LanguageIcon style={{ paddingRight: 5 }} /> */}
-
         {!(isMobile || isSlimScreen) && "Register"}
         {!(isMobile || isSlimScreen) && <ExpandMoreIcon />}
       </Button>
