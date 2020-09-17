@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
@@ -10,8 +10,8 @@ export const LoginComponent: React.FC<IProps> = ({
   logged_in,
 }) => {
   const classes = useStyles();
-  const refLogin = useRef<HTMLInputElement | undefined>();
-  const refPassword = useRef<HTMLInputElement | undefined>();
+  const refLogin: any = React.createRef();
+  const refPassword: any = React.createRef();
 
   return (
     <ThemeProvider>

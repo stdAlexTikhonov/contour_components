@@ -1,8 +1,6 @@
 interface Props {
-  history: any;
+  // history: any;
 }
-
-export type IProps = Props & LinkDispatchProps & LinkStateToProps;
 
 export interface LinkStateToProps {
   logged_in: boolean;
@@ -14,3 +12,5 @@ export interface LinkDispatchProps {
     password: HTMLInputElement | undefined
   ) => void;
 }
+
+export type IProps = LinkDispatchProps & LinkStateToProps;

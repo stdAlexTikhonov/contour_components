@@ -5,6 +5,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
+import { LoginPopup } from "../LoginPopup";
+import { RegistrationPopup } from "../RegistartionPopup";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 import { SimpleBreadcrumbs } from "../Breadcrumbs";
@@ -12,7 +14,7 @@ import { isMobile } from "../../utils/helpers";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { useMediaQuery } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import { Layouts } from "../Layouts";
+import { Menu } from "../Menu";
 import {
   StyledMenu,
   StyledMenuItem,
@@ -24,6 +26,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
   changeLanguage,
   currentLanguage,
   handleLogout,
+  name,
 }) => {
   const classes = useStyles();
   const items = Object.keys(languages);
@@ -56,66 +59,9 @@ export const ButtonAppBar: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             language={currentLanguage}
           />
-          {isMobile || isSlimScreen ? (
-            <>
-              <IconButton
-                aria-controls="hidden-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-                color="primary"
-                style={{ color: "white", padding: 0, outline: "none" }}
-              >
-                <MoreIcon />
-              </IconButton>
-              <StyledMenu
-                id="hidden-menu"
-                anchorEl={anchorEl}
-                keepMounted={true}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <StyledMenuItem
-                  onClick={() => {
-                    setAnchorEl(null);
-                    logged_in && handleLogout();
-                  }}
-                >
-                  <Link to="/login" className={classes.menuLink}>
-                    {logged_in ? "Logout" : "Login"}
-                  </Link>
-                </StyledMenuItem>
-                {!logged_in && (
-                  <StyledMenuItem
-                    onClick={() => {
-                      setAnchorEl(null);
-                    }}
-                  >
-                    <Link to="/register" className={classes.menuLink}>
-                      Register
-                    </Link>
-                  </StyledMenuItem>
-                )}
-              </StyledMenu>
-            </>
-          ) : (
-            <>
-              <Button
-                color="inherit"
-                onClick={() => logged_in && handleLogout()}
-              >
-                <Link to="/login" className={classes.linkStyle}>
-                  {logged_in ? "Logout" : "Login"}
-                </Link>
-              </Button>
-              {!logged_in && (
-                <Button color="inherit">
-                  <Link to="/register" className={classes.linkStyle}>
-                    Register
-                  </Link>
-                </Button>
-              )}
-            </>
-          )}
+          {/*isMobile || isSlimScreen*/}
+          {logged_in ? <Menu /> : <LoginPopup />}
+          {!logged_in && <RegistrationPopup />}
         </Toolbar>
       </AppBar>
     </div>

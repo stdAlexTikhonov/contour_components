@@ -1,5 +1,5 @@
 interface Props {
-  history: any;
+  // history: any;
 }
 
 export type IProps = Props & LinkDispatchProps;

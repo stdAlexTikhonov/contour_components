@@ -6,7 +6,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { bindActionCreators } from "redux";
 import { removeSession, saveLanguage } from "../../utils/api";
-import { AppComponent } from "./App";
+import { MenuComponent } from "./MenuComponent";
 import { AppState } from "../../store/config_store";
 import { LinkDispatchProps, LinkStateProps } from "./types";
 
@@ -32,4 +32,4 @@ const mapDispatchToProps = (
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);
+export const Menu = connect(mapStateToProps, mapDispatchToProps)(MenuComponent);

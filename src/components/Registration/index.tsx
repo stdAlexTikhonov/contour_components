@@ -6,8 +6,7 @@ import { IProps, LinkDispatchProps } from "./types";
 import { RegistrationFormComponent } from "./RegistrationFormComponent";
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<any, any, AppActions>,
-  props: IProps
+  dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchProps => ({
   handleRegister: async (
     login: HTMLInputElement | undefined,
@@ -24,7 +23,7 @@ const mapDispatchToProps = (
       email: email?.value!,
     });
 
-    if (data.success) props.history.push("/login");
+    // if (data.success) props.history.push("/login");
   },
 });
 

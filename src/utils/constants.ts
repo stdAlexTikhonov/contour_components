@@ -30,3 +30,10 @@ export const COLOR: string = "#003366";
 export const IMAGES_AND_OTHER_STUFF: string = "https://stat.world/biportal/";
 // export const BASE_URL: string = "http://172.21.67.35:8090/biportal/api.jsp";
 export const BASE_URL: string = "http://204.145.90.67:8082/biportal/api.jsp";
+
+//Interface
+export const PROFILE: string = "Profile";
+export const SUBSCRIBE: string = "Subscribtions";
+export const LOGOUT: string = "Logout";
+export const CHANGE_PSW: string = "Change password";
+export const REGISTER: string = "Register";
