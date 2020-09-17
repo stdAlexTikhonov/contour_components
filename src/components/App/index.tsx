@@ -15,6 +15,7 @@ const mapStateToProps = (state: AppState): LinkStateProps => ({
   languages: state.languages,
   logged_in: state.auth.logged_in,
   current: state.languages[state.languages.current],
+  name: state.auth.name,
 });
 
 const mapDispatchToProps = (

@@ -9,6 +9,7 @@ export interface LinkStateProps {
   languages: { [index: string]: string };
   logged_in: boolean;
   current: string;
+  name: null | string;
 }
 
 export interface LinkDispatchProps {

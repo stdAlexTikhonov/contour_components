@@ -21,6 +21,7 @@ export const AppComponent: React.FC<IProps> = ({
   changeLanguage,
   current,
   handleLogout,
+  name,
 }) => {
   useEffect(() => {
     (async () => {
@@ -52,6 +53,7 @@ export const AppComponent: React.FC<IProps> = ({
             changeLanguage={changeLanguage}
             currentLanguage={current}
             handleLogout={handleLogout}
+            name={name}
           />
         </AppBar>
       </Slide>

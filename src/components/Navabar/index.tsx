@@ -25,6 +25,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
   changeLanguage,
   currentLanguage,
   handleLogout,
+  name,
 }) => {
   const classes = useStyles();
   const items = Object.keys(languages);
@@ -106,7 +107,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
                   color="inherit"
                   onClick={() => logged_in && handleLogout()}
                 >
-                  Logout
+                  {name}
                 </Button>
               ) : (
                 <LoginPopup />
