@@ -5,6 +5,7 @@ import { StyledMenu } from "./StyledComponents";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
 import { RegistrationForm } from "../Registration";
+import AddIcon from "@material-ui/icons/Add";
 
 type IProps = {};
 
@@ -32,8 +33,13 @@ export const RegistrationPopup: React.FC<IProps> = () => {
         style={{ color: "white", minWidth: "unset", outline: "none" }}
         onClick={handleClick}
       >
-        {!(isMobile || isSlimScreen) && "Register"}
-        {!(isMobile || isSlimScreen) && <ExpandMoreIcon />}
+        {isMobile || isSlimScreen ? (
+          <AddIcon />
+        ) : (
+          <>
+            Register <ExpandMoreIcon />
+          </>
+        )}
       </Button>
       <StyledMenu
         id="customized-menu"
