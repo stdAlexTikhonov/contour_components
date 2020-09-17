@@ -3,6 +3,7 @@ import { Dashboard, Metadata, DimFilter, Tab } from "../types/actions";
 export interface authedUserType {
   logged_in: boolean;
   session: string | null;
+  name: string | null;
 }
 
 export interface languageType {
