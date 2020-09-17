@@ -6,6 +6,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
 import { Login } from "../Login";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { LOGIN } from "../../utils/constants";
 
 type IProps = {};
 
@@ -39,7 +40,7 @@ export const LoginPopup: React.FC<IProps> = () => {
           <AccountCircleIcon />
         ) : (
           <>
-            Login
+            {LOGIN}
             <ExpandMoreIcon />
           </>
         )}

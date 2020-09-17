@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useStyles } from "./styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -7,11 +7,11 @@ import ThemeProvider from "../CustomDropdown/ThemeProvider";
 
 export const RegistrationFormComponent: React.FC<IProps> = (props) => {
   const classes = useStyles();
-  const refLogin = useRef<HTMLInputElement | undefined>();
-  const refPassword = useRef<HTMLInputElement | undefined>();
-  const refFirstname = useRef<HTMLInputElement | undefined>();
-  const refSurname = useRef<HTMLInputElement | undefined>();
-  const refEmail = useRef<HTMLInputElement | undefined>();
+  const refLogin: any = React.createRef();
+  const refPassword: any = React.createRef();
+  const refFirstname: any = React.createRef();
+  const refSurname: any = React.createRef();
+  const refEmail: any = React.createRef();
 
   return (
     <ThemeProvider>

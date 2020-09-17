@@ -29,7 +29,7 @@ const mapDispatchToProps = (
     });
 
     if (data.success) {
-      dispatch(setUserName(data.user.metadata.firstname));
+      dispatch(setUserName(data.user.metadata.fullname));
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
       saveSession(data.session);

@@ -6,6 +6,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
 import { RegistrationForm } from "../Registration";
 import AddIcon from "@material-ui/icons/Add";
+import { REGISTER } from "../../utils/constants";
 
 type IProps = {};
 
@@ -37,7 +38,8 @@ export const RegistrationPopup: React.FC<IProps> = () => {
           <AddIcon />
         ) : (
           <>
-            Register <ExpandMoreIcon />
+            {REGISTER}
+            <ExpandMoreIcon />
           </>
         )}
       </Button>
