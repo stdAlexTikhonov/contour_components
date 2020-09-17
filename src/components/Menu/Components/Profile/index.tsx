@@ -84,7 +84,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const Test = () => {
+export const Profile = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
