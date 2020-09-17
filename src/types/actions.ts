@@ -22,6 +22,9 @@ export interface setLoggedOut {
 export interface setUserName {
   type: typeof SET_USER_NAME;
   name: string;
+  last_name: string;
+  first_name: string;
+  email: string;
 }
 
 export type authedUserActionTypes =
