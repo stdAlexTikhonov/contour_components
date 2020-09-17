@@ -50,7 +50,9 @@ function SimpleDialog(props: SimpleDialogProps) {
             >
               Add
             </Button>
-            <Button style={{ outline: "none" }}>Cancel</Button>
+            <Button style={{ outline: "none" }} onClick={handleClose}>
+              Cancel
+            </Button>
           </div>
         </form>
       </div>
