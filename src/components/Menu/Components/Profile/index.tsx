@@ -1,106 +1,44 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import ListItemText from "@material-ui/core/ListItemText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import TextField from "@material-ui/core/TextField";
+import { connect } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+import { AppActions } from "../../../../types/actions";
+import { userLogin, saveSession } from "../../../../utils/api";
+import {
+  setLoggedIn,
+  setAuthedUser,
+  setUserName,
+} from "../../../../actions/authedUser";
+import { AppState } from "../../../../store/config_store";
+import { handleInitialData } from "../../../../actions/shared";
+import { LinkDispatchProps, LinkStateToProps } from "./types";
+import { ProfileComponent } from "./ProfileComponent";
 
-import { useStyles } from "./styles";
+const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  logged_in: state.auth.logged_in,
+});
 
-export interface SimpleDialogProps {
-  open: boolean;
-  onClose: (value: string) => void;
-}
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>
+): LinkDispatchProps => ({
+  handleLogin: async (
+    login: HTMLInputElement | undefined,
+    password: HTMLInputElement | undefined
+  ) => {
+    const data = await userLogin({
+      user: login?.value!,
+      password: password?.value!,
+    });
 
-function SimpleDialog(props: SimpleDialogProps) {
-  const classes = useStyles();
-  const { onClose, open } = props;
-  const firstName: any = React.createRef();
-  const lastName: any = React.createRef();
-  const fullName: any = React.createRef();
-  const email: any = React.createRef();
+    if (data.success) {
+      dispatch(setUserName(data.user.metadata.fullname));
+      dispatch(setLoggedIn());
+      dispatch(setAuthedUser(data.session));
+      saveSession(data.session);
+      dispatch(handleInitialData());
+    }
+  },
+});
 
-  const handleClose = () => {
-    onClose("");
-  };
-
-  const handleListItemClick = (value: string) => {
-    onClose(value);
-  };
-
-  return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Profile</DialogTitle>
-      <div className={classes.container}>
-        <form className={classes.root} noValidate={true} autoComplete="off">
-          <TextField
-            id="filled-basic"
-            label="First Name"
-            variant="outlined"
-            inputRef={firstName}
-          />
-
-          <TextField
-            id="outlined-basic"
-            label="Last Name"
-            variant="outlined"
-            type="password"
-            inputRef={lastName}
-          />
-
-          <TextField
-            id="outlined-basic"
-            label="Full Name"
-            variant="outlined"
-            type="password"
-            inputRef={fullName}
-          />
-
-          <TextField
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            type="email"
-            inputRef={email}
-          />
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              style={{
-                outline: "none",
-                minWidth: "unset",
-              }}
-            >
-              Ok
-            </Button>
-            <Button style={{ outline: "none" }} onClick={handleClose}>
-              Cancel
-            </Button>
-          </div>
-        </form>
-      </div>
-    </Dialog>
-  );
-}
-
-export const Profile = () => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value: string) => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <ListItemText primary={"Profile"} onClick={handleClickOpen} />
-      <SimpleDialog open={open} onClose={handleClose} />
-    </div>
-  );
-};
+export const Profile = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileComponent);
