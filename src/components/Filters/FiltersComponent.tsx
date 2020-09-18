@@ -49,6 +49,10 @@ export const FiltersComponent: React.FC<IProps> = ({
   height,
   coords,
   setCoords,
+  attributes,
+  rows,
+  columns,
+  grid_filters,
 }) => {
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
@@ -232,31 +236,48 @@ export const FiltersComponent: React.FC<IProps> = ({
     <div style={{ display: "flex", flexDirection: "row" }}>{renderItems()}</div>
   );
 
-  const getDimensionButton = (props: any) => {
-    const filter = filters.find((item: any) => item.code === props.data.code);
-    const index = filters
-      .map((item: any) => item.code)
-      .indexOf(props.data.code);
+  const checkIndex = (arr: any, code: string) =>
+    arr.map((item: any) => item.code).indexOf(code);
 
-    return filter ? (
+  const getDimensionButton = (props: any) => {
+    const filter = grid_filters.find(
+      (item: any) => item.code === props.data.code
+    );
+    const index_filter = checkIndex(grid_filters, props.data.code);
+
+    const row = rows.find((item: any) => item.code === props.data.code);
+    const index_row = checkIndex(rows, props.data.code);
+
+    const column = columns.find((item: any) => item.code === props.data.code);
+    const index_column = checkIndex(columns, props.data.code);
+
+    const attr = attributes.find((item: any) => item.code === props.data.code);
+    const index_attr = checkIndex(attributes, props.data.code);
+
+    const itog = filter || row || column || attr;
+    console.log(itog);
+    const index = index_filter || index_row || index_column || index_attr;
+    console.log(index);
+
+    return itog ? (
       <CustomDropdown
         items={[]}
-        label={filter.Caption}
+        label={itog.Caption}
         multy={true}
         selected={[]}
         _async={true}
         slice={slice}
         view={view}
-        code={filter.code}
+        code={itog.code}
         report={report_code}
-        descending={filter.Descending}
+        descending={itog.Descending}
         filterChange={filterChange}
         meta_index={meta_index}
         filter_index={index + 1}
         cube_id={cube_id}
       />
     ) : (
-      <div></div>
+      <div>{props.data.code}</div>
     );
   };
 
