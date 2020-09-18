@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import { AppActions } from "../../types/actions";
-import { userLogin, saveSession } from "../../utils/api";
+import { AppActions } from "../../../../types/actions";
+import { userLogin, saveSession } from "../../../../utils/api";
 import {
   setLoggedIn,
   setAuthedUser,
   setUserName,
-} from "../../actions/authedUser";
-import { AppState } from "../../store/config_store";
-import { handleInitialData } from "../../actions/shared";
+} from "../../../../actions/authedUser";
+import { AppState } from "../../../../store/config_store";
+import { handleInitialData } from "../../../../actions/shared";
 import { LinkDispatchProps, LinkStateToProps } from "./types";
-import { LoginComponent } from "./LoginComponent";
+import { ProfileComponent } from "./ProfileComponent";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   logged_in: state.auth.logged_in,
@@ -29,8 +29,6 @@ const mapDispatchToProps = (
     });
 
     if (data.success) {
-      const { firstname, lastname, email, fullname } = data.user.metadata;
-      dispatch(setUserName(fullname, firstname, lastname, email));
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
       saveSession(data.session);
@@ -39,7 +37,7 @@ const mapDispatchToProps = (
   },
 });
 
-export const Login = connect(
+export const Profile = connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginComponent);
+)(ProfileComponent);

@@ -15,10 +15,9 @@ export interface SimpleDialogProps {
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
   const { onClose, open } = props;
-  const firstName: any = React.createRef();
-  const lastName: any = React.createRef();
-  const fullName: any = React.createRef();
-  const email: any = React.createRef();
+  const old: any = React.createRef();
+  const new_: any = React.createRef();
+  const confirm: any = React.createRef();
 
   const handleClose = () => {
     onClose("");
@@ -34,39 +33,33 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Profile</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Change Password</DialogTitle>
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <TextField
             id="filled-basic"
-            label="First Name"
-            variant="outlined"
-            inputRef={firstName}
-          />
-
-          <TextField
-            id="outlined-basic"
-            label="Last Name"
+            label="Old Password"
             variant="outlined"
             type="password"
-            inputRef={lastName}
+            inputRef={old}
           />
 
           <TextField
             id="outlined-basic"
-            label="Full Name"
+            label="New Password"
             variant="outlined"
             type="password"
-            inputRef={fullName}
+            inputRef={new_}
           />
 
           <TextField
             id="outlined-basic"
-            label="Email"
+            label="Confirm Password"
             variant="outlined"
-            type="email"
-            inputRef={email}
+            type="password"
+            inputRef={confirm}
           />
+
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
               style={{
@@ -76,7 +69,9 @@ function SimpleDialog(props: SimpleDialogProps) {
             >
               Ok
             </Button>
-            <Button style={{ outline: "none" }}>Cancel</Button>
+            <Button style={{ outline: "none" }} onClick={handleClose}>
+              Cancel
+            </Button>
           </div>
         </form>
       </div>
@@ -84,7 +79,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const Test = () => {
+export const ChangePassword = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -97,7 +92,7 @@ export const Test = () => {
 
   return (
     <div>
-      <ListItemText primary={"Profile"} onClick={handleClickOpen} />
+      <ListItemText primary={"Change Password"} onClick={handleClickOpen} />
       <SimpleDialog open={open} onClose={handleClose} />
     </div>
   );

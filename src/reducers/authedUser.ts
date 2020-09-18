@@ -11,6 +11,9 @@ const authedUserDefaultState: authedUserType = {
   logged_in: false,
   session: null,
   name: null,
+  first_name: null,
+  last_name: null,
+  email: null,
 };
 
 export const authedUser = (
@@ -37,6 +40,9 @@ export const authedUser = (
       return {
         ...state,
         name: action.name,
+        first_name: action.first_name,
+        last_name: action.last_name,
+        email: action.email,
       };
     default:
       return state;

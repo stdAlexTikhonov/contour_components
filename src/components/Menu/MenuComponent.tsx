@@ -9,6 +9,10 @@ import Divider from "@material-ui/core/Divider";
 import { IProps } from "./types";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { PROFILE, CHANGE_PSW, SUBSCRIBE, LOGOUT } from "../../utils/constants";
+import { Test } from "../Test";
+import { Profile } from "./Components/Profile";
+import { ChangePassword } from "./Components/ChangePassword";
+import { Subscriptions } from "./Components/Subscriptions";
 
 export const MenuComponent: React.FC<IProps> = ({ handleLogout, name }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -46,14 +50,14 @@ export const MenuComponent: React.FC<IProps> = ({ handleLogout, name }) => {
         open={opened}
         onClose={handleClose}
       >
-        <StyledMenuItem onClick={() => handleLogout()}>
-          <ListItemText primary={PROFILE} />
+        <StyledMenuItem>
+          <Profile />
         </StyledMenuItem>
-        <StyledMenuItem onClick={() => handleLogout()}>
-          <ListItemText primary={CHANGE_PSW} />
+        <StyledMenuItem>
+          <ChangePassword />
         </StyledMenuItem>
-        <StyledMenuItem onClick={() => handleLogout()}>
-          <ListItemText primary={SUBSCRIBE} />
+        <StyledMenuItem>
+          <Subscriptions />
         </StyledMenuItem>
         <Divider />
         <StyledMenuItem onClick={() => handleLogout()}>

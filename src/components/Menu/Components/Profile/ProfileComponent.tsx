@@ -76,7 +76,9 @@ function SimpleDialog(props: SimpleDialogProps) {
             >
               Ok
             </Button>
-            <Button style={{ outline: "none" }}>Cancel</Button>
+            <Button style={{ outline: "none" }} onClick={handleClose}>
+              Cancel
+            </Button>
           </div>
         </form>
       </div>
@@ -84,7 +86,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const Test = () => {
+export const ProfileComponent = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

@@ -19,9 +19,17 @@ export const setLoggedOut = (): AppActions => ({
   type: SET_LOGGED_OUT,
 });
 
-export const setUserName = (name: string): AppActions => ({
+export const setUserName = (
+  name: string,
+  first_name: string,
+  last_name: string,
+  email: string
+): AppActions => ({
   type: SET_USER_NAME,
   name,
+  first_name,
+  last_name,
+  email,
 });
 
 // export function handleLogin(login, password) {
