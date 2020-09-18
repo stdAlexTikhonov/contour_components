@@ -56,6 +56,7 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
   settingFilterHierarchy,
   checked,
   filters: store_filters,
+  grid_filter,
 }) => {
   const { solution, project, report } = useParams();
   const cube_report = report_code || report;
@@ -295,7 +296,11 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
               cubeSession: cubes[cube_id],
             });
 
-            const filter = store_filters.find((el: any) => el.code === item);
+            const filter =
+              grid_filter.length > 0
+                ? grid_filter.find((el: any) => el.code === item)
+                : store_filters.find((el: any) => el.code === item);
+
             datax.label = filter.Caption;
             datax.next_level = hierarchy.levels[i + 1];
 

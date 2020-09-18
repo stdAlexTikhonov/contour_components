@@ -13,6 +13,7 @@ export interface Props {
   meta_index: number;
   filter_index: number;
   cube_id: string;
+  grid_filter?: any;
 }
 
 export interface LinkStateToProps {

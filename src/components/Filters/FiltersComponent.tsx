@@ -275,6 +275,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         meta_index={meta_index}
         filter_index={index + 1}
         cube_id={cube_id}
+        grid_filter={[...columns, ...attributes, ...filters, ...rows]}
       />
     ) : (
       <div>{props.data.code}</div>
