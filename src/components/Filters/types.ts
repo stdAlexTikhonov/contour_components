@@ -6,7 +6,6 @@ export type Props = {
   facts: any;
   slice: string;
   view: string;
-  filters: any;
   visibleFacts: any;
   report?: string;
   multipleFacts: boolean;
@@ -18,6 +17,11 @@ export type Props = {
   height: number;
   coords: number[];
   setCoords: any;
+  filters: any;
+  columns?: any;
+  rows?: any;
+  attributes?: any;
+  grid_filters?: any;
 };
 
 export type POSITIONS_TYPE =

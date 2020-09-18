@@ -265,6 +265,10 @@ export const ViewComponent: React.FC<IProps> = ({
             height={[0, 2].includes(fieldBarPosition) ? height - 38 : height}
             coords={coords2}
             setCoords={setCoords}
+            attributes={attributes}
+            columns={columns}
+            rows={rows}
+            grid_filters={filters}
           />
         )}
         {chart && <div id={chart.id + "_footer"} />}
