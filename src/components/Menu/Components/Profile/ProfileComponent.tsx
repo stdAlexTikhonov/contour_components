@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -20,10 +20,15 @@ export interface SimpleDialogProps {
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
   const { onClose, open, first_name, last_name, name, email_ } = props;
-  const firstName: any = React.createRef();
-  const lastName: any = React.createRef();
-  const fullName: any = React.createRef();
-  const email: any = React.createRef();
+  const firstNameRef: any = React.createRef();
+  const lastNameRef: any = React.createRef();
+  const fullNameRef: any = React.createRef();
+  const emailRef: any = React.createRef();
+
+  const [firstName, setFirstName] = useState(first_name);
+  const [lastName, setLastName] = useState(last_name);
+  const [fullName, setFullName] = useState(name);
+  const [email, setEmail] = useState(email_);
 
   const handleClose = () => {
     onClose("");
@@ -46,24 +51,27 @@ function SimpleDialog(props: SimpleDialogProps) {
             id="filled-basic"
             label="First Name"
             variant="outlined"
-            inputRef={firstName}
-            value={first_name}
+            inputRef={firstNameRef}
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
           />
 
           <TextField
             id="outlined-basic"
             label="Last Name"
             variant="outlined"
-            inputRef={lastName}
-            value={last_name}
+            onChange={(e) => setLastName(e.target.value)}
+            inputRef={lastNameRef}
+            value={lastName}
           />
 
           <TextField
             id="outlined-basic"
             label="Full Name"
             variant="outlined"
-            inputRef={fullName}
-            value={name}
+            onChange={(e) => setFullName(e.target.value)}
+            inputRef={fullNameRef}
+            value={fullName}
           />
 
           <TextField
@@ -71,8 +79,9 @@ function SimpleDialog(props: SimpleDialogProps) {
             label="Email"
             variant="outlined"
             type="email"
-            value={email_}
-            inputRef={email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            inputRef={emailRef}
           />
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
