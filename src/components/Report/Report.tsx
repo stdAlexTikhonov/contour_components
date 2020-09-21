@@ -19,6 +19,7 @@ import { Dashboard } from "../Dashboard";
 import { Export } from "../ExportPDF";
 import { UserLayouts } from "../UserLayouts";
 import { Layouts } from "../Layouts";
+import { Subscriptions } from "../Subscriptions";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -100,6 +101,7 @@ export const ReportComponent: React.FC<IProps> = ({
             {report_caption}
             {logged_in && <Layouts />}
           </div>
+          {logged_in && <Subscriptions />}
           {logged_in && <UserLayouts />}
           <Export />
         </div>
