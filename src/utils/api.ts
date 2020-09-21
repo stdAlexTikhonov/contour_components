@@ -39,7 +39,15 @@ export const removeSession = () => localStorage.removeItem("user");
 
 export const getSession = async () => {
   const user = localStorage.getItem("user");
-  const { session } = user ? JSON.parse(user) : { session: null };
+  const { session, first_name, last_name, name, email } = user
+    ? JSON.parse(user)
+    : {
+        session: null,
+        first_name: null,
+        last_name: null,
+        name: null,
+        email: null,
+      };
 
   const guest = {
     user: "guest",
@@ -51,6 +59,10 @@ export const getSession = async () => {
   return {
     session: session ? session : data.session,
     logged_in: session ? true : false,
+    name,
+    first_name,
+    last_name,
+    email,
   };
 };
 
