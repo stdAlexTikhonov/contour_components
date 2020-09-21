@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -29,6 +29,13 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [lastName, setLastName] = useState(last_name);
   const [fullName, setFullName] = useState(name);
   const [email, setEmail] = useState(email_);
+
+  useEffect(() => {
+    setFirstName(first_name);
+    setLastName(last_name);
+    setFullName(name);
+    setEmail(email_);
+  }, [first_name, last_name, name, email_]);
 
   const handleClose = () => {
     onClose("");
