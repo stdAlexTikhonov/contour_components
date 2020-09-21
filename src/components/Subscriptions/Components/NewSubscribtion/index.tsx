@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
-import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -158,7 +157,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                   />
                 </FormControl>
               </FormGroup>
-              <TextField id="filled-basic" label="Add e-mail" />
+              <TextField id="filled-basic" label="Add e-mail" type="email" />
               <div
                 style={{
                   display: "flex",
