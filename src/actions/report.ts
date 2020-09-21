@@ -111,7 +111,7 @@ export const setLayoutCubeSession = (cubeSession: string): AppActions => ({
   cubeSession,
 });
 
-export const setSubscriptions = (subscribtions: any): AppActions => ({
+export const setSubscribtions = (subscribtions: any): AppActions => ({
   type: SET_SUBSCRIBTIONS,
   subscribtions,
 });

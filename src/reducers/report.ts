@@ -34,7 +34,7 @@ const reportDefaultState: reportType = {
   layouts: null,
   current_layout: null,
   layout_cube_session: null,
-  subscriptions: null,
+  subscribtions: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -122,7 +122,7 @@ export const report = (state = reportDefaultState, action: reportActions) => {
     case SET_SUBSCRIBTIONS:
       return {
         ...state,
-        subscriptions: action.subscribtions,
+        subscribtions: action.subscribtions,
       };
     default:
       return state;

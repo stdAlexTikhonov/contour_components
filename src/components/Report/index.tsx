@@ -15,6 +15,7 @@ import {
   setReportStyle,
   getReportLayouts,
   setCurrentLayout,
+  setSubscribtions,
 } from "../../actions/report";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
@@ -34,6 +35,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report_stylesheet: state.report.stylesheet,
   project_stylesheet: state.project.stylesheet,
   layouts: state.report.layouts,
+  subscribtions: state.report.subscribtions,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
@@ -96,6 +98,10 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           }
         });
       }
+
+      //subscribtions
+      reportData.subscribtions &&
+        dispatch(setSubscribtions(reportData.subscribtions));
     } else {
       console.log(`It was ${data_for_query.method}`);
       switch (data_for_query.method) {

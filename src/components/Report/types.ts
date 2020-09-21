@@ -19,6 +19,7 @@ export interface LinkStateToProps {
   project_stylesheet: any;
   logged_in: boolean;
   layouts: any;
+  subscribtions: any;
 }
 
 export interface LinkDispatchToProps {
