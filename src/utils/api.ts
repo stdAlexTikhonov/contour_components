@@ -32,8 +32,8 @@ export const setFiltersOnServer = (code: string, filters: string) =>
   _setFilter(code, filters);
 
 //Working with session
-export const saveSession = (session: string) =>
-  localStorage.setItem("user", JSON.stringify({ session }));
+export const saveSession = (data: any) =>
+  localStorage.setItem("user", JSON.stringify(data));
 
 export const removeSession = () => localStorage.removeItem("user");
 
