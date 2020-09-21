@@ -50,13 +50,13 @@ export const MenuComponent: React.FC<IProps> = ({ handleLogout, name }) => {
         open={opened}
         onClose={handleClose}
       >
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleClose}>
           <Profile />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleClose}>
           <ChangePassword />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleClose}>
           <Subscriptions />
         </StyledMenuItem>
         <Divider />
