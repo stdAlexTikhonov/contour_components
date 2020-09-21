@@ -14,6 +14,10 @@ import { ProfileComponent } from "./ProfileComponent";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   logged_in: state.auth.logged_in,
+  name: state.auth.name,
+  first_name: state.auth.first_name,
+  email: state.auth.email,
+  last_name: state.auth.last_name,
 });
 
 const mapDispatchToProps = (

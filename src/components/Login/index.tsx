@@ -29,8 +29,9 @@ const mapDispatchToProps = (
     });
 
     if (data.success) {
-      const { firstname, lastname, email, fullname } = data.user.metadata;
-      dispatch(setUserName(fullname, firstname, lastname, email));
+      console.log(data.user.metadata);
+      const { firstname, secondname, email, fullname } = data.user.metadata;
+      dispatch(setUserName(fullname, firstname, secondname, email));
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
       saveSession(data.session);
