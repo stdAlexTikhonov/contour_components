@@ -14,6 +14,10 @@ import { ProfileComponent } from "./ProfileComponent";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   logged_in: state.auth.logged_in,
+  name: state.auth.name,
+  first_name: state.auth.first_name,
+  email: state.auth.email,
+  last_name: state.auth.last_name,
 });
 
 const mapDispatchToProps = (
@@ -29,9 +33,16 @@ const mapDispatchToProps = (
     });
 
     if (data.success) {
+      const { firstname, secondname, email, fullname } = data.user.metadata;
       dispatch(setLoggedIn());
       dispatch(setAuthedUser(data.session));
-      saveSession(data.session);
+      saveSession({
+        session: data.session,
+        name: fullname,
+        first_name: firstname,
+        last_name: secondname,
+        email: email,
+      });
       dispatch(handleInitialData());
     }
   },

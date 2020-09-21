@@ -12,11 +12,18 @@ export const handleInitialData = () => async (
   getState: () => AppState
 ) => {
   dispatch(setLoading());
-  const { session, logged_in } = await getSession();
+  const {
+    session,
+    logged_in,
+    first_name,
+    last_name,
+    name,
+    email,
+  } = await getSession();
 
   logged_in && dispatch(setLoggedIn());
   dispatch(setAuthedUser(session));
-
+  dispatch(setUserName(name, first_name, last_name, email));
   //Languages
   const langs = await getLanguages(session);
   const langs_transformed = transform_languages_data(langs.languages);
