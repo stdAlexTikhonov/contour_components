@@ -33,12 +33,13 @@ export const setFiltersOnServer = (code: string, filters: string) =>
 
 //Working with session
 export const saveSession = (session: string) =>
-  localStorage.setItem("session", session);
+  localStorage.setItem("user", JSON.stringify({ session }));
 
-export const removeSession = () => localStorage.removeItem("session");
+export const removeSession = () => localStorage.removeItem("user");
 
 export const getSession = async () => {
-  const session = localStorage.getItem("session");
+  const user = localStorage.getItem("user");
+  const { session } = user ? JSON.parse(user) : { session: null };
 
   const guest = {
     user: "guest",
