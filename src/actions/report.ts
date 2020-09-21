@@ -16,12 +16,14 @@ import {
   RESET_REPORT,
   SET_CURRENT_LAYOUT,
   SET_LAYOUT_CUBE_SESSION,
+  SET_SUBSCRIBTIONS,
   Dashboard,
   Metadata,
   DimFilter,
   Tab,
 } from "../types/actions";
 import { pringPage } from "../types/reducers";
+import { Subscriptions } from "../components/Menu/Components/Subscriptions";
 
 export const setReport = (report: string): AppActions => ({
   type: SET_REPORT,
@@ -107,4 +109,9 @@ export const setCurrentLayout = (code: string): AppActions => ({
 export const setLayoutCubeSession = (cubeSession: string): AppActions => ({
   type: SET_LAYOUT_CUBE_SESSION,
   cubeSession,
+});
+
+export const setSubscriptions = (subscribtions: any): AppActions => ({
+  type: SET_SUBSCRIBTIONS,
+  subscribtions,
 });

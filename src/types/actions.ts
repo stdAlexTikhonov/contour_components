@@ -332,6 +332,13 @@ export interface setLayoutCubeSession {
 // ScaleHeaderFooter?: boolean;
 // HeaderFooter?: ItemHeaderFooter[];
 
+export const SET_SUBSCRIBTIONS = "SET_SUBSCRIPTIONS";
+
+export interface setSubscribtions {
+  type: typeof SET_SUBSCRIBTIONS;
+  subscribtions: any;
+}
+
 export type reportActions =
   | setReport
   | setReportType
@@ -348,7 +355,8 @@ export type reportActions =
   | getReportLayouts
   | resetReport
   | setCurrentLayout
-  | setLayoutCubeSession;
+  | setLayoutCubeSession
+  | setSubscribtions;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -463,4 +471,5 @@ export type AppActions =
   | resetReport
   | setCurrentLayout
   | setLayoutCubeSession
-  | setUserName;
+  | setUserName
+  | setSubscribtions;

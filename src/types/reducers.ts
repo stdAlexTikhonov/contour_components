@@ -29,6 +29,7 @@ export type reportType = {
   layouts: any;
   current_layout: string | null;
   layout_cube_session: string | null;
+  subscriptions: any;
 };
 
 type ItemHeaderFooter = {
