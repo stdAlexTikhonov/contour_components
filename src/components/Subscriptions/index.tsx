@@ -1,78 +1,39 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import TextField from "@material-ui/core/TextField";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import IconButton from "@material-ui/core/IconButton";
-import { NewSubscription } from "./Components/NewSubscribtion";
+import { connect } from "react-redux";
+import { AppState } from "../../store/config_store";
+import { DataForQuery } from "../../utils/types";
+import { getData } from "../../utils/api";
+import { ThunkDispatch } from "redux-thunk";
+import { AppActions } from "../../types/actions";
+import { setLoading, resetLoading } from "../../actions/loading";
+import { setItems } from "../../actions/items";
+import { setView } from "../../actions/view";
+import { setProjectStylesheet } from "../../actions/project";
+import { SubscriptionsComponent } from "./SubscriptionsComponent";
+import { setSubscribtions } from "../../actions/report";
+import { LinkDispatchToProps, LinkStateToProps } from "./types";
 
-import { useStyles } from "./styles";
+const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  items: state.items,
+  session: state.auth.session || undefined,
+  language: state.languages.current,
+  report: state.report.code,
+});
 
-export interface SimpleDialogProps {
-  open: boolean;
-  onClose: (value: string) => void;
-}
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<any, any, AppActions>
+): LinkDispatchToProps => ({
+  handleDataQuery: async (data_for_query: DataForQuery) => {
+    dispatch(setLoading());
+    const data = await getData(data_for_query);
 
-function SimpleDialog(props: SimpleDialogProps) {
-  const classes = useStyles();
-  const { onClose, open } = props;
-  const subscription: any = React.createRef();
+    if (data.success) {
+      data.subscriptions && dispatch(setSubscribtions(data.subscriptions));
+    }
+    dispatch(resetLoading());
+  },
+});
 
-  const handleClose = () => {
-    onClose("");
-  };
-
-  const handleListItemClick = (value: string) => {
-    onClose(value);
-  };
-
-  return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Subscriptions</DialogTitle>
-      <div className={classes.container}>
-        <form className={classes.root} noValidate={true} autoComplete="off">
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <NewSubscription />
-            <Button style={{ outline: "none" }} onClick={handleClose} disabled>
-              Edit
-            </Button>
-            <Button style={{ outline: "none" }} onClick={handleClose} disabled>
-              Unsubscribe
-            </Button>
-          </div>
-        </form>
-      </div>
-    </Dialog>
-  );
-}
-
-export const Subscriptions = () => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value: string) => {
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      <IconButton
-        size="small"
-        style={{ outline: "none" }}
-        aria-label="delete"
-        onClick={handleClickOpen}
-      >
-        <MailOutlineIcon />
-      </IconButton>
-      <SimpleDialog open={open} onClose={handleClose} />
-    </div>
-  );
-};
+export const Subscriptions = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SubscriptionsComponent);
