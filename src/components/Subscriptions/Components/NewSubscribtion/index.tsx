@@ -57,6 +57,23 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [users, setUsers] = React.useState(users_);
   const [views, setViews] = React.useState(views_);
   const [type, setType] = React.useState(periodicity_ ? periodicity_.type : "");
+  const [date, setDate] = React.useState(periodicity_ ? periodicity_.date : "");
+  const [time, setTime] = React.useState(periodicity_ ? periodicity_.time : "");
+  const [minutes, setMinutes] = React.useState(
+    periodicity_ ? periodicity_.minuteOfHour : ""
+  );
+  const [dow, setDow] = React.useState(
+    periodicity_ ? periodicity_.dayOfWeek : ""
+  );
+  const [dom, setDom] = React.useState(
+    periodicity_ ? periodicity_.dayOfMonth : ""
+  );
+  const [moq, setMoq] = React.useState(
+    periodicity_ ? periodicity_.monthOfQuarter : ""
+  );
+  const [month, setMonth] = React.useState(
+    periodicity_ ? periodicity_.month : ""
+  );
 
   const handleClose = () => {
     onClose("");
@@ -101,7 +118,10 @@ function SimpleDialog(props: SimpleDialogProps) {
                 />
               </FormControl>
               <FormControl component="fieldset">
-                <FormLabel component="legend" style={{ paddingTop: 20 }}>
+                <FormLabel
+                  component="legend"
+                  style={{ paddingTop: 20, paddingLeft: 10 }}
+                >
                   Format
                 </FormLabel>
                 <RadioGroup
@@ -178,6 +198,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    onChange={(e) => console.log(e.target.value)}
                   />
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -192,6 +213,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                     inputProps={{
                       step: 300, // 5 min
                     }}
+                    onChange={(e) => console.log(e.target.value)}
                   />
                 </FormControl>
               </FormGroup>
@@ -204,8 +226,10 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={(e) => setEmails(e.target.value)}
                 />
               </FormControl>
-              <FormControl className={classes.formControl}>
-                <div style={{ display: "flex", alignItems: "center" }}>
+
+              <FormControlLabel
+                style={{ paddingLeft: 20 }}
+                control={
                   <CustomCheckbox
                     edge="start"
                     onClick={(e) => setPrivate(!isPrivate)}
@@ -213,9 +237,9 @@ function SimpleDialog(props: SimpleDialogProps) {
                     tabIndex={-1}
                     inputProps={{ "aria-labelledby": "someid" }}
                   />
-                  <ListItemText id={"someid"} primary={"Public"} />
-                </div>
-              </FormControl>
+                }
+                label="Public"
+              />
             </div>
           </form>
         </div>
@@ -223,7 +247,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           style={{
             display: "flex",
             justifyContent: "flex-end",
-            paddingTop: 10,
+            padding: 10,
           }}
         >
           <Button style={{ outline: "none" }} onClick={handleClose}>
