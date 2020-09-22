@@ -15,6 +15,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     container: {
       display: "flex",
     },
+    new_subscription: {
+      display: "flex",
+      height: 500,
+      overflow: "auto",
+    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,

@@ -11,10 +11,11 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormGroup from "@material-ui/core/FormGroup";
-
+import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "../../styles";
 import ThemeProvider from "../../../CustomDropdown/ThemeProvider";
 import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
+import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
 
 type IProps = {
   code_?: string;
@@ -81,7 +82,7 @@ function SimpleDialog(props: SimpleDialogProps) {
         open={open}
       >
         <DialogTitle id="simple-dialog-title">New Subscription</DialogTitle>
-        <div className={classes.container}>
+        <div className={classes.new_subscription}>
           <form className={classes.root} noValidate={true} autoComplete="off">
             <div
               style={{
@@ -203,23 +204,34 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={(e) => setEmails(e.target.value)}
                 />
               </FormControl>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  paddingTop: 10,
-                }}
-              >
-                <Button style={{ outline: "none" }} onClick={handleClose}>
-                  Send now
-                </Button>
-                <Button style={{ outline: "none" }} onClick={handleClose}>
-                  Subscribe
-                </Button>
-              </div>
+              <FormControl className={classes.formControl}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <CustomCheckbox
+                    edge="start"
+                    onClick={(e) => setPrivate(!isPrivate)}
+                    checked={!isPrivate}
+                    tabIndex={-1}
+                    inputProps={{ "aria-labelledby": "someid" }}
+                  />
+                  <ListItemText id={"someid"} primary={"Public"} />
+                </div>
+              </FormControl>
             </div>
           </form>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingTop: 10,
+          }}
+        >
+          <Button style={{ outline: "none" }} onClick={handleClose}>
+            Send now
+          </Button>
+          <Button style={{ outline: "none" }} onClick={handleClose}>
+            Subscribe
+          </Button>
         </div>
       </Dialog>
     </ThemeProvider>
