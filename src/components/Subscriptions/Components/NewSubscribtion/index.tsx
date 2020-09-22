@@ -62,7 +62,9 @@ function SimpleDialog(props: SimpleDialogProps) {
                 width: 500,
               }}
             >
-              <TextField id="filled-basic" label="Caption" />
+              <FormControl className={classes.formControl}>
+                <TextField id="filled-basic" label="Caption" />
+              </FormControl>
               <FormControl component="fieldset">
                 <FormLabel component="legend" style={{ paddingTop: 20 }}>
                   Format
@@ -157,7 +159,10 @@ function SimpleDialog(props: SimpleDialogProps) {
                   />
                 </FormControl>
               </FormGroup>
-              <TextField id="filled-basic" label="Add e-mail" type="email" />
+              <FormControl className={classes.formControl}>
+                <TextField id="filled-basic" label="Add e-mail" type="email" />
+              </FormControl>
+
               <div
                 style={{
                   display: "flex",
