@@ -17,14 +17,14 @@ import ThemeProvider from "../../../CustomDropdown/ThemeProvider";
 import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 
 type IProps = {
-  code?: string;
-  caption?: string;
-  format?: string;
-  isPrivate?: boolean;
-  periodicity?: string;
-  emails?: string;
-  users?: string;
-  views?: string;
+  code_?: string;
+  caption_?: string;
+  format_?: string;
+  isPrivate_?: boolean;
+  periodicity_?: any;
+  emails_?: string;
+  users_?: string;
+  views_?: string;
 };
 
 export interface DialogProps {
@@ -36,10 +36,26 @@ export type SimpleDialogProps = DialogProps & IProps;
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
-  const { onClose, open } = props;
+  const {
+    onClose,
+    open,
+    code_,
+    caption_,
+    format_,
+    isPrivate_,
+    periodicity_,
+    emails_,
+    users_,
+    views_,
+  } = props;
   const subscription: any = React.createRef();
-  const [value, setValue] = React.useState("pdf");
-  const [age, setAge] = React.useState("");
+  const [caption, setCaption] = React.useState(caption_);
+  const [format, setFormat] = React.useState(format_);
+  const [isPrivate, setPrivate] = React.useState(isPrivate_);
+  const [emails, setEmails] = React.useState(emails_);
+  const [users, setUsers] = React.useState(users_);
+  const [views, setViews] = React.useState(views_);
+  const [type, setType] = React.useState(periodicity_ ? periodicity_.type : "");
 
   const handleClose = () => {
     onClose("");
@@ -50,11 +66,11 @@ function SimpleDialog(props: SimpleDialogProps) {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    setFormat((event.target as HTMLInputElement).value);
   };
 
   const handleChangeSelect = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
+    setType(event.target.value as string);
   };
 
   return (
@@ -76,7 +92,12 @@ function SimpleDialog(props: SimpleDialogProps) {
               }}
             >
               <FormControl className={classes.formControl}>
-                <TextField id="filled-basic" label="Caption" />
+                <TextField
+                  id="filled-basic"
+                  label="Caption"
+                  value={caption}
+                  onChange={(e) => setCaption(e.target.value)}
+                />
               </FormControl>
               <FormControl component="fieldset">
                 <FormLabel component="legend" style={{ paddingTop: 20 }}>
@@ -85,7 +106,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                 <RadioGroup
                   aria-label="gender"
                   name="format1"
-                  value={value}
+                  value={format}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -94,35 +115,36 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={handleChange}
                 >
                   <FormControlLabel
-                    value="1"
+                    value="xls"
                     control={<CustomRadio />}
                     label="MS Excel"
                   />
                   <FormControlLabel
-                    value="2"
+                    value="pdf"
                     control={<CustomRadio />}
                     label="PDF"
                   />
                   <FormControlLabel
-                    value="3"
+                    value="url"
                     control={<CustomRadio />}
                     label="URL"
                   />
                   <FormControlLabel
-                    value="4"
+                    value="ppt"
                     control={<CustomRadio />}
                     label="MS PowerPoint"
                   />
                   <FormControlLabel
-                    value="5"
+                    value="html"
                     control={<CustomRadio />}
                     label="HTML"
                   />
                   <FormControlLabel
-                    value="6"
+                    value="IMAGE"
                     control={<CustomRadio />}
                     label="Image"
                   />
+                  {/* xli */}
                 </RadioGroup>
               </FormControl>
               <FormControl className={classes.formControl}>
@@ -132,17 +154,17 @@ function SimpleDialog(props: SimpleDialogProps) {
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={age}
+                  value={type}
                   onChange={handleChangeSelect}
                   label="Period"
                 >
-                  <MenuItem value={10}>One time</MenuItem>
-                  <MenuItem value={20}>Hourly</MenuItem>
-                  <MenuItem value={30}>Daily</MenuItem>
-                  <MenuItem value={40}>Weekly</MenuItem>
-                  <MenuItem value={50}>Mounthly</MenuItem>
-                  <MenuItem value={60}>Quarterly</MenuItem>
-                  <MenuItem value={70}>Annualy </MenuItem>
+                  <MenuItem value={"OneTime"}>One time</MenuItem>
+                  <MenuItem value={"Hourly"}>Hourly</MenuItem>
+                  <MenuItem value={"Daily"}>Daily</MenuItem>
+                  <MenuItem value={"Weekly"}>Weekly</MenuItem>
+                  <MenuItem value={"Monthly"}>Mounthly</MenuItem>
+                  <MenuItem value={"Quarterly"}>Quarterly</MenuItem>
+                  <MenuItem value={"Annually"}>Annualy </MenuItem>
                 </Select>
               </FormControl>
               <FormGroup row>
@@ -173,7 +195,13 @@ function SimpleDialog(props: SimpleDialogProps) {
                 </FormControl>
               </FormGroup>
               <FormControl className={classes.formControl}>
-                <TextField id="filled-basic" label="Add e-mail" type="email" />
+                <TextField
+                  id="filled-basic"
+                  label="Add e-mail"
+                  type="email"
+                  value={emails}
+                  onChange={(e) => setEmails(e.target.value)}
+                />
               </FormControl>
 
               <div
@@ -198,16 +226,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const NewSubscription: React.FC<IProps> = ({
-  code,
-  caption,
-  users,
-  emails,
-  periodicity,
-  isPrivate,
-  format,
-  views,
-}) => {
+export const NewSubscription: React.FC<IProps> = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -229,7 +248,7 @@ export const NewSubscription: React.FC<IProps> = ({
       >
         Add
       </Button>
-      <SimpleDialog open={open} onClose={handleClose} />
+      <SimpleDialog open={open} {...props} onClose={handleClose} />
     </div>
   );
 };
