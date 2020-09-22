@@ -16,10 +16,23 @@ import { useStyles } from "../../styles";
 import ThemeProvider from "../../../CustomDropdown/ThemeProvider";
 import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 
-export interface SimpleDialogProps {
+type IProps = {
+  code?: string;
+  caption?: string;
+  format?: string;
+  isPrivate?: boolean;
+  periodicity?: string;
+  emails?: string;
+  users?: string;
+  views?: string;
+};
+
+export interface DialogProps {
   open: boolean;
   onClose: (value: string) => void;
 }
+
+export type SimpleDialogProps = DialogProps & IProps;
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
@@ -185,7 +198,16 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 }
 
-export const NewSubscription = () => {
+export const NewSubscription: React.FC<IProps> = ({
+  code,
+  caption,
+  users,
+  emails,
+  periodicity,
+  isPrivate,
+  format,
+  views,
+}) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

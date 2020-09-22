@@ -8,7 +8,12 @@ import IconButton from "@material-ui/core/IconButton";
 import { NewSubscription } from "./Components/NewSubscribtion";
 import { IProps } from "./types";
 import { REPORT_SUBSCRIPTIONS } from "../../utils/constants";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "./styles";
+
+const emails = ["Subscription1", "Subscription2"];
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -35,6 +40,17 @@ function SimpleDialog(props: SimpleDialogProps) {
       open={open}
     >
       <DialogTitle id="simple-dialog-title">Subscriptions</DialogTitle>
+      <List>
+        {emails.map((email) => (
+          <ListItem
+            button
+            onClick={() => handleListItemClick(email)}
+            key={email}
+          >
+            <ListItemText primary={email} />
+          </ListItem>
+        ))}
+      </List>
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
