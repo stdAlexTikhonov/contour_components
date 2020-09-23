@@ -27,5 +27,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
   })
 );

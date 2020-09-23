@@ -22,6 +22,10 @@ import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import { checkOLAP } from "../../../../utils/helpers";
+import Collapse from "@material-ui/core/Collapse";
+import StarBorder from "@material-ui/icons/StarBorder";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 type IProps = {
   code_?: string;
@@ -43,6 +47,12 @@ export type SimpleDialogProps = DialogProps & IProps;
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
+
+  const [open_nested, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open_nested);
+  };
 
   const {
     onClose,
@@ -114,6 +124,8 @@ function SimpleDialog(props: SimpleDialogProps) {
     setType(event.target.value as string);
   };
 
+  console.log(views_);
+
   return (
     <ThemeProvider>
       <Dialog
@@ -152,14 +164,27 @@ function SimpleDialog(props: SimpleDialogProps) {
                     style={{ height: 150, overflow: "auto" }}
                   >
                     {views_.map((el: any) => (
-                      <ListItem button key={el.slice + el.view}>
-                        <CustomCheckbox
-                          edge="start"
-                          tabIndex={-1}
-                          inputProps={{ "aria-labelledby": "someid" }}
-                        />
-                        <ListItemText primary={el.caption} />
-                      </ListItem>
+                      <div key={el.slice + el.view}>
+                        <ListItem button onClick={handleClick}>
+                          <CustomCheckbox
+                            edge="start"
+                            tabIndex={-1}
+                            inputProps={{ "aria-labelledby": "someid" }}
+                          />
+                          <ListItemText primary={el.caption} />
+                          {open_nested ? <ExpandLess /> : <ExpandMore />}
+                        </ListItem>
+                        <Collapse in={open_nested} timeout="auto" unmountOnExit>
+                          <List component="div" disablePadding>
+                            <ListItem button className={classes.nested}>
+                              <ListItemIcon>
+                                <StarBorder />
+                              </ListItemIcon>
+                              <ListItemText primary="Starred" />
+                            </ListItem>
+                          </List>
+                        </Collapse>
+                      </div>
                     ))}
                   </List>
                 </FormControl>

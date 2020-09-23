@@ -95,6 +95,8 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
     setOpen(false);
   };
 
+  list_of_views &&
+    list_of_views.sort((a: any, b: any) => (b.slice > a.slice ? -1 : 1));
   return (
     <div>
       <IconButton
