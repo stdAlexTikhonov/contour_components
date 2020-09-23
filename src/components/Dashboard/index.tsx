@@ -30,6 +30,7 @@ export const Dashboard: React.FC<IProps> = ({
           view: el.view,
           caption: el.caption,
           slice: el.slice,
+          report: el.report,
         }))
       );
     }

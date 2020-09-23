@@ -92,6 +92,7 @@ export const TabsComponent: React.FC<IProps> = ({
         caption: el.caption,
         view: el.code,
         slice: el.slice,
+        report: el.report,
       }))
     );
   }, []);

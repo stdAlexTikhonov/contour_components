@@ -21,6 +21,7 @@ import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
+import { checkOLAP } from "../../../../utils/helpers";
 
 type IProps = {
   code_?: string;
@@ -139,75 +140,30 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={(e) => setCaption(e.target.value)}
                 />
               </FormControl>
-              <FormControl className={classes.formControl}>
-                <FormLabel component="legend" style={{ paddingTop: 20 }}>
-                  List of views:
-                </FormLabel>
-                <List
-                  component="nav"
-                  aria-label="main mailbox folders"
-                  style={{ height: 150, overflow: "auto" }}
-                >
-                  {views_.map((el: any) => (
-                    <ListItem button key={el.slice + el.view}>
-                      <CustomCheckbox
-                        edge="start"
-                        tabIndex={-1}
-                        inputProps={{ "aria-labelledby": "someid" }}
-                      />
-                      <ListItemText primary={el.caption} />
-                    </ListItem>
-                  ))}
-                  {/* <ListItem button>
-                    <CustomCheckbox
-                      edge="start"
-                      tabIndex={-1}
-                      inputProps={{ "aria-labelledby": "someid" }}
-                    />
-                    <ListItemText primary="Inbox" />
-                  </ListItem>
-                  <ListItem button>
-                    <CustomCheckbox
-                      edge="start"
-                      tabIndex={-1}
-                      inputProps={{ "aria-labelledby": "someid" }}
-                    />
-                    <ListItemText primary="Drafts" />
-                  </ListItem>
-                  <ListItem button>
-                    <CustomCheckbox
-                      edge="start"
-                      tabIndex={-1}
-                      inputProps={{ "aria-labelledby": "someid" }}
-                    />
-                    <ListItemText primary="Drafts" />
-                  </ListItem>
-                  <ListItem button>
-                    <CustomCheckbox
-                      edge="start"
-                      tabIndex={-1}
-                      inputProps={{ "aria-labelledby": "someid" }}
-                    />
-                    <ListItemText primary="Drafts" />
-                  </ListItem>
-                  <ListItem button>
-                    <CustomCheckbox
-                      edge="start"
-                      tabIndex={-1}
-                      inputProps={{ "aria-labelledby": "someid" }}
-                    />
-                    <ListItemText primary="Drafts" />
-                  </ListItem>
-                  <ListItem button>
-                    <CustomCheckbox
-                      edge="start"
-                      tabIndex={-1}
-                      inputProps={{ "aria-labelledby": "someid" }}
-                    />
-                    <ListItemText primary="Drafts" />
-                  </ListItem> */}
-                </List>
-              </FormControl>
+              {checkOLAP(views_) && (
+                <FormControl className={classes.formControl}>
+                  <FormLabel component="legend" style={{ paddingTop: 20 }}>
+                    List of views:
+                  </FormLabel>
+
+                  <List
+                    component="nav"
+                    aria-label="main mailbox folders"
+                    style={{ height: 150, overflow: "auto" }}
+                  >
+                    {views_.map((el: any) => (
+                      <ListItem button key={el.slice + el.view}>
+                        <CustomCheckbox
+                          edge="start"
+                          tabIndex={-1}
+                          inputProps={{ "aria-labelledby": "someid" }}
+                        />
+                        <ListItemText primary={el.caption} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </FormControl>
+              )}
               <FormControl component="fieldset">
                 <FormLabel
                   component="legend"
