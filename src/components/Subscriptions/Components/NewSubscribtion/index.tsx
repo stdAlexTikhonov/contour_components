@@ -51,7 +51,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   } = props;
   const subscription: any = React.createRef();
   const [caption, setCaption] = React.useState(caption_);
-  const [format, setFormat] = React.useState(format_);
+  const [format, setFormat] = React.useState(format_ || "xls");
   const [isPrivate, setPrivate] = React.useState(isPrivate_);
   const [emails, setEmails] = React.useState(emails_);
   const [users, setUsers] = React.useState(users_);
