@@ -11,11 +11,16 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormGroup from "@material-ui/core/FormGroup";
+import List from "@material-ui/core/List";
+import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "../../styles";
 import ThemeProvider from "../../../CustomDropdown/ThemeProvider";
 import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
+import InboxIcon from "@material-ui/icons/Inbox";
+import DraftsIcon from "@material-ui/icons/Drafts";
 
 type IProps = {
   code_?: string;
@@ -133,6 +138,53 @@ function SimpleDialog(props: SimpleDialogProps) {
                   value={caption}
                   onChange={(e) => setCaption(e.target.value)}
                 />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <FormLabel component="legend" style={{ paddingTop: 20 }}>
+                  List of views:
+                </FormLabel>
+                <List
+                  component="nav"
+                  aria-label="main mailbox folders"
+                  style={{ height: 150, overflow: "auto" }}
+                >
+                  <ListItem button>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Inbox" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Drafts" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Drafts" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Drafts" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Drafts" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Drafts" />
+                  </ListItem>
+                </List>
               </FormControl>
               <FormControl component="fieldset">
                 <FormLabel
