@@ -30,7 +30,7 @@ type IProps = {
   periodicity_?: any;
   emails_?: string;
   users_?: string;
-  views_?: string;
+  views_?: any;
 };
 
 export interface DialogProps {
@@ -148,7 +148,17 @@ function SimpleDialog(props: SimpleDialogProps) {
                   aria-label="main mailbox folders"
                   style={{ height: 150, overflow: "auto" }}
                 >
-                  <ListItem button>
+                  {views_.map((el: any) => (
+                    <ListItem button key={el.slice + el.view}>
+                      <CustomCheckbox
+                        edge="start"
+                        tabIndex={-1}
+                        inputProps={{ "aria-labelledby": "someid" }}
+                      />
+                      <ListItemText primary={el.caption} />
+                    </ListItem>
+                  ))}
+                  {/* <ListItem button>
                     <CustomCheckbox
                       edge="start"
                       tabIndex={-1}
@@ -195,7 +205,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                       inputProps={{ "aria-labelledby": "someid" }}
                     />
                     <ListItemText primary="Drafts" />
-                  </ListItem>
+                  </ListItem> */}
                 </List>
               </FormControl>
               <FormControl component="fieldset">

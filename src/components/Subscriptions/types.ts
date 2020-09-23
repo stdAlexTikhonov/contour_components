@@ -9,7 +9,7 @@ export interface LinkStateToProps {
   session: string | undefined;
   language: string;
   report: string | null;
-  isOlap: boolean;
+  list_of_views: any;
 }
 
 export interface LinkDispatchToProps {

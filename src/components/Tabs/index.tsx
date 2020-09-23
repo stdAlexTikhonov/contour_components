@@ -7,7 +7,7 @@ import { getData } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
-import { setDataToTab } from "../../actions/report";
+import { setDataToTab, setListOfViews } from "../../actions/report";
 import { formatGeometry, checkOLAP } from "../../utils/helpers";
 import { DASH_VIEW_META } from "../../utils/constants";
 import { REPORT } from "../../utils/constants";
@@ -31,12 +31,7 @@ const mapDispatchToProps = (
       //if we got dashboard prop then we can save data for dashboard
       if (reportData.dashboard) {
         const dashboard = formatGeometry(reportData.dashboard);
-        dispatch(
-          setDataToTab(
-            { dashboard: dashboard, isOlap: checkOLAP(dashboard!.cells) },
-            index
-          )
-        );
+        dispatch(setDataToTab({ dashboard: dashboard }, index));
       }
     }
 
@@ -101,6 +96,9 @@ const mapDispatchToProps = (
     }
 
     dispatch(resetLoading());
+  },
+  handleListOfViews: (list_of_views: any) => {
+    dispatch(setListOfViews(list_of_views));
   },
 });
 

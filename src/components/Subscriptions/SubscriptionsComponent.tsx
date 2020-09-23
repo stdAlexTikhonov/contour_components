@@ -18,11 +18,12 @@ const emails = ["Subscription1", "Subscription2"];
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
+  list_of_views: any;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
-  const { onClose, open } = props;
+  const { onClose, open, list_of_views } = props;
   const subscription: any = React.createRef();
 
   const handleClose = () => {
@@ -54,7 +55,7 @@ function SimpleDialog(props: SimpleDialogProps) {
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <NewSubscription />
+            <NewSubscription views_={list_of_views} />
             <Button style={{ outline: "none" }} onClick={handleClose} disabled>
               Edit
             </Button>
@@ -73,6 +74,7 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
   session,
   language,
   report: report_from_state,
+  list_of_views,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { solution, project, report: report_from_params } = useParams();
@@ -103,7 +105,11 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
       >
         <MailOutlineIcon />
       </IconButton>
-      <SimpleDialog open={open} onClose={handleClose} />
+      <SimpleDialog
+        open={open}
+        onClose={handleClose}
+        list_of_views={list_of_views}
+      />
     </div>
   );
 };

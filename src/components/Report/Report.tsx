@@ -36,6 +36,7 @@ export const ReportComponent: React.FC<IProps> = ({
   logged_in,
   layouts,
   handleDataQuery,
+  handleListOfViews,
 }) => {
   const [localStylesheet, setLocalStylesheet] = React.useState<any>(null);
   const { solution, project, report: report_from_params } = useParams();
@@ -108,7 +109,11 @@ export const ReportComponent: React.FC<IProps> = ({
       )}
       {tabs && report_type !== "dashboard" && <Tabs tabs={tabs} />}
       {report_type === "dashboard" && (
-        <Dashboard dashboard={dashboard} metadata={metadata} />
+        <Dashboard
+          dashboard={dashboard}
+          metadata={metadata}
+          handleViews={handleListOfViews}
+        />
       )}
     </>
   ) : null;

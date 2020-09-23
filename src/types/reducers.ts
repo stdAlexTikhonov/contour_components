@@ -30,6 +30,7 @@ export type reportType = {
   current_layout: string | null;
   layout_cube_session: string | null;
   subscribtions: any;
+  list_of_views: any;
 };
 
 type ItemHeaderFooter = {

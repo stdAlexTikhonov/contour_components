@@ -7,7 +7,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { SubscriptionsComponent } from "./SubscriptionsComponent";
-import { setSubscribtions } from "../../actions/report";
+import { setSubscribtions, setListOfViews } from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
@@ -15,9 +15,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,
-  isOlap:
-    (state.report.dashboard && checkOLAP(state.report.dashboard.cells)) ||
-    checkOLAP(state.report.tabs),
+  list_of_views: state.report.list_of_views,
 });
 
 const mapDispatchToProps = (

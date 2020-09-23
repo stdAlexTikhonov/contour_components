@@ -6,7 +6,11 @@ import { Loader } from "../Loader/Loader";
 import { View } from "../View";
 import { useMediaQuery } from "@material-ui/core";
 
-export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
+export const Dashboard: React.FC<IProps> = ({
+  dashboard,
+  metadata,
+  handleViews,
+}) => {
   const classes = useStyles();
   const [dataForView, setDataForView] = useState<any[] | null>(null);
   const isSlimScreen = useMediaQuery("(max-width: 600px");
@@ -21,6 +25,13 @@ export const Dashboard: React.FC<IProps> = ({ dashboard, metadata }) => {
         a.row === b.row ? a.col - b.col : a.row - b.row
       );
       setDataForView(data);
+      handleViews(
+        data.map((el: any) => ({
+          view: el.view,
+          caption: el.caption,
+          slice: el.slice,
+        }))
+      );
     }
   }, [metadata]);
 

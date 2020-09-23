@@ -12,6 +12,7 @@ import {
   SET_REPORT_STYLE,
   SET_PRINT_PAGE_PROPS,
   GET_REPORT_LAYOUTS,
+  SET_LIST_OF_VIEWS,
   RESET_REPORT,
   reportActions,
   SET_CURRENT_LAYOUT,
@@ -35,6 +36,7 @@ const reportDefaultState: reportType = {
   current_layout: null,
   layout_cube_session: null,
   subscribtions: null,
+  list_of_views: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -123,6 +125,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         subscribtions: action.subscribtions,
+      };
+    case SET_LIST_OF_VIEWS:
+      return {
+        ...state,
+        list_of_views: action.list_of_views,
       };
     default:
       return state;
