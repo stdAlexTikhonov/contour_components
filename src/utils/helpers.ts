@@ -250,3 +250,17 @@ export const getElement = (html: string) => {
 export const checkOLAP = (arr: any) => {
   return arr.every((el: any) => el.report === arr[0].report);
 };
+
+export const chunkBySlice = (arr: any) => {
+  let res: { [index: string]: any } = {};
+  arr.forEach((obj: any) => {
+    const { slice } = obj;
+    res = { ...res, [slice]: [...(res[slice] || []), obj] };
+  });
+  const itog = [];
+
+  for (let k in res) {
+    itog.push({ slice: k, data: res[k] });
+  }
+  return itog;
+};

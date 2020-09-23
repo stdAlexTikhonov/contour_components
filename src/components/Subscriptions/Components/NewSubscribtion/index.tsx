@@ -21,7 +21,7 @@ import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
-import { checkOLAP } from "../../../../utils/helpers";
+import { checkOLAP, chunkBySlice } from "../../../../utils/helpers";
 import Collapse from "@material-ui/core/Collapse";
 import StarBorder from "@material-ui/icons/StarBorder";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -124,7 +124,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     setType(event.target.value as string);
   };
 
-  console.log(views_);
+  const chuncked_views = chunkBySlice(views_);
 
   return (
     <ThemeProvider>
@@ -152,7 +152,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={(e) => setCaption(e.target.value)}
                 />
               </FormControl>
-              {checkOLAP(views_) && (
+              {1 == 1 && (
                 <FormControl className={classes.formControl}>
                   <FormLabel component="legend" style={{ paddingTop: 20 }}>
                     List of views:
@@ -163,7 +163,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                     aria-label="main mailbox folders"
                     style={{ height: 150, overflow: "auto" }}
                   >
-                    {views_.map((el: any) => (
+                    {chuncked_views.map((el: any) => (
                       <div key={el.slice + el.view}>
                         <ListItem button onClick={handleClick}>
                           <CustomCheckbox
@@ -171,17 +171,19 @@ function SimpleDialog(props: SimpleDialogProps) {
                             tabIndex={-1}
                             inputProps={{ "aria-labelledby": "someid" }}
                           />
-                          <ListItemText primary={el.caption} />
+                          <ListItemText primary={el.slice} />
                           {open_nested ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <Collapse in={open_nested} timeout="auto" unmountOnExit>
                           <List component="div" disablePadding>
-                            <ListItem button className={classes.nested}>
-                              <ListItemIcon>
-                                <StarBorder />
-                              </ListItemIcon>
-                              <ListItemText primary="Starred" />
-                            </ListItem>
+                            {el.data.map((item: any) => (
+                              <ListItem button className={classes.nested}>
+                                <ListItemIcon>
+                                  <StarBorder />
+                                </ListItemIcon>
+                                <ListItemText primary={item.caption} />
+                              </ListItem>
+                            ))}
                           </List>
                         </Collapse>
                       </div>
