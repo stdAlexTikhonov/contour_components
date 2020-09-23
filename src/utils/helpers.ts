@@ -246,3 +246,7 @@ export const getElement = (html: string) => {
   const style = doc.body.getAttribute("style");
   return `<div style="${style}">${doc.body.innerHTML}</div>`;
 };
+
+export const checkOLAP = (arr: any) => {
+  return arr.every((el: any) => el.report === arr[0].report);
+};

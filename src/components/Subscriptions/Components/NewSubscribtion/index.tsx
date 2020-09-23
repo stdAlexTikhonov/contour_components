@@ -149,39 +149,51 @@ function SimpleDialog(props: SimpleDialogProps) {
                   style={{ height: 150, overflow: "auto" }}
                 >
                   <ListItem button>
-                    <ListItemIcon>
-                      <InboxIcon />
-                    </ListItemIcon>
+                    <CustomCheckbox
+                      edge="start"
+                      tabIndex={-1}
+                      inputProps={{ "aria-labelledby": "someid" }}
+                    />
                     <ListItemText primary="Inbox" />
                   </ListItem>
                   <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
+                    <CustomCheckbox
+                      edge="start"
+                      tabIndex={-1}
+                      inputProps={{ "aria-labelledby": "someid" }}
+                    />
                     <ListItemText primary="Drafts" />
                   </ListItem>
                   <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
+                    <CustomCheckbox
+                      edge="start"
+                      tabIndex={-1}
+                      inputProps={{ "aria-labelledby": "someid" }}
+                    />
                     <ListItemText primary="Drafts" />
                   </ListItem>
                   <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
+                    <CustomCheckbox
+                      edge="start"
+                      tabIndex={-1}
+                      inputProps={{ "aria-labelledby": "someid" }}
+                    />
                     <ListItemText primary="Drafts" />
                   </ListItem>
                   <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
+                    <CustomCheckbox
+                      edge="start"
+                      tabIndex={-1}
+                      inputProps={{ "aria-labelledby": "someid" }}
+                    />
                     <ListItemText primary="Drafts" />
                   </ListItem>
                   <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
+                    <CustomCheckbox
+                      edge="start"
+                      tabIndex={-1}
+                      inputProps={{ "aria-labelledby": "someid" }}
+                    />
                     <ListItemText primary="Drafts" />
                   </ListItem>
                 </List>

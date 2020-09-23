@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { AppState } from "../../store/config_store";
 import { DataForQuery } from "../../utils/types";
+import { checkOLAP } from "../../utils/helpers";
 import { getData } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
@@ -14,6 +15,9 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,
+  isOlap:
+    (state.report.dashboard && checkOLAP(state.report.dashboard.cells)) ||
+    checkOLAP(state.report.tabs),
 });
 
 const mapDispatchToProps = (
