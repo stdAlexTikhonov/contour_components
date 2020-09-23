@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
@@ -37,6 +37,7 @@ export type SimpleDialogProps = DialogProps & IProps;
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
+
   const {
     onClose,
     open,
@@ -49,6 +50,11 @@ function SimpleDialog(props: SimpleDialogProps) {
     users_,
     views_,
   } = props;
+
+  let periodicity = {
+    ...periodicity_,
+  };
+
   const subscription: any = React.createRef();
   const [caption, setCaption] = React.useState(caption_);
   const [format, setFormat] = React.useState(format_ || "xls");
@@ -74,6 +80,17 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [month, setMonth] = React.useState(
     periodicity_ ? periodicity_.month : ""
   );
+
+  useEffect(() => {
+    periodicity.time = time;
+    periodicity.date = date;
+    periodicity.type = type;
+    periodicity.minuteOfHour = minutes;
+    periodicity.dayOfWeek = dow;
+    periodicity.dayOfMonth = dom;
+    periodicity.monthOfQuarter = moq;
+    periodicity.month = month;
+  }, [date, time]);
 
   const handleClose = () => {
     onClose("");
@@ -198,7 +215,14 @@ function SimpleDialog(props: SimpleDialogProps) {
                     InputLabelProps={{
                       shrink: true,
                     }}
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => {
+                      const date = new Date(e.target.value);
+                      setDate(e.target.value);
+                      setDow(date.getDay() + 1);
+                      setDom(date.getDate());
+                      setMonth(date.getMonth() + 1);
+                      setMoq((date.getMonth() % 3) + 1);
+                    }}
                   />
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -213,7 +237,11 @@ function SimpleDialog(props: SimpleDialogProps) {
                     inputProps={{
                       step: 300, // 5 min
                     }}
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => {
+                      const [h, m] = e.target.value.split(":");
+                      setMinutes(m);
+                      setTime(e.target.value);
+                    }}
                   />
                 </FormControl>
               </FormGroup>
