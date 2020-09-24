@@ -70,14 +70,8 @@ function SimpleDialog(props: SimpleDialogProps) {
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <NewSubscription />
-            <Button
-              style={{ outline: "none" }}
-              onClick={handleClose}
-              disabled={!selected_subscription}
-            >
-              Edit
-            </Button>
+            <NewSubscription edit={false} />
+            <NewSubscription edit={true} />
             <Button
               style={{ outline: "none" }}
               onClick={handleClose}

@@ -32,29 +32,27 @@ import StarBorder from "@material-ui/icons/StarBorder";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { IProps } from "./types";
-import { SAVE_SUBSCRIPTION } from "../../../../utils/constants";
+import {
+  SAVE_SUBSCRIPTION,
+  GET_SUBSCRIPTION,
+} from "../../../../utils/constants";
 
 export interface DialogProps {
   open: boolean;
   onClose: (value: string) => void;
+  data_from_server: any;
 }
 
 export type SimpleDialogProps = DialogProps & IProps;
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
-  const { solution, project, report: report_from_params } = useParams();
 
   const {
     onClose,
     open,
-    code_,
-    caption_,
-    format_,
-    isPrivate_,
+    data_from_server,
     periodicity_,
-    emails_,
-    users_,
     list_of_views: views_,
     session,
     language,
@@ -62,18 +60,36 @@ function SimpleDialog(props: SimpleDialogProps) {
     handleDataQuery,
   } = props;
 
+  const { solution, project, report: report_from_params } = useParams();
+
   views_ && views_.sort((a: any, b: any) => (b.slice > a.slice ? -1 : 1));
 
   let periodicity = {
     ...periodicity_,
   };
 
+  const {
+    Caption,
+    Format,
+    Private,
+    periodicity: periodicity_from_server,
+    AdditionalEmails,
+  } = data_from_server
+    ? data_from_server
+    : {
+        Caption: null,
+        Format: null,
+        Private: null,
+        periodicity: null,
+        AdditionalEmails: null,
+      };
+
   const subscription: any = React.createRef();
-  const [caption, setCaption] = React.useState(caption_ || "");
-  const [format, setFormat] = React.useState(format_ || "xls");
-  const [isPrivate, setPrivate] = React.useState(isPrivate_ || false);
-  const [emails, setEmails] = React.useState(emails_ || "");
-  const [users, setUsers] = React.useState(users_);
+  const [caption, setCaption] = React.useState("");
+  const [format, setFormat] = React.useState("xls");
+  const [isPrivate, setPrivate] = React.useState(false);
+  const [emails, setEmails] = React.useState("");
+  const [users, setUsers] = React.useState([]);
   const [views, setViews] = React.useState(chunkBySlice(views_));
   const [type, setType] = React.useState(periodicity_ ? periodicity_.type : "");
   const [date, setDate] = React.useState(periodicity_ ? periodicity_.date : "");
@@ -94,13 +110,34 @@ function SimpleDialog(props: SimpleDialogProps) {
     periodicity_ ? periodicity_.month : 0
   );
 
-  // useEffect(() => {
+  useEffect(() => {
+    setCaption(Caption);
+  }, [Caption]);
 
-  // }, [date, time]);
+  useEffect(() => {
+    setFormat(Format);
+  }, [Format]);
+
+  useEffect(() => {
+    setPrivate(Private);
+  }, [Private]);
+
+  useEffect(() => {
+    setEmails(AdditionalEmails);
+  }, [AdditionalEmails]);
+
+  useEffect(() => {
+    periodicity_from_server && setType(periodicity_from_server.type);
+    periodicity_from_server && setTime(periodicity_from_server.time);
+    periodicity_from_server && console.log(periodicity_from_server.time);
+  }, [periodicity_from_server]);
 
   const handleClose = () => {
     onClose("");
+  };
 
+  const handleSave = () => {
+    onClose("");
     periodicity.time = time;
     periodicity.date = date;
     periodicity.type = type;
@@ -342,6 +379,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                     label="Time"
                     type="time"
                     defaultValue="07:30"
+                    value={time}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -391,7 +429,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           <Button style={{ outline: "none" }} onClick={handleClose}>
             Send now
           </Button>
-          <Button style={{ outline: "none" }} onClick={handleClose}>
+          <Button style={{ outline: "none" }} onClick={handleSave}>
             Subscribe
           </Button>
         </div>
@@ -402,9 +440,35 @@ function SimpleDialog(props: SimpleDialogProps) {
 
 export const NewSubscriptionComponent: React.FC<IProps> = (props) => {
   const [open, setOpen] = React.useState(false);
+  const [dataFromServer, setDataFromServer] = React.useState<any>(null);
+  const { solution, project, report: report_from_params } = useParams();
+  const {
+    edit,
+    selected_subscription,
+    session,
+    report: report_from_state,
+    language,
+    handleDataQuery,
+  } = props;
 
-  const handleClickOpen = () => {
+  const handleClickOpen = async () => {
     setOpen(true);
+
+    if (edit && selected_subscription) {
+      const query_object = {
+        method: GET_SUBSCRIPTION,
+        report: report_from_state || report_from_params,
+        session,
+        solution,
+        project,
+        language,
+        code: selected_subscription,
+      };
+
+      const res: any = await handleDataQuery(query_object);
+
+      setDataFromServer(res);
+    }
   };
 
   const handleClose = (value: string) => {
@@ -419,10 +483,16 @@ export const NewSubscriptionComponent: React.FC<IProps> = (props) => {
           minWidth: "unset",
         }}
         onClick={handleClickOpen}
+        disabled={edit && selected_subscription === null}
       >
-        Add
+        {edit ? "Edit" : "Add"}
       </Button>
-      <SimpleDialog open={open} {...props} onClose={handleClose} />
+      <SimpleDialog
+        open={open}
+        {...props}
+        data_from_server={dataFromServer}
+        onClose={handleClose}
+      />
     </div>
   );
 };

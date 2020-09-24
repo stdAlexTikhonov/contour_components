@@ -8,6 +8,7 @@ export interface Props {
   periodicity_?: any;
   emails_?: string;
   users_?: string;
+  edit: boolean;
 }
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
@@ -17,6 +18,7 @@ export interface LinkStateToProps {
   language: string;
   report: string | null;
   list_of_views: any;
+  selected_subscription: null | string;
 }
 
 export interface LinkDispatchToProps {

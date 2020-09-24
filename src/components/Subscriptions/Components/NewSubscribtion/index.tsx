@@ -14,6 +14,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   language: state.languages.current,
   report: state.report.code,
   list_of_views: state.report.list_of_views,
+  selected_subscription: state.report.selected_subscription,
 });
 
 const mapDispatchToProps = (
@@ -22,11 +23,10 @@ const mapDispatchToProps = (
   handleDataQuery: async (data_for_query: DataForQuery) => {
     dispatch(setLoading());
     const data = await getData(data_for_query);
-
-    if (data.success) {
-      console.log(data);
-    }
     dispatch(resetLoading());
+    if (data.success) {
+      return data.subsctiption;
+    }
   },
 });
 
