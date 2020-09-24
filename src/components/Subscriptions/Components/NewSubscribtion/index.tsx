@@ -163,21 +163,25 @@ function SimpleDialog(props: SimpleDialogProps) {
                     aria-label="main mailbox folders"
                     style={{ height: 150, overflow: "auto" }}
                   >
-                    {chuncked_views.map((el: any) => (
+                    {chuncked_views.map((el: any, i: number) => (
                       <div key={el.slice + el.view}>
-                        <ListItem button onClick={handleClick}>
+                        <ListItem button>
                           <CustomCheckbox
                             edge="start"
                             tabIndex={-1}
                             inputProps={{ "aria-labelledby": "someid" }}
                           />
                           <ListItemText primary={el.slice} />
-                          {open_nested ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
-                        <Collapse in={open_nested} timeout="auto" unmountOnExit>
+                        <Collapse in={el.open} timeout="auto" unmountOnExit>
                           <List component="div" disablePadding>
                             {el.data.map((item: any) => (
                               <ListItem button className={classes.nested}>
+                                <CustomCheckbox
+                                  edge="start"
+                                  tabIndex={-1}
+                                  inputProps={{ "aria-labelledby": "someid" }}
+                                />
                                 <ListItemIcon>
                                   <StarBorder />
                                 </ListItemIcon>

@@ -260,7 +260,9 @@ export const chunkBySlice = (arr: any) => {
   const itog = [];
 
   for (let k in res) {
-    itog.push({ slice: k, data: res[k] });
+    res[k].forEach((el: any) => (el.selected = false));
+    itog.push({ slice: k, selected: false, open: true, data: res[k] });
   }
+  console.log(itog);
   return itog;
 };
