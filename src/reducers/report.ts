@@ -17,6 +17,7 @@ import {
   reportActions,
   SET_CURRENT_LAYOUT,
   SET_SUBSCRIBTIONS,
+  SET_SELECTED_SUBSCRIPTION,
 } from "../types/actions";
 import { reportType } from "../types/reducers";
 
@@ -37,6 +38,7 @@ const reportDefaultState: reportType = {
   layout_cube_session: null,
   subscribtions: null,
   list_of_views: null,
+  selected_subscription: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -130,6 +132,11 @@ export const report = (state = reportDefaultState, action: reportActions) => {
       return {
         ...state,
         list_of_views: action.list_of_views,
+      };
+    case SET_SELECTED_SUBSCRIPTION:
+      return {
+        ...state,
+        selected_subscription: action.code,
       };
     default:
       return state;

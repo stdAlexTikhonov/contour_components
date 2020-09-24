@@ -31,6 +31,7 @@ export type reportType = {
   layout_cube_session: string | null;
   subscribtions: any;
   list_of_views: any;
+  selected_subscription: string | null;
 };
 
 type ItemHeaderFooter = {

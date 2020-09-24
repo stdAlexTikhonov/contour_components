@@ -7,10 +7,15 @@ import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { SubscriptionsComponent } from "./SubscriptionsComponent";
-import { setSubscribtions, setListOfViews } from "../../actions/report";
+import {
+  setSubscribtions,
+  setListOfViews,
+  setSelectedSubscription,
+} from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
+  selected_subscription: state.report.selected_subscription,
   subscriptions: state.report.subscribtions,
   session: state.auth.session || undefined,
   language: state.languages.current,
@@ -28,6 +33,9 @@ const mapDispatchToProps = (
       data.subsctiptions && dispatch(setSubscribtions(data.subsctiptions));
     }
     dispatch(resetLoading());
+  },
+  selectSubscription: (code: string) => {
+    dispatch(setSelectedSubscription(code));
   },
 });
 

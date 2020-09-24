@@ -13,16 +13,26 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "./styles";
 import { AnyAction } from "redux";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import CheckIcon from "@material-ui/icons/Check";
 
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
   subscriptions: any;
+  selectSubscription: (code: string) => void;
+  selected_subscription: null | string;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
-  const { onClose, open, subscriptions } = props;
+  const {
+    onClose,
+    open,
+    subscriptions,
+    selectSubscription,
+    selected_subscription,
+  } = props;
   const subscription: any = React.createRef();
 
   const handleClose = () => {
@@ -30,7 +40,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   };
 
   const handleListItemClick = (value: string) => {
-    console.log(value);
+    selectSubscription(value);
   };
 
   return (
@@ -48,6 +58,11 @@ function SimpleDialog(props: SimpleDialogProps) {
               onClick={() => handleListItemClick(item.code)}
               key={item.code}
             >
+              {selected_subscription === item.code && (
+                <ListItemIcon style={{ minWidth: 30 }}>
+                  <CheckIcon />
+                </ListItemIcon>
+              )}
               <ListItemText primary={item.caption} />
             </ListItem>
           ))}
@@ -56,10 +71,18 @@ function SimpleDialog(props: SimpleDialogProps) {
         <form className={classes.root} noValidate={true} autoComplete="off">
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <NewSubscription />
-            <Button style={{ outline: "none" }} onClick={handleClose} disabled>
+            <Button
+              style={{ outline: "none" }}
+              onClick={handleClose}
+              disabled={!selected_subscription}
+            >
               Edit
             </Button>
-            <Button style={{ outline: "none" }} onClick={handleClose} disabled>
+            <Button
+              style={{ outline: "none" }}
+              onClick={handleClose}
+              disabled={!selected_subscription}
+            >
               Unsubscribe
             </Button>
           </div>
@@ -75,6 +98,8 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
   language,
   report: report_from_state,
   subscriptions,
+  selectSubscription,
+  selected_subscription,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { solution, project, report: report_from_params } = useParams();
@@ -109,6 +134,8 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
         open={open}
         onClose={handleClose}
         subscriptions={subscriptions}
+        selectSubscription={selectSubscription}
+        selected_subscription={selected_subscription}
       />
     </div>
   );

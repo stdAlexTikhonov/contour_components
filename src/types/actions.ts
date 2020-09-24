@@ -346,6 +346,13 @@ export interface setListOfViews {
   list_of_views: any;
 }
 
+export const SET_SELECTED_SUBSCRIPTION = "SET_SELECTED_SUBSCRIPTION";
+
+export interface setSelectedSubscription {
+  type: typeof SET_SELECTED_SUBSCRIPTION;
+  code: string;
+}
+
 export type reportActions =
   | setReport
   | setReportType
@@ -364,7 +371,8 @@ export type reportActions =
   | setCurrentLayout
   | setLayoutCubeSession
   | setSubscribtions
-  | setListOfViews;
+  | setListOfViews
+  | setSelectedSubscription;
 
 //filters
 export const SET_FILTERS_OF_VIEW = "SET_FILTERS_OF_VIEW";
@@ -481,4 +489,5 @@ export type AppActions =
   | setLayoutCubeSession
   | setUserName
   | setSubscribtions
-  | setListOfViews;
+  | setListOfViews
+  | setSelectedSubscription;

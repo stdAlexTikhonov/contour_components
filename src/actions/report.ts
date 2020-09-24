@@ -18,6 +18,7 @@ import {
   SET_LAYOUT_CUBE_SESSION,
   SET_SUBSCRIBTIONS,
   SET_LIST_OF_VIEWS,
+  SET_SELECTED_SUBSCRIPTION,
   Dashboard,
   Metadata,
   DimFilter,
@@ -119,4 +120,9 @@ export const setSubscribtions = (subscribtions: any): AppActions => ({
 export const setListOfViews = (list_of_views: any): AppActions => ({
   type: SET_LIST_OF_VIEWS,
   list_of_views,
+});
+
+export const setSelectedSubscription = (code: string): AppActions => ({
+  type: SET_SELECTED_SUBSCRIPTION,
+  code,
 });
