@@ -15,7 +15,6 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,
-  list_of_views: state.report.list_of_views,
 });
 
 const mapDispatchToProps = (

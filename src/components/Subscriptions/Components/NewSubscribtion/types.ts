@@ -1,14 +1,22 @@
-import { DataForQuery } from "../../utils/types";
+import { DataForQuery } from "../../../../utils/types";
 
-export interface Props {}
+export interface Props {
+  code_?: string;
+  caption_?: string;
+  format_?: string;
+  isPrivate_?: boolean;
+  periodicity_?: any;
+  emails_?: string;
+  users_?: string;
+}
 
 export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 export interface LinkStateToProps {
-  items: any;
   session: string | undefined;
   language: string;
   report: string | null;
+  list_of_views: any;
 }
 
 export interface LinkDispatchToProps {
