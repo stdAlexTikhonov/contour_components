@@ -120,13 +120,27 @@ function SimpleDialog(props: SimpleDialogProps) {
     setType(event.target.value as string);
   };
 
-  const handleClick = (slice: string, view: string) => {
+  const handleSliceClick = (slice: string) => {
     const new_views = views.map((el) => ({
       ...el,
       [`selected`]: el.slice === slice ? !el.selected : el.selected,
       [`data`]: el.data.map((elem: any) => ({
         ...elem,
         [`selected`]: el.slice === slice ? !el.selected : el.selected,
+      })),
+    }));
+    setViews(new_views);
+  };
+
+  const handleViewClick = (slice: string, view: string) => {
+    const new_views = views.map((el) => ({
+      ...el,
+      [`data`]: el.data.map((elem: any) => ({
+        ...elem,
+        [`selected`]:
+          el.slice === slice && elem.view === view
+            ? !elem.selected
+            : elem.selected,
       })),
     }));
     setViews(new_views);
@@ -173,7 +187,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                       <div key={el.slice}>
                         <ListItem
                           button
-                          onClick={() => handleClick(el.slice, "no")}
+                          onClick={() => handleSliceClick(el.slice)}
                         >
                           <CustomCheckbox
                             edge="start"
@@ -190,6 +204,9 @@ function SimpleDialog(props: SimpleDialogProps) {
                                 button
                                 key={item.slice + item.view}
                                 className={classes.nested}
+                                onClick={() =>
+                                  handleViewClick(item.slice, item.view)
+                                }
                               >
                                 <CustomCheckbox
                                   edge="start"
