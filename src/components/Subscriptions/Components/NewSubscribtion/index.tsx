@@ -172,7 +172,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={(e) => setCaption(e.target.value)}
                 />
               </FormControl>
-              {1 == 1 && (
+              {checkOLAP(views) && (
                 <FormControl className={classes.formControl}>
                   <FormLabel component="legend" style={{ paddingTop: 20 }}>
                     List of views:

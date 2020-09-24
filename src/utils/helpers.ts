@@ -248,7 +248,9 @@ export const getElement = (html: string) => {
 };
 
 export const checkOLAP = (arr: any) => {
-  return arr.every((el: any) => el.report === arr[0].report);
+  return arr.every((el: any) =>
+    el.data.every((elem: any) => elem.report === arr[0].data[0].report)
+  );
 };
 
 export const chunkBySlice = (arr: any) => {
