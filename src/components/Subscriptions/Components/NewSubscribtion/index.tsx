@@ -72,10 +72,10 @@ function SimpleDialog(props: SimpleDialogProps) {
   };
 
   const subscription: any = React.createRef();
-  const [caption, setCaption] = React.useState(caption_);
+  const [caption, setCaption] = React.useState(caption_ || "");
   const [format, setFormat] = React.useState(format_ || "xls");
-  const [isPrivate, setPrivate] = React.useState(isPrivate_);
-  const [emails, setEmails] = React.useState(emails_);
+  const [isPrivate, setPrivate] = React.useState(isPrivate_ || false);
+  const [emails, setEmails] = React.useState(emails_ || "");
   const [users, setUsers] = React.useState(users_);
   const [views, setViews] = React.useState(chunkBySlice(views_));
   const [type, setType] = React.useState(periodicity_ ? periodicity_.type : "");
@@ -97,7 +97,13 @@ function SimpleDialog(props: SimpleDialogProps) {
     periodicity_ ? periodicity_.month : ""
   );
 
-  useEffect(() => {
+  // useEffect(() => {
+
+  // }, [date, time]);
+
+  const handleClose = () => {
+    onClose("");
+
     periodicity.time = time;
     periodicity.date = date;
     periodicity.type = type;
@@ -106,12 +112,17 @@ function SimpleDialog(props: SimpleDialogProps) {
     periodicity.dayOfMonth = dom;
     periodicity.monthOfQuarter = moq;
     periodicity.month = month;
-  }, [date, time]);
 
-  const handleClose = () => {
-    onClose("");
-    const selected_views = getListOfViews(views);
-    console.log(selected_views);
+    const query_object = {
+      caption,
+      format,
+      isPrivate,
+      periodicity,
+      views: getListOfViews(views),
+      emails,
+    };
+
+    console.log(query_object);
   };
 
   const handleListItemClick = (value: string) => {
@@ -199,7 +210,6 @@ function SimpleDialog(props: SimpleDialogProps) {
                             edge="start"
                             tabIndex={-1}
                             checked={el.selected}
-                            inputProps={{ "aria-labelledby": "someid" }}
                           />
                           <ListItemText primary={el.slice} />
                         </ListItem>
@@ -218,7 +228,6 @@ function SimpleDialog(props: SimpleDialogProps) {
                                   edge="start"
                                   tabIndex={-1}
                                   checked={item.selected}
-                                  inputProps={{ "aria-labelledby": "someid" }}
                                 />
                                 <ListItemIcon>
                                   <StarBorder />
@@ -360,9 +369,8 @@ function SimpleDialog(props: SimpleDialogProps) {
                   <CustomCheckbox
                     edge="start"
                     onClick={(e) => setPrivate(!isPrivate)}
-                    checked={!isPrivate}
+                    checked={isPrivate}
                     tabIndex={-1}
-                    inputProps={{ "aria-labelledby": "someid" }}
                   />
                 }
                 label="Public"
