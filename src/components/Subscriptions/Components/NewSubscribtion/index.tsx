@@ -50,10 +50,6 @@ function SimpleDialog(props: SimpleDialogProps) {
 
   const [open_nested, setOpen] = React.useState(true);
 
-  const handleClick = () => {
-    setOpen(!open_nested);
-  };
-
   const {
     onClose,
     open,
@@ -77,7 +73,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [isPrivate, setPrivate] = React.useState(isPrivate_);
   const [emails, setEmails] = React.useState(emails_);
   const [users, setUsers] = React.useState(users_);
-  const [views, setViews] = React.useState(views_);
+  const [views, setViews] = React.useState(chunkBySlice(views_));
   const [type, setType] = React.useState(periodicity_ ? periodicity_.type : "");
   const [date, setDate] = React.useState(periodicity_ ? periodicity_.date : "");
   const [time, setTime] = React.useState(periodicity_ ? periodicity_.time : "");
@@ -124,7 +120,17 @@ function SimpleDialog(props: SimpleDialogProps) {
     setType(event.target.value as string);
   };
 
-  const chuncked_views = chunkBySlice(views_);
+  const handleClick = (slice: string, view: string) => {
+    const new_views = views.map((el) => ({
+      ...el,
+      [`selected`]: el.slice === slice ? !el.selected : el.selected,
+      [`data`]: el.data.map((elem: any) => ({
+        ...elem,
+        [`selected`]: el.slice === slice ? !el.selected : el.selected,
+      })),
+    }));
+    setViews(new_views);
+  };
 
   return (
     <ThemeProvider>
@@ -163,12 +169,16 @@ function SimpleDialog(props: SimpleDialogProps) {
                     aria-label="main mailbox folders"
                     style={{ height: 150, overflow: "auto" }}
                   >
-                    {chuncked_views.map((el: any, i: number) => (
-                      <div key={el.slice + el.view}>
-                        <ListItem button>
+                    {views.map((el: any, i: number) => (
+                      <div key={el.slice}>
+                        <ListItem
+                          button
+                          onClick={() => handleClick(el.slice, "no")}
+                        >
                           <CustomCheckbox
                             edge="start"
                             tabIndex={-1}
+                            checked={el.selected}
                             inputProps={{ "aria-labelledby": "someid" }}
                           />
                           <ListItemText primary={el.slice} />
@@ -176,10 +186,15 @@ function SimpleDialog(props: SimpleDialogProps) {
                         <Collapse in={el.open} timeout="auto" unmountOnExit>
                           <List component="div" disablePadding>
                             {el.data.map((item: any) => (
-                              <ListItem button className={classes.nested}>
+                              <ListItem
+                                button
+                                key={item.slice + item.view}
+                                className={classes.nested}
+                              >
                                 <CustomCheckbox
                                   edge="start"
                                   tabIndex={-1}
+                                  checked={item.selected}
                                   inputProps={{ "aria-labelledby": "someid" }}
                                 />
                                 <ListItemIcon>
