@@ -268,3 +268,11 @@ export const chunkBySlice = (arr: any) => {
 
   return itog;
 };
+
+export const getListOfViews = (arr: any) => {
+  const res = arr.map((a: any) => a.data);
+  return [].concat
+    .apply([], res)
+    .filter((item: any) => item.selected)
+    .map((item: any) => item.slice + "/" + item.view);
+};

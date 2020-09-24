@@ -21,7 +21,11 @@ import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
-import { checkOLAP, chunkBySlice } from "../../../../utils/helpers";
+import {
+  checkOLAP,
+  chunkBySlice,
+  getListOfViews,
+} from "../../../../utils/helpers";
 import Collapse from "@material-ui/core/Collapse";
 import StarBorder from "@material-ui/icons/StarBorder";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -106,6 +110,8 @@ function SimpleDialog(props: SimpleDialogProps) {
 
   const handleClose = () => {
     onClose("");
+    const selected_views = getListOfViews(views);
+    console.log(selected_views);
   };
 
   const handleListItemClick = (value: string) => {
