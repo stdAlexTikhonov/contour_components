@@ -14,8 +14,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "./styles";
 import { AnyAction } from "redux";
 
-const emails = ["Subscription1", "Subscription2"];
-
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
