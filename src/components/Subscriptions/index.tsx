@@ -11,7 +11,7 @@ import { setSubscribtions, setListOfViews } from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
-  items: state.items,
+  subscriptions: state.report.subscribtions,
   session: state.auth.session || undefined,
   language: state.languages.current,
   report: state.report.code,
@@ -25,7 +25,7 @@ const mapDispatchToProps = (
     const data = await getData(data_for_query);
 
     if (data.success) {
-      data.subscriptions && dispatch(setSubscribtions(data.subscriptions));
+      data.subsctiptions && dispatch(setSubscribtions(data.subsctiptions));
     }
     dispatch(resetLoading());
   },

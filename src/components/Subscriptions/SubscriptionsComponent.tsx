@@ -12,17 +12,19 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "./styles";
+import { AnyAction } from "redux";
 
 const emails = ["Subscription1", "Subscription2"];
 
 export interface SimpleDialogProps {
   open: boolean;
   onClose: (value: string) => void;
+  subscriptions: any;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
-  const { onClose, open } = props;
+  const { onClose, open, subscriptions } = props;
   const subscription: any = React.createRef();
 
   const handleClose = () => {
@@ -30,7 +32,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   };
 
   const handleListItemClick = (value: string) => {
-    onClose(value);
+    console.log(value);
   };
 
   return (
@@ -41,15 +43,16 @@ function SimpleDialog(props: SimpleDialogProps) {
     >
       <DialogTitle id="simple-dialog-title">Subscriptions</DialogTitle>
       <List>
-        {emails.map((email) => (
-          <ListItem
-            button
-            onClick={() => handleListItemClick(email)}
-            key={email}
-          >
-            <ListItemText primary={email} />
-          </ListItem>
-        ))}
+        {subscriptions &&
+          subscriptions.map((item: AnyAction) => (
+            <ListItem
+              button
+              onClick={() => handleListItemClick(item.code)}
+              key={item.code}
+            >
+              <ListItemText primary={item.caption} />
+            </ListItem>
+          ))}
       </List>
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
@@ -73,6 +76,7 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
   session,
   language,
   report: report_from_state,
+  subscriptions,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { solution, project, report: report_from_params } = useParams();
@@ -103,7 +107,11 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
       >
         <MailOutlineIcon />
       </IconButton>
-      <SimpleDialog open={open} onClose={handleClose} />
+      <SimpleDialog
+        open={open}
+        onClose={handleClose}
+        subscriptions={subscriptions}
+      />
     </div>
   );
 };
