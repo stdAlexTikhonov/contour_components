@@ -127,9 +127,19 @@ function SimpleDialog(props: SimpleDialogProps) {
   }, [AdditionalEmails]);
 
   useEffect(() => {
-    periodicity_from_server && setType(periodicity_from_server.type);
-    periodicity_from_server && setTime(periodicity_from_server.time);
-    periodicity_from_server && console.log(periodicity_from_server.time);
+    if (periodicity_from_server) {
+      periodicity_from_server.type && setType(periodicity_from_server.type);
+      periodicity_from_server.time && setTime(periodicity_from_server.time);
+      periodicity_from_server.minuteOfHour &&
+        setMinutes(periodicity_from_server.minuteOfHour);
+      periodicity_from_server.dayOfWeek &&
+        setDow(periodicity_from_server.dayOfWeek);
+      periodicity_from_server.dayOfMonth &&
+        setDom(periodicity_from_server.dayOfMonth);
+      periodicity_from_server.monthOfQuarter &&
+        setMoq(periodicity_from_server.monthOfQuarter);
+      periodicity_from_server.month && setMonth(periodicity_from_server.month);
+    }
   }, [periodicity_from_server]);
 
   const handleClose = () => {
@@ -229,6 +239,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                   onChange={(e) => setCaption(e.target.value)}
                 />
               </FormControl>
+
               {checkOLAP(views) && (
                 <FormControl className={classes.formControl}>
                   <FormLabel component="legend" style={{ paddingTop: 20 }}>
@@ -452,8 +463,6 @@ export const NewSubscriptionComponent: React.FC<IProps> = (props) => {
   } = props;
 
   const handleClickOpen = async () => {
-    setOpen(true);
-
     if (edit && selected_subscription) {
       const query_object = {
         method: GET_SUBSCRIPTION,
@@ -468,6 +477,7 @@ export const NewSubscriptionComponent: React.FC<IProps> = (props) => {
       const res: any = await handleDataQuery(query_object);
 
       setDataFromServer(res);
+      setOpen(true);
     }
   };
 
