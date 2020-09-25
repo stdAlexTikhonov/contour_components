@@ -22,6 +22,8 @@ import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
+import BarChartIcon from "@material-ui/icons/BarChart";
+import LayersIcon from "@material-ui/icons/Layers";
 import {
   checkOLAP,
   chunkBySlice,
@@ -299,6 +301,9 @@ function SimpleDialog(props: SimpleDialogProps) {
                             tabIndex={-1}
                             checked={el.selected}
                           />
+                          <ListItemIcon style={{ minWidth: 30 }}>
+                            <LayersIcon />
+                          </ListItemIcon>
                           <ListItemText primary={el.slice} />
                         </ListItem>
                         <Collapse in={el.open} timeout="auto" unmountOnExit>
@@ -317,8 +322,8 @@ function SimpleDialog(props: SimpleDialogProps) {
                                   tabIndex={-1}
                                   checked={item.selected}
                                 />
-                                <ListItemIcon>
-                                  <StarBorder />
+                                <ListItemIcon style={{ minWidth: 30 }}>
+                                  <BarChartIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={item.caption} />
                               </ListItem>
