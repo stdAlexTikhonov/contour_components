@@ -122,7 +122,7 @@ export const setListOfViews = (list_of_views: any): AppActions => ({
   list_of_views,
 });
 
-export const setSelectedSubscription = (code: string): AppActions => ({
+export const setSelectedSubscription = (code: string | null): AppActions => ({
   type: SET_SELECTED_SUBSCRIPTION,
   code,
 });

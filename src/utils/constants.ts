@@ -29,6 +29,7 @@ export const CONTOUR_MAP: string = "ContourMap";
 export const REPORT_SUBSCRIPTIONS: string = "ReportSubscriptions";
 export const GET_SUBSCRIPTION: string = "GetSubscription";
 export const SAVE_SUBSCRIPTION: string = "SaveSubscription";
+export const SUBSCRIPTION_REMOVE: string = "SubscriptionRemove";
 export const COLOR: string = "#003366";
 export const IMAGES_AND_OTHER_STUFF: string = "https://stat.world/biportal/";
 // export const BASE_URL: string = "http://172.21.67.35:8090/biportal/api.jsp";

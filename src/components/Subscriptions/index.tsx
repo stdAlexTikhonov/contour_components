@@ -13,6 +13,7 @@ import {
   setSelectedSubscription,
 } from "../../actions/report";
 import { LinkDispatchToProps, LinkStateToProps } from "./types";
+import { SUBSCRIPTION_REMOVE } from "../../utils/constants";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   selected_subscription: state.report.selected_subscription,
@@ -31,6 +32,8 @@ const mapDispatchToProps = (
 
     if (data.success) {
       data.subsctiptions && dispatch(setSubscribtions(data.subsctiptions));
+      if (data_for_query.method === SUBSCRIPTION_REMOVE)
+        dispatch(setSelectedSubscription(null));
     }
     dispatch(resetLoading());
   },

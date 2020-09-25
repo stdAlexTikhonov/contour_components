@@ -7,7 +7,10 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import IconButton from "@material-ui/core/IconButton";
 import { NewSubscription } from "./Components/NewSubscribtion";
 import { IProps } from "./types";
-import { REPORT_SUBSCRIPTIONS } from "../../utils/constants";
+import {
+  REPORT_SUBSCRIPTIONS,
+  SUBSCRIPTION_REMOVE,
+} from "../../utils/constants";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -22,6 +25,7 @@ export interface SimpleDialogProps {
   subscriptions: any;
   selectSubscription: (code: string) => void;
   selected_subscription: null | string;
+  handleUnsubscribe: () => void;
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
@@ -32,8 +36,8 @@ function SimpleDialog(props: SimpleDialogProps) {
     subscriptions,
     selectSubscription,
     selected_subscription,
+    handleUnsubscribe,
   } = props;
-  const subscription: any = React.createRef();
 
   const handleClose = () => {
     onClose("");
@@ -74,7 +78,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             <NewSubscription edit={true} />
             <Button
               style={{ outline: "none" }}
-              onClick={handleClose}
+              onClick={handleUnsubscribe}
               disabled={!selected_subscription}
             >
               Unsubscribe
@@ -110,6 +114,16 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
     });
   };
 
+  const handleUnsubscribe = () => {
+    console.log("Unsubscribe");
+
+    handleDataQuery({
+      method: SUBSCRIPTION_REMOVE,
+      code: selected_subscription!,
+      session,
+    });
+  };
+
   const handleClose = (value: string) => {
     setOpen(false);
   };
@@ -130,6 +144,7 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
         subscriptions={subscriptions}
         selectSubscription={selectSubscription}
         selected_subscription={selected_subscription}
+        handleUnsubscribe={handleUnsubscribe}
       />
     </div>
   );

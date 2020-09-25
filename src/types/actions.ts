@@ -350,7 +350,7 @@ export const SET_SELECTED_SUBSCRIPTION = "SET_SELECTED_SUBSCRIPTION";
 
 export interface setSelectedSubscription {
   type: typeof SET_SELECTED_SUBSCRIPTION;
-  code: string;
+  code: string | null;
 }
 
 export type reportActions =
