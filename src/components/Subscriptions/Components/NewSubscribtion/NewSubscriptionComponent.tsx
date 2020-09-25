@@ -58,6 +58,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     language,
     report: report_from_state,
     handleDataQuery,
+    selected_subscription,
   } = props;
 
   const { solution, project, report: report_from_params } = useParams();
@@ -74,6 +75,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     Private,
     periodicity: periodicity_from_server,
     AdditionalEmails,
+    views: views_from_server,
   } = data_from_server
     ? data_from_server
     : {
@@ -82,6 +84,7 @@ function SimpleDialog(props: SimpleDialogProps) {
         Private: null,
         periodicity: null,
         AdditionalEmails: null,
+        views: null,
       };
 
   const subscription: any = React.createRef();
@@ -142,6 +145,34 @@ function SimpleDialog(props: SimpleDialogProps) {
     }
   }, [periodicity_from_server]);
 
+  useEffect(() => {
+    if (views_from_server) {
+      const transformed = views_from_server.map(
+        (item: string) => item.split("/")[0]
+      );
+      const tr_server_views: { [index: string]: any } = {};
+
+      views_from_server.forEach((combo: any) => {
+        const [slice_x, view_x] = combo.split("/");
+        tr_server_views[slice_x] = tr_server_views[slice_x]
+          ? [...tr_server_views[slice_x], view_x]
+          : [view_x];
+      });
+
+      const new_views = views.map((el) => ({
+        ...el,
+        [`selected`]: transformed.includes(el.slice),
+        [`data`]: el.data.map((elem: any) => ({
+          ...elem,
+          [`selected`]:
+            transformed.includes(elem.slice) &&
+            tr_server_views[elem.slice].includes(elem.view),
+        })),
+      }));
+      setViews(new_views);
+    }
+  }, [views_from_server]);
+
   const handleClose = () => {
     onClose("");
   };
@@ -172,7 +203,13 @@ function SimpleDialog(props: SimpleDialogProps) {
       emails,
     };
 
-    handleDataQuery(query_object);
+    const query_object_with_code = Object.assign(query_object, {
+      code: selected_subscription,
+    });
+
+    handleDataQuery(
+      selected_subscription ? query_object_with_code : query_object
+    );
   };
 
   const handleListItemClick = (value: string) => {
