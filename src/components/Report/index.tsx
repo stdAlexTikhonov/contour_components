@@ -15,6 +15,8 @@ import {
   setReportStyle,
   getReportLayouts,
   setCurrentLayout,
+  setSubscribtions,
+  setListOfViews,
 } from "../../actions/report";
 import { setBreadcrumbs } from "../../actions/breadcrumbs";
 import { formatGeometry } from "../../utils/helpers";
@@ -34,6 +36,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report_stylesheet: state.report.stylesheet,
   project_stylesheet: state.project.stylesheet,
   layouts: state.report.layouts,
+  subscribtions: state.report.subscribtions,
 });
 
 const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
@@ -79,6 +82,15 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
 
       //if report_type !== dashboard in query then setTab
       reportData.items && dispatch(setTabs(reportData.items));
+      // reportData.items &&
+      //   dispatch(
+      //     setListOfViews(
+      //       reportData.items.map((el: any) => ({
+      //         caption: el.caption,
+      //         code: el.code,
+      //       }))
+      //     )
+      //   );
 
       //caption
       reportData.caption && dispatch(setReportCaption(reportData.caption));
@@ -96,6 +108,10 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           }
         });
       }
+
+      //subscribtions
+      reportData.subscribtions &&
+        dispatch(setSubscribtions(reportData.subscribtions));
     } else {
       console.log(`It was ${data_for_query.method}`);
       switch (data_for_query.method) {
@@ -104,6 +120,9 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           return;
       }
     }
+  },
+  handleListOfViews: (data: any) => {
+    dispatch(setListOfViews(data));
   },
 });
 

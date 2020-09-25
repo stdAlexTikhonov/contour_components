@@ -19,6 +19,7 @@ import { Dashboard } from "../Dashboard";
 import { Export } from "../ExportPDF";
 import { UserLayouts } from "../UserLayouts";
 import { Layouts } from "../Layouts";
+import { Subscriptions } from "../Subscriptions";
 
 export const ReportComponent: React.FC<IProps> = ({
   tabs,
@@ -35,6 +36,7 @@ export const ReportComponent: React.FC<IProps> = ({
   logged_in,
   layouts,
   handleDataQuery,
+  handleListOfViews,
 }) => {
   const [localStylesheet, setLocalStylesheet] = React.useState<any>(null);
   const { solution, project, report: report_from_params } = useParams();
@@ -100,13 +102,18 @@ export const ReportComponent: React.FC<IProps> = ({
             {report_caption}
             {logged_in && <Layouts />}
           </div>
+          {logged_in && <Subscriptions />}
           {logged_in && <UserLayouts />}
           <Export />
         </div>
       )}
       {tabs && report_type !== "dashboard" && <Tabs tabs={tabs} />}
       {report_type === "dashboard" && (
-        <Dashboard dashboard={dashboard} metadata={metadata} />
+        <Dashboard
+          dashboard={dashboard}
+          metadata={metadata}
+          handleViews={handleListOfViews}
+        />
       )}
     </>
   ) : null;

@@ -12,9 +12,12 @@ import {
   SET_REPORT_STYLE,
   SET_PRINT_PAGE_PROPS,
   GET_REPORT_LAYOUTS,
+  SET_LIST_OF_VIEWS,
   RESET_REPORT,
   reportActions,
   SET_CURRENT_LAYOUT,
+  SET_SUBSCRIBTIONS,
+  SET_SELECTED_SUBSCRIPTION,
 } from "../types/actions";
 import { reportType } from "../types/reducers";
 
@@ -33,6 +36,9 @@ const reportDefaultState: reportType = {
   layouts: null,
   current_layout: null,
   layout_cube_session: null,
+  subscribtions: null,
+  list_of_views: null,
+  selected_subscription: null,
 };
 
 export const report = (state = reportDefaultState, action: reportActions) => {
@@ -116,6 +122,21 @@ export const report = (state = reportDefaultState, action: reportActions) => {
     case RESET_REPORT:
       return {
         ...reportDefaultState,
+      };
+    case SET_SUBSCRIBTIONS:
+      return {
+        ...state,
+        subscribtions: action.subscribtions,
+      };
+    case SET_LIST_OF_VIEWS:
+      return {
+        ...state,
+        list_of_views: action.list_of_views,
+      };
+    case SET_SELECTED_SUBSCRIPTION:
+      return {
+        ...state,
+        selected_subscription: action.code,
       };
     default:
       return state;

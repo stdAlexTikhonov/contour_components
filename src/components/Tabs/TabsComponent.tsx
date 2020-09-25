@@ -81,11 +81,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const TabsComponent: React.FC<IProps> = ({
   tabs,
   handleDataQuery,
+  handleListOfViews,
   session,
   language,
 }) => {
   useEffect(() => {
     handleChange(0); //при открытии отчёта выбираем первую вкладку
+    handleListOfViews(
+      tabs!.map((el: any) => ({
+        caption: el.caption,
+        view: el.code,
+        slice: el.slice,
+        report: el.report,
+      }))
+    );
   }, []);
 
   const classes = useStyles();
@@ -177,6 +186,7 @@ export const TabsComponent: React.FC<IProps> = ({
             {item.data && item.data.tabs && <MyTabs tabs={item.data.tabs} />}
             {item.data && item.data.dashboard && (
               <Dashboard
+                handleViews={handleListOfViews}
                 dashboard={item.data.dashboard}
                 metadata={item.data.metadata}
               />

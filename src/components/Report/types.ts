@@ -19,8 +19,10 @@ export interface LinkStateToProps {
   project_stylesheet: any;
   logged_in: boolean;
   layouts: any;
+  subscribtions: any;
 }
 
 export interface LinkDispatchToProps {
   handleDataQuery: (data_for_query: DataForQuery) => void;
+  handleListOfViews: (data: any) => void;
 }

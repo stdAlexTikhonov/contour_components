@@ -255,9 +255,8 @@ export const FiltersComponent: React.FC<IProps> = ({
     const index_attr = checkIndex(attributes, props.data.code);
 
     const itog = filter || row || column || attr;
-    console.log(itog);
+
     const index = index_filter || index_row || index_column || index_attr;
-    console.log(index);
 
     return itog ? (
       <CustomDropdown
@@ -335,10 +334,11 @@ export const FiltersComponent: React.FC<IProps> = ({
           style={{ display: "flex", overflow: "hidden" }}
         >
           {chart && chart.ChartType === "grid" ? (
-            <ReactHypergrid
-              gridData={chart}
-              dimComponent={getDimensionButton}
-            />
+            // <ReactHypergrid
+            //   gridData={chart}
+            //   dimComponent={getDimensionButton}
+            // />
+            <div>Hello</div>
           ) : chart && chart.ChartType === "map" ? (
             <div
               id={chart && chart.id + "map"}

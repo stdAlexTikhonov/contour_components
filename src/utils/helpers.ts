@@ -246,3 +246,40 @@ export const getElement = (html: string) => {
   const style = doc.body.getAttribute("style");
   return `<div style="${style}">${doc.body.innerHTML}</div>`;
 };
+
+export const checkOLAP = (arr: any) => {
+  return arr.every((el: any) =>
+    el.data.every((elem: any) => elem.report === arr[0].data[0].report)
+  );
+};
+
+export const chunkBySlice = (arr: any, tabs: any) => {
+  let res: { [index: string]: any } = {};
+  arr.forEach((obj: any) => {
+    const { slice } = obj;
+    res = { ...res, [slice]: [...(res[slice] || []), obj] };
+  });
+  const itog = [];
+
+  for (let k in res) {
+    const slice_info = tabs.find((item: any) => item.code === k);
+    res[k].forEach((el: any) => (el.selected = false));
+    itog.push({
+      slice: k,
+      caption: slice_info ? slice_info.caption : null,
+      selected: false,
+      open: true,
+      data: res[k],
+    });
+  }
+
+  return itog;
+};
+
+export const getListOfViews = (arr: any) => {
+  const res = arr.map((a: any) => a.data);
+  return [].concat
+    .apply([], res)
+    .filter((item: any) => item.selected)
+    .map((item: any) => item.slice + "/" + item.view);
+};
