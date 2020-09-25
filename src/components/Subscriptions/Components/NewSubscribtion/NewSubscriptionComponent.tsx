@@ -434,7 +434,6 @@ function SimpleDialog(props: SimpleDialogProps) {
                     id="time"
                     label="Time"
                     type="time"
-                    defaultValue="07:30"
                     value={time}
                     InputLabelProps={{
                       shrink: true,
