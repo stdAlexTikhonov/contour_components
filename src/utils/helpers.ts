@@ -253,7 +253,7 @@ export const checkOLAP = (arr: any) => {
   );
 };
 
-export const chunkBySlice = (arr: any) => {
+export const chunkBySlice = (arr: any, tabs: any) => {
   let res: { [index: string]: any } = {};
   arr.forEach((obj: any) => {
     const { slice } = obj;
@@ -262,8 +262,15 @@ export const chunkBySlice = (arr: any) => {
   const itog = [];
 
   for (let k in res) {
+    const slice_info = tabs.find((item: any) => item.code === k);
     res[k].forEach((el: any) => (el.selected = false));
-    itog.push({ slice: k, selected: false, open: true, data: res[k] });
+    itog.push({
+      slice: k,
+      caption: slice_info ? slice_info.caption : null,
+      selected: false,
+      open: true,
+      data: res[k],
+    });
   }
 
   return itog;

@@ -19,6 +19,7 @@ export interface LinkStateToProps {
   report: string | null;
   list_of_views: any;
   selected_subscription: null | string;
+  tabs: any;
 }
 
 export interface LinkDispatchToProps {

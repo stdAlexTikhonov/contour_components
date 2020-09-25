@@ -15,6 +15,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   report: state.report.code,
   list_of_views: state.report.list_of_views,
   selected_subscription: state.report.selected_subscription,
+  tabs: state.report.tabs,
 });
 
 const mapDispatchToProps = (

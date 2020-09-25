@@ -61,6 +61,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     report: report_from_state,
     handleDataQuery,
     selected_subscription,
+    tabs,
   } = props;
 
   const { solution, project, report: report_from_params } = useParams();
@@ -95,7 +96,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [isPrivate, setPrivate] = React.useState(false);
   const [emails, setEmails] = React.useState("");
   const [users, setUsers] = React.useState([]);
-  const [views, setViews] = React.useState(chunkBySlice(views_));
+  const [views, setViews] = React.useState(chunkBySlice(views_, tabs));
   const [type, setType] = React.useState(periodicity_ ? periodicity_.type : "");
   const [date, setDate] = React.useState(periodicity_ ? periodicity_.date : "");
   const [time, setTime] = React.useState(periodicity_ ? periodicity_.time : "");
@@ -306,7 +307,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                           <ListItemIcon style={{ minWidth: 30 }}>
                             <LayersIcon />
                           </ListItemIcon>
-                          <ListItemText primary={el.slice} />
+                          <ListItemText primary={el.caption} />
                         </ListItem>
                         <Collapse in={el.open} timeout="auto" unmountOnExit>
                           <List component="div" disablePadding>
