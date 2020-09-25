@@ -259,7 +259,9 @@ function SimpleDialog(props: SimpleDialogProps) {
         aria-labelledby="simple-dialog-title"
         open={open}
       >
-        <DialogTitle id="simple-dialog-title">New Subscription</DialogTitle>
+        <DialogTitle id="simple-dialog-title">
+          {!selected_subscription && "New"} Subscription
+        </DialogTitle>
         <div className={classes.new_subscription}>
           <form className={classes.root} noValidate={true} autoComplete="off">
             <div
