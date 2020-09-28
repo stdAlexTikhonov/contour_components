@@ -85,6 +85,9 @@ export const TabsComponent: React.FC<IProps> = ({
   handleListOfViews,
   session,
   language,
+  dashboard,
+  metadata,
+  resetDashboard,
 }) => {
   useEffect(() => {
     handleChange(0); //при открытии отчёта выбираем первую вкладку
@@ -103,6 +106,7 @@ export const TabsComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
 
   const handleChange = async (newValue: number) => {
+    resetDashboard();
     await sleep(300); //иногда данные не успевают подгрузиться
     setValue(newValue);
     if (tabs) {
@@ -117,7 +121,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report: data.report,
+              report: data.report || report,
               slice: data.code,
             },
             newValue
@@ -144,7 +148,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report: report,
+              report: data.report || report,
               view: data.code,
               slice: data.slice,
             },
@@ -185,16 +189,16 @@ export const TabsComponent: React.FC<IProps> = ({
         return (
           <TabPanel value={value} index={i} key={i}>
             {item.data && item.data.tabs && <MyTabs tabs={item.data.tabs} />}
-            {item.data && item.data.dashboard && (
+            {item.data && dashboard && (
               <Dashboard
                 handleViews={handleListOfViews}
-                dashboard={item.data.dashboard}
-                metadata={item.data.metadata}
+                dashboard={dashboard}
+                metadata={metadata}
               />
             )}
             {item.data && item.data.view && (
               <View
-                metadata={{ ...item, ...item.data.view }}
+                metadata={metadata![0]}
                 index={1}
                 width={100}
                 height={480}
