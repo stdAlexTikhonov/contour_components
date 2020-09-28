@@ -336,12 +336,12 @@ export const FiltersComponent: React.FC<IProps> = ({
           style={{ display: "flex", overflow: "hidden", height: height }}
         >
           {chart && chart.ChartType === "grid" ? (
-            // <ReactHypergrid
-            //   gridData={chart}
-            //   dimComponent={getDimensionButton}
-            // />
-            <div>Hello</div>
-          ) : chart && chart.ChartType === "old_map" ? (
+            <ReactHypergrid
+              gridData={chart}
+              dimComponent={getDimensionButton}
+            />
+          ) : // <div>Hello</div>
+          chart && chart.ChartType === "old_map" ? (
             <div
               id={chart && chart.id + "old_map"}
               className={classes.map}
