@@ -196,8 +196,8 @@ export const TabsComponent: React.FC<IProps> = ({
               <View
                 metadata={{ ...item, ...item.data.view }}
                 index={1}
-                width={700}
-                height={500}
+                width={100}
+                height={480}
               />
             )}
           </TabPanel>

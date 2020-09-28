@@ -54,6 +54,8 @@ export const FiltersComponent: React.FC<IProps> = ({
   columns,
   grid_filters,
 }) => {
+  console.log(width);
+  console.log(height);
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
   const cube_id = slice + cube_report;
@@ -331,7 +333,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         <Box
           className={classes.main}
           id={chart && chart.id}
-          style={{ display: "flex", overflow: "hidden" }}
+          style={{ display: "flex", overflow: "hidden", height: height }}
         >
           {chart && chart.ChartType === "grid" ? (
             // <ReactHypergrid
