@@ -100,7 +100,8 @@ const mapDispatchToProps = (
         footer: item.Footer.html || null,
       };
       dispatch(setDataToTab({ view: result }, index));
-      // dispatch(setDashboardMetadata(result));
+      console.log(result);
+      dispatch(setDashboardMetadata([result]));
     }
 
     dispatch(resetLoading());

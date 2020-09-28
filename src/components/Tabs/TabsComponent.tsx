@@ -196,9 +196,9 @@ export const TabsComponent: React.FC<IProps> = ({
                 metadata={metadata}
               />
             )}
-            {item.data && item.data.view && (
+            {item.data && item.data.view && metadata && (
               <View
-                metadata={metadata![0]}
+                metadata={{ ...metadata![0], ...item }}
                 index={1}
                 width={100}
                 height={480}

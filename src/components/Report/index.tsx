@@ -66,6 +66,7 @@ const mapDispatchToProps = (dispatch: any): LinkDispatchToProps => ({
           header: item.Header.html || null,
           footer: item.Footer.html || null,
         }));
+        console.log(metadata);
         dispatch(setDashboardMetadata(metadata));
       }
       reportData.type && dispatch(setReportType(reportData.type));
