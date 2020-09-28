@@ -284,7 +284,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   useEffect(() => {
     if (chart) {
       try {
-        if (chart.ChartType !== "grid" && chart.ChartType !== "map") {
+        if (chart.ChartType !== "grid" && chart.ChartType !== "old_map") {
           window.contourChart(chart.id, chart, {});
         }
 
@@ -339,9 +339,9 @@ export const FiltersComponent: React.FC<IProps> = ({
             //   dimComponent={getDimensionButton}
             // />
             <div>Hello</div>
-          ) : chart && chart.ChartType === "map" ? (
+          ) : chart && chart.ChartType === "old_map" ? (
             <div
-              id={chart && chart.id + "map"}
+              id={chart && chart.id + "old_map"}
               className={classes.map}
               style={{
                 width: width,

@@ -14,6 +14,7 @@ import {
   CHART,
   CONTOUR_MAP,
   IMAGES_AND_OTHER_STUFF,
+  START_CUBE_SESSION,
 } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { generateUID, sleep, showMap } from "../../utils/helpers";
@@ -29,6 +30,7 @@ export const ViewComponent: React.FC<IProps> = ({
   hierarchy,
   width,
   height,
+  settingCubeSession,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -98,13 +100,25 @@ export const ViewComponent: React.FC<IProps> = ({
             }
       );
 
+      // if (!data.success && data.error.code === 101) {
+      //   const cube_session = await getData({
+      //     method: START_CUBE_SESSION,
+      //     solution,
+      //     project,
+      //     session,
+      //     report,
+      //   });
+      //   const cube_id = slice + report;
+      //   settingCubeSession(cube_id, cube_session.CubeSession);
+      // }
+      console.log(data);
       if (data.success) {
         setShowChart(true);
 
         if (data.mapImage) {
           data.chart = {
             id: generateUID(),
-            ChartType: "map",
+            ChartType: "old_map",
             header: header,
             footer: footer,
           };
@@ -114,11 +128,12 @@ export const ViewComponent: React.FC<IProps> = ({
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
-            data.chart.id + "map",
+            data.chart.id + "old_map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
           setMapControl(true);
         } else {
+          console.log();
           data.chart.id = generateUID();
           data.chart.header = header;
           data.chart.footer = footer;
@@ -149,7 +164,7 @@ export const ViewComponent: React.FC<IProps> = ({
         if (data.success) {
           data.chart = {
             id: generateUID(),
-            ChartType: "map",
+            ChartType: "old_map",
             header: header,
             footer: footer,
           };
@@ -159,7 +174,7 @@ export const ViewComponent: React.FC<IProps> = ({
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
-            data.chart.id + "map",
+            data.chart.id + "old_map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
           setMapControl(true);

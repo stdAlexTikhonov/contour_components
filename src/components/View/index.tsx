@@ -6,6 +6,7 @@ import { AppActions } from "../../types/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { setFilterOfView, setFullFilterHierarchy } from "../../actions/filters";
 import { getFilters, getFullHierarchy } from "../../utils/api";
+import { setCubeSessionId } from "../../actions/cubes";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -20,6 +21,9 @@ const mapDispatchToProps = (
   setCurrentFilters: (filters: any, hierarchy: any) => {
     dispatch(setFilterOfView(filters));
     // getFullHierarchy().then((data) => dispatch(setFullFilterHierarchy(data)));
+  },
+  settingCubeSession: (cube_id: string, cube_session: string) => {
+    dispatch(setCubeSessionId(cube_id, cube_session));
   },
 });
 

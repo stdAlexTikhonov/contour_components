@@ -29,4 +29,5 @@ export type IProps = Props & LinkStateToProps & LinkDispatchToProps;
 
 export interface LinkDispatchToProps {
   setCurrentFilters: (filters: any, hierarchy_filter: any) => void;
+  settingCubeSession: (cube_id: string, cube_session: string) => void;
 }
