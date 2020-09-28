@@ -479,7 +479,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           padding: 10,
         }}
       >
-        <Button style={{ outline: "none" }} onClick={handleClose}>
+        <Button style={{ outline: "none" }} onClick={handleClose} disabled>
           Send now
         </Button>
         <Button style={{ outline: "none" }} onClick={handleSave}>
