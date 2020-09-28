@@ -54,6 +54,8 @@ export const FiltersComponent: React.FC<IProps> = ({
   columns,
   grid_filters,
 }) => {
+  console.log(width);
+  console.log(height);
   const { report, project, solution } = useParams();
   const cube_report = report_code || report;
   const cube_id = slice + cube_report;
@@ -284,7 +286,7 @@ export const FiltersComponent: React.FC<IProps> = ({
   useEffect(() => {
     if (chart) {
       try {
-        if (chart.ChartType !== "grid" && chart.ChartType !== "map") {
+        if (chart.ChartType !== "grid" && chart.ChartType !== "old_map") {
           window.contourChart(chart.id, chart, {});
         }
 
@@ -331,7 +333,7 @@ export const FiltersComponent: React.FC<IProps> = ({
         <Box
           className={classes.main}
           id={chart && chart.id}
-          style={{ display: "flex", overflow: "hidden" }}
+          style={{ display: "flex", overflow: "hidden", height: height }}
         >
           {chart && chart.ChartType === "grid" ? (
             // <ReactHypergrid
@@ -339,9 +341,9 @@ export const FiltersComponent: React.FC<IProps> = ({
             //   dimComponent={getDimensionButton}
             // />
             <div>Hello</div>
-          ) : chart && chart.ChartType === "map" ? (
+          ) : chart && chart.ChartType === "old_map" ? (
             <div
-              id={chart && chart.id + "map"}
+              id={chart && chart.id + "old_map"}
               className={classes.map}
               style={{
                 width: width,

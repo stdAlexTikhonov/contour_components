@@ -66,9 +66,7 @@ export const setDashboard = (dashboard: Dashboard | null): AppActions => ({
   dashboard,
 });
 
-export const setDashboardMetadata = (
-  metadata: Array<Metadata> | null
-): AppActions => ({
+export const setDashboardMetadata = (metadata: any): AppActions => ({
   type: SET_DASHBOARD_METADATA,
   metadata,
 });

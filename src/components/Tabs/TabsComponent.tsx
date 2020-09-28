@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import { IProps } from "./types";
 import { REPORT, ITEMS, CHART, VIEW_META } from "../../utils/constants";
 import { Dashboard } from "../Dashboard";
+import { View } from "../View";
 import { sleep } from "../../utils/helpers";
 import { Tabs as MyTabs } from ".";
 
@@ -84,6 +85,9 @@ export const TabsComponent: React.FC<IProps> = ({
   handleListOfViews,
   session,
   language,
+  dashboard,
+  metadata,
+  resetDashboard,
 }) => {
   useEffect(() => {
     handleChange(0); //при открытии отчёта выбираем первую вкладку
@@ -102,11 +106,12 @@ export const TabsComponent: React.FC<IProps> = ({
   const { solution, project, report } = useParams();
 
   const handleChange = async (newValue: number) => {
+    resetDashboard();
     await sleep(300); //иногда данные не успевают подгрузиться
     setValue(newValue);
     if (tabs) {
       const data: any = tabs[newValue];
-
+      console.log(data);
       switch (data.type) {
         case "slice":
           handleDataQuery(
@@ -116,7 +121,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report,
+              report: data.report || report,
               slice: data.code,
             },
             newValue
@@ -143,7 +148,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report: report,
+              report: data.report || report,
               view: data.code,
               slice: data.slice,
             },
@@ -158,7 +163,7 @@ export const TabsComponent: React.FC<IProps> = ({
   };
   return (
     <div className={classes.root}>
-      {tabs && tabs.length > 1 && (
+      {tabs && tabs.length >= 1 && (
         <AppBar position="static" color="default">
           <Tabs
             value={value}
@@ -184,14 +189,21 @@ export const TabsComponent: React.FC<IProps> = ({
         return (
           <TabPanel value={value} index={i} key={i}>
             {item.data && item.data.tabs && <MyTabs tabs={item.data.tabs} />}
-            {item.data && item.data.dashboard && (
+            {item.data && dashboard && (
               <Dashboard
                 handleViews={handleListOfViews}
-                dashboard={item.data.dashboard}
-                metadata={item.data.metadata}
+                dashboard={dashboard}
+                metadata={metadata}
               />
             )}
-            {item.component && <item.component />}
+            {item.data && item.data.view && metadata && (
+              <View
+                metadata={{ ...metadata![0], ...item }}
+                index={1}
+                width={100}
+                height={480}
+              />
+            )}
           </TabPanel>
         );
       })}

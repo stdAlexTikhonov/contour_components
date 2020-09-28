@@ -7,14 +7,20 @@ import { getData } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
-import { setDataToTab, setListOfViews } from "../../actions/report";
+import {
+  setDataToTab,
+  setListOfViews,
+  setDashboard,
+  setDashboardMetadata,
+} from "../../actions/report";
 import { formatGeometry, checkOLAP } from "../../utils/helpers";
-import { DASH_VIEW_META } from "../../utils/constants";
-import { REPORT } from "../../utils/constants";
+import { DASH_VIEW_META, ITEMS, REPORT } from "../../utils/constants";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
   language: state.languages.current,
+  metadata: state.report.metadata,
+  dashboard: state.report.dashboard,
 });
 
 const mapDispatchToProps = (
@@ -32,6 +38,7 @@ const mapDispatchToProps = (
       if (reportData.dashboard) {
         const dashboard = formatGeometry(reportData.dashboard);
         dispatch(setDataToTab({ dashboard: dashboard }, index));
+        dispatch(setDashboard(dashboard));
       }
     }
 
@@ -46,7 +53,6 @@ const mapDispatchToProps = (
       data_for_query.method = DASH_VIEW_META;
       const dash_meta = await getData(data_for_query);
       if (dash_meta.success) {
-        console.log(dash_meta);
         const metadata = dash_meta.metadata.map((item: any) => ({
           caption: item.Caption,
           facts: item.Facts,
@@ -67,6 +73,7 @@ const mapDispatchToProps = (
           footer: item.Footer.html || null,
         }));
         dispatch(setDataToTab({ metadata: metadata }, index));
+        dispatch(setDashboardMetadata(metadata));
       }
     }
 
@@ -93,12 +100,18 @@ const mapDispatchToProps = (
         footer: item.Footer.html || null,
       };
       dispatch(setDataToTab({ view: result }, index));
+      console.log(result);
+      dispatch(setDashboardMetadata([result]));
     }
 
     dispatch(resetLoading());
   },
   handleListOfViews: (list_of_views: any) => {
     dispatch(setListOfViews(list_of_views));
+  },
+  resetDashboard: () => {
+    dispatch(setDashboardMetadata(null));
+    dispatch(setDashboard(null));
   },
 });
 

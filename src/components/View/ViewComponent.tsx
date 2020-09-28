@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { FieldBar } from "../FieldBar";
 import { Filters } from "../Filters";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -29,6 +28,7 @@ export const ViewComponent: React.FC<IProps> = ({
   hierarchy,
   width,
   height,
+  settingCubeSession,
 }) => {
   const classes = useStyles();
   const [fieldBar, setFieldBar] = useState(false);
@@ -104,7 +104,7 @@ export const ViewComponent: React.FC<IProps> = ({
         if (data.mapImage) {
           data.chart = {
             id: generateUID(),
-            ChartType: "map",
+            ChartType: "old_map",
             header: header,
             footer: footer,
           };
@@ -114,11 +114,12 @@ export const ViewComponent: React.FC<IProps> = ({
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
-            data.chart.id + "map",
+            data.chart.id + "old_map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
           setMapControl(true);
         } else {
+          console.log();
           data.chart.id = generateUID();
           data.chart.header = header;
           data.chart.footer = footer;
@@ -149,7 +150,7 @@ export const ViewComponent: React.FC<IProps> = ({
         if (data.success) {
           data.chart = {
             id: generateUID(),
-            ChartType: "map",
+            ChartType: "old_map",
             header: header,
             footer: footer,
           };
@@ -159,7 +160,7 @@ export const ViewComponent: React.FC<IProps> = ({
           showMap(
             [1, 3].includes(fieldBarPosition) ? width - 135 : width,
             [0, 2].includes(fieldBarPosition) ? height - 38 : height,
-            data.chart.id + "map",
+            data.chart.id + "old_map",
             IMAGES_AND_OTHER_STUFF + data.mapImage
           );
           setMapControl(true);
@@ -234,17 +235,6 @@ export const ViewComponent: React.FC<IProps> = ({
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
         {chart && <div id={chart.id + "_header"} />}
-        {/* {fieldBar && (
-          <Filters
-            slice={slice}
-            view={view}
-            facts={facts.items}
-            filters={filters}
-          />
-        )} 
-        {filterDimensions || filters}
-        //{testFilters}
-        */}
 
         {chart && (
           <Filters
