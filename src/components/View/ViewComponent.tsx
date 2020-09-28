@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import { useStyles } from "./styles";
 import { IProps } from "./types";
-import { FieldBar } from "../FieldBar";
 import { Filters } from "../Filters";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -14,7 +13,6 @@ import {
   CHART,
   CONTOUR_MAP,
   IMAGES_AND_OTHER_STUFF,
-  START_CUBE_SESSION,
 } from "../../utils/constants";
 import { getData } from "../../utils/api";
 import { generateUID, sleep, showMap } from "../../utils/helpers";
@@ -100,18 +98,6 @@ export const ViewComponent: React.FC<IProps> = ({
             }
       );
 
-      // if (!data.success && data.error.code === 101) {
-      //   const cube_session = await getData({
-      //     method: START_CUBE_SESSION,
-      //     solution,
-      //     project,
-      //     session,
-      //     report,
-      //   });
-      //   const cube_id = slice + report;
-      //   settingCubeSession(cube_id, cube_session.CubeSession);
-      // }
-      console.log(data);
       if (data.success) {
         setShowChart(true);
 
@@ -249,17 +235,6 @@ export const ViewComponent: React.FC<IProps> = ({
         </Box>
         <b className={classes.title}>{metadata.caption}</b>
         {chart && <div id={chart.id + "_header"} />}
-        {/* {fieldBar && (
-          <Filters
-            slice={slice}
-            view={view}
-            facts={facts.items}
-            filters={filters}
-          />
-        )} 
-        {filterDimensions || filters}
-        //{testFilters}
-        */}
 
         {chart && (
           <Filters
