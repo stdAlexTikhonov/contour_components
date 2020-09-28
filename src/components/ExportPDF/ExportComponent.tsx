@@ -18,7 +18,6 @@ import { Common } from "./Common";
 import { HeadersFooters } from "./HeadersFooters";
 import Button from "@material-ui/core/Button";
 import { DialogProps } from "./types";
-import ThemeProvider from "../CustomDropdown/ThemeProvider";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
@@ -44,24 +43,22 @@ function SimpleDialog(props: DialogProps) {
   };
 
   return (
-    <ThemeProvider>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="simple-dialog-title"
-        open={open}
+    <Dialog
+      onClose={handleClose}
+      aria-labelledby="simple-dialog-title"
+      open={open}
+    >
+      <DialogTitle id="simple-dialog-title">Print settings</DialogTitle>
+      <Tabs tabs={tabs} />
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ outline: "none" }}
+        onClick={() => onExport()}
       >
-        <DialogTitle id="simple-dialog-title">Print settings</DialogTitle>
-        <Tabs tabs={tabs} />
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ outline: "none" }}
-          onClick={() => onExport()}
-        >
-          Print
-        </Button>
-      </Dialog>
-    </ThemeProvider>
+        Print
+      </Button>
+    </Dialog>
   );
 }
 

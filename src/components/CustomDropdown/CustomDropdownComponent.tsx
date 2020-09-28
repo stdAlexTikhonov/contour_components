@@ -23,7 +23,6 @@ import {
 } from "../../utils/constants";
 import CustomList from "./CustomList";
 import { DatePicker } from "./DatePicker";
-import ThemeProvider from "./ThemeProvider";
 import { ControlButtons } from "./ControlButtons";
 
 export const CustomDropdownComponent: React.FC<IProps> = ({
@@ -440,125 +439,123 @@ export const CustomDropdownComponent: React.FC<IProps> = ({
           horizontal: "center",
         }}
       >
-        <ThemeProvider>
-          {isDate ? (
-            <DatePicker
-              serverDates={checked.map((item: any) => new Date(item))}
-              minDate={minDate}
-              maxDate={maxDate}
-              filters={filters}
-              dates={localItems.map((item) => item.value)}
-              onSubmit={setFilterOnServer}
-              onCancel={() => setAnchorEl(null)}
-              multiple={multiple}
-            />
-          ) : (
-            <Downshift
-              isOpen={dropDown && !isDate}
-              onInputValueChange={(value) => {
-                setDropDown(true);
-                setVal(value);
-              }}
-              onOuterClick={() => {
-                setDropDown(false);
-                setLoading(true);
-              }}
-              itemToString={(item) => (item ? item.value : "")}
-              inputValue={val}
-            >
-              {({
-                getInputProps,
-                getItemProps,
-                getLabelProps,
-                getMenuProps,
-                isOpen,
-                inputValue,
-                getRootProps,
-              }) => {
-                const whichItems = visible ? visibleItems : localItems;
+        {isDate ? (
+          <DatePicker
+            serverDates={checked.map((item: any) => new Date(item))}
+            minDate={minDate}
+            maxDate={maxDate}
+            filters={filters}
+            dates={localItems.map((item) => item.value)}
+            onSubmit={setFilterOnServer}
+            onCancel={() => setAnchorEl(null)}
+            multiple={multiple}
+          />
+        ) : (
+          <Downshift
+            isOpen={dropDown && !isDate}
+            onInputValueChange={(value) => {
+              setDropDown(true);
+              setVal(value);
+            }}
+            onOuterClick={() => {
+              setDropDown(false);
+              setLoading(true);
+            }}
+            itemToString={(item) => (item ? item.value : "")}
+            inputValue={val}
+          >
+            {({
+              getInputProps,
+              getItemProps,
+              getLabelProps,
+              getMenuProps,
+              isOpen,
+              inputValue,
+              getRootProps,
+            }) => {
+              const whichItems = visible ? visibleItems : localItems;
 
-                const filtered = whichItems.filter(
-                  (item) => !inputValue || item.value.includes(inputValue)
-                );
+              const filtered = whichItems.filter(
+                (item) => !inputValue || item.value.includes(inputValue)
+              );
 
-                const height =
-                  filtered.length < 6
-                    ? 40 * filtered.length + 85 + +Boolean(multiple) * 40
-                    : 325 + +Boolean(multiple) * 40;
+              const height =
+                filtered.length < 6
+                  ? 40 * filtered.length + 85 + +Boolean(multiple) * 40
+                  : 325 + +Boolean(multiple) * 40;
 
-                return (
-                  <div
-                    style={{
-                      padding: 5,
-                      position: "relative",
-                      minHeight: isOpen && !is_hierarchy ? height : "auto",
-                    }}
-                  >
-                    {loading ? (
-                      <CircularProgress />
-                    ) : is_hierarchy ? (
-                      <Hierarchy onCancel={handleCancel} onSubmit={handleOk} />
-                    ) : (
-                      <>
-                        <TextField
-                          size="small"
-                          style={{ minWidth: 265 }}
-                          // {...getRootProps()}
-                          InputLabelProps={{
-                            ...getLabelProps(),
-                          }}
-                          id="outlined-basic"
-                          InputProps={{ ...getInputProps() }}
-                          label={"Search"}
-                          variant="outlined"
-                        />
-                        <Collapse in={isOpen}>
-                          <div className={classes.root}>
-                            {multiple && (
-                              <SelectAll
-                                selected={selectAll}
-                                click={handleSelectAll}
-                              />
-                            )}
-                            <Divider />
-                            {filtered.length > 0 && (
-                              <CustomList
-                                width={265}
-                                rowHeight={40}
-                                items={filtered}
-                                getMenuProps={getMenuProps}
-                                getItemProps={getItemProps}
-                                handleToggle={handleToggle}
-                                multiple={multiple}
-                                handleRadio={handleRadio}
-                                checked={checked}
-                              />
-                            )}
-                            <Divider />
-                            <ControlButtons
-                              expanded={expanded}
-                              visible={visible}
-                              multiple={multiple}
-                              is_hierarchy={is_hierarchy}
-                              sort={sort}
-                              handleSort={handleSort}
-                              handleCancel={handleCancel}
-                              handleExpand={handleExpand}
-                              handleOk={handleOk}
-                              handleInversion={handleInversion}
-                              showHidden={showHidden}
-                              enableExpand={localItems.length < 20}
+              return (
+                <div
+                  style={{
+                    padding: 5,
+                    position: "relative",
+                    minHeight: isOpen && !is_hierarchy ? height : "auto",
+                  }}
+                >
+                  {loading ? (
+                    <CircularProgress />
+                  ) : is_hierarchy ? (
+                    <Hierarchy onCancel={handleCancel} onSubmit={handleOk} />
+                  ) : (
+                    <>
+                      <TextField
+                        size="small"
+                        style={{ minWidth: 265 }}
+                        // {...getRootProps()}
+                        InputLabelProps={{
+                          ...getLabelProps(),
+                        }}
+                        id="outlined-basic"
+                        InputProps={{ ...getInputProps() }}
+                        label={"Search"}
+                        variant="outlined"
+                      />
+                      <Collapse in={isOpen}>
+                        <div className={classes.root}>
+                          {multiple && (
+                            <SelectAll
+                              selected={selectAll}
+                              click={handleSelectAll}
                             />
-                          </div>
-                        </Collapse>
-                      </>
-                    )}
-                  </div>
-                );
-              }}
-            </Downshift>
-          )}
-        </ThemeProvider>
+                          )}
+                          <Divider />
+                          {filtered.length > 0 && (
+                            <CustomList
+                              width={265}
+                              rowHeight={40}
+                              items={filtered}
+                              getMenuProps={getMenuProps}
+                              getItemProps={getItemProps}
+                              handleToggle={handleToggle}
+                              multiple={multiple}
+                              handleRadio={handleRadio}
+                              checked={checked}
+                            />
+                          )}
+                          <Divider />
+                          <ControlButtons
+                            expanded={expanded}
+                            visible={visible}
+                            multiple={multiple}
+                            is_hierarchy={is_hierarchy}
+                            sort={sort}
+                            handleSort={handleSort}
+                            handleCancel={handleCancel}
+                            handleExpand={handleExpand}
+                            handleOk={handleOk}
+                            handleInversion={handleInversion}
+                            showHidden={showHidden}
+                            enableExpand={localItems.length < 20}
+                          />
+                        </div>
+                      </Collapse>
+                    </>
+                  )}
+                </div>
+              );
+            }}
+          </Downshift>
+        )}
       </Popover>
     </div>
   );

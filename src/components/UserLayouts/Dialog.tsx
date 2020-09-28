@@ -6,7 +6,6 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import TextField from "@material-ui/core/TextField";
-import ThemeProvider from "../CustomDropdown/ThemeProvider";
 
 const useStyles = makeStyles({
   avatar: {
@@ -77,12 +76,12 @@ export const SaveAs: React.FC<{ onSaveAs: (name: string) => void }> = ({
   };
 
   return (
-    <ThemeProvider>
+    <>
       <Typography variant="subtitle1" onClick={handleClickOpen}>
         Save as...
       </Typography>
 
       <SimpleDialog open={open} onClose={handleClose} saveAs={onSaveAs} />
-    </ThemeProvider>
+    </>
   );
 };

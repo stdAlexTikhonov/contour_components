@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import MultipleDatePicker from "../MultipleDatePicker";
 import { useStyles } from "./styles";
-import ThemeProvider from "./ThemeProvider";
 import moment from "moment";
 
 export const DatePicker = ({
@@ -39,18 +38,16 @@ export const DatePicker = ({
   );
 
   return (
-    <ThemeProvider>
-      {shouldShowComponent && (
-        <MultipleDatePicker
-          open={open}
-          selectedDates={dates}
-          minDate={minDate.toString()}
-          maxDate={maxDate.toString()}
-          onCancel={onCancel}
-          onSubmit={onSubmit}
-          multiple={multiple}
-        />
-      )}
-    </ThemeProvider>
+    shouldShowComponent && (
+      <MultipleDatePicker
+        open={open}
+        selectedDates={dates}
+        minDate={minDate.toString()}
+        maxDate={maxDate.toString()}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        multiple={multiple}
+      />
+    )
   );
 };
