@@ -19,13 +19,10 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchProps => ({
-  handleLogin: async (
-    login: HTMLInputElement | undefined,
-    password: HTMLInputElement | undefined
-  ) => {
+  handleLogin: async (login: string, password: string) => {
     const data = await userLogin({
-      user: login?.value!,
-      password: password?.value!,
+      user: login,
+      password: password,
     });
 
     if (data.success) {

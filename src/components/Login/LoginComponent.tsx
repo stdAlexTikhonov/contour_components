@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
@@ -10,8 +10,8 @@ export const LoginComponent: React.FC<IProps> = ({
   logged_in,
 }) => {
   const classes = useStyles();
-  const refLogin: any = React.createRef();
-  const refPassword: any = React.createRef();
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <ThemeProvider>
@@ -21,7 +21,8 @@ export const LoginComponent: React.FC<IProps> = ({
             id="filled-basic"
             label="Login"
             variant="outlined"
-            inputRef={refLogin}
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
           />
 
           <TextField
@@ -29,14 +30,15 @@ export const LoginComponent: React.FC<IProps> = ({
             label="Password"
             variant="outlined"
             type="password"
-            inputRef={refPassword}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Button
             variant="contained"
             color="primary"
             disabled={logged_in}
-            onClick={() => handleLogin(refLogin.current, refPassword.current)}
+            onClick={() => handleLogin(login, password)}
           >
             Login
           </Button>

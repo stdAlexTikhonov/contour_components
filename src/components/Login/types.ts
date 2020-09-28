@@ -7,10 +7,7 @@ export interface LinkStateToProps {
 }
 
 export interface LinkDispatchProps {
-  handleLogin: (
-    login: HTMLInputElement | undefined,
-    password: HTMLInputElement | undefined
-  ) => void;
+  handleLogin: (login: string, password: string) => void;
 }
 
 export type IProps = LinkDispatchProps & LinkStateToProps;
