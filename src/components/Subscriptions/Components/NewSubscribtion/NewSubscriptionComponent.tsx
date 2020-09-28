@@ -116,19 +116,19 @@ function SimpleDialog(props: SimpleDialogProps) {
   );
 
   useEffect(() => {
-    setCaption(Caption);
+    Caption && setCaption(Caption);
   }, [Caption]);
 
   useEffect(() => {
-    setFormat(Format);
+    Format && setFormat(Format);
   }, [Format]);
 
   useEffect(() => {
-    setPrivate(Private);
+    Private && setPrivate(Private);
   }, [Private]);
 
   useEffect(() => {
-    setEmails(AdditionalEmails);
+    AdditionalEmails && setEmails(AdditionalEmails);
   }, [AdditionalEmails]);
 
   useEffect(() => {
@@ -516,10 +516,10 @@ export const NewSubscriptionComponent: React.FC<IProps> = (props) => {
       };
 
       const res: any = await handleDataQuery(query_object);
-
+      console.log(res);
       setDataFromServer(res);
-      setOpen(true);
     }
+    setOpen(true);
   };
 
   const handleClose = (value: string) => {
