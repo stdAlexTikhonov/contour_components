@@ -9,8 +9,7 @@ import { AppActions } from "../../types/actions";
 import { setLoading, resetLoading } from "../../actions/loading";
 import { setDataToTab, setListOfViews } from "../../actions/report";
 import { formatGeometry, checkOLAP } from "../../utils/helpers";
-import { DASH_VIEW_META } from "../../utils/constants";
-import { REPORT } from "../../utils/constants";
+import { DASH_VIEW_META, ITEMS, REPORT } from "../../utils/constants";
 
 const mapStateToProps = (state: AppState): LinkStateToProps => ({
   session: state.auth.session || undefined,
@@ -46,7 +45,6 @@ const mapDispatchToProps = (
       data_for_query.method = DASH_VIEW_META;
       const dash_meta = await getData(data_for_query);
       if (dash_meta.success) {
-        console.log(dash_meta);
         const metadata = dash_meta.metadata.map((item: any) => ({
           caption: item.Caption,
           facts: item.Facts,

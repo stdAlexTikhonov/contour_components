@@ -107,7 +107,7 @@ export const TabsComponent: React.FC<IProps> = ({
     setValue(newValue);
     if (tabs) {
       const data: any = tabs[newValue];
-
+      console.log(data);
       switch (data.type) {
         case "slice":
           handleDataQuery(
@@ -117,7 +117,7 @@ export const TabsComponent: React.FC<IProps> = ({
               language,
               solution,
               project,
-              report,
+              report: data.report,
               slice: data.code,
             },
             newValue
