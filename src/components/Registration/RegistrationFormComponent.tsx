@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStyles } from "./styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -6,11 +6,11 @@ import { IProps } from "./types";
 
 export const RegistrationFormComponent: React.FC<IProps> = (props) => {
   const classes = useStyles();
-  const refLogin: any = React.createRef();
-  const refPassword: any = React.createRef();
-  const refFirstname: any = React.createRef();
-  const refSurname: any = React.createRef();
-  const refEmail: any = React.createRef();
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
 
   return (
     <div className={classes.container}>
@@ -19,7 +19,8 @@ export const RegistrationFormComponent: React.FC<IProps> = (props) => {
           id="filled-basic"
           label="Login"
           variant="outlined"
-          inputRef={refLogin}
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
         />
         <TextField
           id="outlined-password-input"
@@ -27,38 +28,35 @@ export const RegistrationFormComponent: React.FC<IProps> = (props) => {
           type="password"
           autoComplete="current-password"
           variant="outlined"
-          inputRef={refPassword}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
           id="outlined-basic-1"
           label="Firstname"
           variant="outlined"
-          inputRef={refFirstname}
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
         />
         <TextField
           id="outlined-basic-2"
           label="Surname"
           variant="outlined"
-          inputRef={refSurname}
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
         />
         <TextField
           id="outlined-basic-3"
           label="Email"
           variant="outlined"
-          inputRef={refEmail}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Button
           variant="contained"
           color="primary"
-          style={{ backgroundColor: "#003366" }}
           onClick={() =>
-            props.handleRegister(
-              refLogin.current,
-              refPassword.current,
-              refFirstname.current,
-              refSurname.current,
-              refEmail.current
-            )
+            props.handleRegister(login, password, firstname, surname, email)
           }
         >
           Register

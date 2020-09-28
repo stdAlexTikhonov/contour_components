@@ -9,18 +9,18 @@ const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
 ): LinkDispatchProps => ({
   handleRegister: async (
-    login: HTMLInputElement | undefined,
-    password: HTMLInputElement | undefined,
-    firstname: HTMLInputElement | undefined,
-    surname: HTMLInputElement | undefined,
-    email: HTMLInputElement | undefined
+    login: string,
+    password: string,
+    firstname: string,
+    surname: string,
+    email: string
   ) => {
     const data = await userRegister({
-      login: login?.value!,
-      password: password?.value!,
-      firstName: firstname?.value!,
-      surName: surname?.value!,
-      email: email?.value!,
+      login: login,
+      password: password,
+      firstName: firstname,
+      surName: surname,
+      email: email,
     });
 
     // if (data.success) props.history.push("/login");

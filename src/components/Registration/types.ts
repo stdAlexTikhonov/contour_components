@@ -6,10 +6,10 @@ export type IProps = Props & LinkDispatchProps;
 
 export interface LinkDispatchProps {
   handleRegister: (
-    login: HTMLInputElement | undefined,
-    password: HTMLInputElement | undefined,
-    firstname: HTMLInputElement | undefined,
-    surname: HTMLInputElement | undefined,
-    email: HTMLInputElement | undefined
+    login: string,
+    password: string,
+    firstname: string,
+    surname: string,
+    email: string
   ) => void;
 }
