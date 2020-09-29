@@ -3,7 +3,7 @@ import { userRegister } from "../../utils/api";
 import { ThunkDispatch } from "redux-thunk";
 import { AppActions } from "../../types/actions";
 import { IProps, LinkDispatchProps } from "./types";
-import { RegistrationFormComponent } from "./RegistrationFormComponent";
+import { RegistrationComponent } from "./RegistrationComponent";
 
 const mapDispatchToProps = (
   dispatch: ThunkDispatch<any, any, AppActions>
@@ -27,7 +27,7 @@ const mapDispatchToProps = (
   },
 });
 
-export const RegistrationForm = connect(
+export const Registration = connect(
   null,
   mapDispatchToProps
-)(RegistrationFormComponent);
+)(RegistrationComponent);

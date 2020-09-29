@@ -1,26 +1,25 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
-import { Login } from ".";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { LOGIN } from "../../utils/constants";
+import AddIcon from "@material-ui/icons/Add";
+import { REGISTER } from "../../utils/constants";
 import Popper from "@material-ui/core/Popper";
-import { useStyles } from "./styles";
 import Fade from "@material-ui/core/Fade";
+import { useStyles } from "./styles";
 import { IProps } from "./types";
 
-export const LoginComponent: React.FC<IProps> = ({
-  handleLogin,
-  logged_in,
-}) => {
+export const RegistrationComponent: React.FC<IProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
   const classes = useStyles();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setOpened(!opened);
@@ -42,19 +41,17 @@ export const LoginComponent: React.FC<IProps> = ({
         style={{ color: "white", minWidth: "unset", outline: "none" }}
         onClick={handleClick}
       >
-        {/* <LanguageIcon style={{ paddingRight: 5 }} /> */}
-
         {isMobile || isSlimScreen ? (
-          <AccountCircleIcon />
+          <AddIcon />
         ) : (
           <>
-            {LOGIN}
+            {REGISTER}
             <ExpandMoreIcon />
           </>
         )}
       </Button>
       <Popper
-        id="customized-login"
+        id="register"
         anchorEl={anchorEl}
         open={opened}
         className={classes.popper}
@@ -64,11 +61,7 @@ export const LoginComponent: React.FC<IProps> = ({
           <Fade {...TransitionProps} timeout={350}>
             <div className={classes.paper}>
               <div className={classes.container}>
-                <form
-                  className={classes.root}
-                  noValidate={true}
-                  autoComplete="off"
-                >
+                <form className={classes.root} noValidate autoComplete="off">
                   <TextField
                     id="filled-basic"
                     label="Login"
@@ -76,23 +69,50 @@ export const LoginComponent: React.FC<IProps> = ({
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
                   />
-
                   <TextField
-                    id="outlined-basic"
+                    id="outlined-password-input"
                     label="Password"
-                    variant="outlined"
                     type="password"
+                    autoComplete="current-password"
+                    variant="outlined"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-
+                  <TextField
+                    id="outlined-basic-1"
+                    label="Firstname"
+                    variant="outlined"
+                    value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
+                  />
+                  <TextField
+                    id="outlined-basic-2"
+                    label="Surname"
+                    variant="outlined"
+                    value={surname}
+                    onChange={(e) => setSurname(e.target.value)}
+                  />
+                  <TextField
+                    id="outlined-basic-3"
+                    label="Email"
+                    variant="outlined"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <Button
                     variant="contained"
                     color="primary"
-                    disabled={logged_in}
-                    onClick={() => handleLogin(login, password)}
+                    onClick={() =>
+                      props.handleRegister(
+                        login,
+                        password,
+                        firstname,
+                        surname,
+                        email
+                      )
+                    }
                   >
-                    Login
+                    Register
                   </Button>
                 </form>
               </div>
