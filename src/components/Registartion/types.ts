@@ -1,5 +1,5 @@
 interface Props {
-  // history: any;
+  selected: boolean | null;
 }
 
 export type IProps = Props & LinkDispatchProps;

@@ -1,5 +1,5 @@
 interface Props {
-  // history: any;
+  selected: boolean | null;
 }
 
 export interface LinkStateToProps {
@@ -10,4 +10,4 @@ export interface LinkDispatchProps {
   handleLogin: (login: string, password: string) => void;
 }
 
-export type IProps = LinkDispatchProps & LinkStateToProps;
+export type IProps = Props & LinkDispatchProps & LinkStateToProps;

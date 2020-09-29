@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -12,6 +12,7 @@ import { useStyles } from "./styles";
 import { IProps } from "./types";
 
 export const RegistrationComponent: React.FC<IProps> = (props) => {
+  const { selected } = props; //selected === false then open
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
   const classes = useStyles();
@@ -26,9 +27,9 @@ export const RegistrationComponent: React.FC<IProps> = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setOpened(false);
-  };
+  useEffect(() => {
+    selected === false ? setOpened(true) : setOpened(false);
+  }, [selected]);
 
   const isSlimScreen = useMediaQuery("(max-width: 600px");
 

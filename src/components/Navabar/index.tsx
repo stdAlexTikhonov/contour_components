@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { useStyles } from "./styles";
@@ -19,6 +19,11 @@ export const ButtonAppBar: React.FC<IProps> = ({
 }) => {
   const classes = useStyles();
   const items = Object.keys(languages);
+  const [selected, setSelected] = useState<null | boolean>(null);
+
+  const handleClick = (select: boolean | null) => {
+    setSelected(select);
+  };
 
   return (
     <div className={classes.root}>
@@ -30,15 +35,27 @@ export const ButtonAppBar: React.FC<IProps> = ({
             </a>
             <SimpleBreadcrumbs />
           </div>
-          <LanguageSelector
-            items={items.slice(1, items.length)}
-            languages={languages}
-            changeLanguage={changeLanguage}
-            language={currentLanguage}
-          />
-
-          {logged_in ? <Menu /> : <Login />}
-          {!logged_in && <Registration />}
+          <div onClick={() => handleClick(null)}>
+            {" "}
+            <LanguageSelector
+              items={items.slice(1, items.length)}
+              languages={languages}
+              changeLanguage={changeLanguage}
+              language={currentLanguage}
+            />
+          </div>
+          {logged_in ? (
+            <Menu />
+          ) : (
+            <div onClick={() => handleClick(true)}>
+              <Login selected={selected} />
+            </div>
+          )}
+          {!logged_in && (
+            <div onClick={() => handleClick(false)}>
+              <Registration selected={selected} />
+            </div>
+          )}
         </Toolbar>
       </AppBar>
     </div>

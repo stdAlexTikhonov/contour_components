@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -15,6 +15,7 @@ import { IProps } from "./types";
 export const LoginComponent: React.FC<IProps> = ({
   handleLogin,
   logged_in,
+  selected, //true === then open
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
@@ -27,9 +28,9 @@ export const LoginComponent: React.FC<IProps> = ({
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setOpened(false);
-  };
+  useEffect(() => {
+    selected === true ? setOpened(true) : setOpened(false);
+  }, [selected]);
 
   const isSlimScreen = useMediaQuery("(max-width: 600px");
 
