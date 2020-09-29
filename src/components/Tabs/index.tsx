@@ -21,6 +21,7 @@ const mapStateToProps = (state: AppState): LinkStateToProps => ({
   language: state.languages.current,
   metadata: state.report.metadata,
   dashboard: state.report.dashboard,
+  report: state.report.code,
 });
 
 const mapDispatchToProps = (
@@ -29,7 +30,8 @@ const mapDispatchToProps = (
   handleDataQuery: async (data_for_query: DataForQuery, index: number) => {
     dispatch(setLoading());
     const reportData = await getData(data_for_query);
-
+    console.log(data_for_query);
+    console.log(reportData);
     if (reportData.success) {
       reportData.type &&
         dispatch(setDataToTab({ report_type: reportData.type }, index));

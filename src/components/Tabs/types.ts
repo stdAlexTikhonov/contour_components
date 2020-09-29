@@ -12,6 +12,7 @@ export interface LinkStateToProps {
   language: string;
   metadata: Array<Metadata> | null;
   dashboard: Dashboard | null;
+  report: string | null;
 }
 
 export interface LinkDispatchToProps {
