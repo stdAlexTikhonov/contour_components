@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
 import { Login } from "../Login";
-import { RegistrationPopup } from "../RegistartionPopup";
+import { Registration } from "../Registartion";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
 import { SimpleBreadcrumbs } from "../Breadcrumbs";
@@ -38,7 +38,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
           />
 
           {logged_in ? <Menu /> : <Login />}
-          {!logged_in && <RegistrationPopup />}
+          {!logged_in && <Registration />}
         </Toolbar>
       </AppBar>
     </div>
