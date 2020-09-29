@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { useStyles } from "./styles";
 import { LanguageSelector } from "../LanguageSelector";
-import { LoginPopup } from "../LoginPopup";
+import { Login } from "../Login";
 import { RegistrationPopup } from "../RegistartionPopup";
 import HomeIcon from "@material-ui/icons/Home";
 import { IProps } from "./types";
@@ -37,7 +37,7 @@ export const ButtonAppBar: React.FC<IProps> = ({
             language={currentLanguage}
           />
 
-          {logged_in ? <Menu /> : <LoginPopup />}
+          {logged_in ? <Menu /> : <Login />}
           {!logged_in && <RegistrationPopup />}
         </Toolbar>
       </AppBar>

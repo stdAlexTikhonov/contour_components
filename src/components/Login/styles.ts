@@ -15,5 +15,14 @@ export const useStyles = makeStyles((theme: Theme) =>
     container: {
       display: "flex",
     },
+    paper: {
+      border: "1px solid #d3d4d5",
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: 4,
+    },
+    popper: {
+      zIndex: 1150,
+      position: "relative",
+    },
   })
 );
