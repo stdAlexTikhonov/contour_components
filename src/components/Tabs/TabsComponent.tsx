@@ -88,6 +88,7 @@ export const TabsComponent: React.FC<IProps> = ({
   dashboard,
   metadata,
   resetDashboard,
+  report: report_from_state,
 }) => {
   useEffect(() => {
     handleChange(0); //при открытии отчёта выбираем первую вкладку
@@ -103,7 +104,9 @@ export const TabsComponent: React.FC<IProps> = ({
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const { solution, project, report } = useParams();
+  const { solution, project, report: report_from_params } = useParams();
+
+  const report = report_from_state || report_from_params;
 
   const handleChange = async (newValue: number) => {
     resetDashboard();
@@ -111,7 +114,7 @@ export const TabsComponent: React.FC<IProps> = ({
     setValue(newValue);
     if (tabs) {
       const data: any = tabs[newValue];
-      console.log(data);
+
       switch (data.type) {
         case "slice":
           handleDataQuery(
