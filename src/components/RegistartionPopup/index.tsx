@@ -8,15 +8,18 @@ import AddIcon from "@material-ui/icons/Add";
 import { REGISTER } from "../../utils/constants";
 import Popper from "@material-ui/core/Popper";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       border: "1px solid #d3d4d5",
       backgroundColor: theme.palette.background.paper,
+      borderRadius: 4,
+    },
+    popper: {
       position: "relative",
       zIndex: 1150,
-      borderRadius: 4,
     },
   })
 );
@@ -61,9 +64,16 @@ export const RegistrationPopup: React.FC<IProps> = () => {
         id="register"
         anchorEl={anchorEl}
         open={opened}
-        className={classes.paper}
+        className={classes.popper}
+        transition
       >
-        <RegistrationForm />
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <div className={classes.paper}>
+              <RegistrationForm />
+            </div>
+          </Fade>
+        )}
       </Popper>
     </div>
   );

@@ -8,15 +8,18 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { LOGIN } from "../../utils/constants";
 import Popper from "@material-ui/core/Popper";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       border: "1px solid #d3d4d5",
       backgroundColor: theme.palette.background.paper,
+      borderRadius: 4,
+    },
+    popper: {
       zIndex: 1150,
       position: "relative",
-      borderRadius: 4,
     },
   })
 );
@@ -63,9 +66,16 @@ export const LoginPopup: React.FC<IProps> = () => {
         id="customized-login"
         anchorEl={anchorEl}
         open={opened}
-        className={classes.paper}
+        className={classes.popper}
+        transition
       >
-        <Login />
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <div className={classes.paper}>
+              <Login />
+            </div>
+          </Fade>
+        )}
       </Popper>
     </div>
   );
