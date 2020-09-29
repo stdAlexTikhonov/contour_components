@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       border: "1px solid #d3d4d5",
-      padding: theme.spacing(1),
       backgroundColor: theme.palette.background.paper,
       position: "relative",
       zIndex: 1150,
+      borderRadius: 4,
     },
   })
 );
