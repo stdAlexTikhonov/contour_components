@@ -1,21 +1,35 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { StyledMenu } from "./StyledComponents";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
 import { RegistrationForm } from "../Registration";
 import AddIcon from "@material-ui/icons/Add";
 import { REGISTER } from "../../utils/constants";
+import Popper from "@material-ui/core/Popper";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      border: "1px solid #d3d4d5",
+      padding: theme.spacing(1),
+      backgroundColor: theme.palette.background.paper,
+      position: "relative",
+      zIndex: 1150,
+    },
+  })
+);
 
 type IProps = {};
 
 export const RegistrationPopup: React.FC<IProps> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [opened, setOpened] = React.useState(false);
+  const classes = useStyles();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setOpened(true);
+    setOpened(!opened);
     setAnchorEl(event.currentTarget);
   };
 
@@ -43,15 +57,14 @@ export const RegistrationPopup: React.FC<IProps> = () => {
           </>
         )}
       </Button>
-      <StyledMenu
-        id="customized-menu"
+      <Popper
+        id="register"
         anchorEl={anchorEl}
-        keepMounted={true}
         open={opened}
-        onClose={handleClose}
+        className={classes.paper}
       >
         <RegistrationForm />
-      </StyledMenu>
+      </Popper>
     </div>
   );
 };

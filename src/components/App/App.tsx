@@ -54,8 +54,6 @@ export const AppComponent: React.FC<IProps> = ({
               logged_in={logged_in}
               changeLanguage={changeLanguage}
               currentLanguage={current}
-              handleLogout={handleLogout}
-              name={name}
             />
           </AppBar>
         </Slide>
