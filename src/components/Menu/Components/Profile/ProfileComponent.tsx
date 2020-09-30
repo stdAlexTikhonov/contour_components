@@ -5,7 +5,15 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import { IProps } from "./types";
-
+import {
+  PROFILE,
+  FIRST_NAME,
+  LAST_NAME,
+  FULL_NAME,
+  EMAIL,
+  OK,
+  CANCEL,
+} from "../../../../utils/constants";
 import { useStyles } from "./styles";
 
 export interface SimpleDialogProps {
@@ -51,12 +59,12 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Profile</DialogTitle>
+      <DialogTitle id="simple-dialog-title">{PROFILE}</DialogTitle>
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <TextField
             id="filled-basic"
-            label="First Name"
+            label={FIRST_NAME}
             variant="outlined"
             inputRef={firstNameRef}
             onChange={(e) => setFirstName(e.target.value)}
@@ -65,7 +73,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 
           <TextField
             id="outlined-basic"
-            label="Last Name"
+            label={LAST_NAME}
             variant="outlined"
             onChange={(e) => setLastName(e.target.value)}
             inputRef={lastNameRef}
@@ -74,7 +82,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 
           <TextField
             id="outlined-basic"
-            label="Full Name"
+            label={FULL_NAME}
             variant="outlined"
             onChange={(e) => setFullName(e.target.value)}
             inputRef={fullNameRef}
@@ -83,7 +91,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 
           <TextField
             id="outlined-basic"
-            label="Email"
+            label={EMAIL}
             variant="outlined"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -97,10 +105,10 @@ function SimpleDialog(props: SimpleDialogProps) {
                 minWidth: "unset",
               }}
             >
-              Ok
+              {OK}
             </Button>
             <Button style={{ outline: "none" }} onClick={handleClose}>
-              Cancel
+              {CANCEL}
             </Button>
           </div>
         </form>
@@ -127,7 +135,7 @@ export const ProfileComponent: React.FC<IProps> = ({
 
   return (
     <div>
-      <ListItemText primary={"Profile"} onClick={handleClickOpen} />
+      <ListItemText primary={PROFILE} onClick={handleClickOpen} />
       <SimpleDialog
         open={open}
         onClose={handleClose}

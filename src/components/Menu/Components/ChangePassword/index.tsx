@@ -4,6 +4,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
+import {
+  CHANGE_PSW,
+  OK,
+  CANCEL,
+  OLD_PSW,
+  NEW_PSW,
+  CONFIRM_PSW,
+} from "../../../../utils/constants";
 
 import { useStyles } from "./styles";
 
@@ -33,12 +41,12 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Change Password</DialogTitle>
+      <DialogTitle id="simple-dialog-title">{CHANGE_PSW}</DialogTitle>
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <TextField
             id="filled-basic"
-            label="Old Password"
+            label={OLD_PSW}
             variant="outlined"
             type="password"
             inputRef={old}
@@ -46,7 +54,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 
           <TextField
             id="outlined-basic"
-            label="New Password"
+            label={NEW_PSW}
             variant="outlined"
             type="password"
             inputRef={new_}
@@ -54,7 +62,7 @@ function SimpleDialog(props: SimpleDialogProps) {
 
           <TextField
             id="outlined-basic"
-            label="Confirm Password"
+            label={CONFIRM_PSW}
             variant="outlined"
             type="password"
             inputRef={confirm}
@@ -67,10 +75,10 @@ function SimpleDialog(props: SimpleDialogProps) {
                 minWidth: "unset",
               }}
             >
-              Ok
+              {OK}
             </Button>
             <Button style={{ outline: "none" }} onClick={handleClose}>
-              Cancel
+              {CANCEL}
             </Button>
           </div>
         </form>
@@ -92,7 +100,7 @@ export const ChangePassword = () => {
 
   return (
     <div>
-      <ListItemText primary={"Change Password"} onClick={handleClickOpen} />
+      <ListItemText primary={CHANGE_PSW} onClick={handleClickOpen} />
       <SimpleDialog open={open} onClose={handleClose} />
     </div>
   );

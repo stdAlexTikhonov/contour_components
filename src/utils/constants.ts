@@ -37,13 +37,23 @@ export const IMAGES_AND_OTHER_STUFF: string = "https://stat.world/biportal/";
 export const BASE_URL: string = "https://stat.world/biportal/api.jsp";
 
 //Interface
-export const PROFILE: string = "Profile";
+
 export const SUBSCRIBE: string = "Subscribtions";
 export const LOGOUT: string = "Logout";
 export const CHANGE_PSW: string = "Change password";
 export const REGISTER: string = "Register";
 export const CANCEL: string = "Cancel";
 export const OK: string = "Ok";
+//change password
+export const OLD_PSW: string = "Old Password";
+export const NEW_PSW: string = "New Password";
+export const CONFIRM_PSW: string = "Confirm Password";
+//profile
+export const PROFILE: string = "Profile";
+export const FIRST_NAME: string = "First Name";
+export const LAST_NAME: string = "Last Name";
+export const FULL_NAME: string = "Full Name";
+export const EMAIL: string = "Email";
 
 //ExportPDF
 export const COMMON: string = "Common";
@@ -84,3 +94,7 @@ export const MARGIN_LEFT: string = "Left";
 export const MARGIN_RIGHT: string = "Right";
 export const MARGIN_TOP: string = "Top";
 export const MARGIN_BOTTOM: string = "Bottom";
+
+//subscriptions
+export const SUBSCRIPTIONS: string = "Subscriptions";
+export const SUBSCRIPTION: string = "Subscription";

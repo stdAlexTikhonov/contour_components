@@ -4,7 +4,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
-
+import {
+  SUBSCRIPTIONS,
+  OK,
+  CANCEL,
+  SUBSCRIPTION,
+} from "../../../../utils/constants";
 import { useStyles } from "./styles";
 
 export interface SimpleDialogProps {
@@ -31,12 +36,12 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Subscriptions</DialogTitle>
+      <DialogTitle id="simple-dialog-title">{SUBSCRIPTIONS}</DialogTitle>
       <div className={classes.container}>
         <form className={classes.root} noValidate={true} autoComplete="off">
           <TextField
             id="filled-basic"
-            label="Subscription"
+            label={SUBSCRIPTION}
             variant="outlined"
             inputRef={subscription}
           />
@@ -48,10 +53,10 @@ function SimpleDialog(props: SimpleDialogProps) {
                 minWidth: "unset",
               }}
             >
-              Add
+              {OK}
             </Button>
             <Button style={{ outline: "none" }} onClick={handleClose}>
-              Cancel
+              {CANCEL}
             </Button>
           </div>
         </form>
@@ -73,7 +78,7 @@ export const Subscriptions = () => {
 
   return (
     <div>
-      <ListItemText primary={"Subscriptions"} onClick={handleClickOpen} />
+      <ListItemText primary={SUBSCRIPTIONS} onClick={handleClickOpen} />
       <SimpleDialog open={open} onClose={handleClose} />
     </div>
   );
