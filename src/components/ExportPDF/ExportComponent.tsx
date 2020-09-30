@@ -12,6 +12,10 @@ import {
   PRINT_PAGE_SETUP,
   EXPORT,
   IMAGES_AND_OTHER_STUFF,
+  COMMON,
+  HEADERS_FOOTERS,
+  MARGINS_ORIENTATION,
+  PRINT,
 } from "../../utils/constants";
 import { MarginsOrientation } from "./MarginsOrientation";
 import { Common } from "./Common";
@@ -23,14 +27,14 @@ const emails = ["username@gmail.com", "user02@gmail.com"];
 
 function SimpleDialog(props: DialogProps) {
   const tabs = [
-    { caption: "Common", type: "print_settings", component: Common },
+    { caption: COMMON, type: "print_settings", component: Common },
     {
-      caption: "Margins/Orientation",
+      caption: MARGINS_ORIENTATION,
       type: "print_settings",
       component: MarginsOrientation,
     },
     {
-      caption: "Headers/Footers",
+      caption: HEADERS_FOOTERS,
       type: "print_settings",
       component: HeadersFooters,
     },
@@ -56,7 +60,7 @@ function SimpleDialog(props: DialogProps) {
         style={{ outline: "none" }}
         onClick={() => onExport()}
       >
-        Print
+        {PRINT}
       </Button>
     </Dialog>
   );

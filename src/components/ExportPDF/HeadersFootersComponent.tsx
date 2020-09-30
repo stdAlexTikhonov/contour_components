@@ -8,6 +8,21 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { useStyles } from "./styles";
 import { TabProps } from "./types";
+import {
+  TOP_LEFT,
+  TOP_CENTER,
+  TOP_RIGHT,
+  BOTTOM_CENTER,
+  BOTTOM_LEFT,
+  BOTTOM_RIGHT,
+  DOC_SCALE,
+  HEADERS_FOOTERS,
+} from "../../utils/constants";
+
+const DATE_TIME: string = "Date/Time";
+const PAGE: string = "Page #";
+const PAGE_OF: string = "Page # of #";
+const TITLE: string = "Title";
 
 export const HeadersFootersComponent: React.FC<TabProps> = ({
   print_page,
@@ -48,7 +63,7 @@ export const HeadersFootersComponent: React.FC<TabProps> = ({
     type,
   }) => {
     const headerFooter = headersFooters.find((item: any) => item.Type === type);
-    const values = ["Title", "Date/Time", "Page #", "Page # of #"];
+    const values = [TITLE, DATE_TIME, PAGE, PAGE_OF];
 
     const [selected, setSelected] = React.useState(headerFooter?.Text);
 
@@ -97,7 +112,7 @@ export const HeadersFootersComponent: React.FC<TabProps> = ({
               name="visability"
             />
           }
-          label="Headers/Footers"
+          label={HEADERS_FOOTERS}
         />
         {visible && (
           <>
@@ -108,9 +123,9 @@ export const HeadersFootersComponent: React.FC<TabProps> = ({
                 justifyContent: "space-around",
               }}
             >
-              <CustomSelect title={"Top/Left"} type={5} />
-              <CustomSelect title={"Top/Center"} type={1} />
-              <CustomSelect title={"Top/Right"} type={2} />
+              <CustomSelect title={TOP_LEFT} type={5} />
+              <CustomSelect title={TOP_CENTER} type={1} />
+              <CustomSelect title={TOP_RIGHT} type={2} />
             </FormGroup>
             <FormGroup
               style={{
@@ -119,9 +134,9 @@ export const HeadersFootersComponent: React.FC<TabProps> = ({
                 justifyContent: "space-around",
               }}
             >
-              <CustomSelect title={"Bottom/Left"} type={3} />
-              <CustomSelect title={"Bottom/Center"} type={4} />
-              <CustomSelect title={"Bottom/Right"} type={0} />
+              <CustomSelect title={BOTTOM_LEFT} type={3} />
+              <CustomSelect title={BOTTOM_CENTER} type={4} />
+              <CustomSelect title={BOTTOM_RIGHT} type={0} />
             </FormGroup>
           </>
         )}
@@ -134,7 +149,7 @@ export const HeadersFootersComponent: React.FC<TabProps> = ({
               name="changeScale"
             />
           }
-          label="Change scale along with the document"
+          label={DOC_SCALE}
         />
       </FormControl>
     </div>

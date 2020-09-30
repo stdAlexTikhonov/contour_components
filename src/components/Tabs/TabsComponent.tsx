@@ -207,6 +207,7 @@ export const TabsComponent: React.FC<IProps> = ({
                 height={480}
               />
             )}
+            {item.component && <item.component />}
           </TabPanel>
         );
       })}

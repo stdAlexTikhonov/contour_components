@@ -8,6 +8,21 @@ import { useStyles } from "./styles";
 import { TabProps } from "./types";
 import { CustomCheckbox } from "../CustomDropdown/CustomCheckbox";
 import { CustomRadio } from "../CustomDropdown/CustomRadio";
+import {
+  BREAK_HEADER,
+  GRAY_SCALE_MODE,
+  SCALE,
+  TABLE_ON_THE_PAGE,
+  ROWS_ON_THE_PAGE,
+  COLUMNS_ON_THE_PAGE,
+  ACTUAL_SIZE,
+  SHOW_ON_EACH_PAGE,
+  COLUMNS,
+  ROWS,
+  TITLE,
+  HEADER,
+  FOOTER,
+} from "../../utils/constants";
 
 export const CommonComponent: React.FC<TabProps> = ({
   print_page,
@@ -81,7 +96,7 @@ export const CommonComponent: React.FC<TabProps> = ({
               name="fullWidth"
             />
           }
-          label="Break header width"
+          label={BREAK_HEADER}
         />
         <FormControlLabel
           control={
@@ -91,13 +106,13 @@ export const CommonComponent: React.FC<TabProps> = ({
               name="grayScale"
             />
           }
-          label="Gray scale mode"
+          label={GRAY_SCALE_MODE}
           style={{ marginLeft: 60 }}
         />
       </FormControl>
       <div>
         <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Scale</FormLabel>
+          <FormLabel component="legend">{SCALE}</FormLabel>
           <RadioGroup
             aria-label="scale"
             name="scale1"
@@ -107,27 +122,27 @@ export const CommonComponent: React.FC<TabProps> = ({
             <FormControlLabel
               value={0}
               control={<CustomRadio />}
-              label="Actual size"
+              label={ACTUAL_SIZE}
             />
             <FormControlLabel
               value={1}
               control={<CustomRadio />}
-              label="Insert table on the one page"
+              label={TABLE_ON_THE_PAGE}
             />
             <FormControlLabel
               value={2}
               control={<CustomRadio />}
-              label="Insert columns on the one page"
+              label={COLUMNS_ON_THE_PAGE}
             />
             <FormControlLabel
               value={3}
               control={<CustomRadio />}
-              label="Insert rows on the one page"
+              label={ROWS_ON_THE_PAGE}
             />
           </RadioGroup>
         </FormControl>
         <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Show on each page</FormLabel>
+          <FormLabel component="legend">{SHOW_ON_EACH_PAGE}</FormLabel>
           <FormGroup>
             <FormControlLabel
               control={
@@ -137,7 +152,7 @@ export const CommonComponent: React.FC<TabProps> = ({
                   name="columns"
                 />
               }
-              label="Columns"
+              label={COLUMNS}
             />
             <FormControlLabel
               control={
@@ -147,7 +162,7 @@ export const CommonComponent: React.FC<TabProps> = ({
                   name="rows"
                 />
               }
-              label="Rows"
+              label={ROWS}
             />
             <FormControlLabel
               control={
@@ -157,7 +172,7 @@ export const CommonComponent: React.FC<TabProps> = ({
                   name="title"
                 />
               }
-              label="Title"
+              label={TITLE}
             />
             <FormControlLabel
               control={
@@ -167,7 +182,7 @@ export const CommonComponent: React.FC<TabProps> = ({
                   name="header"
                 />
               }
-              label="Header"
+              label={HEADER}
             />
             <FormControlLabel
               control={
@@ -177,7 +192,7 @@ export const CommonComponent: React.FC<TabProps> = ({
                   name="footer"
                 />
               }
-              label="Footer"
+              label={FOOTER}
             />
           </FormGroup>
         </FormControl>

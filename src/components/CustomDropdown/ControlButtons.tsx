@@ -6,6 +6,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
+import { OK, CANCEL } from "../../utils/constants";
 
 type IProps = {
   multiple: boolean;
@@ -120,10 +121,10 @@ export const ControlButtons: React.FC<IProps> = ({
         }}
         onClick={handleOk}
       >
-        Ok
+        {OK}
       </Button>
       <Button style={{ outline: "none" }} onClick={handleCancel}>
-        Cancel
+        {CANCEL}
       </Button>
     </div>
   );

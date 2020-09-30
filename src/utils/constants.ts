@@ -42,3 +42,45 @@ export const SUBSCRIBE: string = "Subscribtions";
 export const LOGOUT: string = "Logout";
 export const CHANGE_PSW: string = "Change password";
 export const REGISTER: string = "Register";
+export const CANCEL: string = "Cancel";
+export const OK: string = "Ok";
+
+//ExportPDF
+export const COMMON: string = "Common";
+export const MARGINS_ORIENTATION: string = "Margins/Orientation";
+export const HEADERS_FOOTERS: string = "Headers/Footers";
+export const PRINT: string = "Print";
+
+//CommonComponent
+export const BREAK_HEADER: string = "Break header width";
+export const GRAY_SCALE_MODE: string = "Gray scale mode";
+export const SCALE: string = "Scale";
+export const ACTUAL_SIZE: string = "Actual size";
+export const TABLE_ON_THE_PAGE: string = "Insert table on the one page";
+export const COLUMNS_ON_THE_PAGE: string = "Insert columns on the one page";
+export const ROWS_ON_THE_PAGE: string = "Insert rows on the one page";
+export const SHOW_ON_EACH_PAGE: string = "Show on each page";
+export const COLUMNS: string = "Columns";
+export const ROWS: string = "Rows";
+export const TITLE: string = "Title";
+export const HEADER: string = "Header";
+export const FOOTER: string = "Footer";
+
+//Footers Headers
+export const TOP_LEFT: string = "Top/Left";
+export const TOP_CENTER: string = "Top/Center";
+export const TOP_RIGHT: string = "Top/Right";
+export const BOTTOM_LEFT: string = "Bottom/Left";
+export const BOTTOM_CENTER: string = "Bottom/Center";
+export const BOTTOM_RIGHT: string = "Bottom/Right";
+export const DOC_SCALE: string = "Change scale along with the document";
+
+//Margins Orientation
+export const ORIENTATION: string = "Orientation";
+export const PORTRAIT: string = "Portrait";
+export const LANDSCAPE: string = "Landscape";
+export const MARGINS: string = "Margins";
+export const MARGIN_LEFT: string = "Left";
+export const MARGIN_RIGHT: string = "Right";
+export const MARGIN_TOP: string = "Top";
+export const MARGIN_BOTTOM: string = "Bottom";

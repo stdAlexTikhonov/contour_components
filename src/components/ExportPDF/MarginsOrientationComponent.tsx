@@ -7,6 +7,16 @@ import TextField from "@material-ui/core/TextField";
 import { useStyles } from "./styles";
 import { TabProps } from "./types";
 import { CustomRadio } from "../CustomDropdown/CustomRadio";
+import {
+  PORTRAIT,
+  LANDSCAPE,
+  ORIENTATION,
+  MARGINS,
+  MARGIN_BOTTOM,
+  MARGIN_LEFT,
+  MARGIN_TOP,
+  MARGIN_RIGHT,
+} from "../../utils/constants";
 
 export const MarginsOrientationComponent: React.FC<TabProps> = ({
   print_page,
@@ -32,7 +42,7 @@ export const MarginsOrientationComponent: React.FC<TabProps> = ({
   return (
     <div className={classes.container}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Orientation</FormLabel>
+        <FormLabel component="legend">{ORIENTATION}</FormLabel>
         <RadioGroup
           aria-label="scale"
           name="scale1"
@@ -42,20 +52,20 @@ export const MarginsOrientationComponent: React.FC<TabProps> = ({
           <FormControlLabel
             value="portrait"
             control={<CustomRadio />}
-            label="Portrait"
+            label={PORTRAIT}
           />
           <FormControlLabel
             value="landscape"
             control={<CustomRadio />}
-            label="Landscape"
+            label={LANDSCAPE}
           />
         </RadioGroup>
       </FormControl>
       <FormControl component="fieldset" className={classes.formControl2}>
-        <FormLabel component="legend">Margins</FormLabel>
+        <FormLabel component="legend">{MARGINS}</FormLabel>
         <TextField
           id="standard-number"
-          label="Top"
+          label={MARGIN_TOP}
           type="number"
           InputLabelProps={{
             shrink: true,
@@ -70,7 +80,7 @@ export const MarginsOrientationComponent: React.FC<TabProps> = ({
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <TextField
             id="standard-number"
-            label="Left"
+            label={MARGIN_LEFT}
             type="number"
             InputLabelProps={{
               shrink: true,
@@ -84,7 +94,7 @@ export const MarginsOrientationComponent: React.FC<TabProps> = ({
           />
           <TextField
             id="standard-number"
-            label="Right"
+            label={MARGIN_RIGHT}
             type="number"
             InputLabelProps={{
               shrink: true,
@@ -99,7 +109,7 @@ export const MarginsOrientationComponent: React.FC<TabProps> = ({
         </div>
         <TextField
           id="standard-number"
-          label="Bottom"
+          label={MARGIN_BOTTOM}
           type="number"
           InputLabelProps={{
             shrink: true,
