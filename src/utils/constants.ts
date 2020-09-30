@@ -98,3 +98,6 @@ export const MARGIN_BOTTOM: string = "Bottom";
 //subscriptions
 export const SUBSCRIPTIONS: string = "Subscriptions";
 export const SUBSCRIPTION: string = "Subscription";
+
+//registration
+export const PASSWORD: string = "Password";

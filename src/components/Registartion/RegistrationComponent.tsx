@@ -5,7 +5,14 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useMediaQuery } from "@material-ui/core";
 import { isMobile } from "../../utils/helpers";
 import AddIcon from "@material-ui/icons/Add";
-import { REGISTER } from "../../utils/constants";
+import {
+  REGISTER,
+  LOGIN,
+  FIRST_NAME,
+  LAST_NAME,
+  EMAIL,
+  PASSWORD,
+} from "../../utils/constants";
 import Popper from "@material-ui/core/Popper";
 import Fade from "@material-ui/core/Fade";
 import { useStyles } from "./styles";
@@ -65,14 +72,14 @@ export const RegistrationComponent: React.FC<IProps> = (props) => {
                 <form className={classes.root} noValidate autoComplete="off">
                   <TextField
                     id="filled-basic"
-                    label="Login"
+                    label={LOGIN}
                     variant="outlined"
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
                   />
                   <TextField
                     id="outlined-password-input"
-                    label="Password"
+                    label={PASSWORD}
                     type="password"
                     autoComplete="current-password"
                     variant="outlined"
@@ -81,21 +88,21 @@ export const RegistrationComponent: React.FC<IProps> = (props) => {
                   />
                   <TextField
                     id="outlined-basic-1"
-                    label="Firstname"
+                    label={FIRST_NAME}
                     variant="outlined"
                     value={firstname}
                     onChange={(e) => setFirstname(e.target.value)}
                   />
                   <TextField
                     id="outlined-basic-2"
-                    label="Surname"
+                    label={LAST_NAME}
                     variant="outlined"
                     value={surname}
                     onChange={(e) => setSurname(e.target.value)}
                   />
                   <TextField
                     id="outlined-basic-3"
-                    label="Email"
+                    label={EMAIL}
                     variant="outlined"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -113,7 +120,7 @@ export const RegistrationComponent: React.FC<IProps> = (props) => {
                       )
                     }
                   >
-                    Register
+                    {REGISTER}
                   </Button>
                 </form>
               </div>
