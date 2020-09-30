@@ -38,7 +38,7 @@ export const BASE_URL: string = "https://stat.world/biportal/api.jsp";
 
 //Interface
 
-export const SUBSCRIBE: string = "Subscribtions";
+export const SUBSCRIBE: string = "Subscribe";
 export const LOGOUT: string = "Logout";
 export const CHANGE_PSW: string = "Change password";
 export const REGISTER: string = "Register";
@@ -101,3 +101,28 @@ export const SUBSCRIPTION: string = "Subscription";
 
 //registration
 export const PASSWORD: string = "Password";
+
+//subscribtions
+export const UNSUBSCRIBE: string = "Unsubscribe";
+export const NEW: string = "New";
+
+//New Subscription component
+export const EDIT: string = "Edit";
+export const ADD: string = "Add";
+export const SEND_NOW: string = "Send Now";
+export const PUBLIC: string = "Public";
+export const ADD_EMAIL: string = "Add e-mail";
+export const TIME: string = "Time";
+export const DATE: string = "Date";
+export const ONE_TIME: string = "One time";
+export const HOURLY: string = "Hourly";
+export const DAILY: string = "Daily";
+export const WEEKLY: string = "Weekly";
+export const MOUNTHLY: string = "Mounthly";
+export const QUARTERLY: string = "Quarterly";
+export const ANNUALY: string = "Annualy";
+export const PERIOD: string = "Period";
+export const IMAGE: string = "Image";
+export const FORMAT: string = "Format";
+export const LIST_OF_VIEWS: string = "List of views:";
+export const CAPTION: string = "Caption";

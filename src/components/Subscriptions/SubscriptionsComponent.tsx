@@ -10,6 +10,8 @@ import { IProps } from "./types";
 import {
   REPORT_SUBSCRIPTIONS,
   SUBSCRIPTION_REMOVE,
+  SUBSCRIPTIONS,
+  UNSUBSCRIBE,
 } from "../../utils/constants";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -53,7 +55,7 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Subscriptions</DialogTitle>
+      <DialogTitle id="simple-dialog-title">{SUBSCRIPTIONS}</DialogTitle>
       <List>
         {subscriptions &&
           subscriptions.map((item: AnyAction) => (
@@ -81,7 +83,7 @@ function SimpleDialog(props: SimpleDialogProps) {
               onClick={handleUnsubscribe}
               disabled={!selected_subscription}
             >
-              Unsubscribe
+              {UNSUBSCRIBE}
             </Button>
           </div>
         </form>
@@ -115,8 +117,6 @@ export const SubscriptionsComponent: React.FC<IProps> = ({
   };
 
   const handleUnsubscribe = () => {
-    console.log("Unsubscribe");
-
     handleDataQuery({
       method: SUBSCRIPTION_REMOVE,
       code: selected_subscription!,

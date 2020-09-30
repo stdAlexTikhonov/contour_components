@@ -13,14 +13,12 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormGroup from "@material-ui/core/FormGroup";
 import List from "@material-ui/core/List";
-import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
+import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useStyles } from "../../styles";
 import { CustomRadio } from "../../../CustomDropdown/CustomRadio";
 import { CustomCheckbox } from "../../../CustomDropdown/CustomCheckbox";
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import LayersIcon from "@material-ui/icons/Layers";
 import {
@@ -29,14 +27,34 @@ import {
   getListOfViews,
 } from "../../../../utils/helpers";
 import Collapse from "@material-ui/core/Collapse";
-import StarBorder from "@material-ui/icons/StarBorder";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import { IProps } from "./types";
 import {
   SAVE_SUBSCRIPTION,
   GET_SUBSCRIPTION,
+  SUBSCRIPTION,
+  NEW,
+  EDIT,
+  ADD,
+  SUBSCRIBE,
+  SEND_NOW,
+  PUBLIC,
+  ADD_EMAIL,
+  TIME,
+  DATE,
+  ONE_TIME,
+  HOURLY,
+  DAILY,
+  WEEKLY,
+  MOUNTHLY,
+  QUARTERLY,
+  ANNUALY,
+  PERIOD,
+  IMAGE,
+  FORMAT,
+  LIST_OF_VIEWS,
+  CAPTION,
 } from "../../../../utils/constants";
+import { TIMEOUT } from "dns";
 
 export interface DialogProps {
   open: boolean;
@@ -259,7 +277,7 @@ function SimpleDialog(props: SimpleDialogProps) {
       open={open}
     >
       <DialogTitle id="simple-dialog-title">
-        {!selected_subscription && "New"} Subscription
+        {!selected_subscription && NEW} {SUBSCRIPTION}
       </DialogTitle>
       <div className={classes.new_subscription}>
         <form className={classes.root} noValidate={true} autoComplete="off">
@@ -283,7 +301,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             {checkOLAP(views) && (
               <FormControl className={classes.formControl}>
                 <FormLabel component="legend" style={{ paddingTop: 20 }}>
-                  List of views:
+                  {LIST_OF_VIEWS}
                 </FormLabel>
 
                 <List
@@ -341,7 +359,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                 component="legend"
                 style={{ paddingTop: 20, paddingLeft: 10 }}
               >
-                Format
+                {FORMAT}
               </FormLabel>
               <RadioGroup
                 aria-label="gender"
@@ -389,7 +407,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             </FormControl>
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-simple-select-outlined-label">
-                Period
+                {PERIOD}
               </InputLabel>
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -398,20 +416,20 @@ function SimpleDialog(props: SimpleDialogProps) {
                 onChange={handleChangeSelect}
                 label="Period"
               >
-                <MenuItem value={"OneTime"}>One time</MenuItem>
-                <MenuItem value={"Hourly"}>Hourly</MenuItem>
-                <MenuItem value={"Daily"}>Daily</MenuItem>
-                <MenuItem value={"Weekly"}>Weekly</MenuItem>
-                <MenuItem value={"Monthly"}>Mounthly</MenuItem>
-                <MenuItem value={"Quarterly"}>Quarterly</MenuItem>
-                <MenuItem value={"Annually"}>Annualy </MenuItem>
+                <MenuItem value={"OneTime"}>{ONE_TIME}</MenuItem>
+                <MenuItem value={"Hourly"}>{HOURLY}</MenuItem>
+                <MenuItem value={"Daily"}>{DAILY}</MenuItem>
+                <MenuItem value={"Weekly"}>{WEEKLY}</MenuItem>
+                <MenuItem value={"Monthly"}>{MOUNTHLY}</MenuItem>
+                <MenuItem value={"Quarterly"}>{QUARTERLY}</MenuItem>
+                <MenuItem value={"Annually"}>{ANNUALY} </MenuItem>
               </Select>
             </FormControl>
             <FormGroup row>
               <FormControl className={classes.formControl}>
                 <TextField
                   id="date"
-                  label="Date"
+                  label={DATE}
                   type="date"
                   defaultValue="2017-05-24"
                   InputLabelProps={{
@@ -430,7 +448,7 @@ function SimpleDialog(props: SimpleDialogProps) {
               <FormControl className={classes.formControl}>
                 <TextField
                   id="time"
-                  label="Time"
+                  label={TIME}
                   type="time"
                   value={time}
                   InputLabelProps={{
@@ -450,7 +468,7 @@ function SimpleDialog(props: SimpleDialogProps) {
             <FormControl className={classes.formControl}>
               <TextField
                 id="filled-basic"
-                label="Add e-mail"
+                label={ADD_EMAIL}
                 type="email"
                 value={emails}
                 onChange={(e) => setEmails(e.target.value)}
@@ -467,7 +485,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                   tabIndex={-1}
                 />
               }
-              label="Public"
+              label={PUBLIC}
             />
           </div>
         </form>
@@ -480,10 +498,10 @@ function SimpleDialog(props: SimpleDialogProps) {
         }}
       >
         <Button style={{ outline: "none" }} onClick={handleClose} disabled>
-          Send now
+          {SEND_NOW}
         </Button>
         <Button style={{ outline: "none" }} onClick={handleSave}>
-          Subscribe
+          {SUBSCRIBE}
         </Button>
       </div>
     </Dialog>
@@ -536,7 +554,7 @@ export const NewSubscriptionComponent: React.FC<IProps> = (props) => {
         onClick={handleClickOpen}
         disabled={edit && selected_subscription === null}
       >
-        {edit ? "Edit" : "Add"}
+        {edit ? EDIT : ADD}
       </Button>
       <SimpleDialog
         open={open}
