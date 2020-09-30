@@ -4,7 +4,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import LineStyleIcon from "@material-ui/icons/LineStyle";
 import IconButton from "@material-ui/core/IconButton";
 import { IProps } from "./types";
-import { SAVE_USER_LAYOUT, DELETE_USER_LAYOUT } from "../../utils/constants";
+import {
+  SAVE_USER_LAYOUT,
+  DELETE_USER_LAYOUT,
+  DEFAULT_LAYOUT,
+  SAVE,
+  DELETE,
+  RESET,
+} from "../../utils/constants";
 import { useParams } from "react-router-dom";
 import { SaveAs } from "./Dialog";
 
@@ -118,13 +125,13 @@ export const UserLayoutsComponent: React.FC<IProps> = ({
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleSave}>Save</MenuItem>
+        <MenuItem onClick={handleSave}>{SAVE}</MenuItem>
         <MenuItem>
           <SaveAs onSaveAs={handleSaveAs} />
         </MenuItem>
-        <MenuItem onClick={handleReset}>Reset</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-        <MenuItem onClick={setDefaultLayout}>Default Layout</MenuItem>
+        <MenuItem onClick={handleReset}>{RESET}</MenuItem>
+        <MenuItem onClick={handleDelete}>{DELETE}</MenuItem>
+        <MenuItem onClick={setDefaultLayout}>{DEFAULT_LAYOUT}</MenuItem>
       </Menu>
     </div>
   );

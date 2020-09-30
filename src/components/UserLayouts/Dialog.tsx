@@ -6,6 +6,12 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
 import TextField from "@material-ui/core/TextField";
+import {
+  SAVE_AS,
+  SAVE_TEMPLATE,
+  LAYOUT_NAME,
+  SAVE,
+} from "../../utils/constants";
 
 const useStyles = makeStyles({
   avatar: {
@@ -40,10 +46,10 @@ function SimpleDialog(props: SimpleDialogProps) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Save template</DialogTitle>
+      <DialogTitle id="simple-dialog-title">{SAVE_TEMPLATE}</DialogTitle>
       <TextField
         id="outlined-basic"
-        label="Layout name"
+        label={LAYOUT_NAME}
         variant="outlined"
         style={{ margin: 20, width: 300, marginTop: 0 }}
         inputRef={refName}
@@ -56,7 +62,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           handleListItemClick(refName.current ? refName.current.value : "")
         }
       >
-        Save
+        {SAVE}
       </Button>
     </Dialog>
   );
@@ -78,7 +84,7 @@ export const SaveAs: React.FC<{ onSaveAs: (name: string) => void }> = ({
   return (
     <>
       <Typography variant="subtitle1" onClick={handleClickOpen}>
-        Save as...
+        {SAVE_AS}
       </Typography>
 
       <SimpleDialog open={open} onClose={handleClose} saveAs={onSaveAs} />

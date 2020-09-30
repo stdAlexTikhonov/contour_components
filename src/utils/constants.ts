@@ -126,3 +126,12 @@ export const IMAGE: string = "Image";
 export const FORMAT: string = "Format";
 export const LIST_OF_VIEWS: string = "List of views:";
 export const CAPTION: string = "Caption";
+
+//Layouts
+export const SAVE: string = "Save";
+export const RESET: string = "Reset";
+export const DELETE: string = "Delete";
+export const DEFAULT_LAYOUT: string = "Default Layout";
+export const SAVE_AS: string = "Save as...";
+export const SAVE_TEMPLATE: string = "Save template";
+export const LAYOUT_NAME: string = "Layout name";
