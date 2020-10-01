@@ -1,10 +1,13 @@
 import { DataForQuery, Login, Register, ApiTypes } from "./types";
 import { LOGIN, REGISTER_USER, LANGUAGES, BASE_URL } from "./constants";
+import hash from "object-hash";
 import {
   _getFilters,
   _getFilterById,
   _setFilter,
   _getFullHierarchy,
+  _saveServerData,
+  _getServerData,
 } from "./_DATA.js";
 
 export const post = async (url: string = BASE_URL, data: ApiTypes) => {
@@ -18,7 +21,17 @@ export const post = async (url: string = BASE_URL, data: ApiTypes) => {
 
 export const getData = async (data: DataForQuery) => {
   if (data.p_folder) data.folder = data.p_folder;
-  return await post(BASE_URL, data);
+  /*
+  const query_hash = hash(data);
+  const check_data = await _getServerData(query_hash);
+  if (check_data) return check_data;
+  */
+  const res = await post(BASE_URL, data);
+
+  /*
+  _saveServerData({ id: query_hash, data: res });
+  */
+  return res;
 };
 
 export const getFilters = async () => await _getFilters();

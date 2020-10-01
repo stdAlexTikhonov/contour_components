@@ -1,4 +1,4 @@
-import { isNull } from "util";
+let server_data = {};
 
 let users = {
   sarah_edo: {
@@ -302,15 +302,33 @@ export function _setHidden(code, hidden) {
       _setHidden(k, child_visability);
     }
   }
- 
+
   dim.Hidden = hidden;
-
-
-
 }
 
 export function _getFilterById(id) {
   return new Promise((res, rej) => {
     setTimeout(() => res(filters2[id]), 1000);
+  });
+}
+
+export function _saveServerData({ id, data }) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      server_data = {
+        ...server_data,
+        [id]: {
+          ...data,
+        },
+      };
+
+      res();
+    }, 500);
+  });
+}
+
+export function _getServerData(id) {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(server_data[id]), 1000);
   });
 }
